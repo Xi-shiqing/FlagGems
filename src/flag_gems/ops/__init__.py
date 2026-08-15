@@ -749,6 +749,11 @@ from flag_gems.ops.tile import tile
 from flag_gems.ops.to import to_copy
 from flag_gems.ops.topk import topk
 from flag_gems.ops.trace import trace
+from flag_gems.ops.triangle_attention import (
+    TriangleAttention,
+    triangle_attention,
+    triangle_attention_support_error,
+)
 from flag_gems.ops.transpose import transpose
 from flag_gems.ops.tril import tril, tril_, tril_out
 from flag_gems.ops.triu import triu, triu_
@@ -807,6 +812,7 @@ from flag_gems.ops.zeros_like import zeros_like
 __all__ = [
     "SUPPORTED_FP8_DTYPE",
     "ScaleDotProductAttention",
+    "TriangleAttention",
     "__ilshift__",
     "__irshift__",
     "__lshift__",
@@ -1655,6 +1661,8 @@ __all__ = [
     "to_copy",
     "topk",
     "trace",
+    "triangle_attention",
+    "triangle_attention_support_error",
     "transpose",
     "tril",
     "tril_",
