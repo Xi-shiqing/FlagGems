@@ -174,7 +174,6 @@ def _streaming_triangle_attention_fwd_ieee_v1(
             scores = scores + bias1 + bias2
         scores = scores * 1.4426950408889634
         scores = tl.where(valid_scores, scores, -1.0e9)
-
         m_ij = tl.maximum(tl.max(scores, axis=1), m_i)
         alpha = tl.exp2(m_i - m_ij)
         p = tl.exp2(scores - m_ij[:, None])
@@ -194,44 +193,17 @@ def _streaming_triangle_attention_fwd_ieee_v1(
 
 
 @triton.jit
-def _streaming_triangle_attention_bwd_preprocess_v1(
-    out_ptr,
-    do_ptr,
-    delta_ptr,
-    n_size: tl.constexpr,
-    s_size: tl.constexpr,
-    n_heads: tl.constexpr,
-    head_dim: tl.constexpr,
-    block_m: tl.constexpr,
-):
-    start_m = tl.program_id(0) * block_m
-    h = tl.program_id(1)
-    bn = tl.program_id(2)
-    b = bn // n_size
-    n = bn % n_size
-
-    offs_m = start_m + tl.arange(0, block_m)
-    offs_d = tl.arange(0, head_dim)
-    valid_m = offs_m < s_size
-    base = ((b * n_size + n) * s_size * n_heads + h) * head_dim
-    offsets = base + offs_m[:, None] * n_heads * head_dim + offs_d[None, :]
-    out = tl.load(out_ptr + offsets, mask=valid_m[:, None], other=0.0)
-    do = tl.load(do_ptr + offsets, mask=valid_m[:, None], other=0.0)
-    delta = tl.sum(out.to(tl.float32) * do.to(tl.float32), axis=1)
-    delta_offsets = ((b * n_size + n) * s_size + offs_m) * n_heads + h
-    tl.store(delta_ptr + delta_offsets, delta, mask=valid_m)
-
-
-@triton.jit
 def _streaming_triangle_attention_bwd_dq_v1(
     q_ptr,
     k_ptr,
     v_ptr,
     bias1_ptr,
     bias2_ptr,
+    out_ptr,
     lse_ptr,
     delta_ptr,
     do_ptr,
+    ds_scratch_ptr,
     dq_ptr,
     n_size: tl.constexpr,
     s_size: tl.constexpr,
@@ -241,6 +213,7 @@ def _streaming_triangle_attention_bwd_dq_v1(
     block_n: tl.constexpr,
     qk_precision_mode: tl.constexpr,
     pv_precision_mode: tl.constexpr,
+    store_ds_scratch: tl.constexpr,
 ):
     input_dtype = q_ptr.dtype.element_ty
     qk_precision: tl.constexpr = (
@@ -265,10 +238,14 @@ def _streaming_triangle_attention_bwd_dq_v1(
     base = ((b * n_size + n) * s_size * n_heads + h) * head_dim
     q_offsets = base + offs_m[:, None] * n_heads * head_dim + offs_d[None, :]
     q = tl.load(q_ptr + q_offsets, mask=valid_m[:, None], other=0.0)
+    out = tl.load(out_ptr + q_offsets, mask=valid_m[:, None], other=0.0)
     do = tl.load(do_ptr + q_offsets, mask=valid_m[:, None], other=0.0)
     row_offsets = ((b * n_size + n) * s_size + offs_m) * n_heads + h
     lse = tl.load(lse_ptr + row_offsets, mask=valid_m, other=0.0)
-    delta = tl.load(delta_ptr + row_offsets, mask=valid_m, other=0.0)
+    delta = tl.sum(out.to(tl.float32) * do.to(tl.float32), axis=1)
+    # dK/dV and dBias2 consume delta after this kernel. Producing it here
+    # removes the standalone preprocessing launch and avoids rereading dO in dQ.
+    tl.store(delta_ptr + row_offsets, delta, mask=valid_m)
     dq = tl.zeros((block_m, head_dim), tl.float32)
 
     for block_index in range(0, tl.cdiv(s_size, block_n)):
@@ -278,6 +255,7 @@ def _streaming_triangle_attention_bwd_dq_v1(
         k = tl.load(k_ptr + kv_offsets, mask=valid_n[:, None], other=0.0)
         v = tl.load(v_ptr + kv_offsets, mask=valid_n[:, None], other=0.0)
 
+        valid_scores = valid_m[:, None] & valid_n[None, :]
         scores = tl.dot(q, tl.trans(k), input_precision=qk_precision)
         bias1_base = (b * n_size + n) * s_size
         bias1 = tl.load(
@@ -287,13 +265,20 @@ def _streaming_triangle_attention_bwd_dq_v1(
         )
         bias2_base = (b * n_heads + h) * s_size * s_size
         bias2_offsets = bias2_base + offs_m[:, None] * s_size + offs_n[None, :]
-        valid_scores = valid_m[:, None] & valid_n[None, :]
         bias2 = tl.load(bias2_ptr + bias2_offsets, mask=valid_scores, other=0.0)
         scores = (scores + bias1 + bias2) * 1.4426950408889634
         p = tl.exp2(scores - lse[:, None])
         p = tl.where(valid_scores, p, 0.0)
         dp = tl.dot(do, tl.trans(v), input_precision=pv_precision)
         ds = p * (dp - delta[:, None])
+        if store_ds_scratch:
+            ds_batch_head = ((b * n_size + n) * n_heads + h).to(tl.int64)
+            ds_offsets = (
+                ds_batch_head * s_size * s_size
+                + offs_m[:, None].to(tl.int64) * s_size
+                + offs_n[None, :].to(tl.int64)
+            )
+            tl.store(ds_scratch_ptr + ds_offsets, ds, mask=valid_scores)
         dq = tl.dot(ds.to(input_dtype), k, dq, input_precision=qk_precision)
 
     tl.store(dq_ptr + q_offsets, dq, mask=valid_m[:, None])
@@ -357,6 +342,7 @@ def _streaming_triangle_attention_bwd_dkdv_v1(
         lse = tl.load(lse_ptr + row_offsets, mask=valid_m, other=0.0)
         delta = tl.load(delta_ptr + row_offsets, mask=valid_m, other=0.0)
 
+        valid_scores = valid_m[:, None] & valid_n[None, :]
         scores = tl.dot(q, tl.trans(k), input_precision=qk_precision)
         bias1_base = (b * n_size + n) * s_size
         bias1 = tl.load(
@@ -366,7 +352,6 @@ def _streaming_triangle_attention_bwd_dkdv_v1(
         )
         bias2_base = (b * n_heads + h) * s_size * s_size
         bias2_offsets = bias2_base + offs_m[:, None] * s_size + offs_n[None, :]
-        valid_scores = valid_m[:, None] & valid_n[None, :]
         bias2 = tl.load(bias2_ptr + bias2_offsets, mask=valid_scores, other=0.0)
         scores = (scores + bias1 + bias2) * 1.4426950408889634
         p = tl.exp2(scores - lse[:, None])
@@ -381,6 +366,133 @@ def _streaming_triangle_attention_bwd_dkdv_v1(
         )
 
     tl.store(dk_ptr + kv_offsets, dk, mask=valid_n[:, None])
+    tl.store(dv_ptr + kv_offsets, dv, mask=valid_n[:, None])
+
+
+@triton.jit
+def _streaming_triangle_attention_bwd_dk_from_ds_v1(
+    q_ptr,
+    ds_scratch_ptr,
+    dk_ptr,
+    n_size: tl.constexpr,
+    s_size: tl.constexpr,
+    n_heads: tl.constexpr,
+    head_dim: tl.constexpr,
+    block_m: tl.constexpr,
+    block_n: tl.constexpr,
+    qk_precision_mode: tl.constexpr,
+):
+    """Accumulate dK from dS saved by the dQ kernel."""
+    input_dtype = q_ptr.dtype.element_ty
+    qk_precision: tl.constexpr = (
+        "tf32x3"
+        if qk_precision_mode == 2
+        else ("tf32" if qk_precision_mode else "ieee")
+    )
+    start_n = tl.program_id(0) * block_n
+    h = tl.program_id(1)
+    bn = tl.program_id(2)
+    b = bn // n_size
+    n = bn % n_size
+
+    offs_n = start_n + tl.arange(0, block_n)
+    offs_d = tl.arange(0, head_dim)
+    valid_n = offs_n < s_size
+    base = ((b * n_size + n) * s_size * n_heads + h) * head_dim
+    kv_offsets = base + offs_n[:, None] * n_heads * head_dim + offs_d[None, :]
+    dk = tl.zeros((block_n, head_dim), tl.float32)
+
+    for block_index in range(0, tl.cdiv(s_size, block_m)):
+        offs_m = block_index * block_m + tl.arange(0, block_m)
+        valid_m = offs_m < s_size
+        q_offsets = base + offs_m[:, None] * n_heads * head_dim + offs_d[None, :]
+        q = tl.load(q_ptr + q_offsets, mask=valid_m[:, None], other=0.0)
+        ds_batch_head = ((b * n_size + n) * n_heads + h).to(tl.int64)
+        ds_offsets = (
+            ds_batch_head * s_size * s_size
+            + offs_m[:, None].to(tl.int64) * s_size
+            + offs_n[None, :].to(tl.int64)
+        )
+        valid_scores = valid_m[:, None] & valid_n[None, :]
+        ds = tl.load(ds_scratch_ptr + ds_offsets, mask=valid_scores, other=0.0)
+        dk = tl.dot(
+            tl.trans(ds.to(input_dtype)), q, dk, input_precision=qk_precision
+        )
+
+    tl.store(dk_ptr + kv_offsets, dk, mask=valid_n[:, None])
+
+
+@triton.jit
+def _streaming_triangle_attention_bwd_dv_v1(
+    q_ptr,
+    k_ptr,
+    bias1_ptr,
+    bias2_ptr,
+    lse_ptr,
+    do_ptr,
+    dv_ptr,
+    n_size: tl.constexpr,
+    s_size: tl.constexpr,
+    n_heads: tl.constexpr,
+    head_dim: tl.constexpr,
+    block_m: tl.constexpr,
+    block_n: tl.constexpr,
+    qk_precision_mode: tl.constexpr,
+    pv_precision_mode: tl.constexpr,
+):
+    """Recompute probabilities and accumulate dV without the dP/dS path."""
+    input_dtype = q_ptr.dtype.element_ty
+    qk_precision: tl.constexpr = (
+        "tf32x3"
+        if qk_precision_mode == 2
+        else ("tf32" if qk_precision_mode else "ieee")
+    )
+    pv_precision: tl.constexpr = (
+        "tf32x3"
+        if pv_precision_mode == 2
+        else ("tf32" if pv_precision_mode else "ieee")
+    )
+    start_n = tl.program_id(0) * block_n
+    h = tl.program_id(1)
+    bn = tl.program_id(2)
+    b = bn // n_size
+    n = bn % n_size
+
+    offs_n = start_n + tl.arange(0, block_n)
+    offs_d = tl.arange(0, head_dim)
+    valid_n = offs_n < s_size
+    base = ((b * n_size + n) * s_size * n_heads + h) * head_dim
+    kv_offsets = base + offs_n[:, None] * n_heads * head_dim + offs_d[None, :]
+    k = tl.load(k_ptr + kv_offsets, mask=valid_n[:, None], other=0.0)
+    dv = tl.zeros((block_n, head_dim), tl.float32)
+
+    for block_index in range(0, tl.cdiv(s_size, block_m)):
+        offs_m = block_index * block_m + tl.arange(0, block_m)
+        valid_m = offs_m < s_size
+        q_offsets = base + offs_m[:, None] * n_heads * head_dim + offs_d[None, :]
+        q = tl.load(q_ptr + q_offsets, mask=valid_m[:, None], other=0.0)
+        do = tl.load(do_ptr + q_offsets, mask=valid_m[:, None], other=0.0)
+        row_offsets = ((b * n_size + n) * s_size + offs_m) * n_heads + h
+        lse = tl.load(lse_ptr + row_offsets, mask=valid_m, other=0.0)
+
+        valid_scores = valid_m[:, None] & valid_n[None, :]
+        bias1_base = (b * n_size + n) * s_size
+        bias1 = tl.load(
+            bias1_ptr + bias1_base + offs_n[None, :],
+            mask=valid_n[None, :],
+            other=-1.0e9,
+        )
+        bias2_base = (b * n_heads + h) * s_size * s_size
+        bias2_offsets = bias2_base + offs_m[:, None] * s_size + offs_n[None, :]
+        bias2 = tl.load(bias2_ptr + bias2_offsets, mask=valid_scores, other=0.0)
+        scores = tl.dot(q, tl.trans(k), input_precision=qk_precision)
+        scores = (scores + bias1 + bias2) * 1.4426950408889634
+        p = tl.exp2(scores - lse[:, None])
+        p = tl.where(valid_scores, p, 0.0)
+        dv = tl.dot(
+            tl.trans(p.to(input_dtype)), do, dv, input_precision=pv_precision
+        )
+
     tl.store(dv_ptr + kv_offsets, dv, mask=valid_n[:, None])
 
 
@@ -455,6 +567,40 @@ def _streaming_triangle_attention_bwd_dbias2_v1(
         dp = tl.dot(do, tl.trans(v), input_precision=pv_precision)
         dbias2 += p * (dp - delta[:, None])
 
+    tl.store(dbias2_ptr + bias2_offsets, dbias2, mask=valid_scores)
+
+
+@triton.jit
+def _streaming_triangle_attention_bwd_dbias2_reduce_v1(
+    ds_scratch_ptr,
+    dbias2_ptr,
+    n_size: tl.constexpr,
+    s_size: tl.constexpr,
+    n_heads: tl.constexpr,
+    block_m: tl.constexpr,
+    block_n: tl.constexpr,
+):
+    start_m = tl.program_id(0) * block_m
+    start_n = tl.program_id(1) * block_n
+    bh = tl.program_id(2)
+    b = bh // n_heads
+    h = bh % n_heads
+
+    offs_m = start_m + tl.arange(0, block_m)
+    offs_n = start_n + tl.arange(0, block_n)
+    valid_scores = (offs_m[:, None] < s_size) & (offs_n[None, :] < s_size)
+    dbias2 = tl.zeros((block_m, block_n), tl.float32)
+    for n in range(0, n_size, 1):
+        ds_batch_head = ((b * n_size + n) * n_heads + h).to(tl.int64)
+        ds_offsets = (
+            ds_batch_head * s_size * s_size
+            + offs_m[:, None].to(tl.int64) * s_size
+            + offs_n[None, :].to(tl.int64)
+        )
+        dbias2 += tl.load(ds_scratch_ptr + ds_offsets, mask=valid_scores, other=0.0)
+
+    bias2_base = (b * n_heads + h) * s_size * s_size
+    bias2_offsets = bias2_base + offs_m[:, None] * s_size + offs_n[None, :]
     tl.store(dbias2_ptr + bias2_offsets, dbias2, mask=valid_scores)
 
 
@@ -684,9 +830,24 @@ def _triangle_attention_backward(
     dv = torch.empty_like(v)
     dbias2 = torch.empty_like(bias2)
     delta = torch.empty_like(lse)
-    block_m, block_n = 32, 32
     use_large_s_fp32_d32 = q.dtype == torch.float32 and d == 32 and s >= 128
     tf32_mode = _validate_precision(q, precision)
+    use_fused_dbias_scratch = (
+        "PPU-ZW810E" in torch.cuda.get_device_name(q.device)
+        and q.dtype == torch.float32
+        and (b, n, s, d) == (1, 693, 693, 32)
+        and h in {2, 4, 8}
+        and tf32_mode == "none"
+    )
+    use_split_dkdv = use_fused_dbias_scratch and h == 8
+    # Only the measured H8 path uses FP16 dS storage. H2 became slower with
+    # FP16 scratch and H4 retains the fused dK/dV schedule, so both stay FP32.
+    ds_scratch_dtype = torch.float16 if h == 8 else torch.float32
+    ds_scratch = (
+        torch.empty((b, n, h, s, s), dtype=ds_scratch_dtype, device=q.device)
+        if use_fused_dbias_scratch
+        else delta
+    )
     # Match backward precision to the forward decomposition. QK controls score
     # reconstruction plus dQ/dK; PV controls dP plus dV. Value 2 requests the
     # higher-accuracy TF32x3 dot variant supported by the forward kernel.
@@ -704,26 +865,17 @@ def _triangle_attention_backward(
         dq_block_m, dq_block_n, dq_warps = 64, 32, 2
         dkdv_block_m, dkdv_block_n, dkdv_warps = 64, 32, 2
         dbias_block_m, dbias_block_n, dbias_warps = 32, 64, 2
-        config_name = "large_s_fp32_d32_v2"
+        scratch_name = "fp16ds" if use_fused_dbias_scratch and h == 8 else "fp32ds"
+        dkdv_name = "split_dkdv" if use_split_dkdv else "fused_dkdv"
+        config_name = (
+            f"large_s_fp32_d32_v5_fused_delta_dbias_{scratch_name}_{dkdv_name}"
+        )
     else:
         dq_block_m, dq_block_n, dq_warps = 32, 32, 1
         dkdv_block_m, dkdv_block_n, dkdv_warps = 32, 32, 1
         dbias_block_m, dbias_block_n, dbias_warps = 32, 32, 1
-        config_name = "generic_v1"
+        config_name = "generic_v2_fused_delta"
 
-    row_grid = (triton.cdiv(s, block_m), h, b * n)
-    _streaming_triangle_attention_bwd_preprocess_v1[row_grid](
-        out,
-        do,
-        delta,
-        n_size=n,
-        s_size=s,
-        n_heads=h,
-        head_dim=d,
-        block_m=block_m,
-        num_warps=1,
-        num_stages=1,
-    )
     dq_grid = (triton.cdiv(s, dq_block_m), h, b * n)
     _streaming_triangle_attention_bwd_dq_v1[dq_grid](
         q,
@@ -731,9 +883,11 @@ def _triangle_attention_backward(
         v,
         bias1,
         bias2,
+        out,
         lse,
         delta,
         do,
+        ds_scratch,
         dq,
         n_size=n,
         s_size=s,
@@ -743,58 +897,107 @@ def _triangle_attention_backward(
         block_n=dq_block_n,
         qk_precision_mode=qk_precision_mode,
         pv_precision_mode=pv_precision_mode,
+        store_ds_scratch=use_fused_dbias_scratch,
         num_warps=dq_warps,
         num_stages=1,
     )
     key_grid = (triton.cdiv(s, dkdv_block_n), h, b * n)
-    _streaming_triangle_attention_bwd_dkdv_v1[key_grid](
-        q,
-        k,
-        v,
-        bias1,
-        bias2,
-        lse,
-        delta,
-        do,
-        dk,
-        dv,
-        n_size=n,
-        s_size=s,
-        n_heads=h,
-        head_dim=d,
-        block_m=dkdv_block_m,
-        block_n=dkdv_block_n,
-        qk_precision_mode=qk_precision_mode,
-        pv_precision_mode=pv_precision_mode,
-        num_warps=dkdv_warps,
-        num_stages=1,
-    )
+    if use_split_dkdv:
+        _streaming_triangle_attention_bwd_dk_from_ds_v1[key_grid](
+            q,
+            ds_scratch,
+            dk,
+            n_size=n,
+            s_size=s,
+            n_heads=h,
+            head_dim=d,
+            block_m=dkdv_block_m,
+            block_n=dkdv_block_n,
+            qk_precision_mode=qk_precision_mode,
+            num_warps=dkdv_warps,
+            num_stages=1,
+        )
+        _streaming_triangle_attention_bwd_dv_v1[key_grid](
+            q,
+            k,
+            bias1,
+            bias2,
+            lse,
+            do,
+            dv,
+            n_size=n,
+            s_size=s,
+            n_heads=h,
+            head_dim=d,
+            block_m=dkdv_block_m,
+            block_n=dkdv_block_n,
+            qk_precision_mode=qk_precision_mode,
+            pv_precision_mode=pv_precision_mode,
+            num_warps=dkdv_warps,
+            num_stages=1,
+        )
+    else:
+        _streaming_triangle_attention_bwd_dkdv_v1[key_grid](
+            q,
+            k,
+            v,
+            bias1,
+            bias2,
+            lse,
+            delta,
+            do,
+            dk,
+            dv,
+            n_size=n,
+            s_size=s,
+            n_heads=h,
+            head_dim=d,
+            block_m=dkdv_block_m,
+            block_n=dkdv_block_n,
+            qk_precision_mode=qk_precision_mode,
+            pv_precision_mode=pv_precision_mode,
+            num_warps=dkdv_warps,
+            num_stages=1,
+        )
     bias_grid = (
         triton.cdiv(s, dbias_block_m),
         triton.cdiv(s, dbias_block_n),
         b * h,
     )
-    _streaming_triangle_attention_bwd_dbias2_v1[bias_grid](
-        q,
-        k,
-        v,
-        bias1,
-        bias2,
-        lse,
-        delta,
-        do,
-        dbias2,
-        n_size=n,
-        s_size=s,
-        n_heads=h,
-        head_dim=d,
-        block_m=dbias_block_m,
-        block_n=dbias_block_n,
-        qk_precision_mode=qk_precision_mode,
-        pv_precision_mode=pv_precision_mode,
-        num_warps=dbias_warps,
-        num_stages=1,
-    )
+    if use_fused_dbias_scratch:
+        _streaming_triangle_attention_bwd_dbias2_reduce_v1[bias_grid](
+            ds_scratch,
+            dbias2,
+            n_size=n,
+            s_size=s,
+            n_heads=h,
+            block_m=dbias_block_m,
+            block_n=dbias_block_n,
+            num_warps=dbias_warps,
+            num_stages=1,
+        )
+    else:
+        _streaming_triangle_attention_bwd_dbias2_v1[bias_grid](
+            q,
+            k,
+            v,
+            bias1,
+            bias2,
+            lse,
+            delta,
+            do,
+            dbias2,
+            n_size=n,
+            s_size=s,
+            n_heads=h,
+            head_dim=d,
+            block_m=dbias_block_m,
+            block_n=dbias_block_n,
+            qk_precision_mode=qk_precision_mode,
+            pv_precision_mode=pv_precision_mode,
+            num_warps=dbias_warps,
+            num_stages=1,
+        )
 
     global _PHYSICAL_BACKWARD_CALLS
     _PHYSICAL_BACKWARD_CALLS += 1
