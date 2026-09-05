@@ -722,24 +722,72 @@ def _streaming_triangle_attention_forward_impl(
     tf32_mode = _validate_precision(q, precision)
     device_name = torch.cuda.get_device_name(q.device)
     h100_device = "NVIDIA H100" in device_name and d == 32 and s >= 128
-    bias_seeded_qk = h100_device
+    strict_cross_device = (
+        os.getenv("FLAG_GEMS_TRIANGLE_ATTENTION_STRICT_CROSS_DEVICE", "0")
+        == "1"
+    )
+    strict_forward_schedule = strict_cross_device or (
+        os.getenv("FLAG_GEMS_TRIANGLE_ATTENTION_STRICT_FORWARD_SCHEDULE", "0")
+        == "1"
+    )
+    ppu_g03_fast_schedule = (
+        os.getenv("FLAG_GEMS_TRIANGLE_ATTENTION_G03_FAST_SCHEDULE", "0") == "1"
+        and "PPU-ZW810E" in device_name
+        and (b, n, s, h, d)
+        in {
+            (1, 512, 1218, 4, 32),
+            (1, 194, 1218, 4, 32),
+        }
+    )
+    h100_schedule = h100_device or (
+        strict_forward_schedule
+        and "PPU-ZW810E" in device_name
+        and d == 32
+        and s >= 128
+    )
+    bias_seeded_qk = h100_schedule
     ppu_full_fast = (
         "PPU-ZW810E" in device_name
         and d == 32
         and s >= 128
         and tf32_mode == "full"
     )
-    if h100_device and tf32_mode == "pv":
+    # The public FlagGems path uses IEEE arithmetic on PPU.  For the
+    # canonical Protenix geometry, the repeated PPU sweep selected the same
+    # 64x32 tile with two warps and one pipeline stage for h=2/4/8.  Keep this
+    # as a shape-specific PPU schedule so generic inputs retain the
+    # conservative path and the arithmetic/accumulation mode is unchanged.
+    ppu_canonical_schedule = (
+        "PPU-ZW810E" in device_name
+        and tf32_mode == "none"
+        and (b, n, s, d) == (1, 693, 693, 32)
+        and h in {2, 4, 8}
+        and os.getenv("FLAG_GEMS_PPU_CANONICAL_SCHEDULE", "1") == "1"
+    )
+    if h100_schedule and tf32_mode == "pv":
         block_m, block_n, num_warps, num_stages = 128, 32, 4, 1
-    elif h100_device and tf32_mode != "none":
+    elif h100_schedule and tf32_mode != "none":
         block_m, block_n, num_warps, num_stages = 64, 32, 4, 1
-    elif h100_device:
-        if h == 2:
+    elif h100_schedule:
+        if ppu_g03_fast_schedule:
+            block_m, block_n, num_warps, num_stages = 64, 16, 1, 1
+        elif h == 2 and (b, n, s, d) == (1, 693, 693, 32):
+            # Repeated PPU-ZW810E measurements on the canonical Protenix
+            # shape favor one-stage pipelining; arithmetic and tile shape are
+            # unchanged, so this only removes an unnecessary staging slot.
+            block_m, block_n, num_warps, num_stages = 64, 32, 2, 1
+        elif h == 2:
             block_m, block_n, num_warps, num_stages = 64, 32, 4, 2
+        elif h == 4 and (b, n, s, d) == (1, 693, 693, 32):
+            block_m, block_n, num_warps, num_stages = 64, 32, 2, 1
+        elif h == 8 and (b, n, s, d) == (1, 693, 693, 32):
+            block_m, block_n, num_warps, num_stages = 64, 32, 2, 1
         else:
             block_m, block_n, num_warps, num_stages = 32, 64, 2, 2
     elif ppu_full_fast:
         block_m, block_n, num_warps, num_stages = 64, 64, 4, 1
+    elif ppu_canonical_schedule:
+        block_m, block_n, num_warps, num_stages = 64, 32, 2, 1
     _streaming_triangle_attention_fwd_ieee_v1[
         (triton.cdiv(s, block_m), h, b * n)
     ](
@@ -832,17 +880,33 @@ def _triangle_attention_backward(
     delta = torch.empty_like(lse)
     use_large_s_fp32_d32 = q.dtype == torch.float32 and d == 32 and s >= 128
     tf32_mode = _validate_precision(q, precision)
+    strict_cross_device = (
+        os.getenv("FLAG_GEMS_TRIANGLE_ATTENTION_STRICT_CROSS_DEVICE", "0")
+        == "1"
+    )
+    strict_backward_schedule = strict_cross_device or (
+        os.getenv("FLAG_GEMS_TRIANGLE_ATTENTION_STRICT_BACKWARD_SCHEDULE", "0")
+        == "1"
+    )
     use_fused_dbias_scratch = (
-        "PPU-ZW810E" in torch.cuda.get_device_name(q.device)
+        not strict_backward_schedule
+        and "PPU-ZW810E" in torch.cuda.get_device_name(q.device)
         and q.dtype == torch.float32
         and (b, n, s, d) == (1, 693, 693, 32)
         and h in {2, 4, 8}
         and tf32_mode == "none"
     )
     use_split_dkdv = use_fused_dbias_scratch and h == 8
-    # Only the measured H8 path uses FP16 dS storage. H2 became slower with
-    # FP16 scratch and H4 retains the fused dK/dV schedule, so both stay FP32.
-    ds_scratch_dtype = torch.float16 if h == 8 else torch.float32
+    # Keep the IEEE training path FP32 by default.  Saving dS as FP16 changes
+    # every downstream dK/dV/dBias2 and the error is amplified by deep stacks.
+    # The lower-precision scratch remains an explicit performance opt-in.
+    use_fp16_training_scratch = (
+        os.getenv("FLAG_GEMS_TRIANGLE_ATTENTION_FP16_TRAINING_SCRATCH", "0")
+        == "1"
+    )
+    ds_scratch_dtype = (
+        torch.float16 if h == 8 and use_fp16_training_scratch else torch.float32
+    )
     ds_scratch = (
         torch.empty((b, n, h, s, s), dtype=ds_scratch_dtype, device=q.device)
         if use_fused_dbias_scratch
@@ -865,7 +929,7 @@ def _triangle_attention_backward(
         dq_block_m, dq_block_n, dq_warps = 64, 32, 2
         dkdv_block_m, dkdv_block_n, dkdv_warps = 64, 32, 2
         dbias_block_m, dbias_block_n, dbias_warps = 32, 64, 2
-        scratch_name = "fp16ds" if use_fused_dbias_scratch and h == 8 else "fp32ds"
+        scratch_name = "fp16ds" if ds_scratch_dtype == torch.float16 else "fp32ds"
         dkdv_name = "split_dkdv" if use_split_dkdv else "fused_dkdv"
         config_name = (
             f"large_s_fp32_d32_v5_fused_delta_dbias_{scratch_name}_{dkdv_name}"
@@ -875,6 +939,19 @@ def _triangle_attention_backward(
         dkdv_block_m, dkdv_block_n, dkdv_warps = 32, 32, 1
         dbias_block_m, dbias_block_n, dbias_warps = 32, 32, 1
         config_name = "generic_v2_fused_delta"
+
+    use_h100_tf32x3_backward = (
+        "H100" in torch.cuda.get_device_name(q.device)
+        and q.dtype == torch.float32
+        and (b, n, s, d) == (1, 693, 693, 32)
+        and h in {2, 4, 8}
+        and tf32_mode == "x3"
+    )
+    if use_h100_tf32x3_backward:
+        dq_block_m, dq_block_n, dq_warps = 64, 32, 4
+        dkdv_block_m, dkdv_block_n, dkdv_warps = 64, 64, 4
+        dbias_block_m, dbias_block_n, dbias_warps = 64, 64, 4
+        config_name += "_h100_tf32x3_backward_v1"
 
     dq_grid = (triton.cdiv(s, dq_block_m), h, b * n)
     _streaming_triangle_attention_bwd_dq_v1[dq_grid](
