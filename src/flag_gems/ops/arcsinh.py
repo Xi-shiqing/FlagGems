@@ -18,6 +18,7 @@ import logging
 import torch
 import triton
 import triton.language as tl
+import triton.language.extra.libdevice as libdevice
 
 import flag_gems
 
@@ -33,11 +34,10 @@ def arcsinh_kernel(x_ptr, out_ptr, n_elements, BLOCK_SIZE: tl.constexpr):
 
     x = tl.load(x_ptr + offsets, mask=mask, other=0)
 
-    # Compute asinh using: asinh(x) = log(x + sqrt(x*x + 1))
+    # Use the backend intrinsic so FP32 follows the target's round-to-nearest
+    # path instead of the generic log(x + sqrt(x*x + 1)) approximation.
     x_f32 = x.to(tl.float32)
-    tmp = x_f32 * x_f32 + 1.0
-    sqrt_term = tl.sqrt(tmp)
-    y_f32 = tl.log(x_f32 + sqrt_term)
+    y_f32 = libdevice.asinh(x_f32)
 
     # Store result; will cast to out dtype as needed
     tl.store(out_ptr + offsets, y_f32, mask=mask)

@@ -13,16 +13,49 @@
 # limitations under the License.
 
 import logging
+import os
 
 import torch
 import triton
 import triton.language as tl
 
+from flag_gems import runtime
 from flag_gems.utils import pointwise_dynamic
 from flag_gems.utils.pointwise_dynamic import ComplexMode
 from flag_gems.utils.triton_lang_extension import div_rn, fmod, trunc
 
 logger = logging.getLogger(__name__)
+
+
+@triton.jit
+def _div_rn_f32(x, y):
+    """IEEE-754 round-to-nearest FP32 division on PPU/CUDA backends."""
+    return tl.inline_asm_elementwise(
+        asm="div.rn.f32 $0, $1, $2;",
+        constraints="=f,f,f",
+        args=[x.to(tl.float32), y.to(tl.float32)],
+        dtype=tl.float32,
+        is_pure=True,
+        pack=1,
+    )
+
+
+@pointwise_dynamic(promotion_methods=[(0, 1, "INT_TO_FLOAT")])
+@triton.jit
+def true_div_func_fp32_rn(x, y):
+    return _div_rn_f32(x, y)
+
+
+@pointwise_dynamic(is_tensor=[True, False], promotion_methods=[(0, 1, "INT_TO_FLOAT")])
+@triton.jit
+def true_div_func_tensor_scalar_fp32_rn(x, y):
+    return _div_rn_f32(x, y)
+
+
+@pointwise_dynamic(is_tensor=[False, True], promotion_methods=[(0, 1, "INT_TO_FLOAT")])
+@triton.jit
+def true_div_func_scalar_tensor_fp32_rn(x, y):
+    return _div_rn_f32(x, y)
 
 
 @pointwise_dynamic(
@@ -87,6 +120,17 @@ true_div_func_scalar_tensor.register_complex(
 
 def true_divide(A, B):
     logger.debug("GEMS TRUE_DIVIDE")
+    use_ppu_rn = (
+        os.getenv("FLAG_GEMS_PPU_FP32_DIV_RN", "1") == "1"
+        and runtime.device.vendor_name == "thead"
+        and isinstance(A, torch.Tensor)
+        and A.dtype == torch.float32
+        and (not isinstance(B, torch.Tensor) or B.dtype == torch.float32)
+    )
+    if use_ppu_rn:
+        if isinstance(B, torch.Tensor):
+            return true_div_func_fp32_rn(A, B)
+        return true_div_func_tensor_scalar_fp32_rn(A, B)
     if isinstance(A, torch.Tensor) and isinstance(B, torch.Tensor):
         return true_div_func(A, B)
     elif isinstance(A, torch.Tensor):
@@ -100,6 +144,17 @@ def true_divide(A, B):
 
 def true_divide_out(A, B, out):
     logger.debug("GEMS TRUE_DIVIDE OUT")
+    use_ppu_rn = (
+        os.getenv("FLAG_GEMS_PPU_FP32_DIV_RN", "1") == "1"
+        and runtime.device.vendor_name == "thead"
+        and isinstance(A, torch.Tensor)
+        and A.dtype == torch.float32
+        and (not isinstance(B, torch.Tensor) or B.dtype == torch.float32)
+    )
+    if use_ppu_rn:
+        if isinstance(B, torch.Tensor):
+            return true_div_func_fp32_rn(A, B, out0=out)
+        return true_div_func_tensor_scalar_fp32_rn(A, B, out0=out)
     if isinstance(A, torch.Tensor) and isinstance(B, torch.Tensor):
         return true_div_func(A, B, out0=out)
     elif isinstance(A, torch.Tensor):
@@ -111,12 +166,62 @@ def true_divide_out(A, B, out):
         return torch.tensor(A / B) if out is None else out.fill_(A / B)
 
 
-def true_divide_(A, B):
+def _true_divide_inplace_forward(A, B):
     logger.debug("GEMS TRUE_DIVIDE_")
+    use_ppu_rn = (
+        os.getenv("FLAG_GEMS_PPU_FP32_DIV_RN", "1") == "1"
+        and runtime.device.vendor_name == "thead"
+        and A.dtype == torch.float32
+        and (not isinstance(B, torch.Tensor) or B.dtype == torch.float32)
+    )
+    if use_ppu_rn:
+        if isinstance(B, torch.Tensor):
+            return true_div_func_fp32_rn(A, B, out0=A)
+        return true_div_func_tensor_scalar_fp32_rn(A, B, out0=A)
     if isinstance(B, torch.Tensor):
         return true_div_func(A, B, out0=A)
     else:
         return true_div_func_tensor_scalar(A, B, out0=A)
+
+
+class _TrueDivideInplaceAutograd(torch.autograd.Function):
+    @staticmethod
+    def forward(ctx, A, B):
+        ctx.b_is_tensor = isinstance(B, torch.Tensor)
+        ctx.b_requires_grad = ctx.b_is_tensor and B.requires_grad
+        if ctx.b_is_tensor:
+            if ctx.b_requires_grad:
+                ctx.save_for_backward(B, A.clone())
+            else:
+                ctx.save_for_backward(B)
+        else:
+            ctx.scalar = B
+        ctx.mark_dirty(A)
+        return _true_divide_inplace_forward(A, B)
+
+    @staticmethod
+    def backward(ctx, grad_output):
+        grad_b = None
+        if ctx.b_is_tensor:
+            saved = ctx.saved_tensors
+            B = saved[0]
+            grad_a = true_div_func(grad_output, B)
+            if ctx.b_requires_grad:
+                original_a = saved[1]
+                grad_b = -(grad_output * original_a) / (B * B)
+                grad_b = grad_b.sum_to_size(B.shape)
+        else:
+            grad_a = true_div_func_tensor_scalar(grad_output, ctx.scalar)
+        return grad_a, grad_b
+
+
+def true_divide_(A, B):
+    requires_grad = A.requires_grad or (
+        isinstance(B, torch.Tensor) and B.requires_grad
+    )
+    if torch.is_grad_enabled() and requires_grad:
+        return _TrueDivideInplaceAutograd.apply(A, B)
+    return _true_divide_inplace_forward(A, B)
 
 
 @pointwise_dynamic(promotion_methods=[(0, 1, "DEFAULT")])

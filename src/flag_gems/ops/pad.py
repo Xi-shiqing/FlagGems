@@ -474,7 +474,7 @@ class PadFunction:
 _pad_func = PadFunction()
 
 
-def pad(self, pad, mode="constant", value=None):
+def _pad_forward(self, pad, mode="constant", value=None):
     logger.debug("GEMS CONSTANT PAD ND")
 
     ndim = self.ndim
@@ -503,6 +503,45 @@ def pad(self, pad, mode="constant", value=None):
 
     out = _pad_func(self, pad, mode, float(value))
     return out
+
+
+class _ConstantPadAutograd(torch.autograd.Function):
+    """Autograd wrapper for the general constant-padding kernel.
+
+    Reversing every padding width crops positive padding and restores zeros for
+    negative padding, which is exactly the derivative of constant padding.
+    """
+
+    @staticmethod
+    def forward(ctx, self, pad, value):
+        ctx.pad = tuple(pad)
+        ctx.input_shape = tuple(self.shape)
+        return _pad_forward(self, ctx.pad, mode="constant", value=value)
+
+    @staticmethod
+    def backward(ctx, grad_output):
+        # The derivative reverses every padding width: positive forward padding
+        # becomes cropping, while negative forward padding becomes zero padding.
+        # Reusing the stride-aware padding kernel is important because autograd
+        # can supply a transposed/non-contiguous grad_output here.
+        inverse_pad = tuple(-width for width in ctx.pad)
+        grad_input = _pad_forward(
+            grad_output, inverse_pad, mode="constant", value=0.0
+        )
+        if tuple(grad_input.shape) != ctx.input_shape:
+            raise RuntimeError(
+                f"constant pad backward produced {tuple(grad_input.shape)}, "
+                f"expected {ctx.input_shape}"
+            )
+        return grad_input, None, None
+
+
+def pad(self, pad, mode="constant", value=None):
+    if value is None:
+        value = 0.0
+    if mode == "constant" and torch.is_grad_enabled() and self.requires_grad:
+        return _ConstantPadAutograd.apply(self, tuple(pad), float(value))
+    return _pad_forward(self, pad, mode=mode, value=value)
 
 
 def constant_pad_nd(self, pad_list, value=0):

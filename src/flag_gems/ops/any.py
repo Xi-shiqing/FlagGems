@@ -106,6 +106,11 @@ def any_kernel_2(mid, out, MID_SIZE, BLOCK_MID: tl.constexpr):
 def any(inp):
     logger.debug("GEMS ANY")
     n_elements = inp.numel()
+    # The identity value of an OR reduction is False. Avoid deriving launch
+    # parameters from zero: next_power_of_2(0) yields a zero block size and the
+    # following cdiv would divide by zero.
+    if n_elements == 0:
+        return torch.zeros((), dtype=torch.bool, device=inp.device)
     block_size = triton.next_power_of_2(math.ceil(math.sqrt(n_elements)))
     mid_size = triton.cdiv(n_elements, block_size)
     block_mid = triton.next_power_of_2(mid_size)
@@ -133,6 +138,14 @@ def any_dim(inp, dim=None, keepdim=False):
         inp = dim_compress(inp, dim)
         N = shape[dim]
         shape[dim] = 1
+        # Reducing an empty dimension produces False for every output element.
+        # An empty non-reduced dimension produces an empty output. torch.zeros
+        # has the correct value and shape in both cases and avoids a zero grid.
+        if N == 0 or inp.numel() == 0:
+            out = torch.zeros(shape, dtype=torch.bool, device=inp.device)
+            if not keepdim:
+                out = out.squeeze(dim=dim)
+            return out
         M = inp.numel() // N
 
         out = torch.empty(shape, dtype=torch.bool, device=inp.device)

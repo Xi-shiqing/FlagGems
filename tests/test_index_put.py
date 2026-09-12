@@ -341,3 +341,46 @@ def test_index_put_mixed_none_and_tensor(input_shape, indices_config, dtype):
 
     out = flag_gems.index_put(inp, indices, values, accumulate)
     utils.gems_assert_close(out, ref_out, dtype)
+
+
+@pytest.mark.index_put
+@pytest.mark.parametrize(
+    "input_shape, indices, values_shape",
+    [
+        ((24, 384, 2), ([5, 1, 5, 3, 1],), (5, 384, 2)),
+        (
+            (7, 9, 1, 16),
+            ([4, 1, 4, 0, 1, 4], [3, 8, 3, 2, 8, 3]),
+            (6, 1, 16),
+        ),
+    ],
+)
+def test_index_put_acc_true_deterministic_repeated_indices(
+    input_shape, indices, values_shape
+):
+    """Repeated advanced indices must accumulate in a fixed order."""
+    inp = torch.randn(input_shape, dtype=torch.float32, device=flag_gems.device)
+    device_indices = tuple(
+        torch.tensor(index, dtype=torch.int64, device=flag_gems.device)
+        for index in indices
+    )
+    values = torch.randn(
+        values_shape, dtype=torch.float32, device=flag_gems.device
+    )
+    ref = torch.index_put(
+        utils.to_reference(inp),
+        tuple(utils.to_reference(index) for index in device_indices),
+        utils.to_reference(values),
+        accumulate=True,
+    )
+
+    previous = torch.are_deterministic_algorithms_enabled()
+    torch.use_deterministic_algorithms(True)
+    try:
+        out_a = flag_gems.index_put(inp, device_indices, values, accumulate=True)
+        out_b = flag_gems.index_put(inp, device_indices, values, accumulate=True)
+    finally:
+        torch.use_deterministic_algorithms(previous)
+
+    utils.gems_assert_close(out_a, ref, torch.float32)
+    torch.testing.assert_close(out_a, out_b, rtol=0, atol=0)

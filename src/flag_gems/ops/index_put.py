@@ -14,15 +14,213 @@
 
 import importlib
 import logging
+import math
 import os
 from typing import Any, Callable, List, Mapping, Tuple
 
 import torch
+import triton
+import triton.language as tl
 
+from flag_gems.utils import libentry
 from flag_gems.utils.code_cache import code_cache_dir
 from flag_gems.utils.code_utils import IndentedBuffer, write_atomic
 
 logger = logging.getLogger(__name__)
+
+
+@libentry()
+@triton.jit
+def _index_put_sorted_dim0_deterministic_kernel(
+    input_ptr,
+    index_ptr,
+    values_ptr,
+    n_rows,
+    out_rows,
+    n_cols,
+    SEARCH_STEPS: tl.constexpr,
+    BLOCK: tl.constexpr,
+):
+    """Accumulate one sorted index segment per output in a fixed order."""
+    group_out_row = tl.program_id(0)
+    group = group_out_row // out_rows
+    out_row = group_out_row % out_rows
+    out_col = tl.program_id(1) * BLOCK + tl.arange(0, BLOCK)
+    mask = out_col < n_cols
+    out_offsets = (group * out_rows + out_row) * n_cols + out_col
+    values_base = group * n_rows * n_cols
+
+    lo = 0
+    hi = n_rows
+    for _ in tl.static_range(0, SEARCH_STEPS):
+        active = lo < hi
+        mid = (lo + hi) // 2
+        index_value = tl.load(index_ptr + mid, mask=active, other=0)
+        move_right = active & (index_value < out_row)
+        lo = tl.where(move_right, mid + 1, lo)
+        hi = tl.where(active & ~move_right, mid, hi)
+    first = lo
+
+    lo = first
+    hi = n_rows
+    target = out_row + 1
+    for _ in tl.static_range(0, SEARCH_STEPS):
+        active = lo < hi
+        mid = (lo + hi) // 2
+        index_value = tl.load(index_ptr + mid, mask=active, other=0)
+        move_right = active & (index_value < target)
+        lo = tl.where(move_right, mid + 1, lo)
+        hi = tl.where(active & ~move_right, mid, hi)
+    last = lo
+
+    acc = tl.load(input_ptr + out_offsets, mask=mask, other=0.0).to(tl.float32)
+    pos = first
+    while pos < last:
+        value = tl.load(
+            values_ptr + values_base + pos * n_cols + out_col,
+            mask=mask,
+            other=0.0,
+        )
+        acc += value.to(tl.float32)
+        pos += 1
+    tl.store(input_ptr + out_offsets, acc, mask=mask)
+
+
+def _index_put_sorted_dim0_deterministic(inp, indices, values, accumulate):
+    """Deterministic fast path for Protenix token-to-atom backward."""
+    if not torch.are_deterministic_algorithms_enabled() or not accumulate:
+        return False
+    if len(indices) != 1 or indices[0].ndim != 1 or inp.ndim == 0:
+        return False
+    if not inp.is_contiguous() or not values.is_contiguous():
+        return False
+    index = indices[0].to(torch.int64).contiguous()
+    n_rows = int(index.numel())
+    if tuple(values.shape) != (n_rows, *tuple(inp.shape[1:])):
+        return False
+    if n_rows and not bool(torch.all(index[1:] >= index[:-1]).item()):
+        return False
+    if inp.numel() == 0:
+        return True
+
+    out_rows = int(inp.shape[0])
+    n_cols = int(inp.numel()) // out_rows
+    search_steps = max(1, n_rows.bit_length() + 1)
+    block = 128
+    _index_put_sorted_dim0_deterministic_kernel[
+        (out_rows, triton.cdiv(n_cols, block))
+    ](
+        inp,
+        index,
+        values,
+        n_rows,
+        out_rows,
+        n_cols,
+        SEARCH_STEPS=search_steps,
+        BLOCK=block,
+    )
+    return True
+
+
+def _index_put_sorted_single_index_deterministic(
+    inp, indices, values, accumulate
+):
+    """Fixed-order accumulate for one sorted advanced-index dimension."""
+    if not torch.are_deterministic_algorithms_enabled() or not accumulate:
+        return False
+    if not inp.is_contiguous():
+        return False
+    tensor_pos = [dim for dim, index in enumerate(indices) if index is not None]
+    if len(tensor_pos) != 1:
+        return False
+    dim = tensor_pos[0]
+    index = indices[dim]
+    if index.ndim != 1:
+        return False
+    index = index.to(device=inp.device, dtype=torch.int64).contiguous()
+    n_rows = int(index.numel())
+    if n_rows and not bool(torch.all(index[1:] >= index[:-1]).item()):
+        return False
+
+    value_shape = tuple(inp.shape[:dim]) + (n_rows,) + tuple(inp.shape[dim + 1 :])
+    values = values.to(inp.device).broadcast_to(value_shape).contiguous()
+    if inp.numel() == 0:
+        return True
+
+    n_groups = math.prod(inp.shape[:dim])
+    out_rows = int(inp.shape[dim])
+    n_cols = math.prod(inp.shape[dim + 1 :])
+    search_steps = max(1, n_rows.bit_length() + 1)
+    block = 128
+    _index_put_sorted_dim0_deterministic_kernel[
+        (n_groups * out_rows, triton.cdiv(n_cols, block))
+    ](
+        inp,
+        index,
+        values,
+        n_rows,
+        out_rows,
+        n_cols,
+        SEARCH_STEPS=search_steps,
+        BLOCK=block,
+    )
+    return True
+
+
+def _index_put_stable_keys_deterministic(inp, indices, values, accumulate):
+    """Deterministically accumulate arbitrary leading advanced indices."""
+    if (
+        not torch.are_deterministic_algorithms_enabled()
+        or not accumulate
+        or not indices
+        or len(indices) > inp.ndim
+        or not inp.is_contiguous()
+    ):
+        return False
+
+    index_shape = tuple(indices[0].shape)
+    if any(tuple(index.shape) != index_shape for index in indices):
+        return False
+    n_rows = int(indices[0].numel())
+    if any(int(index.numel()) != n_rows for index in indices):
+        return False
+
+    flat_indices = [index.to(torch.int64).contiguous().reshape(-1) for index in indices]
+    for dim, index in enumerate(flat_indices):
+        if index.numel() and not bool(
+            torch.all((index >= 0) & (index < inp.shape[dim])).item()
+        ):
+            return False
+
+    linear_index = flat_indices[0]
+    for dim, index in enumerate(flat_indices[1:], start=1):
+        linear_index = linear_index * int(inp.shape[dim]) + index
+
+    out_rows = math.prod(inp.shape[: len(indices)])
+    n_cols = math.prod(inp.shape[len(indices) :])
+    values = values.to(inp.device).broadcast_to(index_shape + inp.shape[len(indices) :])
+    values = values.contiguous().reshape(n_rows, n_cols)
+    if n_rows:
+        linear_index, order = torch.sort(linear_index, stable=True)
+        values = torch.index_select(values, 0, order).contiguous()
+    if inp.numel() == 0:
+        return True
+
+    search_steps = max(1, n_rows.bit_length() + 1)
+    block = 128
+    _index_put_sorted_dim0_deterministic_kernel[
+        (out_rows, triton.cdiv(n_cols, block))
+    ](
+        inp.reshape(out_rows, n_cols),
+        linear_index,
+        values,
+        n_rows,
+        out_rows,
+        n_cols,
+        SEARCH_STEPS=search_steps,
+        BLOCK=block,
+    )
+    return True
 
 
 def get_max_rank_shape(indices: List[torch.Tensor]) -> List[int]:
@@ -234,6 +432,14 @@ class IndexPutFunction:
 
     def __call__(self, *args, **kwargs):
         inp, tensor_indices, values, accumulate = args
+        if _index_put_stable_keys_deterministic(
+            inp, tensor_indices, values, accumulate
+        ):
+            return inp
+        if _index_put_sorted_dim0_deterministic(
+            inp, tensor_indices, values, accumulate
+        ):
+            return inp
         full_args = (inp, tensor_indices, values)
 
         key = self.arg_key(*full_args)
@@ -323,6 +529,11 @@ def index_put_(inp, indices, values, accumulate=False):
     if len(indices) > inp.ndim:
         raise IndexError("too many indices for tensor of dimension {}".format(inp.ndim))
 
+    if _index_put_sorted_single_index_deterministic(
+        inp, indices, values, accumulate
+    ):
+        return inp
+
     # Step 2: Broadcast tensor indices
     tensor_pos = [i for i, x in enumerate(indices) if x is not None]
     if not tensor_pos:
@@ -382,6 +593,11 @@ def index_put_(inp, indices, values, accumulate=False):
 
 def _index_put_impl_(inp, indices, values, accumulate=False, unsafe=False):
     logger.debug("GEMS _INDEX_PUT_IMPL_")
+
+    # Autograd may preserve basic-index dimensions as ``None`` entries.  The
+    # full normalizer below handles their transpose and broadcasting semantics.
+    if any(index is None for index in indices):
+        return index_put_(inp, indices, values, accumulate)
 
     # The `unsafe` parameter is a hint to PyTorch for bounds checking.
     # Our implementation always performs bounds checking, so we ignore this parameter.

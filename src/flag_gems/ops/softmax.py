@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import logging
+import os
 
 import torch
 import triton
@@ -23,8 +24,64 @@ from flag_gems.ops.zeros import zero_
 from flag_gems.runtime import torch_device_fn
 from flag_gems.utils import libentry
 from flag_gems.utils import triton_lang_extension as ext
+from flag_gems.utils import tl_extra_shim
 
 logger = logging.getLogger(__name__)
+exp2 = tl_extra_shim.exp2
+
+
+@triton.jit
+def _softmax_inner_ppu_exp2_kernel(
+    output_ptr, input_ptr, rows, n, BLOCK: tl.constexpr
+):
+    """Contiguous FP32 inner softmax using the PPU exp2 primitive.
+
+    Protenix's pair-attention trace repeatedly reduces rows of length 693.
+    The regular FlagGems path uses ``tl.exp`` twice per row; PPU exposes a
+    faster base-2 exponential.  This diagnostic kernel keeps the reduction
+    in FP32 and performs all large row addressing in int64.  It is gated by
+    an opt-in variable until a full-model A/B proves both speed and the
+    acceptable FP32 numerical envelope.
+    """
+    pid = tl.program_id(0).to(tl.int64)
+    cols = tl.arange(0, BLOCK).to(tl.int64)
+    offsets = pid * n + cols
+    mask = cols < n
+    x = tl.load(input_ptr + offsets, mask=mask, other=-float("inf")).to(tl.float32)
+    maximum = tl.max(x, axis=0)
+    log2e: tl.constexpr = 1.4426950408889634
+    weights = exp2((x - maximum) * log2e)
+    mass = tl.sum(weights, axis=0)
+    output = weights / mass
+    tl.store(output_ptr + offsets, output, mask=mask)
+
+
+def _try_ppu_inner_exp2_softmax(self, out, M, N, K):
+    """Try the opt-in PPU exp2 route for the dominant 693-wide rows."""
+    if (
+        os.getenv("FLAG_GEMS_PPU_SOFTMAX_EXP2_FAST", "0") != "1"
+        or runtime.device.vendor_name != "thead"
+        or self.dtype != torch.float32
+        or out.dtype != torch.float32
+        or K != 1
+        or N != 693
+        or self.numel() < (1 << 20)
+        or not self.is_contiguous()
+        or not out.is_contiguous()
+        or (torch.is_grad_enabled() and self.requires_grad)
+    ):
+        return False
+    with torch_device_fn.device(self.device):
+        _softmax_inner_ppu_exp2_kernel[(M,)](
+            out,
+            self,
+            M,
+            N,
+            BLOCK=1024,
+            num_warps=4,
+            num_stages=2,
+        )
+    return True
 
 
 @libentry()
@@ -318,6 +375,9 @@ def softmax_out(self, dim, half_to_float=False, *, out):
     if out.dtype != dtype:
         raise RuntimeError(f"_softmax.out: expected out dtype {dtype}, got {out.dtype}")
     K = self.numel() // M // N
+
+    if _try_ppu_inner_exp2_softmax(self, out, M, N, K):
+        return out
 
     with torch_device_fn.device(self.device):
         if K > 1:

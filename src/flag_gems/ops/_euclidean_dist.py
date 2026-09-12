@@ -91,13 +91,22 @@ def _euclidean_dist(x1, x2):
     """Compute pairwise Euclidean distances between rows of x1 and x2.
 
     Args:
-        x1: Tensor of shape (N, D)
-        x2: Tensor of shape (M, D)
+        x1: Tensor of shape (..., N, D)
+        x2: Tensor of shape (..., M, D)
 
     Returns:
-        Tensor of shape (N, M) where output[i, j] = ||x1[i] - x2[j]||_2
+        Tensor of shape (..., N, M), with broadcast batch dimensions.
     """
     logger.debug("GEMS _EUCLIDEAN_DIST")
+
+    # aten::_euclidean_dist is the matrix-multiplication path selected by
+    # torch.cdist for sufficiently large point sets. It receives the same
+    # batched/broadcastable inputs as torch.cdist, so reuse FlagGems' native
+    # batched p=2 kernel instead of restricting this internal op to rank 2.
+    if x1.ndim >= 3 or x2.ndim >= 3:
+        from flag_gems.ops.cdist import _cdist_forward
+
+        return _cdist_forward(x1, x2, p=2.0, compute_mode=None)
 
     assert x1.ndim == 2, "x1 must be a 2D tensor"
     assert x2.ndim == 2, "x2 must be a 2D tensor"

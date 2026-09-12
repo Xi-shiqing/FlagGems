@@ -14,6 +14,7 @@
 
 import logging
 
+import torch
 import triton
 import triton.language as tl
 
@@ -45,13 +46,41 @@ def pow_func_tensor_scalar(x, exponent):
     return _pow(x.to(tl.float32), exponent.to(tl.float32))
 
 
+@pointwise_dynamic(promotion_methods=[(0, "DEFAULT")])
+@triton.jit
+def pow_square_fp32_rn_func(x):
+    """Compute the common FP32 square with one explicitly rounded multiply.
+
+    The generic backend ``pow`` path lowers through the transcendental
+    implementation even when the exponent is exactly two.  Protenix uses
+    this spelling in its distance feature path; using one FP32 multiply keeps
+    the operation's rounding point aligned with the native ``x * x`` path.
+    """
+    return tl.inline_asm_elementwise(
+        asm="mul.rn.f32 $0, $1, $1;",
+        constraints="=f,f",
+        args=[x],
+        dtype=tl.float32,
+        is_pure=True,
+        pack=1,
+    )
+
+
+def _is_fp32_square(A, exponent):
+    return A.dtype == torch.float32 and exponent == 2
+
+
 def pow_tensor_scalar(A, exponent):
     logger.debug("GEMS POW_TENSOR_SCALAR")
+    if _is_fp32_square(A, exponent):
+        return pow_square_fp32_rn_func(A)
     return pow_func_tensor_scalar(A, exponent)
 
 
 def pow_tensor_scalar_(A, exponent):
     logger.debug("GEMS POW_TENSOR_SCALAR_")
+    if _is_fp32_square(A, exponent):
+        return pow_square_fp32_rn_func(A, out0=A)
     return pow_func_tensor_scalar(A, exponent, out0=A)
 
 

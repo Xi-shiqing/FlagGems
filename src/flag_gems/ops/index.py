@@ -451,9 +451,13 @@ def generate_index_linearized_kernel(
     code.writeline("):")
 
     with code.indent():
-        code.writeline("pid_p = tl.program_id(axis=0)")
-        code.writeline("pid_m = tl.program_id(axis=1)")
-        code.writeline("pid_n = tl.program_id(axis=2)")
+        code.writeline("pid = tl.program_id(axis=0)")
+        code.writeline("num_m_tiles = tl.cdiv(M, BLOCK_SIZE0)")
+        code.writeline("num_n_tiles = tl.cdiv(N, BLOCK_SIZE1)")
+        code.writeline("pid_n = pid % num_n_tiles")
+        code.writeline("pid = pid // num_n_tiles")
+        code.writeline("pid_m = pid % num_m_tiles")
+        code.writeline("pid_p = pid // num_m_tiles")
         code.newline()
 
         code.writeline(
@@ -523,12 +527,13 @@ def generate_index_linearized_wrapper(
         code.writeline(f"P = {prefix_size}")
         code.writeline(f"N = {suffix_size}")
         code.newline()
-        # Match the kernel axes: prefix, flattened index elements, suffix.
+        # CUDA limits grid Y/Z to 65535. Flatten the three logical axes into
+        # grid X, whose capacity covers Protenix's large pair-index workload.
         code.writeline("grid = lambda meta: (")
         with code.indent():
-            code.writeline("P,")
-            code.writeline("triton.cdiv(M, meta['BLOCK_SIZE0']),")
-            code.writeline("triton.cdiv(N, meta['BLOCK_SIZE1']),")
+            code.writeline("P")
+            code.writeline("* triton.cdiv(M, meta['BLOCK_SIZE0'])")
+            code.writeline("* triton.cdiv(N, meta['BLOCK_SIZE1']),")
         code.writeline(")")
         code.newline()
         code.writeline(f"{kernel_name}[grid](")

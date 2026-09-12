@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import logging
+import os
 
 import torch
 import triton
@@ -370,8 +371,12 @@ def cluster_remote_mm_scenario(a, b, c, M, N, K):
         and a.dtype == torch.float16
         and b.dtype == torch.float16
         and c.dtype == torch.float16
-        and a.is_contiguous()
-        and b.is_contiguous()
+        # Linear grad-weight has the characteristic layout
+        # grad_output.T @ input: column-major A and row-major B.  Restrict the
+        # experimental path to that layout so forward contractions keep the
+        # established implementation.
+        and a.stride(0) == 1
+        and b.stride(1) == 1
         and M >= TLE_REMOTE_BM
         and N >= TLE_REMOTE_BN
         and K >= TLE_REMOTE_BK
@@ -438,6 +443,142 @@ def general_mm(a, b, c, M, N, K):
             c.stride(1),
             GROUP_M=8,
             IS_FP64=a.dtype == torch.float64,
+        )
+    return c
+
+
+@libentry()
+@triton.jit
+def mm_kernel_thead_fp32_splitk(
+    A,
+    B,
+    partials,
+    M,
+    N,
+    K,
+    stride_am,
+    stride_ak,
+    stride_bk,
+    stride_bn,
+    SPLIT_K: tl.constexpr,
+    BLOCK_M: tl.constexpr,
+    BLOCK_N: tl.constexpr,
+    BLOCK_K: tl.constexpr,
+):
+    """Compute independent FP32 partial products for a long K reduction."""
+    pid = ext.program_id(0)
+    split_id = ext.program_id(1)
+    grid_n = tl.cdiv(N, BLOCK_N)
+    pid_m = pid // grid_n
+    pid_n = pid % grid_n
+
+    rm = pid_m * BLOCK_M + tl.arange(0, BLOCK_M)
+    rn = pid_n * BLOCK_N + tl.arange(0, BLOCK_N)
+    chunk_k = tl.cdiv(K, SPLIT_K)
+    split_start = split_id * chunk_k
+    split_end = tl.minimum(split_start + chunk_k, K)
+    acc = tl.zeros((BLOCK_M, BLOCK_N), dtype=tl.float32)
+
+    for offset_k in range(0, chunk_k, BLOCK_K):
+        rk = split_start + offset_k + tl.arange(0, BLOCK_K)
+        mask_k = rk < split_end
+        a = tl.load(
+            A + rm[:, None] * stride_am + rk[None, :] * stride_ak,
+            mask=(rm < M)[:, None] & mask_k[None, :],
+            other=0.0,
+        )
+        b = tl.load(
+            B + rk[:, None] * stride_bk + rn[None, :] * stride_bn,
+            mask=mask_k[:, None] & (rn < N)[None, :],
+            other=0.0,
+        )
+        acc += tl.dot(a, b, out_dtype=tl.float32, allow_tf32=False)
+
+    partial_offset = split_id * M * N + rm[:, None] * N + rn[None, :]
+    tl.store(
+        partials + partial_offset,
+        acc,
+        mask=(rm < M)[:, None] & (rn < N)[None, :],
+    )
+
+
+@libentry()
+@triton.jit
+def mm_kernel_thead_fp32_splitk_reduce(
+    partials,
+    C,
+    elements,
+    stride_cm,
+    stride_cn,
+    N,
+    split_k,
+    BLOCK: tl.constexpr,
+):
+    offsets = ext.program_id(0) * BLOCK + tl.arange(0, BLOCK)
+    mask = offsets < elements
+    acc = tl.zeros((BLOCK,), dtype=tl.float32)
+    for split_id in range(0, split_k):
+        acc += tl.load(partials + split_id * elements + offsets, mask=mask, other=0.0)
+    rows = offsets // N
+    cols = offsets % N
+    tl.store(C + rows * stride_cm + cols * stride_cn, acc, mask=mask)
+
+
+def thead_fp32_splitk_scenario(a, b, c, M, N, K):
+    return (
+        os.getenv("FLAG_GEMS_PPU_SPLITK_FP32", "0") == "1"
+        and runtime.device.vendor_name == "thead"
+        and a.dtype == torch.float32
+        and b.dtype == torch.float32
+        and c.dtype == torch.float32
+        and a.stride(0) == 1
+        and b.stride(1) == 1
+        and M <= 512
+        and N <= 512
+        and K >= 32768
+        and K >= 16 * max(M, N)
+    )
+
+
+def thead_fp32_splitk_mm(a, b, c, M, N, K):
+    # Long Protenix reductions need enough independent programs to occupy the PPU.
+    default_split_k = 16 if K < 262144 else 128
+    split_k = int(os.getenv("FLAG_GEMS_PPU_SPLITK_PARTS", default_split_k))
+    block_mn = int(os.getenv("FLAG_GEMS_PPU_SPLITK_TILE", "64"))
+    num_warps = int(os.getenv("FLAG_GEMS_PPU_SPLITK_WARPS", "4"))
+    num_stages = int(os.getenv("FLAG_GEMS_PPU_SPLITK_STAGES", "4"))
+    partials = torch.empty((split_k, M, N), device=a.device, dtype=torch.float32)
+    grid = (triton.cdiv(M, block_mn) * triton.cdiv(N, block_mn), split_k)
+    with torch_device_fn.device(a.device):
+        mm_kernel_thead_fp32_splitk[grid](
+            a,
+            b,
+            partials,
+            M,
+            N,
+            K,
+            a.stride(0),
+            a.stride(1),
+            b.stride(0),
+            b.stride(1),
+            SPLIT_K=split_k,
+            BLOCK_M=block_mn,
+            BLOCK_N=block_mn,
+            BLOCK_K=32,
+            num_warps=num_warps,
+            num_stages=num_stages,
+        )
+        elements = M * N
+        mm_kernel_thead_fp32_splitk_reduce[(triton.cdiv(elements, 256),)](
+            partials,
+            c,
+            elements,
+            c.stride(0),
+            c.stride(1),
+            N,
+            split_k,
+            BLOCK=256,
+            num_warps=4,
         )
     return c
 
@@ -591,6 +732,8 @@ def mm(a, b):
     c = torch.empty((M, N), device=device, dtype=c_dtype)
     # l2_cache_size = get_l2_cache_size()
     sm_count = get_sm_count()
+    if thead_fp32_splitk_scenario(a, b, c, M, N, K):
+        return thead_fp32_splitk_mm(a, b, c, M, N, K)
     if streamk_scenario(a, b, M, N, K):
         return streamk_mm(a, b, c, M, N, K, sm_count=sm_count)
     if cluster_remote_mm_scenario(a, b, c, M, N, K):
@@ -615,6 +758,8 @@ def mm_out(a, b, *, out):
     _, N = b.shape
     # l2_cache_size = get_l2_cache_size()
     sm_count = get_sm_count()
+    if thead_fp32_splitk_scenario(a, b, out, M, N, K):
+        return thead_fp32_splitk_mm(a, b, out, M, N, K)
     if streamk_scenario(a, b, M, N, K):
         return streamk_mm(a, b, out, M, N, K, sm_count=sm_count)
     if cluster_remote_mm_scenario(a, b, out, M, N, K):

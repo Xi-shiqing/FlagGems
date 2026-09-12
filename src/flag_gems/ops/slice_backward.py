@@ -63,6 +63,10 @@ def slice_backward(
     step,
 ):
     logger.debug("GEMS SLICE_BACKWARD")
+    # The kernel indexes grad_output as a dense, linear buffer.  Autograd can
+    # supply a transposed or otherwise strided gradient (as Protenix local
+    # attention does after its final crop), so materialize that layout first.
+    grad_output = grad_output.contiguous()
     grad_input = torch.zeros(
         input_sizes,
         device=grad_output.device,

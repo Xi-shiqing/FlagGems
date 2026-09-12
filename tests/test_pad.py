@@ -90,3 +90,29 @@ def test_pad(shape, dtype, pad_mode, contiguous):
         ref_out = ref_out.to(res_out.dtype)
 
     gems_assert_equal(res_out, ref_out)
+
+
+@pytest.mark.pad
+@pytest.mark.parametrize("pad_params", [(1, 2), (-1, 2), (1, 0, 2, 1)])
+@pytest.mark.parametrize("noncontiguous_grad", [False, True])
+def test_constant_pad_autograd(pad_params, noncontiguous_grad):
+    shape = (3, 5) if len(pad_params) == 2 else (2, 3, 5)
+    ref_x = torch.randn(shape, dtype=torch.float32, device=device, requires_grad=True)
+    x = ref_x.detach().clone().requires_grad_(True)
+
+    ref_out = torch.nn.functional.pad(ref_x, pad_params, "constant", 1.25)
+    if noncontiguous_grad:
+        grad_out = torch.randn(
+            (*ref_out.shape, 2), dtype=ref_out.dtype, device=ref_out.device
+        )[..., 0]
+        assert not grad_out.is_contiguous()
+    else:
+        grad_out = torch.randn_like(ref_out)
+    ref_out.backward(grad_out)
+
+    with flag_gems.use_gems(exclude=[]):
+        out = torch.nn.functional.pad(x, pad_params, "constant", 1.25)
+        out.backward(grad_out)
+
+    gems_assert_equal(out, ref_out)
+    gems_assert_equal(x.grad, ref_x.grad)

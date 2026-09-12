@@ -63,6 +63,10 @@ CUSTOMIZED_UNUSED_OPS = (
     # PPU has strong acceleration library support (acdnn, acblas, etc.)
     # Most operators should benefit from FlagGems optimization
     # This list can be tuned based on benchmarking results
+    # ``aten::narrow`` is a zero-copy CompositeImplicitAutograd view.  A device
+    # backend override has no performance work to accelerate and replaces the
+    # native autograd decomposition with a NotImplemented grad_fn.
+    "narrow",
 )
 
 __all__ = ["*"]

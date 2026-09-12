@@ -92,3 +92,31 @@ def test_any_dim(shape, dtype, keepdim, dim, kind):
         res_out = torch.any(inp, dim=dim, keepdim=keepdim)
 
     utils.gems_assert_equal(res_out, ref_out)
+
+
+@pytest.mark.any
+@pytest.mark.parametrize("shape", [(0,), (2, 0, 3)])
+@pytest.mark.parametrize("dtype", [torch.float32, torch.bool])
+def test_any_empty(shape, dtype):
+    inp = torch.empty(shape, dtype=dtype, device=flag_gems.device)
+    ref_out = torch.any(utils.to_reference(inp))
+
+    with flag_gems.use_gems():
+        res_out = torch.any(inp)
+
+    utils.gems_assert_equal(res_out, ref_out)
+
+
+@pytest.mark.any_dims
+@pytest.mark.parametrize(
+    "dim, keepdim",
+    [(0, False), (1, False), (1, True), ([0, 1], False), ([0, 1], True)],
+)
+def test_any_dims_empty(dim, keepdim):
+    inp = torch.empty((2, 0, 3), dtype=torch.float32, device=flag_gems.device)
+    ref_out = torch.any(utils.to_reference(inp), dim=dim, keepdim=keepdim)
+
+    with flag_gems.use_gems():
+        res_out = torch.any(inp, dim=dim, keepdim=keepdim)
+
+    utils.gems_assert_equal(res_out, ref_out)

@@ -13,10 +13,12 @@
 # limitations under the License.
 
 import logging
+import os
 from typing import Optional
 
 import torch
 import triton
+import triton.language as tl
 
 from flag_gems.utils import pointwise_dynamic
 
@@ -33,6 +35,136 @@ _FLOAT8_E8M0FNU = getattr(torch, "float8_e8m0fnu", None)
 @triton.jit
 def _copy_kernel(src):
     return src
+
+
+@triton.jit
+def _copy_contiguous_flat_kernel(
+    dst_ptr, src_ptr, n_elements, BLOCK: tl.constexpr
+):
+    """Copy equal-dtype contiguous storage without pointwise stride setup.
+
+    This is deliberately guarded by an opt-in environment variable until a
+    complete Protenix A/B run confirms that the launch policy helps end to
+    end.  The kernel is only used after ``copy_`` has completed PyTorch's
+    broadcast, alias, dtype, and device checks.
+    """
+    pid = tl.program_id(0)
+    offsets = pid * BLOCK + tl.arange(0, BLOCK)
+    mask = offsets < n_elements
+    value = tl.load(src_ptr + offsets, mask=mask, other=0)
+    tl.store(dst_ptr + offsets, value, mask=mask)
+
+
+@triton.jit
+def _copy_strided_3d_kernel(
+    dst_ptr,
+    src_ptr,
+    d0,
+    d1,
+    d2,
+    ds0,
+    ds1,
+    ds2,
+    ss0,
+    ss1,
+    ss2,
+    n_elements,
+    BLOCK: tl.constexpr,
+):
+    """Copy a 3-D permuted view into dense storage with affine addressing."""
+    pid = tl.program_id(0)
+    linear = pid * BLOCK + tl.arange(0, BLOCK)
+    mask = linear < n_elements
+    i0 = linear // (d1 * d2)
+    rem = linear - i0 * (d1 * d2)
+    i1 = rem // d2
+    i2 = rem - i1 * d2
+    src_offset = i0 * ss0 + i1 * ss1 + i2 * ss2
+    dst_offset = i0 * ds0 + i1 * ds1 + i2 * ds2
+    value = tl.load(src_ptr + src_offset, mask=mask, other=0)
+    tl.store(dst_ptr + dst_offset, value, mask=mask)
+
+
+def _strided_3d_schedule(shape: torch.Size) -> tuple[int, int]:
+    """Choose the measured PPU schedule for profile-shaped 3-D copies."""
+    d0, d1, d2 = (int(value) for value in shape)
+    if d0 <= 64:
+        return 2048, 8
+    if d2 <= 192:
+        return 1024, 4
+    if d1 >= 512:
+        return 512, 4
+    return 4096, 8
+
+
+def _try_strided_3d_copy(dst: torch.Tensor, src: torch.Tensor) -> bool:
+    """Run the opt-in affine path for dense-destination 3-D views."""
+    if os.getenv("FLAG_GEMS_PPU_COPY_STRIDED", "0") != "1":
+        return False
+    if dst.ndim != 3 or dst.shape != src.shape or dst.dtype != src.dtype:
+        return False
+    if not dst.is_contiguous() or src.is_contiguous():
+        return False
+    if any(int(stride) < 0 for stride in src.stride()):
+        return False
+
+    shape = dst.shape
+    src_stride = src.stride()
+    dst_stride = dst.stride()
+    block, warps = _strided_3d_schedule(shape)
+    n_elements = int(dst.numel())
+    grid = (triton.cdiv(n_elements, block),)
+    _copy_strided_3d_kernel[grid](
+        dst,
+        src,
+        int(shape[0]),
+        int(shape[1]),
+        int(shape[2]),
+        int(dst_stride[0]),
+        int(dst_stride[1]),
+        int(dst_stride[2]),
+        int(src_stride[0]),
+        int(src_stride[1]),
+        int(src_stride[2]),
+        n_elements,
+        BLOCK=block,
+        num_warps=warps,
+        num_stages=2,
+    )
+    return True
+
+
+def _try_contiguous_flat_copy(dst: torch.Tensor, src: torch.Tensor) -> bool:
+    """Run the opt-in fast path when storage is an exact dense copy.
+
+    ``copy_`` supports broadcasting and dtype conversion, so the specialized
+    path intentionally declines both.  Keeping this policy opt-in makes the
+    candidate easy to compare and avoids changing unrelated workloads.
+    """
+    if os.getenv("FLAG_GEMS_PPU_COPY_FLAT", "0") != "1":
+        return False
+    if dst.shape != src.shape or dst.dtype != src.dtype:
+        return False
+    if not dst.is_contiguous() or not src.is_contiguous():
+        return False
+    if dst.numel() == 0:
+        return False
+
+    # The profile's large dense copies are bandwidth-bound.  4096 elements
+    # with four warps was the best measured PPU schedule for [480249, 64].
+    # Keep a smaller block for short tensors to avoid wasting lanes.
+    n_elements = int(dst.numel())
+    block = 4096 if n_elements >= 1 << 20 else 1024
+    grid = (triton.cdiv(n_elements, block),)
+    _copy_contiguous_flat_kernel[grid](
+        dst,
+        src,
+        n_elements,
+        BLOCK=block,
+        num_warps=4,
+        num_stages=2,
+    )
+    return True
 
 
 def _can_use_triton(dst: torch.Tensor, src: torch.Tensor) -> bool:
@@ -136,6 +268,12 @@ def copy_(dst: torch.Tensor, src: torch.Tensor, non_blocking: bool = False):
         )
 
     expanded_src = _expand_like(src, dst.shape)
+
+    if _try_strided_3d_copy(dst, expanded_src):
+        return dst
+
+    if _try_contiguous_flat_copy(dst, expanded_src):
+        return dst
 
     overload = _copy_kernel.instantiate(expanded_src.ndim)
     overload(expanded_src, out0=dst)

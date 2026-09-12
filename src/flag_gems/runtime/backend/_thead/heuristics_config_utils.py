@@ -115,6 +115,15 @@ def softmax_heur_tile_k(args):
     tile_k = 1
     upper_bound = min(args["K"], MAX_TILE_K)
 
+    # The Protenix MSA weighted-average path has a recurring non-inner
+    # reduction of exactly K=693.  The generic occupancy loop chooses 512,
+    # which forces two K tiles and an extra merge pass.  A single 1024-wide
+    # tile is both within the PPU register/shared-memory budget and measured
+    # faster for this exact family.  Keep the specialization exact so
+    # unrelated shapes retain the upstream policy.
+    if args["K"] == 693:
+        return 1024
+
     # Get PPU SM count (if available, otherwise use default)
     try:
         NUM_SMS = torch.cuda.get_device_properties(
@@ -148,6 +157,12 @@ def softmax_heur_one_tile_per_cta(args):
 
 def softmax_heur_num_warps_non_inner(args):
     """Select num_warps based on tile size for PPU"""
+    # The same Protenix MSA family (K=693 -> TILE_K=1024, TILE_N=8)
+    # benefits from half the warps once the reduction is held in one tile.
+    # Keep this tied to the exact large-K shape family; smaller K values
+    # retain the upstream occupancy rule.
+    if args.get("K") == 693 and args["TILE_K"] >= 1024 and args["TILE_N"] <= 8:
+        return 8
     tile_size = args["TILE_N"] * args["TILE_K"]
     if tile_size < 2048:
         return 4
@@ -155,6 +170,23 @@ def softmax_heur_num_warps_non_inner(args):
         return 8
     else:
         return 16
+
+
+def softmax_heur_tile_n_bwd_non_inner(args):
+    """Choose the row tile for the backward non-inner reduction."""
+    # The backward kernel otherwise inherits NVIDIA's TILE_N=1 choice when
+    # TILE_K=1024.  The Protenix MSA shape has enough rows to amortize the
+    # same 8-row vector used by the forward kernel.
+    if args.get("K") == 693 and args["TILE_K"] >= 1024:
+        return 8
+    return max(1, 1024 // args["TILE_K"])
+
+
+def softmax_heur_num_warps_bwd_non_inner(args):
+    """Use a modest warp count for the large-K backward family."""
+    if args.get("K") == 693 and args["TILE_K"] >= 1024 and args["TILE_N"] <= 8:
+        return 8
+    return 4
 
 
 def softmax_heur_tile_n_inner(args):
@@ -309,6 +341,11 @@ HEURISTICS_CONFIGS = {
         "TILE_N": softmax_heur_tile_n_non_inner,
         "ONE_TILE_PER_CTA": softmax_heur_one_tile_per_cta,
         "num_warps": softmax_heur_num_warps_non_inner,
+    },
+    "softmax_backward_non_inner": {
+        "TILE_N": softmax_heur_tile_n_bwd_non_inner,
+        "ONE_TILE_PER_CTA": softmax_heur_one_tile_per_cta,
+        "num_warps": softmax_heur_num_warps_bwd_non_inner,
     },
     "softmax_inner": {
         "TILE_N": softmax_heur_tile_n_inner,

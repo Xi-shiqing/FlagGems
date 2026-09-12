@@ -972,8 +972,16 @@ class LibTuner(triton.runtime.Autotuner):
         exhaustive_collection = run_mode is LibTunerRunMode.EXHAUSTIVE_COLLECTION
         if hasattr(self, "seen_tuned_metas"):
             self.seen_tuned_metas = {}  # flagtree aabs: deduplicate tuned meta
-        self._last_benchmark_args = tuple(args)
-        self._last_benchmark_meta = dict(kwargs)
+        # Retaining the latest tensor arguments on every tuner keeps complete
+        # operator inputs alive after the kernel returns.  In model training,
+        # many tuners coexist and this otherwise grows persistent device memory
+        # across steps.  Offline fixed-config benchmarking can opt in when it
+        # needs to reuse the most recent launch context.
+        retain_benchmark_context = (
+            os.getenv("FLAGGEMS_RETAIN_BENCHMARK_CONTEXT", "0") == "1"
+        )
+        self._last_benchmark_args = tuple(args) if retain_benchmark_context else None
+        self._last_benchmark_meta = dict(kwargs) if retain_benchmark_context else None
         # `arg_names` corresponds to the arguments of the `JITFunction`'s signature,
         # so please make sure the orders of `arg_names` and `args` match.
         self.nargs = dict(zip(self.arg_names, args))

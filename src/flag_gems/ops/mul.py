@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import logging
+import os
 from numbers import Number
 
 import torch
@@ -50,6 +51,139 @@ def mul_broadcast_get_configs():
         triton.Config({"BLOCK_SIZE": 512}, num_warps=4, num_stages=3),
         triton.Config({"BLOCK_SIZE": 1024}, num_warps=4, num_stages=3),
     ]
+
+
+@triton.jit
+def _mul_ppu_flat_kernel(
+    a_ptr, b_ptr, out_ptr, n_elements, BLOCK_SIZE: tl.constexpr
+):
+    """Flat contiguous FP32 multiply for the PPU's large tensor family."""
+    pid = tl.program_id(0).to(tl.int64)
+    offsets = (pid * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE)).to(tl.int64)
+    mask = offsets < n_elements
+    a = tl.load(a_ptr + offsets, mask=mask, other=0.0)
+    b = tl.load(b_ptr + offsets, mask=mask, other=0.0)
+    tl.store(out_ptr + offsets, a * b, mask=mask)
+
+
+@triton.jit
+def _mul_ppu_lastdim_broadcast_kernel(
+    a_ptr, b_ptr, out_ptr, n_elements, last_dim, BLOCK_SIZE: tl.constexpr
+):
+    """Flat FP32 multiply for ``A[d0,d1,d2] * B[d0,d1,1]``.
+
+    This is the other large multiply family in the Protenix trace.  The
+    generic N-D path performs a div/mod decomposition and stride accumulation
+    for every operand.  The broadcasted value is simply selected by
+    ``linear // d2``; keeping that one address transform in int64 preserves
+    the PPU large-index behaviour while avoiding the generic metadata loop.
+    """
+    pid = tl.program_id(0).to(tl.int64)
+    offsets = (pid * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE)).to(tl.int64)
+    mask = offsets < n_elements
+    a = tl.load(a_ptr + offsets, mask=mask, other=0.0)
+    b = tl.load(b_ptr + offsets // last_dim, mask=mask, other=0.0)
+    tl.store(out_ptr + offsets, a * b, mask=mask)
+
+
+def _try_ppu_flat_mul(a_t, b_t, output):
+    """Use the measured flat schedule for large dense PPU FP32 multiplies.
+
+    The generic dynamic-ND path performs integer div/mod address decoding for
+    every element.  Protenix repeatedly multiplies dense equal-shaped
+    [256,693,256], [693,256,256] and [693,693,256] tensors; these have no
+    broadcast metadata to decode, so a flat 64-bit index removes that work.
+    The guard deliberately excludes views, broadcasts, dtype promotion and
+    small tensors.  ``=0`` is an explicit rollback switch for A/B tests.
+    """
+    if (
+        os.getenv(
+            "FLAG_GEMS_PPU_MUL_FAST",
+            "1" if runtime_device.vendor_name == "thead" else "0",
+        )
+        != "1"
+        or runtime_device.vendor_name != "thead"
+        or a_t.dtype != torch.float32
+        or b_t.dtype != torch.float32
+        or output.dtype != torch.float32
+        or a_t.shape != b_t.shape
+        or a_t.shape != output.shape
+        or not a_t.is_contiguous()
+        or not b_t.is_contiguous()
+        or not output.is_contiguous()
+        or a_t.numel() < (1 << 20)
+    ):
+        return False
+    # Keep training on the established pointwise implementation until the
+    # dispatch/autograd A/B is recorded; inference is the validated path.
+    if torch.is_grad_enabled() and (
+        a_t.requires_grad or b_t.requires_grad or output.requires_grad
+    ):
+        return False
+    n_elements = int(output.numel())
+    # The 480249x1024 projection family (492M elements) is launch-bound on
+    # PPU.  The exact-shape sweep and a same-input Protenix A/B both selected
+    # the wider 32768-element/16-warp launch.  Keep the change limited to
+    # genuinely large tensors; smaller vectors retain the lower-register
+    # schedule.
+    default_block = 32768 if n_elements >= (1 << 24) else 2048
+    default_warps = 16 if n_elements >= (1 << 24) else 4
+    # Opt-in launch overrides are used only by isolated shape sweeps.  The
+    # default remains the previously measured production schedule.
+    block = int(os.getenv("FLAG_GEMS_PPU_MUL_FLAT_BLOCK", str(default_block)))
+    warps = int(os.getenv("FLAG_GEMS_PPU_MUL_FLAT_WARPS", str(default_warps)))
+    with torch_device_fn.device(output.device):
+        _mul_ppu_flat_kernel[(triton.cdiv(n_elements, block),)](
+            a_t,
+            b_t,
+            output,
+            n_elements,
+            BLOCK_SIZE=block,
+            num_warps=warps,
+            num_stages=2,
+        )
+    return True
+
+
+def _try_ppu_lastdim_broadcast_mul(a_t, b_t, output):
+    """Use the measured PPU path for a dense last-dimension broadcast."""
+    if (
+        os.getenv(
+            "FLAG_GEMS_PPU_MUL_FAST",
+            "1" if runtime_device.vendor_name == "thead" else "0",
+        )
+        != "1"
+        or runtime_device.vendor_name != "thead"
+        or a_t.dtype != torch.float32
+        or b_t.dtype != torch.float32
+        or output.dtype != torch.float32
+        or a_t.ndim != 3
+        or b_t.shape != (a_t.shape[0], a_t.shape[1], 1)
+        or output.shape != a_t.shape
+        or not a_t.is_contiguous()
+        or not b_t.is_contiguous()
+        or not output.is_contiguous()
+        or a_t.numel() < (1 << 20)
+        or (torch.is_grad_enabled() and (a_t.requires_grad or b_t.requires_grad))
+    ):
+        return False
+    n_elements = int(output.numel())
+    default_block = 32768 if n_elements >= (1 << 24) else 2048
+    default_warps = 16 if n_elements >= (1 << 24) else 4
+    block = int(os.getenv("FLAG_GEMS_PPU_MUL_FLAT_BLOCK", str(default_block)))
+    warps = int(os.getenv("FLAG_GEMS_PPU_MUL_FLAT_WARPS", str(default_warps)))
+    with torch_device_fn.device(output.device):
+        _mul_ppu_lastdim_broadcast_kernel[(triton.cdiv(n_elements, block),)](
+            a_t,
+            b_t,
+            output,
+            n_elements,
+            int(a_t.shape[-1]),
+            BLOCK_SIZE=block,
+            num_warps=warps,
+            num_stages=2,
+        )
+    return True
 
 
 @libentry()
@@ -389,26 +523,12 @@ def _is_bool_dtype(dtype):
     return dtype is torch.bool
 
 
-def _triton_version_lt(major, minor):
-    version = triton.__version__.split("+", 1)[0]
-    parts = version.split(".")
-    try:
-        current = (int(parts[0]), int(parts[1]))
-    except (IndexError, ValueError):
-        return False
-    return current < (major, minor)
-
-
 def _needs_runtime_meta_for_constexpr_tuple():
-    if _triton_version_lt(3, 3):
-        return True
-    try:
-        import triton.language.core as tl_core
-
-        frontend_tuple = getattr(tl_core, "tuple", None)
-        return frontend_tuple is None or not hasattr(frontend_tuple, "__getitem__")
-    except Exception:
-        return False
+    # Tuple indexing support cannot be inferred reliably from the exposed
+    # frontend class: NVIDIA Triton 3.3 advertises ``__getitem__`` but still
+    # lowers a constexpr tuple argument as a non-subscriptable constexpr.
+    # Runtime metadata works on both NVIDIA Triton and the PPU compiler.
+    return True
 
 
 def _broadcast_shape(a_t, b_t):
@@ -615,7 +735,11 @@ def mul_broadcast_func(a, b, out=None):
     b_t = _as_tensor(b, device=device, dtype=dtype)
     output = _real_output(a_t, b_t, out=out)
 
+    if _try_ppu_lastdim_broadcast_mul(a_t, b_t, output):
+        return output
     if _can_use_contiguous_tensor_tensor(a_t, b_t, output):
+        if _try_ppu_flat_mul(a_t, b_t, output):
+            return output
         return _launch_contiguous_tensor_tensor(a_t, b_t, output, dtype)
 
     out_shape = tuple(output.shape)

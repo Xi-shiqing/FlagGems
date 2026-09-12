@@ -119,6 +119,36 @@ def test_true_divide_scalar_tensor(shape, scalar, dtype):
     utils.gems_assert_close(res_out, ref_out, dtype, equal_nan=True)
 
 
+@pytest.mark.parametrize("tensor_divisor", [False, True])
+def test_true_divide_inplace_autograd(tensor_divisor):
+    source_ref = torch.randn(
+        (4, 3), dtype=torch.float32, device=flag_gems.device, requires_grad=True
+    )
+    source = source_ref.detach().clone().requires_grad_(True)
+    if tensor_divisor:
+        divisor_ref = (
+            torch.rand((1, 3), dtype=torch.float32, device=flag_gems.device) + 0.5
+        ).requires_grad_(True)
+        divisor = divisor_ref.detach().clone().requires_grad_(True)
+    else:
+        divisor_ref = divisor = 2.5
+
+    ref_out = source_ref.clone()
+    ref_out.true_divide_(divisor_ref)
+    grad_out = torch.randn_like(ref_out)
+    ref_out.backward(grad_out)
+
+    with flag_gems.use_gems(exclude=[]):
+        out = source.clone()
+        out.true_divide_(divisor)
+        out.backward(grad_out)
+
+    utils.gems_assert_close(out, ref_out, torch.float32)
+    utils.gems_assert_close(source.grad, source_ref.grad, torch.float32)
+    if tensor_divisor:
+        utils.gems_assert_close(divisor.grad, divisor_ref.grad, torch.float32)
+
+
 @pytest.mark.true_divide
 @pytest.mark.parametrize("shape", utils.POINTWISE_SHAPES)
 @pytest.mark.parametrize("dtype", utils.FLOAT_DTYPES)

@@ -207,7 +207,7 @@ def _flash_attn_bwd_dq_fused(
             other=0.0,
         )
 
-        s = tl.dot(q, tl.trans(k)) * sm_scale
+        s = tl.dot(q, tl.trans(k), input_precision="ieee") * sm_scale
 
         if HAS_BIAS:
             bb = batch_idx * stride_bb + head_q_idx * stride_bh
@@ -232,7 +232,7 @@ def _flash_attn_bwd_dq_fused(
 
         s = tl.where(mask_s, s.to(tl.float32), float("-inf"))
         p = tl.exp(s - Li[:, None])
-        dp = tl.dot(do, tl.trans(v)).to(tl.float32)
+        dp = tl.dot(do, tl.trans(v), input_precision="ieee").to(tl.float32)
 
         if IS_DROPOUT:
             rng_off = (
@@ -248,7 +248,7 @@ def _flash_attn_bwd_dq_fused(
             p = tl.where(drop_mask, p * drop_scale, 0.0)
 
         ds = p * (dp - Di[:, None]) * sm_scale
-        dq = dq + tl.dot(ds.to(q.dtype), k)
+        dq = dq + tl.dot(ds.to(q.dtype), k, input_precision="ieee")
 
         if DO_BIAS_GRAD:
             ds_bias = p * (dp - Di[:, None])
@@ -440,7 +440,7 @@ def _flash_attn_bwd_dkv(
         Li = tl.load(L + ld_base + offs_m_c, mask=mask_m, other=0.0)
         Di = tl.load(D + ld_base + offs_m_c, mask=mask_m, other=0.0)
 
-        s = tl.dot(q, tl.trans(k)) * sm_scale
+        s = tl.dot(q, tl.trans(k), input_precision="ieee") * sm_scale
 
         if HAS_BIAS:
             bb = batch_idx * stride_bb + head_q_idx * stride_bh
@@ -466,7 +466,7 @@ def _flash_attn_bwd_dkv(
 
         s = tl.where(mask_s, s.to(tl.float32), float("-inf"))
         p = tl.exp(s - Li[:, None])
-        dp = tl.dot(do, tl.trans(v)).to(tl.float32)
+        dp = tl.dot(do, tl.trans(v), input_precision="ieee").to(tl.float32)
 
         if IS_DROPOUT:
             rng_off = (
@@ -482,8 +482,12 @@ def _flash_attn_bwd_dkv(
             p = tl.where(drop_mask, p * drop_scale, 0.0)
 
         ds = p * (dp - Di[:, None]) * sm_scale
-        dk = dk + tl.dot(tl.trans(ds.to(q.dtype)), q)
-        dv = dv + tl.dot(tl.trans(p.to(q.dtype)), do)
+        dk = dk + tl.dot(
+            tl.trans(ds.to(q.dtype)), q, input_precision="ieee"
+        )
+        dv = dv + tl.dot(
+            tl.trans(p.to(q.dtype)), do, input_precision="ieee"
+        )
 
     tl.store(
         dK + k_base + offs_n[:, None] * stride_km + offs_d[None, :] * stride_kd,
@@ -644,7 +648,7 @@ def _flash_attn_bwd_varlen_dq_fused(
             other=0.0,
         )
 
-        s = tl.dot(q, tl.trans(k)) * sm_scale
+        s = tl.dot(q, tl.trans(k), input_precision="ieee") * sm_scale
 
         if HAS_BIAS:
             bias_block = tl.load(
@@ -668,7 +672,7 @@ def _flash_attn_bwd_varlen_dq_fused(
 
         s = tl.where(mask_s, s.to(tl.float32), float("-inf"))
         p = tl.exp(s - Li[:, None])
-        dp = tl.dot(do, tl.trans(v)).to(tl.float32)
+        dp = tl.dot(do, tl.trans(v), input_precision="ieee").to(tl.float32)
 
         if IS_DROPOUT:
             rng_off = (
@@ -684,7 +688,7 @@ def _flash_attn_bwd_varlen_dq_fused(
             p = tl.where(drop_mask, p * drop_scale, 0.0)
 
         ds = p * (dp - Di[:, None]) * sm_scale
-        dq = dq + tl.dot(ds.to(q.dtype), k)
+        dq = dq + tl.dot(ds.to(q.dtype), k, input_precision="ieee")
 
         if DO_BIAS_GRAD:
             ds_bias = p * (dp - Di[:, None])
@@ -902,7 +906,7 @@ def _flash_attn_bwd_varlen_dkv(
         Di = tl.load(D + m_phys * H_q + head_q_idx, mask=mask_m, other=0.0)
         Li = tl.load(L + m_phys * H_q + head_q_idx, mask=mask_m, other=0.0)
 
-        s = tl.dot(q, tl.trans(k)) * sm_scale
+        s = tl.dot(q, tl.trans(k), input_precision="ieee") * sm_scale
 
         if HAS_BIAS:
             bias_block = tl.load(
@@ -927,7 +931,7 @@ def _flash_attn_bwd_varlen_dkv(
 
         s = tl.where(mask_s, s.to(tl.float32), float("-inf"))
         p = tl.exp(s - Li[:, None])
-        dp = tl.dot(do, tl.trans(v)).to(tl.float32)
+        dp = tl.dot(do, tl.trans(v), input_precision="ieee").to(tl.float32)
 
         if IS_DROPOUT:
             rng_off = (
@@ -943,8 +947,12 @@ def _flash_attn_bwd_varlen_dkv(
             p = tl.where(drop_mask, p * drop_scale, 0.0)
 
         ds = p * (dp - Di[:, None]) * sm_scale
-        dk = dk + tl.dot(tl.trans(ds.to(q.dtype)), q)
-        dv = dv + tl.dot(tl.trans(p.to(q.dtype)), do)
+        dk = dk + tl.dot(
+            tl.trans(ds.to(q.dtype)), q, input_precision="ieee"
+        )
+        dv = dv + tl.dot(
+            tl.trans(p.to(q.dtype)), do, input_precision="ieee"
+        )
 
     tl.store(
         dK

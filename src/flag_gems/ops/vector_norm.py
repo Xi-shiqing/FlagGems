@@ -18,6 +18,7 @@ import math
 import torch
 import triton
 import triton.language as tl
+import triton.language.extra.libdevice as libdevice
 
 from flag_gems import runtime
 from flag_gems.runtime import torch_device_fn
@@ -52,7 +53,9 @@ def l2_norm_kernel(X, Out, M, N, BLOCK_M: tl.constexpr, BLOCK_N: tl.constexpr):
         _sum += a * a
     sum = tl.sum(_sum, axis=1)
 
-    out = tl.sqrt(sum)[:, None]
+    # Match native FP32 round-to-nearest sqrt on PPU.  Triton's generic sqrt
+    # is a fast approximation and can differ by one ulp from the H100 path.
+    out = libdevice.sqrt_rn(sum)[:, None]
     tl.store(Out, out, row_mask)
 
 
@@ -87,7 +90,7 @@ def l2_norm_kernel_2(Mid, Out, MID_SIZE, BLOCK_MID: tl.constexpr):
     else:
         acc_dtype = tl.float32
     mid = tl.load(Mid, mask=mask, other=0.0).to(acc_dtype)
-    out = tl.sqrt(tl.sum(mid))
+    out = libdevice.sqrt_rn(tl.sum(mid))
     tl.store(Out, out)
 
 

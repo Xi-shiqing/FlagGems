@@ -17,6 +17,7 @@ import logging
 import torch
 import triton
 import triton.language as tl
+import triton.language.extra.libdevice as libdevice
 
 from flag_gems import runtime
 from flag_gems.runtime import torch_device_fn
@@ -51,8 +52,8 @@ def log_softmax_kernel_non_inner(
             tl.float32
         )
         m = tl.max(inp, 0)
-        z = tl.sum(tl.exp(inp - m[None, :]), 0)
-        out = inp - m[None, :] - tl.log(z)[None, :]
+        z = tl.sum(libdevice.exp(inp - m[None, :]), 0)
+        out = inp - m[None, :] - libdevice.log(z)[None, :]
         tl.store(output_ptr + offsets, out, mask=mask)
     else:
         m = tl.full([TILE_N, TILE_K], value=float("-inf"), dtype=tl.float32)
@@ -67,13 +68,17 @@ def log_softmax_kernel_non_inner(
             )
             m_new = tl.maximum(inp, m)
             all_neg_inf = m_new == float("-inf")
-            z = tl.where(all_neg_inf, z, z * tl.exp(m - m_new) + tl.exp(inp - m_new))
+            z = tl.where(
+                all_neg_inf,
+                z,
+                z * libdevice.exp(m - m_new) + libdevice.exp(inp - m_new),
+            )
             m = m_new
 
         m_reduced = tl.max(m, 0)
-        z = tl.sum(z * tl.exp(m - m_reduced[None, :]), 0)
+        z = tl.sum(z * libdevice.exp(m - m_reduced[None, :]), 0)
         m = m_reduced
-        log_z = tl.log(z)
+        log_z = libdevice.log(z)
 
         for start_n in range(0, N, TILE_N):
             n_offsets = start_n + tl.arange(0, TILE_N)
@@ -107,26 +112,70 @@ def log_softmax_kernel(
     for start_n in range(0, N, BLOCK_N):
         n_offset = start_n + tl.arange(0, BLOCK_N)
         offset = m_offset[:, None] * N * K + n_offset[None, :] * K + pid_k
-        mask = m_offset[:, None] < M and n_offset[None, :] < N
+        mask = (m_offset[:, None] < M) & (n_offset[None, :] < N)
         input_ptrs = input_ptr + offset
         inp = tl.load(input_ptrs, mask=mask, other=-float("inf")).to(tl.float32)
         m_new = tl.maximum(inp, m)
         all_neg_inf = m_new == float("-inf")
-        z = tl.where(all_neg_inf, z, z * tl.exp(m - m_new) + tl.exp(inp - m_new))
+        z = tl.where(
+            all_neg_inf,
+            z,
+            z * libdevice.exp(m - m_new) + libdevice.exp(inp - m_new),
+        )
         m = m_new
 
     m_reduced = tl.max(m, 1)
-    z = tl.sum(z * tl.exp(m - m_reduced[:, None]), 1)
+    z = tl.sum(z * libdevice.exp(m - m_reduced[:, None]), 1)
     m = m_reduced
 
     for start_n in range(0, N, BLOCK_N):
         n_offset = start_n + tl.arange(0, BLOCK_N)
         offset = m_offset[:, None] * N * K + n_offset[None, :] * K + pid_k
-        mask = m_offset[:, None] < M and n_offset[None, :] < N
+        mask = (m_offset[:, None] < M) & (n_offset[None, :] < N)
         input_ptrs = input_ptr + offset
         inp = tl.load(input_ptrs, mask=mask, other=-float("inf")).to(tl.float32)
-        o = inp - m[:, None] - tl.log(z[:, None])
+        o = inp - m[:, None] - libdevice.log(z[:, None])
         tl.store(output_ptr + offset, o, mask=mask)
+
+
+@libentry()
+@triton.jit
+def log_softmax_backward_kernel_small(
+    out_ptr,
+    out_grad_ptr,
+    in_grad_ptr,
+    M,
+    N,
+    K,
+    BLOCK_M: tl.constexpr,
+    BLOCK_N: tl.constexpr,
+):
+    pid_m = ext.program_id(0)
+    pid_k = ext.program_id(1)
+    m_offset = pid_m * BLOCK_M + tl.arange(0, BLOCK_M)
+
+    scale = tl.zeros((BLOCK_M, BLOCK_N), dtype=tl.float32)
+    for start_n in range(0, N, BLOCK_N):
+        n_offset = start_n + tl.arange(0, BLOCK_N)
+        offsets = m_offset[:, None] * N * K + n_offset[None, :] * K + pid_k
+        mask = (m_offset[:, None] < M) & (n_offset[None, :] < N)
+        out_grad_ptrs = out_grad_ptr + offsets
+        out_grad = tl.load(out_grad_ptrs, mask=mask, other=0.0).to(tl.float32)
+        scale += out_grad
+    scale = tl.sum(scale, 1)
+
+    for start_n in range(0, N, BLOCK_N):
+        n_offset = start_n + tl.arange(0, BLOCK_N)
+        offsets = m_offset[:, None] * N * K + n_offset[None, :] * K + pid_k
+        mask = (m_offset[:, None] < M) & (n_offset[None, :] < N)
+        out_ptrs = out_ptr + offsets
+        out = tl.load(out_ptrs, mask=mask, other=0.0).to(tl.float32)
+        out_grad_ptrs = out_grad_ptr + offsets
+        out_grad = tl.load(out_grad_ptrs, mask=mask, other=0.0).to(tl.float32)
+        probability = libdevice.exp(out)
+        in_grad = out_grad - probability * scale[:, None]
+        in_grad_ptrs = in_grad_ptr + offsets
+        tl.store(in_grad_ptrs, in_grad, mask=mask)
 
 
 @libentry()
@@ -150,21 +199,21 @@ def log_softmax_backward_kernel(
     for start_n in range(0, N, BLOCK_N):
         n_offset = start_n + tl.arange(0, BLOCK_N)
         offsets = m_offset[:, None] * N * K + n_offset[None, :] * K + pid_k
-        mask = m_offset[:, None] < M and n_offset[None, :] < N
+        mask = (m_offset[:, None] < M) & (n_offset[None, :] < N)
         out_grad_ptrs = out_grad_ptr + offsets
-        out_grad = tl.load(out_grad_ptrs, mask=mask).to(tl.float32)
+        out_grad = tl.load(out_grad_ptrs, mask=mask, other=0.0).to(tl.float32)
         scale += out_grad
     scale = tl.sum(scale, 1)
 
     for start_n in range(0, N, BLOCK_N):
         n_offset = start_n + tl.arange(0, BLOCK_N)
         offsets = m_offset[:, None] * N * K + n_offset[None, :] * K + pid_k
-        mask = m_offset[:, None] < M and n_offset[None, :] < N
+        mask = (m_offset[:, None] < M) & (n_offset[None, :] < N)
         out_ptrs = out_ptr + offsets
-        out = tl.load(out_ptrs, mask=mask).to(tl.float32)
+        out = tl.load(out_ptrs, mask=mask, other=0.0).to(tl.float32)
         out_grad_ptrs = out_grad_ptr + offsets
-        out_grad = tl.load(out_grad_ptrs, mask=mask).to(tl.float32)
-        in_grad = out_grad - tl.exp(out) * scale[:, None]
+        out_grad = tl.load(out_grad_ptrs, mask=mask, other=0.0).to(tl.float32)
+        in_grad = out_grad - libdevice.exp(out) * scale[:, None]
         in_grad_ptrs = in_grad_ptr + offsets
         tl.store(in_grad_ptrs, in_grad, mask=mask)
 
@@ -206,12 +255,18 @@ def log_softmax_out(self, dim, half_to_float=False, *, out):
                 triton.cdiv(M, meta["BLOCK_M"]),
                 K,
             )
+            # Avoid padding a short reduction to the fixed 256-lane tile.  The
+            # padded lanes add a different FP32 reduction tree on PPU and do
+            # unnecessary work; matching the actual power-of-two width also
+            # follows the native log-softmax reduction for small N.
+            block_n = min(triton.next_power_of_2(N), 256)
             log_softmax_kernel[grid](
                 out,
                 inp,
                 M,
                 N,
                 K,
+                BLOCK_N=block_n,
                 num_warps=8,
             )
     return out
@@ -245,19 +300,34 @@ def log_softmax_backward_out(grad_output, output, dim, input_dtype, *, out):
         )
     K = output.numel() // M // N
 
-    grid = lambda meta: (
-        triton.cdiv(M, meta["BLOCK_M"]),
-        K,
-    )
     with torch_device_fn.device(out.device):
-        log_softmax_backward_kernel[grid](
-            output,
-            grad_output,
-            out,
-            M,
-            N,
-            K,
-        )
+        if N <= 256:
+            block_n = min(triton.next_power_of_2(N), 256)
+            grid = (triton.cdiv(M, 8), K)
+            log_softmax_backward_kernel_small[grid](
+                output,
+                grad_output,
+                out,
+                M,
+                N,
+                K,
+                BLOCK_M=8,
+                BLOCK_N=block_n,
+                num_warps=8,
+            )
+        else:
+            grid = lambda meta: (
+                triton.cdiv(M, meta["BLOCK_M"]),
+                K,
+            )
+            log_softmax_backward_kernel[grid](
+                output,
+                grad_output,
+                out,
+                M,
+                N,
+                K,
+            )
     return out
 
 

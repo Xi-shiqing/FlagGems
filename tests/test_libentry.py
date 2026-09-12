@@ -932,6 +932,7 @@ def test_benchmark_success_count_tracks_finite_uncached_benchmarks(monkeypatch):
     a GPU kernel. It also verifies that both cache-isolated modes never read or
     write the shape-to-best-config cache.
     """
+    monkeypatch.setenv("FLAGGEMS_RETAIN_BENCHMARK_CONTEXT", "1")
     configs = [
         triton.Config({"BLOCK": 8}),
         triton.Config({"BLOCK": 16}),
@@ -1136,6 +1137,12 @@ def test_benchmark_success_count_tracks_finite_uncached_benchmarks(monkeypatch):
     assert tuner._last_benchmark_args == (32,)
     assert tuner._last_benchmark_meta == {}
     assert tuner._run_mode is LibTunerRunMode.NORMAL
+
+    monkeypatch.delenv("FLAGGEMS_RETAIN_BENCHMARK_CONTEXT")
+    tuner.configs = [configs[0]]
+    LibTuner.run(tuner, 32)
+    assert tuner._last_benchmark_args is None
+    assert tuner._last_benchmark_meta is None
 
 
 def test_benchmark_key_preserves_raw_shape_and_scopes_timing_protocol(monkeypatch):

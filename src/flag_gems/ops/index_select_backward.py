@@ -55,6 +55,59 @@ def index_select_backward_kernel(
     tl.atomic_add(out_ptr + out_offs, g, mask=mask)
 
 
+@libentry()
+@triton.jit
+def _index_select_backward_sorted_deterministic_kernel(
+    out_ptr,
+    grad_ptr,
+    index_ptr,
+    feat_size,
+    index_len,
+    dim_size_out,
+    SEARCH_STEPS: tl.constexpr,
+    BLOCK: tl.constexpr,
+):
+    """Gather one sorted index segment per output in a fixed order."""
+    out_id = tl.program_id(0)
+    feat = tl.program_id(1) * BLOCK + tl.arange(0, BLOCK)
+    feat_mask = feat < feat_size
+
+    lo = 0
+    hi = index_len
+    for _ in tl.static_range(0, SEARCH_STEPS):
+        active = lo < hi
+        mid = (lo + hi) // 2
+        index_value = tl.load(index_ptr + mid, mask=active, other=0)
+        move_right = active & (index_value < out_id)
+        lo = tl.where(move_right, mid + 1, lo)
+        hi = tl.where(active & ~move_right, mid, hi)
+    first = lo
+
+    lo = first
+    hi = index_len
+    target = out_id + 1
+    for _ in tl.static_range(0, SEARCH_STEPS):
+        active = lo < hi
+        mid = (lo + hi) // 2
+        index_value = tl.load(index_ptr + mid, mask=active, other=0)
+        move_right = active & (index_value < target)
+        lo = tl.where(move_right, mid + 1, lo)
+        hi = tl.where(active & ~move_right, mid, hi)
+    last = lo
+
+    acc = tl.zeros((BLOCK,), dtype=tl.float32)
+    pos = first
+    while pos < last:
+        grad_value = tl.load(
+            grad_ptr + feat * index_len + pos,
+            mask=feat_mask,
+            other=0.0,
+        )
+        acc += grad_value.to(tl.float32)
+        pos += 1
+    tl.store(out_ptr + feat * dim_size_out + out_id, acc, mask=feat_mask)
+
+
 def index_select_backward(grad, self_sizes, dim, index):
     """
     Backward of index_select.
@@ -96,6 +149,38 @@ def index_select_backward(grad, self_sizes, dim, index):
     out_flat = out_compressed.reshape(-1, dim_size_out)
 
     feat_size = grad_flat.shape[0]
+
+    if torch.are_deterministic_algorithms_enabled() and index_len:
+        index_contiguous = index.contiguous()
+        is_sorted = bool(
+            torch.all(index_contiguous[1:] >= index_contiguous[:-1]).item()
+        )
+        if is_sorted:
+            block = 128
+            search_steps = max(1, index_len.bit_length() + 1)
+            _index_select_backward_sorted_deterministic_kernel[
+                (dim_size_out, triton.cdiv(feat_size, block))
+            ](
+                out_flat,
+                grad_flat,
+                index_contiguous,
+                feat_size,
+                index_len,
+                dim_size_out,
+                SEARCH_STEPS=search_steps,
+                BLOCK=block,
+            )
+            out_flat = out_flat.reshape(compressed_shape)
+            if dim != grad.ndim - 1:
+                ndim_compressed = out_flat.ndim
+                order = [i for i in range(ndim_compressed - 1)]
+                order.insert(dim, ndim_compressed - 1)
+                out = out_flat.permute(order).contiguous()
+            else:
+                out = out_flat
+            if orig_dtype in (torch.float16, torch.bfloat16):
+                return out.to(orig_dtype)
+            return out
 
     grid = lambda meta: (
         feat_size,

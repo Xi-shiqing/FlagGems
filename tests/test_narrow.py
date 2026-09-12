@@ -49,6 +49,22 @@ def test_narrow(shape, dtype):
 
 @pytest.mark.narrow
 @pytest.mark.parametrize("dtype", utils.FLOAT_DTYPES)
+def test_narrow_backward(dtype):
+    inp = torch.randn((4, 8, 16), dtype=dtype, device=flag_gems.device)
+    inp.requires_grad_(True)
+    grad = torch.ones((4, 4, 16), dtype=dtype, device=flag_gems.device)
+
+    with flag_gems.use_gems():
+        out = torch.narrow(inp, 1, 2, 4)
+        out.backward(grad)
+
+    expected = torch.zeros_like(inp)
+    expected[:, 2:6, :] = 1
+    utils.gems_assert_equal(inp.grad, expected)
+
+
+@pytest.mark.narrow
+@pytest.mark.parametrize("dtype", utils.FLOAT_DTYPES)
 def test_narrow_negative_start(dtype):
     # Test negative start index
     shape = (8, 16, 32)

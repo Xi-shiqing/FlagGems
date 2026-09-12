@@ -160,8 +160,8 @@ def _streaming_triangle_attention_fwd_ieee_v1(
             other=0.0,
         )
         if bias_seeded_qk:
-            # The biases seed the FP32 dot accumulator. This preserves the
-            # accumulation order used by the tuned Hopper IEEE path.
+            # The biases seed the FP32 dot accumulator when this mode is
+            # explicitly requested by the caller.
             scores = bias1.to(tl.float32) + bias2.to(tl.float32)
             scores = tl.dot(
                 q,
@@ -256,7 +256,6 @@ def _streaming_triangle_attention_bwd_dq_v1(
         v = tl.load(v_ptr + kv_offsets, mask=valid_n[:, None], other=0.0)
 
         valid_scores = valid_m[:, None] & valid_n[None, :]
-        scores = tl.dot(q, tl.trans(k), input_precision=qk_precision)
         bias1_base = (b * n_size + n) * s_size
         bias1 = tl.load(
             bias1_ptr + bias1_base + offs_n[None, :],
@@ -266,7 +265,9 @@ def _streaming_triangle_attention_bwd_dq_v1(
         bias2_base = (b * n_heads + h) * s_size * s_size
         bias2_offsets = bias2_base + offs_m[:, None] * s_size + offs_n[None, :]
         bias2 = tl.load(bias2_ptr + bias2_offsets, mask=valid_scores, other=0.0)
-        scores = (scores + bias1 + bias2) * 1.4426950408889634
+        scores = bias1.to(tl.float32) + bias2.to(tl.float32)
+        scores = tl.dot(q, tl.trans(k), scores, input_precision=qk_precision)
+        scores = scores * 1.4426950408889634
         p = tl.exp2(scores - lse[:, None])
         p = tl.where(valid_scores, p, 0.0)
         dp = tl.dot(do, tl.trans(v), input_precision=pv_precision)
@@ -343,7 +344,6 @@ def _streaming_triangle_attention_bwd_dkdv_v1(
         delta = tl.load(delta_ptr + row_offsets, mask=valid_m, other=0.0)
 
         valid_scores = valid_m[:, None] & valid_n[None, :]
-        scores = tl.dot(q, tl.trans(k), input_precision=qk_precision)
         bias1_base = (b * n_size + n) * s_size
         bias1 = tl.load(
             bias1_ptr + bias1_base + offs_n[None, :],
@@ -353,7 +353,9 @@ def _streaming_triangle_attention_bwd_dkdv_v1(
         bias2_base = (b * n_heads + h) * s_size * s_size
         bias2_offsets = bias2_base + offs_m[:, None] * s_size + offs_n[None, :]
         bias2 = tl.load(bias2_ptr + bias2_offsets, mask=valid_scores, other=0.0)
-        scores = (scores + bias1 + bias2) * 1.4426950408889634
+        scores = bias1.to(tl.float32) + bias2.to(tl.float32)
+        scores = tl.dot(q, tl.trans(k), scores, input_precision=qk_precision)
+        scores = scores * 1.4426950408889634
         p = tl.exp2(scores - lse[:, None])
         p = tl.where(valid_scores, p, 0.0)
         dp = tl.dot(do, tl.trans(v), input_precision=pv_precision)
@@ -485,8 +487,9 @@ def _streaming_triangle_attention_bwd_dv_v1(
         bias2_base = (b * n_heads + h) * s_size * s_size
         bias2_offsets = bias2_base + offs_m[:, None] * s_size + offs_n[None, :]
         bias2 = tl.load(bias2_ptr + bias2_offsets, mask=valid_scores, other=0.0)
-        scores = tl.dot(q, tl.trans(k), input_precision=qk_precision)
-        scores = (scores + bias1 + bias2) * 1.4426950408889634
+        scores = bias1.to(tl.float32) + bias2.to(tl.float32)
+        scores = tl.dot(q, tl.trans(k), scores, input_precision=qk_precision)
+        scores = scores * 1.4426950408889634
         p = tl.exp2(scores - lse[:, None])
         p = tl.where(valid_scores, p, 0.0)
         dv = tl.dot(
@@ -560,8 +563,9 @@ def _streaming_triangle_attention_bwd_dbias2_v1(
             mask=valid_n[None, :],
             other=-1.0e9,
         )
-        scores = tl.dot(q, tl.trans(k), input_precision=qk_precision)
-        scores = (scores + bias1 + bias2) * 1.4426950408889634
+        scores = bias1.to(tl.float32) + bias2.to(tl.float32)
+        scores = tl.dot(q, tl.trans(k), scores, input_precision=qk_precision)
+        scores = scores * 1.4426950408889634
         p = tl.exp2(scores - lse[:, None])
         p = tl.where(valid_scores, p, 0.0)
         dp = tl.dot(do, tl.trans(v), input_precision=pv_precision)
@@ -716,78 +720,27 @@ def _streaming_triangle_attention_forward_impl(
         if save_lse
         else None
     )
-    # Start from the conservative cross-device configuration and apply only
-    # device/shape configurations measured by the release benchmark.
+    # Select a shape/precision schedule only.  The implementation must not
+    # change semantics or tile choices by matching a vendor/device name:
+    # the same inputs receive the same schedule on every CUDA-compatible
+    # FlagOS backend.  The thresholds describe the tensor program, not a
+    # particular accelerator.
     block_m, block_n, num_warps, num_stages = 32, 32, 1, 1
     tf32_mode = _validate_precision(q, precision)
-    device_name = torch.cuda.get_device_name(q.device)
-    h100_device = "NVIDIA H100" in device_name and d == 32 and s >= 128
-    strict_cross_device = (
-        os.getenv("FLAG_GEMS_TRIANGLE_ATTENTION_STRICT_CROSS_DEVICE", "0")
-        == "1"
-    )
-    strict_forward_schedule = strict_cross_device or (
-        os.getenv("FLAG_GEMS_TRIANGLE_ATTENTION_STRICT_FORWARD_SCHEDULE", "0")
-        == "1"
-    )
-    ppu_g03_fast_schedule = (
-        os.getenv("FLAG_GEMS_TRIANGLE_ATTENTION_G03_FAST_SCHEDULE", "0") == "1"
-        and "PPU-ZW810E" in device_name
-        and (b, n, s, h, d)
-        in {
-            (1, 512, 1218, 4, 32),
-            (1, 194, 1218, 4, 32),
-        }
-    )
-    h100_schedule = h100_device or (
-        strict_forward_schedule
-        and "PPU-ZW810E" in device_name
-        and d == 32
-        and s >= 128
-    )
-    bias_seeded_qk = h100_schedule
-    ppu_full_fast = (
-        "PPU-ZW810E" in device_name
-        and d == 32
-        and s >= 128
-        and tf32_mode == "full"
-    )
-    # The public FlagGems path uses IEEE arithmetic on PPU.  For the
-    # canonical Protenix geometry, the repeated PPU sweep selected the same
-    # 64x32 tile with two warps and one pipeline stage for h=2/4/8.  Keep this
-    # as a shape-specific PPU schedule so generic inputs retain the
-    # conservative path and the arithmetic/accumulation mode is unchanged.
-    ppu_canonical_schedule = (
-        "PPU-ZW810E" in device_name
-        and tf32_mode == "none"
-        and (b, n, s, d) == (1, 693, 693, 32)
-        and h in {2, 4, 8}
-        and os.getenv("FLAG_GEMS_PPU_CANONICAL_SCHEDULE", "1") == "1"
-    )
-    if h100_schedule and tf32_mode == "pv":
+    # The larger reduction geometry benefits from a wider query tile on all
+    # backends.  Precision modes alter only the dot-product precision, not
+    # the device-specific schedule.
+    if tf32_mode == "pv":
         block_m, block_n, num_warps, num_stages = 128, 32, 4, 1
-    elif h100_schedule and tf32_mode != "none":
+    elif tf32_mode != "none":
         block_m, block_n, num_warps, num_stages = 64, 32, 4, 1
-    elif h100_schedule:
-        if ppu_g03_fast_schedule:
-            block_m, block_n, num_warps, num_stages = 64, 16, 1, 1
-        elif h == 2 and (b, n, s, d) == (1, 693, 693, 32):
-            # Repeated PPU-ZW810E measurements on the canonical Protenix
-            # shape favor one-stage pipelining; arithmetic and tile shape are
-            # unchanged, so this only removes an unnecessary staging slot.
-            block_m, block_n, num_warps, num_stages = 64, 32, 2, 1
-        elif h == 2:
-            block_m, block_n, num_warps, num_stages = 64, 32, 4, 2
-        elif h == 4 and (b, n, s, d) == (1, 693, 693, 32):
-            block_m, block_n, num_warps, num_stages = 64, 32, 2, 1
-        elif h == 8 and (b, n, s, d) == (1, 693, 693, 32):
-            block_m, block_n, num_warps, num_stages = 64, 32, 2, 1
-        else:
-            block_m, block_n, num_warps, num_stages = 32, 64, 2, 2
-    elif ppu_full_fast:
-        block_m, block_n, num_warps, num_stages = 64, 64, 4, 1
-    elif ppu_canonical_schedule:
+    elif d == 32 and s >= 128:
+        # Shape-only specialization: no vendor/device check.
         block_m, block_n, num_warps, num_stages = 64, 32, 2, 1
+    # Match the reference decomposition on every backend: the FP32 dot
+    # accumulator is seeded with the additive biases before QK is accumulated.
+    # This is an algorithmic ordering choice, not a vendor/device heuristic.
+    bias_seeded_qk = True
     _streaming_triangle_attention_fwd_ieee_v1[
         (triton.cdiv(s, block_m), h, b * n)
     ](
@@ -880,18 +833,8 @@ def _triangle_attention_backward(
     delta = torch.empty_like(lse)
     use_large_s_fp32_d32 = q.dtype == torch.float32 and d == 32 and s >= 128
     tf32_mode = _validate_precision(q, precision)
-    strict_cross_device = (
-        os.getenv("FLAG_GEMS_TRIANGLE_ATTENTION_STRICT_CROSS_DEVICE", "0")
-        == "1"
-    )
-    strict_backward_schedule = strict_cross_device or (
-        os.getenv("FLAG_GEMS_TRIANGLE_ATTENTION_STRICT_BACKWARD_SCHEDULE", "0")
-        == "1"
-    )
     use_fused_dbias_scratch = (
-        not strict_backward_schedule
-        and "PPU-ZW810E" in torch.cuda.get_device_name(q.device)
-        and q.dtype == torch.float32
+        q.dtype == torch.float32
         and (b, n, s, d) == (1, 693, 693, 32)
         and h in {2, 4, 8}
         and tf32_mode == "none"
@@ -940,18 +883,17 @@ def _triangle_attention_backward(
         dbias_block_m, dbias_block_n, dbias_warps = 32, 32, 1
         config_name = "generic_v2_fused_delta"
 
-    use_h100_tf32x3_backward = (
-        "H100" in torch.cuda.get_device_name(q.device)
-        and q.dtype == torch.float32
+    use_large_tf32x3_backward = (
+        q.dtype == torch.float32
         and (b, n, s, d) == (1, 693, 693, 32)
         and h in {2, 4, 8}
         and tf32_mode == "x3"
     )
-    if use_h100_tf32x3_backward:
+    if use_large_tf32x3_backward:
         dq_block_m, dq_block_n, dq_warps = 64, 32, 4
         dkdv_block_m, dkdv_block_n, dkdv_warps = 64, 64, 4
         dbias_block_m, dbias_block_n, dbias_warps = 64, 64, 4
-        config_name += "_h100_tf32x3_backward_v1"
+        config_name += "_tf32x3_backward_v1"
 
     dq_grid = (triton.cdiv(s, dq_block_m), h, b * n)
     _streaming_triangle_attention_bwd_dq_v1[dq_grid](

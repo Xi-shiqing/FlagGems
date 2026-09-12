@@ -87,6 +87,107 @@ def scatter_add_2d_kernel(
 
 @libentry()
 @triton.jit
+def _scatter_add_sorted_dim0_deterministic_kernel(
+    src_ptr,
+    index_ptr,
+    out_ptr,
+    n_rows,
+    out_rows,
+    n_cols,
+    SEARCH_STEPS: tl.constexpr,
+    BLOCK: tl.constexpr,
+):
+    """Reduce sorted rows with one fixed-order writer per output."""
+    group_out_row = tl.program_id(0)
+    group = group_out_row // out_rows
+    out_row = group_out_row % out_rows
+    out_col = tl.program_id(1) * BLOCK + tl.arange(0, BLOCK)
+    mask = out_col < n_cols
+    out_offsets = (group * out_rows + out_row) * n_cols + out_col
+    index_base = group * n_rows
+    src_base = group * n_rows * n_cols
+
+    lo = 0
+    hi = n_rows
+    for _ in tl.static_range(0, SEARCH_STEPS):
+        active = lo < hi
+        mid = (lo + hi) // 2
+        index_value = tl.load(index_ptr + index_base + mid, mask=active, other=0)
+        move_right = active & (index_value < out_row)
+        lo = tl.where(move_right, mid + 1, lo)
+        hi = tl.where(active & ~move_right, mid, hi)
+    first = lo
+
+    lo = first
+    hi = n_rows
+    target = out_row + 1
+    for _ in tl.static_range(0, SEARCH_STEPS):
+        active = lo < hi
+        mid = (lo + hi) // 2
+        index_value = tl.load(index_ptr + index_base + mid, mask=active, other=0)
+        move_right = active & (index_value < target)
+        lo = tl.where(move_right, mid + 1, lo)
+        hi = tl.where(active & ~move_right, mid, hi)
+    last = lo
+
+    acc = tl.load(out_ptr + out_offsets, mask=mask, other=0.0).to(tl.float32)
+    pos = first
+    while pos < last:
+        src_value = tl.load(
+            src_ptr + src_base + pos * n_cols + out_col,
+            mask=mask,
+            other=0.0,
+        )
+        acc += src_value.to(tl.float32)
+        pos += 1
+    tl.store(out_ptr + out_offsets, acc, mask=mask)
+
+
+def _scatter_add_sorted_dim0_deterministic(x, dim, index, src):
+    """Deterministic FlagGems path used by Protenix atom-to-token reductions."""
+    if x.ndim == 0 or not x.is_contiguous():
+        return None
+    if index.shape != src.shape or index.numel() == 0:
+        return None
+    if x.ndim == 1:
+        if dim != 0:
+            return None
+        index_rows = index.reshape(1, -1).contiguous()
+        src_view = src.reshape(1, -1, 1).contiguous()
+        n_rows = int(index.numel())
+        out_rows = int(x.shape[0])
+        n_cols = 1
+    elif dim == x.ndim - 2 and index.stride(-1) == 0:
+        index_rows = index[..., 0].contiguous()
+        src_view = src.contiguous()
+        n_rows = int(index.shape[-2])
+        out_rows = int(x.shape[-2])
+        n_cols = int(x.shape[-1])
+    else:
+        return None
+
+    if not bool(torch.all(index_rows[..., 1:] >= index_rows[..., :-1]).item()):
+        return None
+
+    n_groups = int(index_rows.numel()) // n_rows
+    search_steps = max(1, n_rows.bit_length() + 1)
+    block = 128
+    grid = (n_groups * out_rows, triton.cdiv(n_cols, block))
+    _scatter_add_sorted_dim0_deterministic_kernel[grid](
+        src_view,
+        index_rows,
+        x,
+        n_rows,
+        out_rows,
+        n_cols,
+        SEARCH_STEPS=search_steps,
+        BLOCK=block,
+    )
+    return x
+
+
+@libentry()
+@triton.jit
 def _copy_contiguous_kernel(
     src_ptr,
     dst_ptr,
@@ -403,8 +504,11 @@ def scatter_add_0(inp, dim, index, src):
     logger.debug("GEMS SCATTER_ADD_0")
     N = index.numel()
     dtype_convert = False
-    if (inp.dtype == torch.float16 or inp.dtype == torch.bfloat16) and N > 131072:
+    if inp.dtype == torch.bfloat16 or (
+        inp.dtype == torch.float16 and N > 131072
+    ):
         out = inp.to(torch.float32)
+        src = src.to(torch.float32)
         dtype_convert = True
     else:
         out = inp
@@ -478,9 +582,12 @@ def scatter_add_1(x, dim, index, src):
     grid = lambda meta: (triton.cdiv(all_elem, meta["BLOCK_SIZE"] * meta["LOOP"]),)
 
     dtype_convert = False
-    if (x.dtype == torch.float16 or x.dtype == torch.bfloat16) and all_elem > 131072:
+    if x.dtype == torch.bfloat16 or (
+        x.dtype == torch.float16 and all_elem > 131072
+    ):
         dtype_convert = True
         x = x.to(torch.float32)
+        src = src.to(torch.float32)
 
     scatter_add_kernel_1[grid](
         index_dim_n, inp_dim_n, x, index, src, all_elem, BLOCK_SIZE=256, LOOP=1
@@ -502,6 +609,11 @@ def scatter_add_(x, dim, index, src):
     dim = dim % x.ndim
     assert dim >= 0 and dim < x.dim(), "Invalid dim"
     assert index.size(dim) <= src.size(dim), "Invalid src"
+
+    if torch.are_deterministic_algorithms_enabled():
+        deterministic = _scatter_add_sorted_dim0_deterministic(x, dim, index, src)
+        if deterministic is not None:
+            return deterministic
     equal_count = 0
     for d in range(x.dim()):
         if d != dim:

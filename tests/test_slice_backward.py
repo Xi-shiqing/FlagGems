@@ -84,6 +84,30 @@ def test_slice_backward(shape, dim, start, end, step, dtype):
 
 
 @pytest.mark.slice_backward
+@pytest.mark.parametrize("dtype", FLOAT_DTYPES)
+@pytest.mark.skipif(
+    flag_gems.vendor_name == "tsingmicro", reason="Issue #4131: not working"
+)
+def test_slice_backward_noncontiguous_grad_output(dtype):
+    device = flag_gems.device
+    shape = (2, 7, 3, 5)
+    dim, start, end, step = 1, 0, 6, 1
+
+    # Preserve the target shape while giving grad_output non-dense strides.
+    grad_output = torch.randn((2, 3, 6, 5), dtype=dtype, device=device).transpose(
+        1, 2
+    )
+    assert not grad_output.is_contiguous()
+
+    ref_out = torch.ops.aten.slice_backward(
+        utils.to_reference(grad_output), shape, dim, start, end, step
+    )
+    res_out = flag_gems.slice_backward(grad_output, shape, dim, start, end, step)
+
+    utils.gems_assert_equal(res_out, ref_out)
+
+
+@pytest.mark.slice_backward
 @pytest.mark.parametrize("shape", SLICE_BACKWARD_SHAPES)
 @pytest.mark.parametrize("dtype", FLOAT_DTYPES)
 @pytest.mark.skipif(
