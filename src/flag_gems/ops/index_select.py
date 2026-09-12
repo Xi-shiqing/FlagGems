@@ -59,6 +59,11 @@ def index_select(inp, dim, index):
 
     if index.ndim == 0:
         index = index.unsqueeze(0)
+    # The Triton kernel reads indices as a contiguous linear array.  PyTorch
+    # commonly supplies a non-contiguous view here (for example, one column
+    # of ``nonzero(..., as_tuple=True)`` has stride 2); materialize that
+    # logical sequence before launching the kernel.
+    index = index.contiguous()
     dim = dim % inp.ndim
     inp_shape = list(inp.shape)
     index_len = index.numel()

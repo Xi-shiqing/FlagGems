@@ -62,6 +62,28 @@ def test_mean_dim(shape, dim, keepdim, dtype):
     utils.gems_assert_close(res_out, ref_out, dtype)
 
 
+@pytest.mark.mean_dim
+@pytest.mark.parametrize("shape, dim", [((2, 0, 3), 1), ((0, 3), 0), ((2, 0, 3), [1, 2])])
+@pytest.mark.parametrize("keepdim", [True, False])
+def test_mean_dim_empty_reduction(shape, dim, keepdim):
+    inp = torch.empty(shape, dtype=torch.float32, device=flag_gems.device)
+    ref_inp = utils.to_reference(inp, True)
+    ref_out = torch.mean(ref_inp, dim, keepdim)
+    with flag_gems.use_gems():
+        res_out = torch.mean(inp, dim, keepdim)
+    assert res_out.shape == ref_out.shape
+    assert torch.isnan(res_out).equal(torch.isnan(ref_out))
+
+
+@pytest.mark.mean
+def test_mean_empty_input():
+    inp = torch.empty((0,), dtype=torch.float32, device=flag_gems.device)
+    ref_out = torch.mean(utils.to_reference(inp, True))
+    with flag_gems.use_gems():
+        res_out = torch.mean(inp)
+    assert torch.isnan(res_out).item() == torch.isnan(ref_out).item()
+
+
 # Shapes where K (product of dims after the reduction axis) exceeds the CUDA
 # grid-Y limit of 65535, which used to trigger "Triton Error [CUDA]: invalid
 # argument" before the mean_heur_tile_k grid-overflow fix.

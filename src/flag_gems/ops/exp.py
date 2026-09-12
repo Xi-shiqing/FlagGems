@@ -16,6 +16,7 @@ import logging
 
 import triton
 import triton.language as tl
+from triton.language.extra import libdevice
 
 from flag_gems.utils import pointwise_dynamic
 
@@ -25,7 +26,7 @@ logger = logging.getLogger(__name__)
 @pointwise_dynamic(promotion_methods=[(0, "INT_TO_FLOAT")])
 @triton.jit
 def exp_func(x):
-    return tl.exp(x.to(tl.float32))
+    return libdevice.exp(x.to(tl.float32))
 
 
 def exp(A):

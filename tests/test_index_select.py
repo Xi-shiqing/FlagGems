@@ -53,3 +53,20 @@ def test_index_select(shape, dim, dtype):
         res_out = torch.index_select(inp, dim, index)
 
     utils.gems_assert_equal(res_out, ref_out)
+
+
+@pytest.mark.index_select
+@pytest.mark.parametrize("dtype", [torch.float32])
+def test_index_select_noncontiguous_index(dtype):
+    """A strided index view must be read by logical index order."""
+    inp = torch.arange(40, dtype=dtype, device=flag_gems.device).reshape(10, 4)
+    index = torch.arange(10, device=flag_gems.device)[::2]
+    assert not index.is_contiguous()
+
+    ref_inp = utils.to_reference(inp)
+    ref_index = utils.to_reference(index)
+    ref_out = torch.index_select(ref_inp, 0, ref_index)
+    with flag_gems.use_gems():
+        res_out = torch.index_select(inp, 0, index)
+
+    utils.gems_assert_equal(res_out, ref_out)

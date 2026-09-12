@@ -82,6 +82,10 @@ def mean(inp, *, dtype=None):
     M = inp.numel()
     if dtype is None:
         dtype = inp.dtype
+    if M == 0:
+        if not (dtype.is_floating_point or dtype.is_complex):
+            raise RuntimeError("mean(): could not infer output dtype")
+        return torch.full([], float("nan"), dtype=dtype, device=inp.device)
     block_size = triton.next_power_of_2(math.ceil(math.sqrt(M)))
     mid_size = triton.cdiv(M, block_size)
     block_mid = triton.next_power_of_2(mid_size)
@@ -330,8 +334,15 @@ def mean_dim_comm(inp, dim=None, keepdim=False, *, dtype=None, out=None):
         # product of dims before dim0; use initializer 1 for empty slice
         M = reduce(lambda x, y: x * y, shape[:dim0], 1)
         inp = inp.contiguous()
-        K = inp.numel() // M // N
         shape[dim0] = 1
+        if N == 0:
+            if not (dtype.is_floating_point or dtype.is_complex):
+                raise RuntimeError("mean(): could not infer output dtype")
+            out = torch.full(shape, float("nan"), dtype=dtype, device=inp.device)
+            if not keepdim:
+                out = out.squeeze(dim=dim0)
+            return out
+        K = inp.numel() // M // N
         if out is None:
             out = torch.empty(shape, dtype=dtype, device=inp.device)
 
@@ -385,6 +396,13 @@ def mean_dim_comm(inp, dim=None, keepdim=False, *, dtype=None, out=None):
         for i in dim:
             N *= shape[i]
             shape[i] = 1
+        if N == 0:
+            if not (dtype.is_floating_point or dtype.is_complex):
+                raise RuntimeError("mean(): could not infer output dtype")
+            out = torch.full(shape, float("nan"), dtype=dtype, device=inp.device)
+            if not keepdim:
+                out = out.squeeze(dim=dim)
+            return out
         M = inp.numel() // N
         if out is None:
             out = torch.empty(shape, dtype=dtype, device=inp.device)

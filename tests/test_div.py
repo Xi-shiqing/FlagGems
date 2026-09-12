@@ -218,6 +218,27 @@ def test_div_scalar_mode_int_(shape, rounding_mode, dtype):
 
     assert res_out is inp
     utils.gems_assert_equal(res_out, ref_out)
+@pytest.mark.div_tensor_
+def test_true_divide_inplace_preserves_autograd_formula():
+    """In-place divide must keep PyTorch's CompositeImplicitAutograd rule."""
+    ref_source = torch.arange(
+        1, 7, device=flag_gems.device, dtype=torch.float32
+    ).reshape(2, 3)
+    ref_source = ref_source.clone().requires_grad_(True)
+    ref_divided = ref_source * 2.0
+    ref_divided.true_divide_(4.0)
+    ref_divided.square().sum().backward()
+
+    source = torch.arange(
+        1, 7, device=flag_gems.device, dtype=torch.float32
+    ).reshape(2, 3)
+    source = source.clone().requires_grad_(True)
+    with flag_gems.use_gems(exclude=[]):
+        divided = source * 2.0
+        divided.true_divide_(4.0)
+        divided.square().sum().backward()
+
+    torch.testing.assert_close(source.grad, ref_source.grad)
 
 
 # div.Tensor with true_divide

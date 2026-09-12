@@ -50,3 +50,28 @@ def test_unfold_backward(input_sizes, dim, size, step, dtype):
         res_out = flag_gems.unfold_backward(grad_in, input_sizes, dim, size, step)
 
     utils.gems_assert_close(res_out, ref_out, dtype, reduce_dim=size)
+
+
+@pytest.mark.unfold_backward
+def test_unfold_backward_noncontiguous_grad_input():
+    """The backward kernel must honor logical values from a view."""
+    input_sizes = (2, 8, 3)
+    dim, size, step = 1, 3, 2
+    num_windows = (input_sizes[dim] - size) // step + 1
+    grad_shape = (input_sizes[0], num_windows, input_sizes[2], size)
+
+    base = torch.arange(
+        torch.tensor(grad_shape).prod().item(),
+        dtype=torch.float32,
+        device=flag_gems.device,
+    ).reshape(grad_shape)
+    grad_in = base.permute(0, 2, 1, 3)
+    assert not grad_in.is_contiguous()
+
+    ref_out = torch.ops.aten.unfold_backward(
+        utils.to_reference(grad_in), input_sizes, dim, size, step
+    )
+    with flag_gems.use_gems():
+        res_out = flag_gems.unfold_backward(grad_in, input_sizes, dim, size, step)
+
+    utils.gems_assert_equal(res_out, ref_out)

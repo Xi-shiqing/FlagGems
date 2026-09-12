@@ -14,12 +14,12 @@ The changes are grouped by the role they play in the Protenix training graph:
   and accumulation fixes.
 - **Matrix operations:** PPU-oriented paths for `mm`, `bmm`, and `linear`,
   including large FP32 layout handling and the corresponding backward fixes.
-- **Pointwise and reduction hot spots:** `add`, `mul`, `sigmoid`, `silu`,
-  `softmax`, and `log_softmax`. Large contiguous PPU paths are narrowly
+- **Pointwise and reduction hot spots:** `add`, `mul`, `exp`, `sigmoid`,
+  `silu`, `softmax`, `log_softmax`, `mean`, and `rsqrt`. Large contiguous PPU paths are narrowly
   guarded; experimental paths remain opt-in when model-level measurements did
   not establish a stable gain.
 - **Tensor movement and indexing:** `copy`, `fill`, `pad`, `index`,
-  `index_put`, `index_select_backward`, `scatter_add`, `slice_backward`, and
+  `index_put`, `index_select`, `index_select_backward`, `scatter_add`, `slice_backward`, and
   `unfold_backward`. These changes cover broadcasting, non-contiguous layouts,
   64-bit address calculations, and autograd-compatible view behavior used by
   Protenix.

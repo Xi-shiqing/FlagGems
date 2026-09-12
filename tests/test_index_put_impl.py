@@ -207,3 +207,29 @@ def test__index_put_impl__error_all_none(dtype):
     with pytest.raises(TypeError):
         with flag_gems.use_gems():
             torch._index_put_impl_(inp, indices, values, accumulate=False, unsafe=False)
+
+
+@pytest.mark.index_put_impl
+@pytest.mark.parametrize("dtype", [torch.float32])
+def test__index_put_impl__autograd_mixed_basic_index(dtype):
+    """Autograd scatter must retain leading ``None`` index dimensions.
+
+    ``IndexBackward`` emits this pattern for a slice followed by an advanced
+    boolean index.  The regression used to drop the basic dimensions in the
+    compact `_index_put_impl_` path, producing a wrong gradient or a shape
+    error on the PPU FlagGems route.
+    """
+    source = torch.randn(
+        (1, 2, 2, 3), dtype=dtype, device=flag_gems.device, requires_grad=True
+    )
+    # ``source[..., mask, :, :]`` is the minimal shape that makes Autograd
+    # emit a leading ``None`` followed by an advanced boolean index.
+    mask = torch.tensor([True, False], dtype=torch.bool, device=flag_gems.device)
+
+    with flag_gems.use_gems():
+        actual = source[..., mask, :, :].sum()
+        actual.backward()
+
+    expected = torch.zeros_like(source)
+    expected[..., mask, :, :] = 1
+    torch.testing.assert_close(source.grad, expected)
