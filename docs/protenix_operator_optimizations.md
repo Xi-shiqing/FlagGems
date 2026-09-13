@@ -49,3 +49,21 @@ The performance paths are intentionally separated by their confidence level:
 
 Numerical correctness remains the first gate: optimization switches must not
 silently bypass autograd or change view and alias semantics.
+
+## Repository boundary
+
+This branch is the operator-side source of truth for the Protenix adaptation.
+The companion `Protenix-FlagOS` repository contains the model integration,
+device launch scripts, end-to-end tests, and model-level reports. It should
+pin this branch or a specific commit instead of copying the FlagGems source
+tree into the Protenix repository.
+
+The current delivery line is the combination of:
+
+- `7fe4d8e`: the Protenix operator implementation and focused tests;
+- `2bae97d`: the inherited correctness fixes and their regression tests.
+
+Triangle Attention tuning is already part of this branch's history. New
+operator changes should continue on this branch when they are required by the
+Protenix integration; a separate branch is only needed for an independent
+experiment with a different compatibility contract.
