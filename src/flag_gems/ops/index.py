@@ -451,7 +451,7 @@ def generate_index_linearized_kernel(
     code.writeline("):")
 
     with code.indent():
-        code.writeline("pid = tl.program_id(axis=0)")
+        code.writeline("pid = tl.program_id(axis=0).to(tl.int64)")
         code.writeline("num_m_tiles = tl.cdiv(M, BLOCK_SIZE0)")
         code.writeline("num_n_tiles = tl.cdiv(N, BLOCK_SIZE1)")
         code.writeline("pid_n = pid % num_n_tiles")
