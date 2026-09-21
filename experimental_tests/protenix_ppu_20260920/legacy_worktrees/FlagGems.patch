@@ -1,0 +1,1281 @@
+diff --git a/src/flag_gems/__init__.py b/src/flag_gems/__init__.py
+index 96b2df847..6643fffc3 100644
+--- a/src/flag_gems/__init__.py
++++ b/src/flag_gems/__init__.py
+@@ -237,18 +237,10 @@ _FULL_CONFIG = (
+     ("div.Tensor", true_divide),
+     ("div.Tensor_mode", div_mode),
+     ("div.out", true_divide_out),
+-    ("div_.Scalar", true_divide_),
+-    ("div_.Scalar_mode", div_mode_),
+-    ("div_.Tensor", true_divide_),
+-    ("div_.Tensor_mode", div_mode_),
+     ("divide.Scalar", true_divide),
+     ("divide.Scalar_mode", div_mode),
+     ("divide.Tensor", true_divide),
+     ("divide.Tensor_mode", div_mode),
+-    ("divide_.Scalar", true_divide_),
+-    ("divide_.Scalar_mode", div_mode_),
+-    ("divide_.Tensor", true_divide_),
+-    ("divide_.Tensor_mode", div_mode_),
+     ("dot", dot),
+     ("elu", elu),
+     ("elu_", elu_),
+@@ -461,7 +453,7 @@ _FULL_CONFIG = (
+     ("poisson", poisson),
+     ("polar", polar),
+     ("pow.Scalar", pow_scalar),
+-    ("pow.Tensor_Scalar", pow_tensor_scalar),
++    ("pow.Tensor_Scalar", pow_tensor_scalar, None, ("AutogradCUDA",)),
+     ("pow.Tensor_Tensor", pow_tensor_tensor),
+     ("pow_.Scalar", pow_tensor_scalar_),
+     ("pow_.Tensor", pow_tensor_tensor_),
+@@ -513,7 +505,7 @@ _FULL_CONFIG = (
+     ("round.out", round_out),
+     ("round_", round_),
+     ("rrelu_with_noise_backward", rrelu_with_noise_backward),
+-    ("rsqrt", rsqrt),
++    ("rsqrt", rsqrt, None, ("AutogradCUDA",)),
+     ("rsqrt_", rsqrt_),
+     ("rsub.Scalar", rsub_scalar),
+     ("rsub.Tensor", rsub_tensor),
+@@ -600,8 +592,6 @@ _FULL_CONFIG = (
+     ("triu_", triu_),
+     ("true_divide.Scalar", true_divide),
+     ("true_divide.Tensor", true_divide),
+-    ("true_divide_.Scalar", true_divide_),
+-    ("true_divide_.Tensor", true_divide_),
+     ("trunc", trunc),
+     ("trunc_", trunc_),
+     ("unfold_backward", unfold_backward),
+diff --git a/src/flag_gems/ops/_euclidean_dist.py b/src/flag_gems/ops/_euclidean_dist.py
+index 384a7f90e..162b04a9c 100644
+--- a/src/flag_gems/ops/_euclidean_dist.py
++++ b/src/flag_gems/ops/_euclidean_dist.py
+@@ -74,44 +74,27 @@ def _euclidean_dist_kernel(
+ 
+ 
+ def _euclidean_dist(x1, x2):
+-    """Compute pairwise Euclidean distances between rows of x1 and x2.
+-
+-    Args:
+-        x1: Tensor of shape (N, D)
+-        x2: Tensor of shape (M, D)
+-
+-    Returns:
+-        Tensor of shape (N, M) where output[i, j] = ||x1[i] - x2[j]||_2
++    """Match ATen's ``_euclidean_dist`` matrix identity exactly.
++
++    This operator is the implementation behind cdist's ``use_mm`` path.  It
++    is *not* the direct ``(x1 - x2).square().sum()`` distance kernel: ATen
++    appends two norm/padding columns and evaluates one augmented matmul,
++    followed by clamp and sqrt.  Keeping that representation here preserves
++    the native H100/PPU arithmetic path while still letting FlagGems compile
++    each constituent operation.
+     """
+     logger.debug("GEMS _EUCLIDEAN_DIST")
+ 
+-    assert x1.ndim == 2, "x1 must be a 2D tensor"
+-    assert x2.ndim == 2, "x2 must be a 2D tensor"
+-    assert x1.shape[1] == x2.shape[1], "x1 and x2 must have the same number of columns"
+-
+-    N, D = x1.shape
+-    M = x2.shape[0]
+-
+-    x1 = x1.contiguous()
+-    x2 = x2.contiguous()
+-
+-    output = torch.empty((N, M), dtype=x1.dtype, device=x1.device)
+-
+-    BLOCK_D = min(triton.next_power_of_2(D), 1024)
+-
+-    with torch_device_fn.device(x1.device):
+-        grid = (N, M)
+-        _euclidean_dist_kernel[grid](
+-            x1,
+-            x2,
+-            output,
+-            N,
+-            M,
+-            D,
+-            x1.stride(0),
+-            x2.stride(0),
+-            output.stride(0),
+-            BLOCK_D=BLOCK_D,
+-        )
+-
+-    return output
++    assert x1.shape[-1] == x2.shape[-1], "x1 and x2 must have the same number of columns"
++
++    # This is the upstream ATen decomposition.  Do not algebraically
++    # simplify it: the appended columns and matmul reduction order are part
++    # of the native ``use_mm`` numerical contract.
++    x1_norm = x1.pow(2).sum(-1, True)
++    x1_pad = torch.ones_like(x1_norm, memory_format=torch.contiguous_format)
++    x2_norm = x2.pow(2).sum(-1, True)
++    x2_pad = torch.ones_like(x2_norm, memory_format=torch.contiguous_format)
++    x1_aug = torch.cat([x1.mul(-2), x1_norm, x1_pad], -1)
++    x2_aug = torch.cat([x2, x2_pad, x2_norm], -1)
++    result = x1_aug.matmul(x2_aug.mT)
++    return result.clamp_min(0).sqrt()
+diff --git a/src/flag_gems/ops/any.py b/src/flag_gems/ops/any.py
+index b606ad8da..3bf4428ac 100644
+--- a/src/flag_gems/ops/any.py
++++ b/src/flag_gems/ops/any.py
+@@ -88,6 +88,11 @@ def any_kernel_2(mid, out, MID_SIZE, BLOCK_MID: tl.constexpr):
+ def any(inp):
+     logger.debug("GEMS ANY")
+     n_elements = inp.numel()
++    # PyTorch defines any over an empty set as False.  Besides matching that
++    # identity, the early return avoids constructing a zero-sized reduction
++    # grid (which cannot produce a valid Triton launch configuration).
++    if n_elements == 0:
++        return torch.zeros((), dtype=torch.bool, device=inp.device)
+     block_size = triton.next_power_of_2(math.ceil(math.sqrt(n_elements)))
+     mid_size = triton.cdiv(n_elements, block_size)
+     block_mid = triton.next_power_of_2(mid_size)
+@@ -115,6 +120,14 @@ def any_dim(inp, dim=None, keepdim=False):
+         inp = dim_compress(inp, dim)
+         N = shape[dim]
+         shape[dim] = 1
++        # A reduction over a zero-length dimension, or any tensor with zero
++        # elements, has the all-False result with the normal output shape.
++        if N == 0 or inp.numel() == 0:
++            out = torch.zeros(shape, dtype=torch.bool, device=inp.device)
++            if not keepdim:
++                out = out.squeeze(dim=dim)
++            return out
++
+         M = inp.numel() // N
+ 
+         out = torch.empty(shape, dtype=torch.bool, device=inp.device)
+@@ -142,6 +155,11 @@ def any_dims(inp, dim=None, keepdim=False):
+     for i in dim:
+         N *= shape[i]
+         shape[i] = 1
++    if inp.numel() == 0 or N == 0:
++        out = torch.zeros(shape, dtype=torch.bool, device=inp.device)
++        if not keepdim:
++            out = out.squeeze(dim=dim)
++        return out
+     M = inp.numel() // N
+ 
+     out = torch.empty(shape, dtype=torch.bool, device=inp.device)
+diff --git a/src/flag_gems/ops/div.py b/src/flag_gems/ops/div.py
+index 81ea4b25c..cc2ec6158 100644
+--- a/src/flag_gems/ops/div.py
++++ b/src/flag_gems/ops/div.py
+@@ -46,7 +46,7 @@ def div_complex_kernel(ar, ai, br, bi):
+ @pointwise_dynamic(promotion_methods=[(0, 1, "INT_TO_FLOAT")])
+ @triton.jit
+ def true_div_func(x, y):
+-    return x / y
++    return div_rn(x, y)
+ 
+ 
+ @pointwise_dynamic(is_tensor=[True, False], promotion_methods=[(0, 1, "INT_TO_FLOAT")])
+diff --git a/src/flag_gems/ops/exp.py b/src/flag_gems/ops/exp.py
+index 25e3190eb..73a8fa644 100644
+--- a/src/flag_gems/ops/exp.py
++++ b/src/flag_gems/ops/exp.py
+@@ -2,6 +2,7 @@ import logging
+ 
+ import triton
+ import triton.language as tl
++from triton.language.extra import libdevice
+ 
+ from flag_gems.utils import pointwise_dynamic
+ 
+@@ -11,7 +12,7 @@ logger = logging.getLogger(__name__)
+ @pointwise_dynamic(promotion_methods=[(0, "INT_TO_FLOAT")])
+ @triton.jit
+ def exp_func(x):
+-    return tl.exp(x.to(tl.float32))
++    return libdevice.exp(x.to(tl.float32))
+ 
+ 
+ def exp(A):
+diff --git a/src/flag_gems/ops/index_put.py b/src/flag_gems/ops/index_put.py
+index 2a71bd164..75c2be585 100644
+--- a/src/flag_gems/ops/index_put.py
++++ b/src/flag_gems/ops/index_put.py
+@@ -367,6 +367,13 @@ def index_put_(inp, indices, values, accumulate=False):
+ def _index_put_impl_(inp, indices, values, accumulate=False, unsafe=False):
+     logger.debug("GEMS _INDEX_PUT_IMPL_")
+ 
++    # Autograd's IndexBackward may preserve leading/basic-index dimensions as
++    # ``None`` entries.  The compact implementation below assumes each list
++    # position consumes an input dimension; delegating to the full normalizer
++    # preserves PyTorch's mixed basic/advanced indexing semantics.
++    if any(index is None for index in indices):
++        return index_put_(inp, indices, values, accumulate)
++
+     # The `unsafe` parameter is a hint to PyTorch for bounds checking.
+     # Our implementation always performs bounds checking, so we ignore this parameter.
+     # This is consistent with how PyTorch handles it internally.
+diff --git a/src/flag_gems/ops/index_select.py b/src/flag_gems/ops/index_select.py
+index 15239f6d4..4f7f884ff 100644
+--- a/src/flag_gems/ops/index_select.py
++++ b/src/flag_gems/ops/index_select.py
+@@ -45,6 +45,11 @@ def index_select(inp, dim, index):
+ 
+     if index.ndim == 0:
+         index = index.unsqueeze(0)
++    # The Triton kernel reads indices as a contiguous linear array.  PyTorch
++    # commonly supplies a non-contiguous view here (for example, one column
++    # of ``nonzero(..., as_tuple=True)`` has stride 2); materialize that
++    # logical sequence before launching the kernel.
++    index = index.contiguous()
+     dim = dim % inp.ndim
+     inp_shape = list(inp.shape)
+     index_len = index.numel()
+diff --git a/src/flag_gems/ops/log_softmax.py b/src/flag_gems/ops/log_softmax.py
+index 859b3c308..b014ddd31 100644
+--- a/src/flag_gems/ops/log_softmax.py
++++ b/src/flag_gems/ops/log_softmax.py
+@@ -3,6 +3,7 @@ import logging
+ import torch
+ import triton
+ import triton.language as tl
++from triton.language.extra import libdevice
+ 
+ from flag_gems import runtime
+ from flag_gems.runtime import torch_device_fn
+@@ -38,11 +39,11 @@ def log_softmax_kernel(
+         inp = tl.load(input_ptrs, mask=mask, other=-float("inf")).to(tl.float32)
+         m_new = tl.maximum(inp, m)
+         all_neg_inf = m_new == float("-inf")
+-        z = tl.where(all_neg_inf, z, z * tl.exp(m - m_new) + tl.exp(inp - m_new))
++        z = tl.where(all_neg_inf, z, z * libdevice.exp(m - m_new) + libdevice.exp(inp - m_new))
+         m = m_new
+ 
+     m_reduced = tl.max(m, 1)
+-    z = tl.sum(z * tl.exp(m - m_reduced[:, None]), 1)
++    z = tl.sum(z * libdevice.exp(m - m_reduced[:, None]), 1)
+     m = m_reduced
+ 
+     for start_n in range(0, N, BLOCK_N):
+@@ -51,7 +52,7 @@ def log_softmax_kernel(
+         mask = m_offset[:, None] < M and n_offset[None, :] < N
+         input_ptrs = input_ptr + offset
+         inp = tl.load(input_ptrs, mask=mask, other=-float("inf")).to(tl.float32)
+-        o = inp - m[:, None] - tl.log(z[:, None])
++        o = inp - m[:, None] - libdevice.log(z[:, None])
+         tl.store(output_ptr + offset, o, mask=mask)
+ 
+ 
+@@ -90,7 +91,7 @@ def log_softmax_backward_kernel(
+         out = tl.load(out_ptrs, mask=mask).to(tl.float32)
+         out_grad_ptrs = out_grad_ptr + offsets
+         out_grad = tl.load(out_grad_ptrs, mask=mask).to(tl.float32)
+-        in_grad = out_grad - tl.exp(out) * scale[:, None]
++        in_grad = out_grad - libdevice.exp(out) * scale[:, None]
+         in_grad_ptrs = in_grad_ptr + offsets
+         tl.store(in_grad_ptrs, in_grad, mask=mask)
+ 
+diff --git a/src/flag_gems/ops/mean.py b/src/flag_gems/ops/mean.py
+index e0a2026dc..5e3e954c7 100644
+--- a/src/flag_gems/ops/mean.py
++++ b/src/flag_gems/ops/mean.py
+@@ -67,6 +67,10 @@ def mean(inp, *, dtype=None):
+     M = inp.numel()
+     if dtype is None:
+         dtype = inp.dtype
++    if M == 0:
++        if not (dtype.is_floating_point or dtype.is_complex):
++            raise RuntimeError("mean(): could not infer output dtype")
++        return torch.full([], float("nan"), dtype=dtype, device=inp.device)
+     block_size = triton.next_power_of_2(math.ceil(math.sqrt(M)))
+     mid_size = triton.cdiv(M, block_size)
+     block_mid = triton.next_power_of_2(mid_size)
+@@ -315,8 +319,15 @@ def mean_dim_comm(inp, dim=None, keepdim=False, *, dtype=None, out=None):
+         # product of dims before dim0; use initializer 1 for empty slice
+         M = reduce(lambda x, y: x * y, shape[:dim0], 1)
+         inp = inp.contiguous()
+-        K = inp.numel() // M // N
+         shape[dim0] = 1
++        if N == 0:
++            if not (dtype.is_floating_point or dtype.is_complex):
++                raise RuntimeError("mean(): could not infer output dtype")
++            out = torch.full(shape, float("nan"), dtype=dtype, device=inp.device)
++            if not keepdim:
++                out = out.squeeze(dim=dim0)
++            return out
++        K = inp.numel() // M // N
+         if out is None:
+             out = torch.empty(shape, dtype=dtype, device=inp.device)
+ 
+@@ -366,6 +377,13 @@ def mean_dim_comm(inp, dim=None, keepdim=False, *, dtype=None, out=None):
+         for i in dim:
+             N *= shape[i]
+             shape[i] = 1
++        if N == 0:
++            if not (dtype.is_floating_point or dtype.is_complex):
++                raise RuntimeError("mean(): could not infer output dtype")
++            out = torch.full(shape, float("nan"), dtype=dtype, device=inp.device)
++            if not keepdim:
++                out = out.squeeze(dim=dim)
++            return out
+         M = inp.numel() // N
+         if out is None:
+             out = torch.empty(shape, dtype=dtype, device=inp.device)
+diff --git a/src/flag_gems/ops/pad.py b/src/flag_gems/ops/pad.py
+index 589c5fdff..4e1042efd 100644
+--- a/src/flag_gems/ops/pad.py
++++ b/src/flag_gems/ops/pad.py
+@@ -11,6 +11,40 @@ from flag_gems.utils.code_utils import IndentedBuffer, write_atomic
+ logger = logging.getLogger(__name__)
+ 
+ 
++def _pad_setup_context(ctx, inputs, output):
++    self, pad, mode, value = inputs
++    ctx.pad = tuple(pad)
++    ctx.mode = mode
++    if mode in ("reflect", "replicate"):
++        ctx.save_for_backward(self)
++
++
++def _pad_backward(ctx, grad_output):
++    if ctx.mode == "constant":
++        inverse_pad = tuple(-value for value in ctx.pad)
++        grad_input = torch.ops.aten.constant_pad_nd.default(
++            grad_output, inverse_pad, 0
++        )
++    elif ctx.mode in ("reflect", "replicate"):
++        (self,) = ctx.saved_tensors
++        dims = len(ctx.pad) // 2
++        prefix = "reflection" if ctx.mode == "reflect" else "replication"
++        backward = getattr(torch.ops.aten, f"{prefix}_pad{dims}d_backward").default
++        grad_input = backward(grad_output, self, ctx.pad)
++    else:
++        raise NotImplementedError(
++            f"FlagGems pad backward does not support mode={ctx.mode!r}"
++        )
++    return grad_input, None, None, None
++
++
++# The CUDA dispatcher override needs an explicit Autograd formula. Without it,
++# the Triton pad forward succeeds but the input gradient is silently dropped.
++torch.library.register_autograd(
++    "aten::pad", _pad_backward, setup_context=_pad_setup_context
++)
++
++
+ # --------------------------- padding wrapper genration -----------------------------------
+ def parameter_for_wrapper() -> str:
+     """Generate parameter declaration with type annotation for wrapper function.
+diff --git a/src/flag_gems/ops/pow.py b/src/flag_gems/ops/pow.py
+index eabe9b569..202dfd27c 100644
+--- a/src/flag_gems/ops/pow.py
++++ b/src/flag_gems/ops/pow.py
+@@ -1,5 +1,6 @@
+ import logging
+ 
++import torch
+ import triton
+ import triton.language as tl
+ 
+@@ -9,6 +10,22 @@ _pow = tl_extra_shim.pow
+ logger = logging.getLogger(__name__)
+ 
+ 
++class _PowSquareFunction(torch.autograd.Function):
++    """FP32 square with the native ``pow(x, 2)`` backward evaluation order."""
++
++    @staticmethod
++    def forward(ctx, A):
++        ctx.save_for_backward(A)
++        return A * A
++
++    @staticmethod
++    def backward(ctx, grad_output):
++        (A,) = ctx.saved_tensors
++        # Native pow's derivative is evaluated as (grad + grad) * A.  Keeping
++        # this order avoids the two independent products used by MulBackward.
++        return (grad_output + grad_output) * A
++
++
+ @pointwise_dynamic(promotion_methods=[(0, 1, "BOOL_TO_LONG")])
+ @triton.jit
+ def pow_func(x, exponent):
+@@ -33,11 +50,17 @@ def pow_func_tensor_scalar(x, exponent):
+ 
+ def pow_tensor_scalar(A, exponent):
+     logger.debug("GEMS POW_TENSOR_SCALAR")
++    if A.dtype == torch.float32 and exponent == 2:
++        if A.requires_grad:
++            return _PowSquareFunction.apply(A)
++        return A * A
+     return pow_func_tensor_scalar(A, exponent)
+ 
+ 
+ def pow_tensor_scalar_(A, exponent):
+     logger.debug("GEMS POW_TENSOR_SCALAR_")
++    if A.dtype == torch.float32 and exponent == 2:
++        return A.mul_(A)
+     return pow_func_tensor_scalar(A, exponent, out0=A)
+ 
+ 
+diff --git a/src/flag_gems/ops/rsqrt.py b/src/flag_gems/ops/rsqrt.py
+index 9763af2aa..4142bfb04 100644
+--- a/src/flag_gems/ops/rsqrt.py
++++ b/src/flag_gems/ops/rsqrt.py
+@@ -1,5 +1,6 @@
+ import logging
+ 
++import torch
+ import triton
+ import triton.language as tl
+ 
+@@ -11,11 +12,30 @@ logger = logging.getLogger(__name__)
+ @pointwise_dynamic(promotion_methods=[(0, "INT_TO_FLOAT")])
+ @triton.jit
+ def rsqrt_func(x):
+-    return 1.0 / tl.sqrt(x.to(tl.float32))
++    return tl.rsqrt(x.to(tl.float32))
++
++
++class _RsqrtExactBackward(torch.autograd.Function):
++    """Keep the native FP32 derivative grouping when training."""
++
++    @staticmethod
++    def forward(ctx, inp):
++        out = rsqrt_func(inp)
++        ctx.save_for_backward(out)
++        return out
++
++    @staticmethod
++    def backward(ctx, grad_output):
++        (out,) = ctx.saved_tensors
++        # Evaluate y^3 first, then apply -0.5 and grad_output.  This is the
++        # order used by the native PPU FP32 rsqrt backward path.
++        return grad_output * (-0.5 * (out * out * out))
+ 
+ 
+ def rsqrt(A):
+     logger.debug("GEMS RSQRT")
++    if A.requires_grad:
++        return _RsqrtExactBackward.apply(A)
+     return rsqrt_func(A)
+ 
+ 
+diff --git a/src/flag_gems/ops/sigmoid.py b/src/flag_gems/ops/sigmoid.py
+index 52b784880..5c8e666f6 100644
+--- a/src/flag_gems/ops/sigmoid.py
++++ b/src/flag_gems/ops/sigmoid.py
+@@ -1,14 +1,61 @@
+ import logging
++import os
+ 
++import torch
+ import triton
+ import triton.language as tl
++from triton.language.extra import libdevice
+ 
++from flag_gems.runtime import torch_device_fn
+ from flag_gems.utils import pointwise_dynamic, tl_extra_shim
++from flag_gems.utils.triton_lang_extension import div_rn
+ 
+ logger = logging.getLogger(__name__)
+ exp2 = tl_extra_shim.exp2
+ 
+ 
++@triton.jit
++def _sigmoid_contiguous_kernel(x_ptr, out_ptr, n_elements, BLOCK_SIZE: tl.constexpr):
++    """Flat contiguous sigmoid path for the profiled PPU pair-shape family."""
++    pid = tl.program_id(axis=0)
++    offsets = pid * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE)
++    mask = offsets < n_elements
++    x = tl.load(x_ptr + offsets, mask=mask, other=0.0).to(tl.float32)
++    y = div_rn(1.0, 1.0 + libdevice.exp(-x))
++    tl.store(out_ptr + offsets, y, mask=mask)
++
++
++def _can_use_measured_ppu_path(x):
++    # The flat path is only for PPU inference (or explicit opt-in).  A raw
++    # Triton write is not an autograd operation, so tensors participating in a
++    # training graph stay on the pointwise implementation below.
++    return (
++        (os.getenv("PPU_SDK") or os.getenv("FLAG_GEMS_PPU_SIGMOID_FLAT") == "1")
++        and x.device.type == "cuda"
++        and x.dtype == torch.float32
++        and x.is_contiguous()
++        and x.ndim >= 1
++        and x.numel() >= (1 << 18)
++        and not x.requires_grad
++    )
++
++
++def _sigmoid_measured_ppu(x, out=None):
++    if out is None:
++        out = torch.empty_like(x)
++    n_elements = x.numel()
++    # The sweep on the Protenix trace shape (693, 768) selects 512x4.  Keep a
++    # larger tile for very large tensors to avoid excessive CTA count.
++    block = 512 if n_elements < (1 << 20) else 2048
++    warps = 4 if block == 512 else 8
++    grid = (triton.cdiv(n_elements, block),)
++    with torch_device_fn.device(x.device):
++        _sigmoid_contiguous_kernel[grid](
++            x, out, n_elements, BLOCK_SIZE=block, num_warps=warps
++        )
++    return out
++
++
+ @pointwise_dynamic(promotion_methods=[(0, "INT_TO_FLOAT")])
+ @triton.jit
+ def sigmoid_forward(x):
+@@ -16,7 +63,10 @@ def sigmoid_forward(x):
+     # triton 3.0.0 disallow calling non-jitted function inside jitted function, even if it is in
+     # the rhs of an assignment to a constexpr, so we use numeric literal instead to work around this.
+     log2e: tl.constexpr = 1.4426950408889634
+-    return 1 / (1 + exp2(-x.to(tl.float32) * log2e))
++    # Match the native FP32 CUDA/PPU exponential path.  The previous
++    # exp2(log2(e)*x) spelling was measurably different on PPU and also
++    # slower for the Protenix shape family.
++    return div_rn(1.0, 1.0 + libdevice.exp(-x.to(tl.float32)))
+ 
+ 
+ @pointwise_dynamic(promotion_methods=[(0, "INT_TO_FLOAT")])
+@@ -29,6 +79,8 @@ def sigmoid_backward_kernel(dy, y):
+ 
+ def sigmoid(self):
+     logger.debug("GEMS SIGMOID FORWARD")
++    if _can_use_measured_ppu_path(self):
++        return _sigmoid_measured_ppu(self)
+     output = sigmoid_forward(self)
+     return output
+ 
+@@ -41,5 +93,7 @@ def sigmoid_backward(grad_output, output):
+ 
+ def sigmoid_(A):
+     logger.debug("GEMS SIGMOID_ FORWARD")
++    if _can_use_measured_ppu_path(A):
++        return _sigmoid_measured_ppu(A, out=A)
+     out = sigmoid_forward(A, out0=A)
+     return out
+diff --git a/src/flag_gems/ops/silu.py b/src/flag_gems/ops/silu.py
+index 56c8e9540..39a1e200b 100644
+--- a/src/flag_gems/ops/silu.py
++++ b/src/flag_gems/ops/silu.py
+@@ -1,19 +1,95 @@
+ import logging
++import os
+ 
++import torch
+ import triton
+ import triton.language as tl
++from triton.language.extra import libdevice
+ 
++from flag_gems.runtime import torch_device_fn
+ from flag_gems.utils import pointwise_dynamic
+ from flag_gems.utils.triton_lang_extension import div_rn
+ 
+ logger = logging.getLogger(__name__)
+ 
+ 
++@triton.jit
++def _silu_contiguous_kernel(
++    x_ptr, out_ptr, n_elements, BLOCK_SIZE: tl.constexpr
++):
++    """Flat contiguous SiLU path used only for the measured PPU shape family."""
++    pid = tl.program_id(axis=0)
++    offsets = pid * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE)
++    mask = offsets < n_elements
++    x = tl.load(x_ptr + offsets, mask=mask, other=0.0)
++    x_fp32 = x.to(tl.float32)
++    y = tl.fdiv(x_fp32, 1.0 + tl.exp(-x_fp32))
++    tl.store(out_ptr + offsets, y.to(x.dtype), mask=mask)
++
++
++@triton.jit
++def _silu_backward_contiguous_kernel(
++    x_ptr, dy_ptr, dx_ptr, n_elements, BLOCK_SIZE: tl.constexpr
++):
++    """Flat contiguous backward path for the measured PPU shape family."""
++    pid = tl.program_id(axis=0)
++    offsets = pid * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE)
++    mask = offsets < n_elements
++    x = tl.load(x_ptr + offsets, mask=mask, other=0.0).to(tl.float32)
++    dy = tl.load(dy_ptr + offsets, mask=mask, other=0.0).to(tl.float32)
++    sigma = tl.fdiv(1.0, 1.0 + tl.exp(-x))
++    dx = dy * sigma * (1.0 + x * (1.0 - sigma))
++    tl.store(dx_ptr + offsets, dx, mask=mask)
++
++
++def _can_use_measured_ppu_path(x, env_name="FLAG_GEMS_PPU_SILU_BLOCK"):
++    # Keep this opt-in until a matched end-to-end A/B confirms the gain.  The
++    # shape guard prevents changing the generic pointwise policy for unrelated
++    # operators and small/irregular tensors.
++    return (
++        os.getenv(env_name) == "8192"
++        and x.device.type == "cuda"
++        and x.dtype == torch.float32
++        and x.is_contiguous()
++        and x.ndim >= 1
++        and x.shape[-1] == 1024
++        and x.numel() >= (1 << 20)
++    )
++
++
++def _silu_measured_ppu(x, out=None):
++    if out is None:
++        out = torch.empty_like(x)
++    n_elements = x.numel()
++    grid = (triton.cdiv(n_elements, 8192),)
++    with torch_device_fn.device(x.device):
++        _silu_contiguous_kernel[grid](
++            x, out, n_elements, BLOCK_SIZE=8192, num_warps=16
++        )
++    return out
++
++
++def _silu_backward_measured_ppu(grad_output, self):
++    grad_input = torch.empty_like(self)
++    n_elements = self.numel()
++    grid = (triton.cdiv(n_elements, 8192),)
++    with torch_device_fn.device(self.device):
++        _silu_backward_contiguous_kernel[grid](
++            self,
++            grad_output,
++            grad_input,
++            n_elements,
++            BLOCK_SIZE=8192,
++            num_warps=16,
++        )
++    return grad_input
++
++
+ @pointwise_dynamic(promotion_methods=[(0, "DEFAULT")])
+ @triton.jit
+ def silu_forward(x):
+     x_fp32 = x.to(tl.float32)
+-    y = tl.fdiv(x_fp32, (1.0 + tl.exp(-x_fp32)))
++    y = div_rn(x_fp32, 1.0 + libdevice.exp(-x_fp32))
+     return y
+ 
+ 
+@@ -22,24 +98,35 @@ def silu_forward(x):
+ def silu_backward_kernel(x, dy):
+     dy_fp32 = dy.to(tl.float32)
+     x_fp32 = x.to(tl.float32)
+-    sigma = div_rn(1.0, 1.0 + tl.exp(-x_fp32))
++    sigma = div_rn(1.0, 1.0 + libdevice.exp(-x_fp32))
+     dx = dy_fp32 * sigma * (1.0 + x_fp32 * (1.0 - sigma))
+     return dx
+ 
+ 
+ def silu(self):
+     logger.debug("GEMS SILU FORWARD")
++    if _can_use_measured_ppu_path(self):
++        return _silu_measured_ppu(self)
+     output = silu_forward(self)
+     return output
+ 
+ 
+ def silu_backward(grad_output, self):
+     logger.debug("GEMS SILU BACKWARD")
++    if (
++        os.getenv("FLAG_GEMS_PPU_SILU_BWD_BLOCK") == "8192"
++        and _can_use_measured_ppu_path(self, "FLAG_GEMS_PPU_SILU_BWD_BLOCK")
++        and grad_output.is_contiguous()
++        and grad_output.shape == self.shape
++    ):
++        return _silu_backward_measured_ppu(grad_output, self)
+     grad_input = silu_backward_kernel(self, grad_output)
+     return grad_input
+ 
+ 
+ def silu_(A):
+     logger.debug("GEMS SILU_ FORWARD")
++    if _can_use_measured_ppu_path(A):
++        return _silu_measured_ppu(A, out=A)
+     out = silu_forward(A, out0=A)
+     return out
+diff --git a/src/flag_gems/ops/slice_backward.py b/src/flag_gems/ops/slice_backward.py
+index 66ef66a50..e4023f281 100644
+--- a/src/flag_gems/ops/slice_backward.py
++++ b/src/flag_gems/ops/slice_backward.py
+@@ -70,6 +70,10 @@ def slice_backward(
+         start += dim_size
+     start = max(0, min(start, dim_size))
+ 
++    # The Triton kernel uses logical contiguous indexing; Autograd may pass a
++    # transpose/slice/view with a non-contiguous backing layout.
++    grad_output = grad_output.contiguous()
++
+     numel = grad_output.numel()
+ 
+     BLOCK = 1024
+diff --git a/src/flag_gems/ops/softmax.py b/src/flag_gems/ops/softmax.py
+index c77cd6a7e..1c21179bf 100644
+--- a/src/flag_gems/ops/softmax.py
++++ b/src/flag_gems/ops/softmax.py
+@@ -1,18 +1,36 @@
+ import logging
++import os
+ 
+ import torch
+ import triton
+ import triton.language as tl
++from triton.language.extra import libdevice
+ 
+ from flag_gems import runtime
+ from flag_gems.ops.zeros import zero_
+ from flag_gems.runtime import torch_device_fn
+ from flag_gems.utils import libentry
+ from flag_gems.utils import triton_lang_extension as ext
++from flag_gems.utils.triton_lang_extension import div_rn
+ 
+ logger = logging.getLogger(__name__)
+ 
+ 
++@triton.jit
++def _codex_softmax8_kernel(output_ptr, input_ptr, M):
++    """Single-program N=8 softmax for the measured Protenix hot shape."""
++    pid = ext.program_id(0)
++    if pid < M:
++        offsets = tl.arange(0, 8)
++        base = pid * 8
++        inp = tl.load(input_ptr + base + offsets)
++        maximum = tl.max(inp, 0)
++        exp_inp = libdevice.exp(inp - maximum)
++        mass = tl.sum(exp_inp, 0)
++        output = div_rn(exp_inp, mass)
++        tl.store(output_ptr + base + offsets, output)
++
++
+ @libentry()
+ @triton.heuristics(runtime.get_heuristic_config("softmax_non_inner"))
+ @triton.jit
+@@ -38,9 +56,9 @@ def softmax_kernel_non_inner(
+         input_ptrs = input_ptr + offset
+         inp = tl.load(input_ptrs, mask=mask, other=-float("inf"))
+         m = tl.max(inp, 0)
+-        e = tl.exp(inp - m[None, :])
++        e = libdevice.exp(inp - m[None, :])
+         z = tl.sum(e, 0)
+-        out = e / z
++        out = div_rn(e, z)
+         output_ptrs = output_ptr + offset
+         tl.store(output_ptrs, out, mask=mask)
+     else:
+@@ -55,11 +73,11 @@ def softmax_kernel_non_inner(
+             inp = tl.load(input_ptr + offsets, mask=mask, other=-float("inf"))
+             m_new = tl.maximum(m, inp)
+             all_neg_inf = m_new == float("-inf")
+-            z = tl.where(all_neg_inf, z, z * tl.exp(m - m_new) + tl.exp(inp - m_new))
++            z = tl.where(all_neg_inf, z, z * libdevice.exp(m - m_new) + libdevice.exp(inp - m_new))
+             m = m_new
+ 
+         m_reduced = tl.max(m, 0)  # (TILE_K,)
+-        z = tl.sum(z * tl.exp(m - m_reduced[None, :]), 0)  # (TILE_K, )
++        z = tl.sum(z * libdevice.exp(m - m_reduced[None, :]), 0)  # (TILE_K, )
+         m = m_reduced
+ 
+         # specialization does not improve performance inn this example, as tested
+@@ -69,7 +87,7 @@ def softmax_kernel_non_inner(
+             offsets = pid_m * N * K + n_offsets[:, None] * K + k_offsets
+             mask = (n_offsets[:, None] < N) & (k_offsets[None, :] < K)
+             inp = tl.load(input_ptr + offsets, mask=mask, other=-float("inf"))
+-            o = tl.exp(inp - m[None, :]) / z[None, :]
++            o = div_rn(libdevice.exp(inp - m[None, :]), z[None, :])
+             tl.store(output_ptr + offsets, o, mask=mask)
+ 
+ 
+@@ -106,9 +124,9 @@ def softmax_kernel_inner(
+             output_ptr.dtype.element_ty
+         )
+         m = tl.max(inp, 0)
+-        e = tl.exp(inp - m)
++        e = libdevice.exp(inp - m)
+         z = tl.sum(e, 0)
+-        out = e / z
++        out = div_rn(e, z)
+         output_ptrs = output_ptr + offset
+         tl.store(output_ptrs, out, mask=mask)
+     else:
+@@ -124,7 +142,7 @@ def softmax_kernel_inner(
+             m_new = tl.maximum(m, inp)
+             # it is possible that there are -inf's in the input
+             all_neg_inf = m_new == float("-inf")
+-            z = tl.where(all_neg_inf, z, z * tl.exp(m - m_new) + tl.exp(inp - m_new))
++            z = tl.where(all_neg_inf, z, z * libdevice.exp(m - m_new) + libdevice.exp(inp - m_new))
+             m = m_new
+         # specialize the last iteration
+         for start_n in range(previous_multiple, N, TILE_N):
+@@ -133,11 +151,11 @@ def softmax_kernel_inner(
+             inp = tl.load(input_ptr + n_offsets, mask=mask, other=-float("inf"))
+             m_new = tl.maximum(m, inp)
+             all_neg_inf = m_new == float("-inf")
+-            z = tl.where(all_neg_inf, z, z * tl.exp(m - m_new) + tl.exp(inp - m_new))
++            z = tl.where(all_neg_inf, z, z * libdevice.exp(m - m_new) + libdevice.exp(inp - m_new))
+             m = m_new
+ 
+         m_reduced = tl.max(m, 0)
+-        z = tl.sum(z * tl.exp(m - m_reduced), 0)
++        z = tl.sum(z * libdevice.exp(m - m_reduced), 0)
+         m = m_reduced
+ 
+         previous_multiple = prev_multiple_of(N, TILE_N)
+@@ -151,12 +169,12 @@ def softmax_kernel_inner(
+                 other=-float("inf"),
+                 eviction_policy="evict_first",
+             )
+-            o = tl.exp(inp - m) / z
++            o = div_rn(libdevice.exp(inp - m), z)
+             tl.store(output_ptr + n_offsets, o, mask=mask)
+         for start_n in range(TILE_N, N, TILE_N):
+             n_offsets = (previous_multiple - start_n) + tl.arange(0, TILE_N)
+             inp = tl.load(input_ptr + n_offsets, eviction_policy="evict_first")
+-            o = tl.exp(inp - m) / z
++            o = div_rn(libdevice.exp(inp - m), z)
+             tl.store(output_ptr + n_offsets, o)
+ 
+ 
+@@ -193,8 +211,8 @@ def softmax_backward_kernel_non_inner(
+         mask = (offsets_n < N)[:, None] & (offsets_k < K)
+         out_tile = tl.load(out_ptr + offsets, mask=mask).to(tl.float32)
+         out_grad_tile = tl.load(out_grad_ptr + offsets, mask=mask).to(tl.float32)
+-        scale = tl.sum(out_tile * out_grad_tile, axis=0)
+-        in_grad_tile = out_tile * (out_grad_tile - scale[None, :])
++        scale = tl.sum(out_grad_tile, axis=0)
++        in_grad_tile = out_grad_tile - out_tile * scale[None, :]
+         tl.store(in_grad_ptr + offsets, in_grad_tile, mask=mask)
+     else:
+         offsets_n = tl.arange(0, TILE_N)
+@@ -204,7 +222,7 @@ def softmax_backward_kernel_non_inner(
+             mask = (offsets_n < N)[:, None] & (offsets_k < K)
+             out_tile = tl.load(out_ptr + offsets, mask=mask).to(tl.float32)
+             out_grad_tile = tl.load(out_grad_ptr + offsets, mask=mask).to(tl.float32)
+-            scale += out_tile * out_grad_tile
++            scale += out_grad_tile
+             offsets_n += TILE_N
+             offsets += TILE_N * K
+         scale = tl.sum(scale, axis=0)  # (TILE_K)
+@@ -215,7 +233,7 @@ def softmax_backward_kernel_non_inner(
+             mask = (offsets_n < N)[:, None] & (offsets_k < K)
+             out_tile = tl.load(out_ptr + offsets, mask=mask).to(tl.float32)
+             out_grad_tile = tl.load(out_grad_ptr + offsets, mask=mask).to(tl.float32)
+-            in_grad_tile = out_tile * (out_grad_tile - scale[None, :])
++            in_grad_tile = out_grad_tile - out_tile * scale[None, :]
+             tl.store(in_grad_ptr + offsets, in_grad_tile, mask=mask)
+             offsets_n += TILE_N
+             offsets += TILE_N * K
+@@ -248,8 +266,8 @@ def softmax_backward_kernel_inner(
+         mask = (m_offsets[:, None] < M) & (n_offsets < N)
+         out_tile = tl.load(out_ptr + offsets, mask=mask).to(tl.float32)
+         out_grad_tile = tl.load(out_grad_ptr + offsets, mask=mask).to(tl.float32)
+-        scale = tl.sum(out_tile * out_grad_tile, 1)
+-        in_grad_tile = out_tile * (out_grad_tile - scale[:, None])
++        scale = tl.sum(out_grad_tile, 1)
++        in_grad_tile = out_grad_tile - out_tile * scale[:, None]
+         tl.store(in_grad_ptr + offsets, in_grad_tile, mask=mask)
+     else:
+         scale = tl.zeros([TILE_M, TILE_N], dtype=tl.float32)
+@@ -262,7 +280,7 @@ def softmax_backward_kernel_inner(
+                 out_ptr + offsets, mask=mask, eviction_policy="evict_last"
+             ).to(tl.float32)
+             out_grad_tile = tl.load(out_grad_ptr + offsets, mask=mask).to(tl.float32)
+-            scale += out_tile * out_grad_tile
++            scale += out_grad_tile
+             n_offsets += TILE_N
+             offsets += TILE_N
+         scale = tl.sum(scale, 1)  # (TILE_M,)
+@@ -275,7 +293,7 @@ def softmax_backward_kernel_inner(
+                 out_ptr + offsets, mask=mask, eviction_policy="evict_first"
+             ).to(tl.float32)
+             out_grad_tile = tl.load(out_grad_ptr + offsets, mask=mask).to(tl.float32)
+-            in_grad_tile = out_tile * (out_grad_tile - scale[:, None])
++            in_grad_tile = out_grad_tile - out_tile * scale[:, None]
+             tl.store(in_grad_ptr + offsets, in_grad_tile, mask=mask)
+             n_offsets += TILE_N
+             offsets += TILE_N
+@@ -305,6 +323,16 @@ def softmax_out(self, dim, half_to_float=False, *, out):
+         raise RuntimeError(f"_softmax.out: expected out dtype {dtype}, got {out.dtype}")
+     K = self.numel() // M // N
+ 
++    if (
++        os.getenv("FLAG_GEMS_PPU_SOFTMAX8_SCALAR", "0") == "1"
++        and self.dtype == torch.float32
++        and N == 8
++        and K == 1
++    ):
++        with torch_device_fn.device(self.device):
++            _codex_softmax8_kernel[(M,)](out, self, M, num_warps=1)
++        return out
++
+     with torch_device_fn.device(self.device):
+         if K > 1:
+             grid = lambda meta: (M, triton.cdiv(K, meta["TILE_K"]), 1)
+@@ -353,6 +381,10 @@ def softmax_backward_out(grad_output, output, dim, input_dtype, *, grad_input):
+         M *= output.shape[i]
+ 
+     grad_output = grad_output.contiguous()
++    # PyTorch CUDA forms this product as a separate tensor before the
++    # softmax-backward reduction.  Preserve that rounding boundary for FP32
++    # parity with the native path.
++    grad_output = torch.mul(grad_output, output)
+     if tuple(grad_input.shape) != tuple(output.shape):
+         grad_input.resize_(output.shape)
+     if grad_input.dtype != input_dtype:
+diff --git a/src/flag_gems/ops/sqrt.py b/src/flag_gems/ops/sqrt.py
+index 4b21c4159..04567529e 100644
+--- a/src/flag_gems/ops/sqrt.py
++++ b/src/flag_gems/ops/sqrt.py
+@@ -2,6 +2,7 @@ import logging
+ 
+ import triton
+ import triton.language as tl
++from triton.language.extra import libdevice
+ 
+ from flag_gems.utils import pointwise_dynamic
+ 
+@@ -11,7 +12,10 @@ logger = logging.getLogger(__name__)
+ @pointwise_dynamic(promotion_methods=[(0, "INT_TO_FLOAT")])
+ @triton.jit
+ def sqrt_func(x):
+-    return tl.sqrt(x.to(tl.float32))
++    # Match the native FP32 round-to-nearest square root.  On PPU the generic
++    # ``tl.sqrt`` lowering differs by one ULP from the native ACDNN path;
++    # libdevice.sqrt_rn is exact on both PPU and H100 for this contract.
++    return libdevice.sqrt_rn(x.to(tl.float32))
+ 
+ 
+ def sqrt(A):
+diff --git a/src/flag_gems/ops/unfold_backward.py b/src/flag_gems/ops/unfold_backward.py
+index 7ac0056db..ad1d83f8a 100644
+--- a/src/flag_gems/ops/unfold_backward.py
++++ b/src/flag_gems/ops/unfold_backward.py
+@@ -62,6 +62,10 @@ def unfold_backward(
+         prod_after *= int(s_)
+     inner_total = int(L) * int(prod_after) * int(size)
+ 
++    # The Triton kernel uses logical contiguous indexing; Autograd may pass a
++    # transpose/slice/view with a non-contiguous backing layout.
++    grad_in = grad_in.contiguous()
++
+     device = grad_in.device
+     grad_out_f32 = torch.zeros(input_sizes, dtype=torch.float32, device=device)
+ 
+diff --git a/src/flag_gems/utils/codegen_config_utils.py b/src/flag_gems/utils/codegen_config_utils.py
+index 5bd71f355..330d0a0c5 100644
+--- a/src/flag_gems/utils/codegen_config_utils.py
++++ b/src/flag_gems/utils/codegen_config_utils.py
+@@ -1,4 +1,5 @@
+ from dataclasses import dataclass
++import os
+ from typing import Tuple
+ 
+ import triton
+@@ -58,6 +59,15 @@ def enflame_heuristics_for_num_warps(tile_size):
+     return 4
+ 
+ 
++def thead_heuristics_for_num_warps(tile_size):
++    """Launch geometry measured for contiguous PPU pointwise tensors."""
++    if tile_size <= 512:
++        return 4
++    if tile_size <= 2048:
++        return 8
++    return 16
++
++
+ @dataclass
+ class CodeGenConfig:
+     max_tile_size: int
+@@ -149,6 +159,16 @@ CODEGEN_COFIGS = {
+         True,
+         prefer_1d_tile=True,
+     ),
++    # PPU's CUDA-compatible Triton path is substantially faster with the
++    # flat 1-D addressing kernel than with generic block pointers for the
++    # contiguous pointwise tensors used by Protenix.
++    vendors.THEAD: CodeGenConfig(
++        512,
++        (65536, 65536, 65536),
++        32,
++        False,
++        prefer_1d_tile=True,
++    ),
+ }
+ 
+ HEURISTICS_CONFIG = {
+@@ -159,10 +179,22 @@ HEURISTICS_CONFIG = {
+     vendors.TSINGMICRO: tsingmicro_heuristics_for_num_warps,
+     vendors.SUNRISE: sunrise_heuristics_for_num_warps,
+     vendors.ENFLAME: enflame_heuristics_for_num_warps,
++    vendors.THEAD: thead_heuristics_for_num_warps,
+ }
+ 
+ 
+ def get_codegen_config():
++    # PPU may expose the CUDA dispatch key even when vendor detection is
++    # intentionally kept generic.  The SDK marker is sufficient to select
++    # the measured flat pointwise geometry in that case.
++    if os.getenv("PPU_SDK"):
++        return CodeGenConfig(
++            512,
++            (65536, 65536, 65536),
++            32,
++            False,
++            prefer_1d_tile=True,
++        )
+     if device.vendor not in CODEGEN_COFIGS:
+         return CODEGEN_COFIGS.get(vendors.NVIDIA)
+     return CODEGEN_COFIGS.get(device.vendor)
+diff --git a/tests/test_any.py b/tests/test_any.py
+index eff3d2ef4..0368afcf3 100644
+--- a/tests/test_any.py
++++ b/tests/test_any.py
+@@ -78,3 +78,25 @@ def test_any_dim(shape, dtype, keepdim, dim, kind):
+         res_out = torch.any(inp, dim=dim, keepdim=keepdim)
+ 
+     utils.gems_assert_equal(res_out, ref_out)
++
++
++@pytest.mark.any
++@pytest.mark.parametrize("dtype", [torch.float32, torch.bool])
++def test_any_empty(dtype):
++    """The reduction identity for an empty tensor is False."""
++    inp = torch.empty((0,), dtype=dtype, device=flag_gems.device)
++    ref_out = torch.any(utils.to_reference(inp))
++    with flag_gems.use_gems():
++        res_out = torch.any(inp)
++    utils.gems_assert_equal(res_out, ref_out)
++
++
++@pytest.mark.any_dim
++@pytest.mark.parametrize("keepdim", [True, False])
++def test_any_dim_zero_length_reduction(keepdim):
++    """Reducing a zero-length dimension returns an all-False output."""
++    inp = torch.empty((2, 0, 3), dtype=torch.float32, device=flag_gems.device)
++    ref_out = torch.any(utils.to_reference(inp), dim=1, keepdim=keepdim)
++    with flag_gems.use_gems():
++        res_out = torch.any(inp, dim=1, keepdim=keepdim)
++    utils.gems_assert_equal(res_out, ref_out)
+diff --git a/tests/test_div.py b/tests/test_div.py
+index 8bb8c0c74..6470cb8a3 100644
+--- a/tests/test_div.py
++++ b/tests/test_div.py
+@@ -43,6 +43,29 @@ def test_div_tensor_tensor_(shape, dtype):
+     utils.gems_assert_close(res_out, ref_out, dtype, equal_nan=True)
+ 
+ 
++@pytest.mark.div_tensor_
++def test_true_divide_inplace_preserves_autograd_formula():
++    """In-place divide must keep PyTorch's CompositeImplicitAutograd rule."""
++    ref_source = torch.arange(
++        1, 7, device=flag_gems.device, dtype=torch.float32
++    ).reshape(2, 3)
++    ref_source = ref_source.clone().requires_grad_(True)
++    ref_divided = ref_source * 2.0
++    ref_divided.true_divide_(4.0)
++    ref_divided.square().sum().backward()
++
++    source = torch.arange(
++        1, 7, device=flag_gems.device, dtype=torch.float32
++    ).reshape(2, 3)
++    source = source.clone().requires_grad_(True)
++    with flag_gems.use_gems(exclude=[]):
++        divided = source * 2.0
++        divided.true_divide_(4.0)
++        divided.square().sum().backward()
++
++    torch.testing.assert_close(source.grad, ref_source.grad)
++
++
+ # div.Tensor with true_divide
+ @pytest.mark.div_tensor
+ @pytest.mark.parametrize("shape", utils.POINTWISE_SHAPES)
+diff --git a/tests/test_index_put_impl.py b/tests/test_index_put_impl.py
+index 9627b5930..d0a1e74d1 100644
+--- a/tests/test_index_put_impl.py
++++ b/tests/test_index_put_impl.py
+@@ -193,3 +193,29 @@ def test__index_put_impl__error_all_none(dtype):
+     with pytest.raises(TypeError):
+         with flag_gems.use_gems():
+             torch._index_put_impl_(inp, indices, values, accumulate=False, unsafe=False)
++
++
++@pytest.mark.index_put_impl
++@pytest.mark.parametrize("dtype", [torch.float32])
++def test__index_put_impl__autograd_mixed_basic_index(dtype):
++    """Autograd scatter must retain leading ``None`` index dimensions.
++
++    ``IndexBackward`` emits this pattern for a slice followed by an advanced
++    boolean index.  The regression used to drop the basic dimensions in the
++    compact `_index_put_impl_` path, producing a wrong gradient or a shape
++    error on the PPU FlagGems route.
++    """
++    source = torch.randn(
++        (1, 2, 2, 3), dtype=dtype, device=flag_gems.device, requires_grad=True
++    )
++    # ``source[..., mask, :, :]`` is the minimal shape that makes Autograd
++    # emit a leading ``None`` followed by an advanced boolean index.
++    mask = torch.tensor([True, False], dtype=torch.bool, device=flag_gems.device)
++
++    with flag_gems.use_gems():
++        actual = source[..., mask, :, :].sum()
++        actual.backward()
++
++    expected = torch.zeros_like(source)
++    expected[..., mask, :, :] = 1
++    torch.testing.assert_close(source.grad, expected)
+diff --git a/tests/test_index_select.py b/tests/test_index_select.py
+index 048e6b0ee..01704c3a3 100644
+--- a/tests/test_index_select.py
++++ b/tests/test_index_select.py
+@@ -39,3 +39,20 @@ def test_index_select(shape, dim, dtype):
+         res_out = torch.index_select(inp, dim, index)
+ 
+     utils.gems_assert_equal(res_out, ref_out)
++
++
++@pytest.mark.index_select
++@pytest.mark.parametrize("dtype", [torch.float32])
++def test_index_select_noncontiguous_index(dtype):
++    """A strided index view must be read by logical index order."""
++    inp = torch.arange(40, dtype=dtype, device=flag_gems.device).reshape(10, 4)
++    index = torch.arange(10, device=flag_gems.device)[::2]
++    assert not index.is_contiguous()
++
++    ref_inp = utils.to_reference(inp)
++    ref_index = utils.to_reference(index)
++    ref_out = torch.index_select(ref_inp, 0, ref_index)
++    with flag_gems.use_gems():
++        res_out = torch.index_select(inp, 0, index)
++
++    utils.gems_assert_equal(res_out, ref_out)
+diff --git a/tests/test_mean.py b/tests/test_mean.py
+index 8fc283bb3..0c8fa1083 100644
+--- a/tests/test_mean.py
++++ b/tests/test_mean.py
+@@ -45,6 +45,28 @@ def test_mean_dim(shape, dim, keepdim, dtype):
+     utils.gems_assert_close(res_out, ref_out, dtype)
+ 
+ 
++@pytest.mark.mean_dim
++@pytest.mark.parametrize("shape, dim", [((2, 0, 3), 1), ((0, 3), 0), ((2, 0, 3), [1, 2])])
++@pytest.mark.parametrize("keepdim", [True, False])
++def test_mean_dim_empty_reduction(shape, dim, keepdim):
++    inp = torch.empty(shape, dtype=torch.float32, device=flag_gems.device)
++    ref_inp = utils.to_reference(inp, True)
++    ref_out = torch.mean(ref_inp, dim, keepdim)
++    with flag_gems.use_gems():
++        res_out = torch.mean(inp, dim, keepdim)
++    assert res_out.shape == ref_out.shape
++    assert torch.isnan(res_out).equal(torch.isnan(ref_out))
++
++
++@pytest.mark.mean
++def test_mean_empty_input():
++    inp = torch.empty((0,), dtype=torch.float32, device=flag_gems.device)
++    ref_out = torch.mean(utils.to_reference(inp, True))
++    with flag_gems.use_gems():
++        res_out = torch.mean(inp)
++    assert torch.isnan(res_out).item() == torch.isnan(ref_out).item()
++
++
+ # Shapes where K (product of dims after the reduction axis) exceeds the CUDA
+ # grid-Y limit of 65535, which used to trigger "Triton Error [CUDA]: invalid
+ # argument" before the mean_heur_tile_k grid-overflow fix.
+diff --git a/tests/test_pad.py b/tests/test_pad.py
+index c557d3a7b..d71fdcb51 100644
+--- a/tests/test_pad.py
++++ b/tests/test_pad.py
+@@ -74,3 +74,26 @@ def test_pad(shape, dtype, pad_mode, contiguous):
+         ref_out = ref_out.to(res_out.dtype)
+ 
+     gems_assert_equal(res_out, ref_out)
++
++
++@pytest.mark.pad
++def test_pad_autograd_registers_input_gradient():
++    """The CUDA pad override must preserve the input Autograd formula."""
++    ref_x = torch.arange(
++        6, device=flag_gems.device, dtype=torch.float32
++    ).reshape(2, 3)
++    ref_x = ref_x.clone().requires_grad_(True)
++    torch.nn.functional.pad(
++        ref_x, (1, 2), mode="constant", value=0.0
++    ).square().sum().backward()
++
++    x = torch.arange(
++        6, device=flag_gems.device, dtype=torch.float32
++    ).reshape(2, 3)
++    x = x.clone().requires_grad_(True)
++    with flag_gems.use_gems(exclude=[]):
++        torch.nn.functional.pad(
++            x, (1, 2), mode="constant", value=0.0
++        ).square().sum().backward()
++
++    torch.testing.assert_close(x.grad, ref_x.grad)
+diff --git a/tests/test_slice_backward.py b/tests/test_slice_backward.py
+index b5bad4721..430b40dcd 100644
+--- a/tests/test_slice_backward.py
++++ b/tests/test_slice_backward.py
+@@ -116,3 +116,30 @@ def test_slice_backward_oob_start(shape, dtype):
+     res_out = flag_gems.slice_backward(grad_output, shape, dim, start, end, step)
+ 
+     utils.gems_assert_equal(res_out, ref_out)
++
++
++@pytest.mark.slice_backward
++def test_slice_backward_noncontiguous_grad_output():
++    """The backward kernel must read a view using logical, not storage order."""
++    shape = (4, 6, 5)
++    dim, start, end, step = 1, 1, 6, 2
++    grad_shape = (shape[0], 3, shape[2])
++
++    base = torch.arange(
++        torch.tensor(grad_shape).prod().item(),
++        dtype=torch.float32,
++        device=flag_gems.device,
++    ).reshape(shape[0], shape[2], grad_shape[1])
++    grad_output = base.transpose(1, 2)
++    assert grad_output.shape == grad_shape
++    assert not grad_output.is_contiguous()
++
++    ref_out = torch.ops.aten.slice_backward(
++        utils.to_reference(grad_output), shape, dim, start, end, step
++    )
++    with flag_gems.use_gems():
++        res_out = flag_gems.slice_backward(
++            grad_output, shape, dim, start, end, step
++        )
++
++    utils.gems_assert_equal(res_out, ref_out)
+diff --git a/tests/test_unfold_backward.py b/tests/test_unfold_backward.py
+index a192adcc8..4edb9886f 100644
+--- a/tests/test_unfold_backward.py
++++ b/tests/test_unfold_backward.py
+@@ -36,3 +36,28 @@ def test_unfold_backward(input_sizes, dim, size, step, dtype):
+         res_out = flag_gems.unfold_backward(grad_in, input_sizes, dim, size, step)
+ 
+     utils.gems_assert_close(res_out, ref_out, dtype, reduce_dim=size)
++
++
++@pytest.mark.unfold_backward
++def test_unfold_backward_noncontiguous_grad_input():
++    """The backward kernel must honor logical values from a view."""
++    input_sizes = (2, 8, 3)
++    dim, size, step = 1, 3, 2
++    num_windows = (input_sizes[dim] - size) // step + 1
++    grad_shape = (input_sizes[0], num_windows, input_sizes[2], size)
++
++    base = torch.arange(
++        torch.tensor(grad_shape).prod().item(),
++        dtype=torch.float32,
++        device=flag_gems.device,
++    ).reshape(grad_shape)
++    grad_in = base.permute(0, 2, 1, 3)
++    assert not grad_in.is_contiguous()
++
++    ref_out = torch.ops.aten.unfold_backward(
++        utils.to_reference(grad_in), input_sizes, dim, size, step
++    )
++    with flag_gems.use_gems():
++        res_out = flag_gems.unfold_backward(grad_in, input_sizes, dim, size, step)
++
++    utils.gems_assert_equal(res_out, ref_out)
