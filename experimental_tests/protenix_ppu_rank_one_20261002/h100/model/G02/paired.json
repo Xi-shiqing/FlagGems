@@ -1,0 +1,97 @@
+{
+  "status": "PASS",
+  "native_h100": true,
+  "order": [
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32"
+  ],
+  "summary": {
+    "fp32": {
+      "count": 10,
+      "warmup_count": 3,
+      "median_seconds": 0.4889402170665562,
+      "samples_seconds": [
+        0.49383037351071835,
+        0.4867891613394022,
+        0.488916183821857,
+        0.4873986793681979,
+        0.48896425031125546,
+        0.49420290626585484,
+        0.49205573089420795,
+        0.4898484004661441,
+        0.4865363882854581,
+        0.4859944498166442
+      ],
+      "prediction_equal_reference": false,
+      "confidence_equal_reference": false,
+      "prediction_digest": {
+        "sha256": "1183217ca397845df93ac70f2037866e3c524810164436777605bcb2e9119833",
+        "sum_fp64": -4890.661454916,
+        "max_abs": 5452.4052734375
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.26214599609375,
+        "gpde": 7.269092082977295,
+        "ptm": 0.21105259656906128,
+        "iptm": 0.20743019878864288,
+        "ranking_score": 0.20815467834472656
+      }
+    },
+    "tf32": {
+      "count": 10,
+      "warmup_count": 3,
+      "median_seconds": 0.4516895189881325,
+      "samples_seconds": [
+        0.4612087579444051,
+        0.4515816429629922,
+        0.45731011498719454,
+        0.4423857796937227,
+        0.4482309017330408,
+        0.46215673815459013,
+        0.46873160637915134,
+        0.4503551088273525,
+        0.45179739501327276,
+        0.4503561295568943
+      ],
+      "prediction_equal_reference": true,
+      "confidence_equal_reference": true,
+      "prediction_digest": {
+        "sha256": "604d3c95f6cd8d8d1f85c5757ce094408f0b9012d82d6c26969f21f9a41e81ff",
+        "sum_fp64": -4836.543895959854,
+        "max_abs": 5452.337890625
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.51933288574219,
+        "gpde": 7.270471096038818,
+        "ptm": 0.21090394258499146,
+        "iptm": 0.207359179854393,
+        "ranking_score": 0.2080681324005127
+      }
+    }
+  },
+  "scope": "InferenceRunner.predict; 3 warmups and 10 measured predictions per precision"
+}

@@ -67,3 +67,32 @@ Triangle Attention tuning is already part of this branch's history. New
 operator changes should continue on this branch when they are required by the
 Protenix integration; a separate branch is only needed for an independent
 experiment with a different compatibility contract.
+
+## TF32 experiment archive through 2026-10-04
+
+The [experiment index](../experimental_tests/protenix_ppu_experiments.md) records
+the PPU TF32 work since the 2026-09-20 deployment snapshot, including accepted,
+rejected, and diagnostic candidates. Source snapshots pin the actual isolated
+server packages; they are not interchangeable with the newer generic source
+tree in this branch.
+
+The source integration now includes the previously validated PPU TF32-enabled
+`K=1` IEEE outer-product route for MM/addmm/BMM and the `N=1` column-MM route
+using the existing IEEE MV implementation. Their helper sources match the
+archived tested candidates. The newer generic integration has been checked for
+syntax and entry-point placement; the isolated server measurements do not
+constitute device validation of the entire upstream-merged source tree.
+
+The latest [host-pipeline experiment](../experimental_tests/protenix_ppu_host_pipeline_20261004/README.md)
+removes redundant fill operations at reviewed complete-writing allocation
+sites and prepares TF32 RHS operands once while retaining their physical
+layout and the original MM kernel. Its nine-model, two-input report includes
+all four native/FlagGems FP32/TF32 baselines and the candidate. This optimization
+remains scoped to the experimental inference wrapper; it does not enable the
+new allocation or RHS preparation paths by default.
+
+The archive retains formal precision failures, unresolved RMSD intervals,
+original measurements, and sampling limits. It does not claim full default
+diffusion acceptance, a new nine-model training qualification, MFU, or an 80%
+performance target. Credentials, model weights, raw activations, and raw
+coordinates are not part of this archive.

@@ -1,0 +1,469 @@
+{
+  "server": "ppu",
+  "records": [
+    {
+      "name": "pairformer_qk",
+      "op": "bmm",
+      "inputs": [
+        {
+          "shape": [
+            16,
+            245,
+            24
+          ],
+          "stride": [
+            24,
+            384,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "78b642cda8ad126688af7b00e0dfbf2814e6cb2ebedbe49127c7b92ad6511d1b"
+        },
+        {
+          "shape": [
+            16,
+            24,
+            245
+          ],
+          "stride": [
+            24,
+            1,
+            384
+          ],
+          "dtype": "torch.float32",
+          "sha256": "ad811eecd2ca3118a9c3ee7d112aa3104c547404e1e679d7c221a2d6ccee113d"
+        }
+      ],
+      "gold_ieee_fp64_sha256": "29bc6fc5dc2a95c88ff59f53450f67d4e737f09c63d88c92eb29abf496cc0769",
+      "gold_rne_tf32_fp64_sha256": "b33619405be3a951811a6d5e199e488d2eccc6903c8020b12b9b84a2729dd6ad",
+      "modes": {
+        "fp32": {
+          "median_ms": 0.07826194632798433,
+          "samples_ms": [
+            0.09327800944447517,
+            0.10055792517960072,
+            0.09454297833144665,
+            0.08760695345699787,
+            0.07812795229256153,
+            0.07578311488032341,
+            0.07539009675383568,
+            0.07565994746983051,
+            0.07839594036340714,
+            0.07548602297902107
+          ],
+          "output_sha256": "c76dee98c0104940a58f1b96fb98af357a4a5ce6e624eafb719b82e29e0cf253",
+          "vs_ieee_fp64": {
+            "relative_l2": 8.931641838957692e-08,
+            "max_abs": 1.0707265385434539e-07,
+            "rms": 9.161779042242187e-09,
+            "finite": true
+          },
+          "vs_rne_tf32_fp64": {
+            "relative_l2": 0.00026176684638814536,
+            "max_abs": 0.00014839321374893188,
+            "rms": 2.6851144826480135e-05,
+            "finite": true
+          },
+          "kernel_trace": [
+            "bmm_kernel"
+          ]
+        },
+        "tf32": {
+          "median_ms": 0.08004158735275269,
+          "samples_ms": [
+            0.08436199277639389,
+            0.0817570835351944,
+            0.07681595161557198,
+            0.07832609117031097,
+            0.07536704652011395,
+            0.0744799617677927,
+            0.07820618338882923,
+            0.08626910857856274,
+            0.10518217459321022,
+            0.08635688573122025
+          ],
+          "output_sha256": "41994da038630f3b7dfb22264c52a1629b0e3a3ecc2a3aa0de564c18846518d7",
+          "vs_ieee_fp64": {
+            "relative_l2": 0.00026176707105295035,
+            "max_abs": 0.00014839001726496548,
+            "rms": 2.6851189386722177e-05,
+            "finite": true
+          },
+          "vs_rne_tf32_fp64": {
+            "relative_l2": 1.0531623242963446e-07,
+            "max_abs": 1.1082738637924194e-07,
+            "rms": 1.080297772069108e-08,
+            "finite": true
+          },
+          "kernel_trace": [
+            "bmm_kernel"
+          ]
+        }
+      },
+      "tf32_vs_fp32": {
+        "relative_l2": 0.00026176703701127755,
+        "max_abs": 0.00014839321374893188,
+        "rms": 2.685118590120034e-05,
+        "finite": true
+      }
+    },
+    {
+      "name": "pairformer_pv",
+      "op": "bmm",
+      "inputs": [
+        {
+          "shape": [
+            16,
+            245,
+            245
+          ],
+          "stride": [
+            60025,
+            245,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "67e5b092ffdc0a76b9e2e69529f168b0eed84078368a211a3fa19e47f9357026"
+        },
+        {
+          "shape": [
+            16,
+            245,
+            24
+          ],
+          "stride": [
+            24,
+            384,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "6ba57750f5210bc1e4a2e22a28569aa122694ba380c546fb5b7122ec349acad2"
+        }
+      ],
+      "gold_ieee_fp64_sha256": "d10aa4ee5b6d1baf4b560b5aa41cc91f16b61666f7ba8d68c2a66743798c10c0",
+      "gold_rne_tf32_fp64_sha256": "fb6ca9dbb8b605043244ed472985d960905054ef16ef6ea2868d200ffb1ac2d2",
+      "modes": {
+        "fp32": {
+          "median_ms": 0.06598245818167925,
+          "samples_ms": [
+            0.07505412213504314,
+            0.06735092028975487,
+            0.0642992090433836,
+            0.08112099021673203,
+            0.07277284748852253,
+            0.07190508767962456,
+            0.06372202187776566,
+            0.0645278487354517,
+            0.06358209066092968,
+            0.06461399607360363
+          ],
+          "output_sha256": "cc86b124d4f679b50987da1fba99e0959803cd35bd6b00ad3a6c606714fc0902",
+          "vs_ieee_fp64": {
+            "relative_l2": 2.8211765420800885e-07,
+            "max_abs": 1.0352780694944386e-06,
+            "rms": 9.230790813426983e-08,
+            "finite": true
+          },
+          "vs_rne_tf32_fp64": {
+            "relative_l2": 0.0002613501753823609,
+            "max_abs": 0.0003894034307450056,
+            "rms": 8.551287781967531e-05,
+            "finite": true
+          },
+          "kernel_trace": [
+            "bmm_kernel"
+          ]
+        },
+        "tf32": {
+          "median_ms": 0.06534799467772245,
+          "samples_ms": [
+            0.06712507456541061,
+            0.08112983778119087,
+            0.07024500519037247,
+            0.08476595394313335,
+            0.06611389108002186,
+            0.06458209827542305,
+            0.06371201016008854,
+            0.06375112570822239,
+            0.06353994831442833,
+            0.06395322270691395
+          ],
+          "output_sha256": "cc86b124d4f679b50987da1fba99e0959803cd35bd6b00ad3a6c606714fc0902",
+          "vs_ieee_fp64": {
+            "relative_l2": 2.8211765420800885e-07,
+            "max_abs": 1.0352780694944386e-06,
+            "rms": 9.230790813426983e-08,
+            "finite": true
+          },
+          "vs_rne_tf32_fp64": {
+            "relative_l2": 0.0002613501753823609,
+            "max_abs": 0.0003894034307450056,
+            "rms": 8.551287781967531e-05,
+            "finite": true
+          },
+          "kernel_trace": [
+            "bmm_kernel"
+          ]
+        }
+      },
+      "tf32_vs_fp32": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "rms": 0.0,
+        "finite": true
+      }
+    },
+    {
+      "name": "confidence_gemv",
+      "op": "bmm",
+      "inputs": [
+        {
+          "shape": [
+            2529,
+            1,
+            384
+          ],
+          "stride": [
+            384,
+            384,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "b21718b10fa05c07ddd666e828b6b8f8cc0ead61278f67ccb3d7c92ed11aece9"
+        },
+        {
+          "shape": [
+            2529,
+            384,
+            50
+          ],
+          "stride": [
+            19200,
+            50,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "cf3d690a3970b57885735b6dc5a5d1e7e386c366f7a4b346ba90f2b286c1bc3a"
+        }
+      ],
+      "gold_ieee_fp64_sha256": "4719c3eb6a3b2fef6767229a14e59e1cafeaa0669d98590f3cb4981849959e72",
+      "gold_rne_tf32_fp64_sha256": "1c861b6fa479ea2ac8377dab1fc8b54490db25ed39860a39bad33aa547f6cd6d",
+      "modes": {
+        "fp32": {
+          "median_ms": 0.5381834926083684,
+          "samples_ms": [
+            0.6075419951230288,
+            0.5594310350716114,
+            0.546206021681428,
+            0.5390960723161697,
+            0.5375298205763102,
+            0.5379728972911835,
+            0.53386390209198,
+            0.5383940879255533,
+            0.528800068423152,
+            0.5358438938856125
+          ],
+          "output_sha256": "575ef82fc0401d3f78ec4bc971c2d5638dbec929da9b95b3c6b020ae75827545",
+          "vs_ieee_fp64": {
+            "relative_l2": 3.507206192189595e-07,
+            "max_abs": 1.2934483031301625e-06,
+            "rms": 1.433832890509663e-07,
+            "finite": true
+          },
+          "vs_rne_tf32_fp64": {
+            "relative_l2": 0.0002605278387573195,
+            "max_abs": 0.00045332423724175896,
+            "rms": 0.00010651026960543792,
+            "finite": true
+          },
+          "kernel_trace": [
+            "bmm_kernel"
+          ]
+        },
+        "tf32": {
+          "median_ms": 0.44343003537505865,
+          "samples_ms": [
+            0.451717060059309,
+            0.4503140226006508,
+            0.44281105510890484,
+            0.443856930360198,
+            0.43510599061846733,
+            0.4431731067597866,
+            0.4344610497355461,
+            0.4436869639903307,
+            0.43490086682140827,
+            0.44441712088882923
+          ],
+          "output_sha256": "d3944a82dedfc5dfee3063d7c6f8726a1b096aace88c56684ac5eaf3b7445977",
+          "vs_ieee_fp64": {
+            "relative_l2": 0.00026053029040626997,
+            "max_abs": 0.00045298323930254014,
+            "rms": 0.0001065112453868383,
+            "finite": true
+          },
+          "vs_rne_tf32_fp64": {
+            "relative_l2": 1.2565946167581774e-06,
+            "max_abs": 3.472174284979701e-06,
+            "rms": 5.137271780783852e-07,
+            "finite": true
+          },
+          "kernel_trace": [
+            "_round_bmm_inputs",
+            "_bmm_tf32_preconverted"
+          ]
+        }
+      },
+      "tf32_vs_fp32": {
+        "relative_l2": 0.0002605307280586174,
+        "max_abs": 0.00045299530029296875,
+        "rms": 0.00010651142463080263,
+        "finite": true
+      }
+    },
+    {
+      "name": "diffusion_efficient_sdpa",
+      "op": "efficient",
+      "inputs": [
+        {
+          "shape": [
+            1,
+            16,
+            245,
+            48
+          ],
+          "stride": [
+            188160,
+            48,
+            768,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "92921b701c2f5afcca25a20b4721f22025b6959d506950ef4934fa3c91da952e"
+        },
+        {
+          "shape": [
+            1,
+            16,
+            245,
+            48
+          ],
+          "stride": [
+            188160,
+            48,
+            768,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "78f86d293b8ebb05fdf04dbdaa4684d48e40a54e7f7d2272017f7882bab46e46"
+        },
+        {
+          "shape": [
+            1,
+            16,
+            245,
+            48
+          ],
+          "stride": [
+            188160,
+            48,
+            768,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "2c39b73bc085c6f42e827ddcca3642c8fc3174c2c8e02234d9d3b5de59f25f25"
+        },
+        {
+          "shape": [
+            1,
+            16,
+            245,
+            245
+          ],
+          "stride": [
+            972160,
+            60760,
+            248,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "cdc3269c042bce9de2d0a01a19466ed2c6ca4a27f6b8779736a04ff2a0cfc2a2"
+        }
+      ],
+      "gold_ieee_fp64_sha256": "978176a62cc1ad533f4fc75c72fd2f1c6d7eb731520c17ec5bfa545e3d603fad",
+      "gold_rne_tf32_fp64_sha256": "3df7ccf3a13a45c7f76da9d5c06c93e6ff55f354a3ca2c9e8bfb29720e59cacd",
+      "modes": {
+        "fp32": {
+          "median_ms": 0.05452148616313934,
+          "samples_ms": [
+            0.05820300430059433,
+            0.05658203735947609,
+            0.05495990626513958,
+            0.05384092219173908,
+            0.05431193858385086,
+            0.054622069001197815,
+            0.05302811041474342,
+            0.05442090332508087,
+            0.07324106991291046,
+            0.053388066589832306
+          ],
+          "output_sha256": "3e7be1f89bc44e7dda5cc7a690ebe55ad39eab9e742cc70967e25ee074e2f0c1",
+          "vs_ieee_fp64": {
+            "relative_l2": 4.269311871463226e-07,
+            "max_abs": 2.5504075455706765e-08,
+            "rms": 4.177842587913415e-09,
+            "finite": true
+          },
+          "vs_rne_tf32_fp64": {
+            "relative_l2": 0.000278730211529311,
+            "max_abs": 1.19496435218025e-05,
+            "rms": 2.72760562264596e-06,
+            "finite": true
+          },
+          "kernel_trace": [
+            "fmha_cutlassF_f32_aligned_64x64_k64_rf_sm80(AttentionKernel<float, cutlass::arch::Sm80, true, 64, 64, true, true, true, 64, false>::Params)"
+          ]
+        },
+        "tf32": {
+          "median_ms": 0.0542014604434371,
+          "samples_ms": [
+            0.05549890920519829,
+            0.054884934797883034,
+            0.054274918511509895,
+            0.054128002375364304,
+            0.053683994337916374,
+            0.05368608981370926,
+            0.05329097621142864,
+            0.05559413693845272,
+            0.05305605009198189,
+            0.05442183464765549
+          ],
+          "output_sha256": "3e7be1f89bc44e7dda5cc7a690ebe55ad39eab9e742cc70967e25ee074e2f0c1",
+          "vs_ieee_fp64": {
+            "relative_l2": 4.269311871463226e-07,
+            "max_abs": 2.5504075455706765e-08,
+            "rms": 4.177842587913415e-09,
+            "finite": true
+          },
+          "vs_rne_tf32_fp64": {
+            "relative_l2": 0.000278730211529311,
+            "max_abs": 1.19496435218025e-05,
+            "rms": 2.72760562264596e-06,
+            "finite": true
+          },
+          "kernel_trace": [
+            "fmha_cutlassF_f32_aligned_64x64_k64_rf_sm80(AttentionKernel<float, cutlass::arch::Sm80, true, 64, 64, true, true, true, 64, false>::Params)"
+          ]
+        }
+      },
+      "tf32_vs_fp32": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "rms": 0.0,
+        "finite": true
+      }
+    }
+  ],
+  "scope": "Deterministic synthetic operands; real-model shapes and strides. Native Efficient SDPA remains native on PPU.",
+  "protocol": "seed 101 integer mixer; float32 storage; per mode 3 warmups and 10 synchronized wall timings; separate kernel trace; full CPU FP64 gold.",
+  "status": "PASS"
+}

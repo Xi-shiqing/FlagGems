@@ -1,0 +1,50 @@
+{
+  "repository": "https://github.com/Jittor/jittor",
+  "commit": "06f5d3d271555682c95aa3505518f47eeab2bd9c",
+  "scope": "Source inspection; Jittor has not been benchmarked or installed on PPU",
+  "sources": [
+    {
+      "path": "python/jittor/nn.py",
+      "sha256": "78294cb78ca909f5d19ddd39954a79fdaf8b30aa6a08bf106e4517e50ea30954",
+      "url": "https://github.com/Jittor/jittor/blob/06f5d3d271555682c95aa3505518f47eeab2bd9c/python/jittor/nn.py"
+    },
+    {
+      "path": "python/jittor/src/init.cc",
+      "sha256": "9a6b83b5492e9317451cf4415dfaea5f5050c2b6531e23dfdd11acb4294a53ad",
+      "url": "https://github.com/Jittor/jittor/blob/06f5d3d271555682c95aa3505518f47eeab2bd9c/python/jittor/src/init.cc"
+    },
+    {
+      "path": "python/jittor/src/var.cc",
+      "sha256": "bb46de76b81a4f8c93e15ab89175df73da32e87197fbd89d67674282601f8b22",
+      "url": "https://github.com/Jittor/jittor/blob/06f5d3d271555682c95aa3505518f47eeab2bd9c/python/jittor/src/var.cc"
+    },
+    {
+      "path": "python/jittor/src/opt/tuner/matmul_tuner.cc",
+      "sha256": "df47d156dbe573c0af4ea426a630a551eabda43cf43f838a9dfd7f6aa5e8414a",
+      "url": "https://github.com/Jittor/jittor/blob/06f5d3d271555682c95aa3505518f47eeab2bd9c/python/jittor/src/opt/tuner/matmul_tuner.cc"
+    },
+    {
+      "path": "python/jittor/extern/cuda/cublas/ops/cublas_matmul_op.cc",
+      "sha256": "b77993a43ed8e4b12184f133fa472027f3fa823000927e7f85183cf0a1d6912d",
+      "url": "https://github.com/Jittor/jittor/blob/06f5d3d271555682c95aa3505518f47eeab2bd9c/python/jittor/extern/cuda/cublas/ops/cublas_matmul_op.cc"
+    },
+    {
+      "path": "python/jittor/extern/cuda/cublas/ops/cublas_batched_matmul_op.cc",
+      "sha256": "6f00bfff56f8a82d0ce6c6266941da5083e0736329af194c2a8088098ca45e2d",
+      "url": "https://github.com/Jittor/jittor/blob/06f5d3d271555682c95aa3505518f47eeab2bd9c/python/jittor/extern/cuda/cublas/ops/cublas_batched_matmul_op.cc"
+    },
+    {
+      "path": "python/jittor/src/mem/allocator/cuda_device_allocator.cc",
+      "sha256": "d9e61abcfcae1497749f31f91804468ca72cf486f46fafa24b2b40e15556c596",
+      "url": "https://github.com/Jittor/jittor/blob/06f5d3d271555682c95aa3505518f47eeab2bd9c/python/jittor/src/mem/allocator/cuda_device_allocator.cc"
+    }
+  ],
+  "findings": {
+    "vendor_gemm": "CUDA GEMM/BMM dispatch to cuBLAS GemmEx/StridedBatchedEx",
+    "tf32": "use_tensorcore==1 selects COMPUTE_32F_FAST_TF32; default use_tensorcore is 0",
+    "transpose": "Matmul tuner identifies broadcast/multiply/reduce patterns and supplies transpose flags",
+    "linear": "Flattens leading dimensions and uses matmul_transpose; Python bias addition does not alone prove bias fusion",
+    "memory": "Var::alloc allocates raw storage; shown path does not initialize output before complete-writing GEMM"
+  },
+  "candidate_hypothesis": "Remove redundant deterministic NaN fills only for TF32 complete-writing MM/BMM output and BMM conversion scratch; no global deterministic switch changed; no GEMM native fallback added"
+}

@@ -1,0 +1,11 @@
+{
+  "path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/generic_pipeline_20260926/candidate/flag_gems/ops/cdist.py",
+  "source_sha256": "59f65db2e146e79aa3ac1b921ee7602c58fa3f53c1039559cf8ae066f47d1bca",
+  "entry_source": "def cdist(x1, x2, p=2.0, compute_mode=None):\n    logger.debug(\"GEMS CDIST\")\n    if x1.ndim < 2 or x2.ndim < 2:\n        raise ValueError(\"cdist expects tensors with at least two dimensions\")\n    if x1.shape[-1] != x2.shape[-1]:\n        raise ValueError(\"cdist feature dimensions must match\")\n    if x1.device != x2.device or x1.dtype != x2.dtype:\n        raise ValueError(\"cdist inputs must share device and dtype\")\n    if float(p) < 0.0:\n        raise NotImplementedError(\"FlagGems PPU cdist supports p >= 0 only\")\n    if x1.dtype not in (torch.float16, torch.bfloat16, torch.float32):\n        raise NotImplementedError(f\"FlagGems PPU cdist does not support {x1.dtype}\")\n    with torch_device_fn.device(x1.device):\n        return _cdist_forward(x1, x2, float(p))[2]\n",
+  "forward_source": "def _cdist_forward(x1, x2, p):\n    batch_shape = torch.broadcast_shapes(x1.shape[:-2], x2.shape[:-2])\n    points, features = x1.shape[-2:]\n    refs = x2.shape[-2]\n    x1c = x1.expand(*batch_shape, points, features).contiguous()\n    x2c = x2.expand(*batch_shape, refs, features).contiguous()\n    out = torch.empty((*batch_shape, points, refs), device=x1.device, dtype=x1.dtype)\n    if points and refs:\n        batches = out.numel() // (points * refs)\n        _cdist_p_kernel[(points * refs, batches)](\n            x1c, x2c, out, float(p), P=points, R=refs, M=features,\n            BLOCK_M=triton.next_power_of_2(features), num_warps=1, num_stages=1)\n    return x1c, x2c, out\n",
+  "sqrt_lines": [
+    "dist = tl_extra_shim.sqrt_rn(tl.sum(diff * diff, axis=0))"
+  ],
+  "compute_mode_ignored": true,
+  "scope": "Existing full FlagGems registration selects this direct-distance implementation. Matrix-mode labels in the probe are API requests, not proof of a matrix kernel on PPU."
+}

@@ -1,0 +1,5 @@
+mode,reference,rmsd_lower_bound_A,rmsd_upper_bound_A,method,rmsd_gate_0_1A,five_confidence_gate_5pct
+ppu_fp32,h100_fp32,1.1859483046178926e-05,0.01356505501710866,Frozen strict FP32 anchor; both current output hashes unchanged,PASS,True
+ppu_tf32,h100_tf32,0.08665504049427339,0.21814714644539743,"Rigorous intersection of TF32 and strict FP32 anchor triangle inequalities, not direct cross-server RMSD",UNRESOLVED,True
+ppu_column_mm_tf32,h100_tf32,0.08665504049427339,0.21814714644539743,"Rigorous intersection of TF32 and strict FP32 anchor triangle inequalities, not direct cross-server RMSD",UNRESOLVED,True
+ppu_column_mm_bmm_policy_tf32,h100_tf32,0.12986227510609188,0.21888020325032778,"Rigorous intersection of TF32 and strict FP32 anchor triangle inequalities, not direct cross-server RMSD",FAIL,True

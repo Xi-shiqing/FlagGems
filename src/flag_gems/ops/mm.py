@@ -20,7 +20,9 @@ import triton
 import triton.language as tl
 
 from flag_gems import runtime
+from flag_gems.ops.mm_gemv import mm_gemv
 from flag_gems.ops.mm_streamk import streamk_mm
+from flag_gems.ops.rank_one import rank_one
 from flag_gems.runtime import torch_device_fn
 from flag_gems.utils import libentry, libtuner
 from flag_gems.utils import triton_lang_extension as ext
@@ -728,6 +730,23 @@ def mm(a, b):
     M, K = a.shape
     _, N = b.shape
     # allocates output
+    if (
+        K > 1
+        and N == 1
+        and runtime.device.vendor_name == "thead"
+        and torch.backends.cuda.matmul.allow_tf32
+    ):
+        result = mm_gemv(a, b, enabled=True)
+        if result is not None:
+            return result
+    if (
+        K == 1
+        and runtime.device.vendor_name == "thead"
+        and torch.backends.cuda.matmul.allow_tf32
+    ):
+        result = rank_one(a, b, enabled=True)
+        if result is not None:
+            return result
     c_dtype = get_higher_dtype(a.dtype, b.dtype)
     c = torch.empty((M, N), device=device, dtype=c_dtype)
     # l2_cache_size = get_l2_cache_size()
@@ -757,6 +776,23 @@ def mm_out(a, b, *, out):
     M, K = a.shape
     _, N = b.shape
     # l2_cache_size = get_l2_cache_size()
+    if (
+        K > 1
+        and N == 1
+        and runtime.device.vendor_name == "thead"
+        and torch.backends.cuda.matmul.allow_tf32
+    ):
+        result = mm_gemv(a, b, out, enabled=True)
+        if result is not None:
+            return result
+    if (
+        K == 1
+        and runtime.device.vendor_name == "thead"
+        and torch.backends.cuda.matmul.allow_tf32
+    ):
+        result = rank_one(a, b, out, enabled=True)
+        if result is not None:
+            return result
     sm_count = get_sm_count()
     if thead_fp32_splitk_scenario(a, b, out, M, N, K):
         return thead_fp32_splitk_mm(a, b, out, M, N, K)

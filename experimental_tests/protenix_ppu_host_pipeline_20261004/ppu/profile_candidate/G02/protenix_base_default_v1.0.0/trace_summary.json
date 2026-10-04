@@ -1,0 +1,634 @@
+{
+  "tf32_layout_trace": {
+    "scope": "Profiled diagnostic only; profiling changes host timing. Not acceptance wall time.",
+    "kernel_events": 24716,
+    "launch_api_events": 24716,
+    "coverage_warning": null,
+    "profiled_device_span_ms": 2121.7939359741213,
+    "observed_device_busy_union_ms": 893.9739733886719,
+    "uncovered_device_span_ms": 1227.8199625854493,
+    "observed_device_busy_pct": 42.13293092376787,
+    "gpu_copy_events": 450,
+    "gpu_copy_sum_ms": 10.481833,
+    "top_kernels": [
+      {
+        "name": "mm_direct_fused",
+        "count": 2133,
+        "sum_ms": 362.36085799999967
+      },
+      {
+        "name": "_streaming_triangle_attention_fwd_ieee_v1",
+        "count": 128,
+        "sum_ms": 94.867588
+      },
+      {
+        "name": "_copy_kernel_kernel_rank_3",
+        "count": 1624,
+        "sum_ms": 70.21326499999994
+      },
+      {
+        "name": "mm_kernel_h100_fp32_splitk",
+        "count": 603,
+        "sum_ms": 63.38971399999998
+      },
+      {
+        "name": "_bmm_tf32_preconverted",
+        "count": 274,
+        "sum_ms": 54.21783399999999
+      },
+      {
+        "name": "_fill_contiguous_fp32",
+        "count": 9114,
+        "sum_ms": 34.13656900000068
+      },
+      {
+        "name": "_round_bmm_inputs",
+        "count": 274,
+        "sum_ms": 29.06839499999999
+      },
+      {
+        "name": "void LayerNormForwardV2<float, float4>(float*, float*, float*, float*, float*, float*, long, long, float)",
+        "count": 1440,
+        "sum_ms": 27.956558000000076
+      },
+      {
+        "name": "mul_func_kernel_rank_1",
+        "count": 1121,
+        "sum_ms": 25.87852200000001
+      },
+      {
+        "name": "mul_func_kernel_rank_3",
+        "count": 488,
+        "sum_ms": 20.749783999999995
+      },
+      {
+        "name": "mm_kernel_general",
+        "count": 326,
+        "sum_ms": 12.021520999999991
+      },
+      {
+        "name": "_sigmoid_contiguous_kernel",
+        "count": 825,
+        "sum_ms": 11.668286999999998
+      },
+      {
+        "name": "add_func_kernel_rank_3",
+        "count": 314,
+        "sum_ms": 10.789588000000006
+      },
+      {
+        "name": "silu_forward_kernel_rank_1",
+        "count": 156,
+        "sum_ms": 9.097539000000005
+      },
+      {
+        "name": "addmm_kernel_h100_fp32_splitk",
+        "count": 111,
+        "sum_ms": 6.563048000000001
+      },
+      {
+        "name": "add_func_kernel_rank_1",
+        "count": 524,
+        "sum_ms": 6.040318000000001
+      },
+      {
+        "name": "mm_kernel_h100_fp32_splitk_reduce",
+        "count": 603,
+        "sum_ms": 3.5812570000000017
+      },
+      {
+        "name": "_copy_kernel_kernel_rank_4",
+        "count": 23,
+        "sum_ms": 3.3834629999999994
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<4, at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> >, std::array<char*, 2ul> >(int, at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> >, std::array<char*, 2ul>)",
+        "count": 128,
+        "sum_ms": 3.371814
+      },
+      {
+        "name": "sweep",
+        "count": 192,
+        "sum_ms": 3.3707019999999988
+      },
+      {
+        "name": "_copy_kernel_kernel_rank_2",
+        "count": 329,
+        "sum_ms": 3.3049000000000066
+      },
+      {
+        "name": "addmm_kernel",
+        "count": 120,
+        "sum_ms": 2.795263
+      },
+      {
+        "name": "conv2d_forward_kernel",
+        "count": 24,
+        "sum_ms": 2.238536
+      },
+      {
+        "name": "bmm_kernel",
+        "count": 129,
+        "sum_ms": 2.0839660000000007
+      },
+      {
+        "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1})",
+        "count": 128,
+        "sum_ms": 1.8107730000000002
+      },
+      {
+        "name": "zeros_kernel",
+        "count": 515,
+        "sum_ms": 1.8065760000000044
+      },
+      {
+        "name": "_copy_kernel_kernel_rank_5",
+        "count": 164,
+        "sum_ms": 1.7972529999999998
+      },
+      {
+        "name": "_scatter_add_ordered_fp32_kernel",
+        "count": 4,
+        "sum_ms": 1.7055330000000002
+      },
+      {
+        "name": "compute_global_hist_kernel",
+        "count": 12,
+        "sum_ms": 1.21737
+      },
+      {
+        "name": "_index_jit_function",
+        "count": 153,
+        "sum_ms": 1.0224069999999994
+      },
+      {
+        "name": "_cdist_p_kernel",
+        "count": 4,
+        "sum_ms": 0.995207
+      },
+      {
+        "name": "fmha_cutlassF_f32_aligned_64x64_k64_rf_sm80(AttentionKernel<float, cutlass::arch::Sm80, true, 64, 64, true, true, true, 64, false>::Params)",
+        "count": 24,
+        "sum_ms": 0.9317669999999999
+      },
+      {
+        "name": "_pad_jit_function",
+        "count": 61,
+        "sum_ms": 0.888204
+      },
+      {
+        "name": "fill_scalar_func_kernel_rank_1",
+        "count": 833,
+        "sum_ms": 0.807038999999999
+      },
+      {
+        "name": "mul_func_kernel_rank_4",
+        "count": 23,
+        "sum_ms": 0.805364
+      },
+      {
+        "name": "addmm_kernel_h100_fp32_splitk_reduce",
+        "count": 111,
+        "sum_ms": 0.6315639999999998
+      },
+      {
+        "name": "sum_dim_kernel_inner",
+        "count": 19,
+        "sum_ms": 0.602525
+      },
+      {
+        "name": "mul_func_scalar_kernel_rank_1",
+        "count": 288,
+        "sum_ms": 0.4832440000000004
+      },
+      {
+        "name": "add_func_kernel_rank_5",
+        "count": 9,
+        "sum_ms": 0.457323
+      },
+      {
+        "name": "_safe_softmax_kernel",
+        "count": 67,
+        "sum_ms": 0.41048099999999993
+      }
+    ],
+    "frequent_kernels": [
+      {
+        "name": "_fill_contiguous_fp32",
+        "count": 9114,
+        "sum_ms": 34.13656900000068
+      },
+      {
+        "name": "mm_direct_fused",
+        "count": 2133,
+        "sum_ms": 362.36085799999967
+      },
+      {
+        "name": "_copy_kernel_kernel_rank_3",
+        "count": 1624,
+        "sum_ms": 70.21326499999994
+      },
+      {
+        "name": "void LayerNormForwardV2<float, float4>(float*, float*, float*, float*, float*, float*, long, long, float)",
+        "count": 1440,
+        "sum_ms": 27.956558000000076
+      },
+      {
+        "name": "mul_func_kernel_rank_1",
+        "count": 1121,
+        "sum_ms": 25.87852200000001
+      },
+      {
+        "name": "fill_scalar_func_kernel_rank_1",
+        "count": 833,
+        "sum_ms": 0.807038999999999
+      },
+      {
+        "name": "_sigmoid_contiguous_kernel",
+        "count": 825,
+        "sum_ms": 11.668286999999998
+      },
+      {
+        "name": "mm_kernel_h100_fp32_splitk",
+        "count": 603,
+        "sum_ms": 63.38971399999998
+      },
+      {
+        "name": "mm_kernel_h100_fp32_splitk_reduce",
+        "count": 603,
+        "sum_ms": 3.5812570000000017
+      },
+      {
+        "name": "add_func_kernel_rank_1",
+        "count": 524,
+        "sum_ms": 6.040318000000001
+      },
+      {
+        "name": "zeros_kernel",
+        "count": 515,
+        "sum_ms": 1.8065760000000044
+      },
+      {
+        "name": "mul_func_kernel_rank_3",
+        "count": 488,
+        "sum_ms": 20.749783999999995
+      },
+      {
+        "name": "_copy_kernel_kernel_rank_2",
+        "count": 329,
+        "sum_ms": 3.3049000000000066
+      },
+      {
+        "name": "mm_kernel_general",
+        "count": 326,
+        "sum_ms": 12.021520999999991
+      },
+      {
+        "name": "add_func_kernel_rank_3",
+        "count": 314,
+        "sum_ms": 10.789588000000006
+      },
+      {
+        "name": "mul_func_scalar_kernel_rank_1",
+        "count": 288,
+        "sum_ms": 0.4832440000000004
+      },
+      {
+        "name": "_round_bmm_inputs",
+        "count": 274,
+        "sum_ms": 29.06839499999999
+      },
+      {
+        "name": "_bmm_tf32_preconverted",
+        "count": 274,
+        "sum_ms": 54.21783399999999
+      },
+      {
+        "name": "sweep",
+        "count": 192,
+        "sum_ms": 3.3707019999999988
+      },
+      {
+        "name": "sigmoid_forward_kernel_rank_1",
+        "count": 172,
+        "sum_ms": 0.38880100000000056
+      }
+    ]
+  },
+  "tf32_trace": {
+    "scope": "Profiled diagnostic only; profiling changes host timing. Not acceptance wall time.",
+    "kernel_events": 26732,
+    "launch_api_events": 26732,
+    "coverage_warning": null,
+    "profiled_device_span_ms": 2169.960079986572,
+    "observed_device_busy_union_ms": 903.1171726074218,
+    "uncovered_device_span_ms": 1266.8429073791503,
+    "observed_device_busy_pct": 41.61906852281865,
+    "gpu_copy_events": 450,
+    "gpu_copy_sum_ms": 10.819647999999999,
+    "top_kernels": [
+      {
+        "name": "mm_direct_fused",
+        "count": 2133,
+        "sum_ms": 363.7434000000007
+      },
+      {
+        "name": "_streaming_triangle_attention_fwd_ieee_v1",
+        "count": 128,
+        "sum_ms": 95.65500099999996
+      },
+      {
+        "name": "_copy_kernel_kernel_rank_3",
+        "count": 1624,
+        "sum_ms": 70.16883099999994
+      },
+      {
+        "name": "mm_kernel_h100_fp32_splitk",
+        "count": 603,
+        "sum_ms": 63.36421100000002
+      },
+      {
+        "name": "_bmm_tf32_preconverted",
+        "count": 274,
+        "sum_ms": 54.200132000000025
+      },
+      {
+        "name": "_fill_contiguous_fp32",
+        "count": 10671,
+        "sum_ms": 39.708539000001934
+      },
+      {
+        "name": "_round_bmm_inputs",
+        "count": 274,
+        "sum_ms": 29.068369000000004
+      },
+      {
+        "name": "void LayerNormForwardV2<float, float4>(float*, float*, float*, float*, float*, float*, long, long, float)",
+        "count": 1440,
+        "sum_ms": 27.96712100000001
+      },
+      {
+        "name": "mul_func_kernel_rank_1",
+        "count": 1121,
+        "sum_ms": 25.904042999999994
+      },
+      {
+        "name": "mul_func_kernel_rank_3",
+        "count": 488,
+        "sum_ms": 20.745967999999994
+      },
+      {
+        "name": "_sigmoid_contiguous_kernel",
+        "count": 825,
+        "sum_ms": 12.237429000000002
+      },
+      {
+        "name": "mm_kernel_general",
+        "count": 326,
+        "sum_ms": 12.021258999999999
+      },
+      {
+        "name": "add_func_kernel_rank_3",
+        "count": 314,
+        "sum_ms": 10.787091
+      },
+      {
+        "name": "silu_forward_kernel_rank_1",
+        "count": 156,
+        "sum_ms": 9.098124000000002
+      },
+      {
+        "name": "addmm_kernel_h100_fp32_splitk",
+        "count": 111,
+        "sum_ms": 6.542900999999998
+      },
+      {
+        "name": "add_func_kernel_rank_1",
+        "count": 524,
+        "sum_ms": 6.022993000000006
+      },
+      {
+        "name": "mm_kernel_h100_fp32_splitk_reduce",
+        "count": 603,
+        "sum_ms": 3.581131000000004
+      },
+      {
+        "name": "_copy_kernel_kernel_rank_4",
+        "count": 23,
+        "sum_ms": 3.381929999999999
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<4, at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> >, std::array<char*, 2ul> >(int, at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> >, std::array<char*, 2ul>)",
+        "count": 128,
+        "sum_ms": 3.3739359999999996
+      },
+      {
+        "name": "sweep",
+        "count": 192,
+        "sum_ms": 3.368982999999999
+      },
+      {
+        "name": "_copy_kernel_kernel_rank_2",
+        "count": 329,
+        "sum_ms": 3.309936000000008
+      },
+      {
+        "name": "addmm_kernel",
+        "count": 120,
+        "sum_ms": 2.802299
+      },
+      {
+        "name": "conv2d_forward_kernel",
+        "count": 24,
+        "sum_ms": 2.2517700000000005
+      },
+      {
+        "name": "bmm_kernel",
+        "count": 129,
+        "sum_ms": 2.084651
+      },
+      {
+        "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1})",
+        "count": 128,
+        "sum_ms": 1.8101279999999995
+      },
+      {
+        "name": "zeros_kernel",
+        "count": 515,
+        "sum_ms": 1.8092380000000057
+      },
+      {
+        "name": "_copy_kernel_kernel_rank_5",
+        "count": 164,
+        "sum_ms": 1.7948000000000006
+      },
+      {
+        "name": "_scatter_add_ordered_fp32_kernel",
+        "count": 4,
+        "sum_ms": 1.691766
+      },
+      {
+        "name": "fill_scalar_func_kernel_rank_1",
+        "count": 1292,
+        "sum_ms": 1.4788969999999972
+      },
+      {
+        "name": "compute_global_hist_kernel",
+        "count": 12,
+        "sum_ms": 1.2065629999999998
+      },
+      {
+        "name": "_index_jit_function",
+        "count": 153,
+        "sum_ms": 1.02193
+      },
+      {
+        "name": "_cdist_p_kernel",
+        "count": 4,
+        "sum_ms": 0.995326
+      },
+      {
+        "name": "fmha_cutlassF_f32_aligned_64x64_k64_rf_sm80(AttentionKernel<float, cutlass::arch::Sm80, true, 64, 64, true, true, true, 64, false>::Params)",
+        "count": 24,
+        "sum_ms": 0.9321250000000002
+      },
+      {
+        "name": "_pad_jit_function",
+        "count": 61,
+        "sum_ms": 0.8900450000000001
+      },
+      {
+        "name": "mul_func_kernel_rank_4",
+        "count": 23,
+        "sum_ms": 0.802684
+      },
+      {
+        "name": "addmm_kernel_h100_fp32_splitk_reduce",
+        "count": 111,
+        "sum_ms": 0.6330019999999996
+      },
+      {
+        "name": "sum_dim_kernel_inner",
+        "count": 19,
+        "sum_ms": 0.6030019999999999
+      },
+      {
+        "name": "mul_func_scalar_kernel_rank_1",
+        "count": 288,
+        "sum_ms": 0.4720390000000001
+      },
+      {
+        "name": "add_func_kernel_rank_5",
+        "count": 9,
+        "sum_ms": 0.452883
+      },
+      {
+        "name": "_safe_softmax_kernel",
+        "count": 67,
+        "sum_ms": 0.41063999999999995
+      }
+    ],
+    "frequent_kernels": [
+      {
+        "name": "_fill_contiguous_fp32",
+        "count": 10671,
+        "sum_ms": 39.708539000001934
+      },
+      {
+        "name": "mm_direct_fused",
+        "count": 2133,
+        "sum_ms": 363.7434000000007
+      },
+      {
+        "name": "_copy_kernel_kernel_rank_3",
+        "count": 1624,
+        "sum_ms": 70.16883099999994
+      },
+      {
+        "name": "void LayerNormForwardV2<float, float4>(float*, float*, float*, float*, float*, float*, long, long, float)",
+        "count": 1440,
+        "sum_ms": 27.96712100000001
+      },
+      {
+        "name": "fill_scalar_func_kernel_rank_1",
+        "count": 1292,
+        "sum_ms": 1.4788969999999972
+      },
+      {
+        "name": "mul_func_kernel_rank_1",
+        "count": 1121,
+        "sum_ms": 25.904042999999994
+      },
+      {
+        "name": "_sigmoid_contiguous_kernel",
+        "count": 825,
+        "sum_ms": 12.237429000000002
+      },
+      {
+        "name": "mm_kernel_h100_fp32_splitk",
+        "count": 603,
+        "sum_ms": 63.36421100000002
+      },
+      {
+        "name": "mm_kernel_h100_fp32_splitk_reduce",
+        "count": 603,
+        "sum_ms": 3.581131000000004
+      },
+      {
+        "name": "add_func_kernel_rank_1",
+        "count": 524,
+        "sum_ms": 6.022993000000006
+      },
+      {
+        "name": "zeros_kernel",
+        "count": 515,
+        "sum_ms": 1.8092380000000057
+      },
+      {
+        "name": "mul_func_kernel_rank_3",
+        "count": 488,
+        "sum_ms": 20.745967999999994
+      },
+      {
+        "name": "_copy_kernel_kernel_rank_2",
+        "count": 329,
+        "sum_ms": 3.309936000000008
+      },
+      {
+        "name": "mm_kernel_general",
+        "count": 326,
+        "sum_ms": 12.021258999999999
+      },
+      {
+        "name": "add_func_kernel_rank_3",
+        "count": 314,
+        "sum_ms": 10.787091
+      },
+      {
+        "name": "mul_func_scalar_kernel_rank_1",
+        "count": 288,
+        "sum_ms": 0.4720390000000001
+      },
+      {
+        "name": "_round_bmm_inputs",
+        "count": 274,
+        "sum_ms": 29.068369000000004
+      },
+      {
+        "name": "_bmm_tf32_preconverted",
+        "count": 274,
+        "sum_ms": 54.200132000000025
+      },
+      {
+        "name": "sweep",
+        "count": 192,
+        "sum_ms": 3.368982999999999
+      },
+      {
+        "name": "sigmoid_forward_kernel_rank_1",
+        "count": 172,
+        "sum_ms": 0.3891990000000006
+      }
+    ]
+  }
+}

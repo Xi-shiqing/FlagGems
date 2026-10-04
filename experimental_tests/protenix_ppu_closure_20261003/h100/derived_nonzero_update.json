@@ -1,0 +1,2703 @@
+{
+  "status": "PASS",
+  "server": "h100",
+  "cases": [
+    {
+      "crop": 131,
+      "modes": {
+        "fp32": {
+          "protocol": {
+            "platform": "h100",
+            "model": "protenix-v2",
+            "dtype": "fp32",
+            "seed": 20260825,
+            "max_steps": 2,
+            "warmup_steps_excluded": 1,
+            "formal_steps": 1,
+            "crop_size": 131,
+            "triangle_attention": "triattention",
+            "triangle_attention_flaggems_precision": "ieee",
+            "triangle_multiplicative": "torch",
+            "blocks_per_ckpt": 1,
+            "pairformer_blocks": 48,
+            "msa_blocks": 4,
+            "diffusion_batch_size": 1,
+            "shared_rng": true,
+            "replay_step_rng": false,
+            "learning_rate": 0.0018,
+            "progress_interval": 1,
+            "track_parameter_updates": false,
+            "enable_checkpoints": false,
+            "checkpoint_interval": 1000,
+            "audit_parameter_gradients": false,
+            "gradient_audit_step": 0,
+            "load_strict": true,
+            "tf32": false,
+            "checkpoint_and_eval_in_step_timing": false,
+            "precision_control": "configs.enable_tf32 and explicit official TriAttention deterministic flag"
+          },
+          "environment": {
+            "hostname": "p-jn-sz-cw-h1-su1-gpu02-402-12a-02u-208-118",
+            "python": "3.10.20 (main, Jun 11 2026, 15:17:37) [GCC 14.3.0]",
+            "torch": "2.7.1+cu126",
+            "device_name": "NVIDIA H100 80GB HBM3",
+            "device_count_visible": 1,
+            "flag_gems": null
+          },
+          "input_hashes": {
+            "/data/xishiqing/yes-star24-home/projects/protenix-baseline/checkpoint/protenix-v2.pt": "8f931f9774a396b67033d0e58628e1834f4a1448165e04254b40a780b0c0d599",
+            "/data/xishiqing/protenix-training-parity-20260825/fixture/bioassembly/user_test.pkl.gz": "9629dde6cc8e5c3e09ecac08a62c5e9fd393632353d761dfd861c7587df52fbb",
+            "/data/xishiqing/protenix-training-parity-20260825/fixture/single.csv": "496498123bda979419493d0355f74fcab8592de349a5dd59f2fd49bde485a77a",
+            "/data/xishiqing/protenix-training-parity-20260825/fixture/empty_index.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+          },
+          "batch_sha256": "9cf2c15413c75bd41b0afbd2417c632d8d797106a233428211ba7ba8d6e03f7d",
+          "batch_tensor_count": 71,
+          "batch_leaf_hashes": {
+            "batch.basic.N_asym": {
+              "sha256": "8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_atom": {
+              "sha256": "3ea0a7e8e53412e723c37d255b6722a9292d4896f3167e73c7f07afa59ab40ca",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_dna_atom": {
+              "sha256": "2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_dna_token": {
+              "sha256": "2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_lig_atom": {
+              "sha256": "2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_lig_token": {
+              "sha256": "2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_msa": {
+              "sha256": "c145f362bf357521a45777fcde4f84959c9bccb5d4003d53278088e632f8c4b9",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_msa_prot_pair": {
+              "sha256": "8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_msa_prot_unpair": {
+              "sha256": "8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_msa_rna_pair": {
+              "sha256": "8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_msa_rna_unpair": {
+              "sha256": "8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_prot_atom": {
+              "sha256": "3ea0a7e8e53412e723c37d255b6722a9292d4896f3167e73c7f07afa59ab40ca",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_prot_token": {
+              "sha256": "8f52433d4d56dfe4cef914e738dba34530ecb54e4b7c0438d0dbb77fa9bbc424",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_rna_atom": {
+              "sha256": "2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_rna_token": {
+              "sha256": "2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_token": {
+              "sha256": "8f52433d4d56dfe4cef914e738dba34530ecb54e4b7c0438d0dbb77fa9bbc424",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.input_feature_dict.asym_id": {
+              "sha256": "47b60c5e8424227f8cc7dde19eed194fb4b60acd71c1adcbe1f92ce0ab5bc758",
+              "dtype": "torch.int64",
+              "shape": [
+                131
+              ]
+            },
+            "batch.input_feature_dict.atom_to_tokatom_idx": {
+              "sha256": "fcc6c86d9d5d2e1cfdae5897b3e8464e2a06ae8596cef6bebfd228408c515da1",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.atom_to_token_idx": {
+              "sha256": "81305a703fd82bf22a13a7cf76eb156775a9bae5dd829a328722014789ecbeec",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.bond_mask": {
+              "sha256": "c2b3d88b1744253a1967add1eafbbab7463dfa3618a643a8763ef4530af807d6",
+              "dtype": "torch.int64",
+              "shape": [
+                985,
+                985
+              ]
+            },
+            "batch.input_feature_dict.deletion_mean": {
+              "sha256": "a060c1cc27de976e2bdaff58a766c57f1df01e91599a3e5490dd2a72d27e1d33",
+              "dtype": "torch.float32",
+              "shape": [
+                131
+              ]
+            },
+            "batch.input_feature_dict.deletion_value": {
+              "sha256": "420fd3d69c5ab04f2c1c83bd4f0b1d88785d288d8d368c931b876101a83d3235",
+              "dtype": "torch.float32",
+              "shape": [
+                2,
+                131
+              ]
+            },
+            "batch.input_feature_dict.distogram_rep_atom_mask": {
+              "sha256": "dac0a3ca915b14eacec27e40f3463d68f50fa73d61b5269053df6b711986c249",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.entity_id": {
+              "sha256": "47b60c5e8424227f8cc7dde19eed194fb4b60acd71c1adcbe1f92ce0ab5bc758",
+              "dtype": "torch.int64",
+              "shape": [
+                131
+              ]
+            },
+            "batch.input_feature_dict.entity_mol_id": {
+              "sha256": "8318609e52cab7bee8c3ec661c6ab7b18af95a4630397d3c6f8de7bc3f1c061a",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.frame_atom_index": {
+              "sha256": "cead1da5b07992b90b24e3338a239528ff778cfc027f379c46b4bc0c5df7c18a",
+              "dtype": "torch.int64",
+              "shape": [
+                131,
+                3
+              ]
+            },
+            "batch.input_feature_dict.has_deletion": {
+              "sha256": "420fd3d69c5ab04f2c1c83bd4f0b1d88785d288d8d368c931b876101a83d3235",
+              "dtype": "torch.float32",
+              "shape": [
+                2,
+                131
+              ]
+            },
+            "batch.input_feature_dict.has_frame": {
+              "sha256": "652f6a26f0c1a6d370ea8425595d4711790c1c5064d17eb9d2c075acc91b4f9c",
+              "dtype": "torch.int64",
+              "shape": [
+                131
+              ]
+            },
+            "batch.input_feature_dict.is_distillation": {
+              "sha256": "a63056d911afd30d0fb050244218bf0540e363d9e61c70e1860a1da29326aa03",
+              "dtype": "torch.bool",
+              "shape": [
+                1
+              ]
+            },
+            "batch.input_feature_dict.is_dna": {
+              "sha256": "8318609e52cab7bee8c3ec661c6ab7b18af95a4630397d3c6f8de7bc3f1c061a",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.is_ligand": {
+              "sha256": "8318609e52cab7bee8c3ec661c6ab7b18af95a4630397d3c6f8de7bc3f1c061a",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.is_protein": {
+              "sha256": "f5b948aea575466c08ce14eecfbd457965bffa19add0ca147120f617c086ae41",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.is_rna": {
+              "sha256": "8318609e52cab7bee8c3ec661c6ab7b18af95a4630397d3c6f8de7bc3f1c061a",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.modified_res_mask": {
+              "sha256": "8318609e52cab7bee8c3ec661c6ab7b18af95a4630397d3c6f8de7bc3f1c061a",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.mol_atom_index": {
+              "sha256": "20629c0fca00b16f0efc86130908d8d05d01a88fd3a84fba39904b9a6628e969",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.mol_id": {
+              "sha256": "8318609e52cab7bee8c3ec661c6ab7b18af95a4630397d3c6f8de7bc3f1c061a",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.msa": {
+              "sha256": "6900d6c074333ecdaaea882159e1fb8e7a82b722fb6d4223a4cb228648b7ed75",
+              "dtype": "torch.int64",
+              "shape": [
+                2,
+                131
+              ]
+            },
+            "batch.input_feature_dict.pae_rep_atom_mask": {
+              "sha256": "e3fbf46addf1577b080a243bdd9a31dc4e70a49cf85bd8fe9c2eb7431e3da493",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.plddt_m_rep_atom_mask": {
+              "sha256": "e3fbf46addf1577b080a243bdd9a31dc4e70a49cf85bd8fe9c2eb7431e3da493",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.profile": {
+              "sha256": "6036d720a7ae6b01b3b40429c13b7800971ec1162593df213301929150f71281",
+              "dtype": "torch.float32",
+              "shape": [
+                131,
+                32
+              ]
+            },
+            "batch.input_feature_dict.prot_pair_num_alignments": {
+              "sha256": "35aa899bfc9cc839bcd696a2d658d35288c0c94b0c0e157fff56d59ddb23f8ab",
+              "dtype": "torch.int64",
+              "shape": []
+            },
+            "batch.input_feature_dict.prot_unpair_num_alignments": {
+              "sha256": "35aa899bfc9cc839bcd696a2d658d35288c0c94b0c0e157fff56d59ddb23f8ab",
+              "dtype": "torch.int64",
+              "shape": []
+            },
+            "batch.input_feature_dict.ref_atom_name_chars": {
+              "sha256": "ec8ea0c83897e2b8a5cb8ddba8ec06b6661513fa77e5d37b1b9f0972cda106b3",
+              "dtype": "torch.int64",
+              "shape": [
+                985,
+                4,
+                64
+              ]
+            },
+            "batch.input_feature_dict.ref_charge": {
+              "sha256": "acf59afb7587385f5496f8f80a44281ef6426e83f4aab75d277fa333abdf1209",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.ref_element": {
+              "sha256": "506a9fd97be843541d457fc0156780d14dbcf8bfcaf2e66bb42e2cb1d9a28c20",
+              "dtype": "torch.int64",
+              "shape": [
+                985,
+                128
+              ]
+            },
+            "batch.input_feature_dict.ref_mask": {
+              "sha256": "f5b948aea575466c08ce14eecfbd457965bffa19add0ca147120f617c086ae41",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.ref_pos": {
+              "sha256": "ce8a505fadacee5ca3f5f7f9b99f6bc7335683f220cc7d5e0e9a5a3eda954ad7",
+              "dtype": "torch.float32",
+              "shape": [
+                985,
+                3
+              ]
+            },
+            "batch.input_feature_dict.ref_space_uid": {
+              "sha256": "cc9a753e4d0811bb81eea7209872fa8850c421f4ff40e78badbbeb3026a5acb3",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.residue_index": {
+              "sha256": "32e0b98ddacd5c06a7470898c4a2ee213c3b3d26abc00487d0419cb2e5ae7988",
+              "dtype": "torch.int64",
+              "shape": [
+                131
+              ]
+            },
+            "batch.input_feature_dict.resolution": {
+              "sha256": "8d801b21722716812d449a6dfc8fe57b2c5021115e36dc80bcc87b3f7eee28d4",
+              "dtype": "torch.float32",
+              "shape": [
+                1
+              ]
+            },
+            "batch.input_feature_dict.restype": {
+              "sha256": "6036d720a7ae6b01b3b40429c13b7800971ec1162593df213301929150f71281",
+              "dtype": "torch.float32",
+              "shape": [
+                131,
+                32
+              ]
+            },
+            "batch.input_feature_dict.rna_pair_num_alignments": {
+              "sha256": "35aa899bfc9cc839bcd696a2d658d35288c0c94b0c0e157fff56d59ddb23f8ab",
+              "dtype": "torch.int64",
+              "shape": []
+            },
+            "batch.input_feature_dict.rna_unpair_num_alignments": {
+              "sha256": "35aa899bfc9cc839bcd696a2d658d35288c0c94b0c0e157fff56d59ddb23f8ab",
+              "dtype": "torch.int64",
+              "shape": []
+            },
+            "batch.input_feature_dict.sym_id": {
+              "sha256": "47b60c5e8424227f8cc7dde19eed194fb4b60acd71c1adcbe1f92ce0ab5bc758",
+              "dtype": "torch.int64",
+              "shape": [
+                131
+              ]
+            },
+            "batch.input_feature_dict.template_aatype": {
+              "sha256": "ed0b91e4b9e2a94400140948117fb46b34cbd50f83eb8cd60fc49a59a892a173",
+              "dtype": "torch.int64",
+              "shape": [
+                4,
+                131
+              ]
+            },
+            "batch.input_feature_dict.template_atom_mask": {
+              "sha256": "412d5138282aa1a1f5d4da52889ad9a1a1c75256a5cc13291db170592c78795f",
+              "dtype": "torch.bool",
+              "shape": [
+                4,
+                131,
+                24
+              ]
+            },
+            "batch.input_feature_dict.template_atom_positions": {
+              "sha256": "724ec3d0270b9d7aac081058ff2f7e0af6a860ca9e424b4cdcd0c75d82f89d81",
+              "dtype": "torch.float32",
+              "shape": [
+                4,
+                131,
+                24,
+                3
+              ]
+            },
+            "batch.input_feature_dict.template_backbone_frame_mask": {
+              "sha256": "50087f26c3124bacac4db4fb137251a14836da5427230409af1c9082d122bc8e",
+              "dtype": "torch.float32",
+              "shape": [
+                4,
+                131,
+                131
+              ]
+            },
+            "batch.input_feature_dict.template_distogram": {
+              "sha256": "d9637c96fe62dc92b9ad805054d68bb5c5cbaa9fcdea5a6547e38b42af413293",
+              "dtype": "torch.float32",
+              "shape": [
+                4,
+                131,
+                131,
+                39
+              ]
+            },
+            "batch.input_feature_dict.template_pseudo_beta_mask": {
+              "sha256": "50087f26c3124bacac4db4fb137251a14836da5427230409af1c9082d122bc8e",
+              "dtype": "torch.float32",
+              "shape": [
+                4,
+                131,
+                131
+              ]
+            },
+            "batch.input_feature_dict.template_unit_vector": {
+              "sha256": "7da52ac500ecc9d41814946ea4ba4e660d730d89c6ba68d5cbe73f4efaad1eec",
+              "dtype": "torch.float32",
+              "shape": [
+                4,
+                131,
+                131,
+                3
+              ]
+            },
+            "batch.input_feature_dict.token_bonds": {
+              "sha256": "54799c45e7839424d7184d57c9004e83d30f63321fc9332ae43a8d85b20e04d3",
+              "dtype": "torch.float32",
+              "shape": [
+                131,
+                131
+              ]
+            },
+            "batch.input_feature_dict.token_index": {
+              "sha256": "7e5dd8173182c719f8b5bb58e8d0c3fba5f83ce07aedf7b952337a1c9562bc8e",
+              "dtype": "torch.int64",
+              "shape": [
+                131
+              ]
+            },
+            "batch.label_dict.coordinate": {
+              "sha256": "aedbbe33c0728ebf03c2c739affd3d6cadb8350d1a9c2c9f18b609343fd356f5",
+              "dtype": "torch.float32",
+              "shape": [
+                985,
+                3
+              ]
+            },
+            "batch.label_dict.coordinate_mask": {
+              "sha256": "f5b948aea575466c08ce14eecfbd457965bffa19add0ca147120f617c086ae41",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.label_full_dict.coordinate": {
+              "sha256": "aedbbe33c0728ebf03c2c739affd3d6cadb8350d1a9c2c9f18b609343fd356f5",
+              "dtype": "torch.float32",
+              "shape": [
+                985,
+                3
+              ]
+            },
+            "batch.label_full_dict.coordinate_mask": {
+              "sha256": "f5b948aea575466c08ce14eecfbd457965bffa19add0ca147120f617c086ae41",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.label_full_dict.entity_mol_id": {
+              "sha256": "8318609e52cab7bee8c3ec661c6ab7b18af95a4630397d3c6f8de7bc3f1c061a",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.label_full_dict.mol_atom_index": {
+              "sha256": "20629c0fca00b16f0efc86130908d8d05d01a88fd3a84fba39904b9a6628e969",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.label_full_dict.mol_id": {
+              "sha256": "8318609e52cab7bee8c3ec661c6ab7b18af95a4630397d3c6f8de7bc3f1c061a",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.label_full_dict.pae_rep_atom_mask": {
+              "sha256": "e3fbf46addf1577b080a243bdd9a31dc4e70a49cf85bd8fe9c2eb7431e3da493",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            }
+          },
+          "losses": [
+            {
+              "step": 0,
+              "global_step": 0,
+              "loss": 23630.32421875,
+              "loss_dict": {
+                "smooth_lddt_loss": 1.0,
+                "weighted_smooth_lddt_loss": 4.0,
+                "bond_loss": 0.0,
+                "weighted_bond_loss": 0.0,
+                "mse_loss": 5906.572265625,
+                "weighted_mse_loss": 23626.2890625,
+                "distogram_loss": 1.1618372201919556,
+                "weighted_distogram_loss": 0.03485511615872383,
+                "loss": 23630.32421875
+              }
+            },
+            {
+              "step": 1,
+              "global_step": 1,
+              "loss": 8849.322265625,
+              "loss_dict": {
+                "smooth_lddt_loss": 1.0,
+                "weighted_smooth_lddt_loss": 4.0,
+                "bond_loss": 0.0,
+                "weighted_bond_loss": 0.0,
+                "mse_loss": 2211.326416015625,
+                "weighted_mse_loss": 8845.3056640625,
+                "distogram_loss": 0.5537707209587097,
+                "weighted_distogram_loss": 0.016613122075796127,
+                "loss": 8849.322265625
+              }
+            }
+          ],
+          "gradient_norms": [
+            {
+              "step_index": 0,
+              "preclip_global_norm": 8055.28857421875,
+              "max_norm": 10.0
+            },
+            {
+              "step_index": 1,
+              "preclip_global_norm": 1639.965576171875,
+              "max_norm": 10.0
+            }
+          ],
+          "formal_event_median_ms": 10455.8046875,
+          "formal_wall_median_ms": 10455.725077539682,
+          "runtime": {
+            "precision": "fp32",
+            "candidate": "public",
+            "actual_calls": {
+              "native_triattention_ieee": 512
+            },
+            "parameter_audit_enabled": true,
+            "parameter_audit_step": 1,
+            "matmul_allow_tf32": false,
+            "native_training_triangle_source": "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/tri_attention/op.py",
+            "existing_tool_sha256": "f95cf0205b638c1f8de741fcc5f205c5087b06605a1a549a7d1ded5a9f183566",
+            "candidate_source_sha256": null,
+            "candidate_physical_backward_calls": 0,
+            "legacy_tool_reported_tf32": false
+          },
+          "parameter_audit": {
+            "scope": "Full model parameter gradients before clipping, and actual first optimizer update; tensors stay on original server.",
+            "audit_step": 1,
+            "optimizer_learning_rates_before_step": [
+              0.00018
+            ],
+            "nonzero_update_assertion": "PASS",
+            "precision": "fp32",
+            "candidate": "public",
+            "parameter_count": 4174,
+            "gradient_parameter_count": 4170,
+            "reference": "None",
+            "comparisons": {}
+          },
+          "rng_count": 1635,
+          "rng_semantic_sha256": "f29d35c2d81db73b1f320e8e37e055a4e857a6bd015e9c4f6fa169e015580244",
+          "initial_parameter_sha256": "bdec323329312bc80c6f00be3453339667968fb80e76744fd1fdb35563b612e5",
+          "parameter_signatures": {
+            "gradients": {
+              "sha256": "3a79e44243729a7155d02c04c632c7d2e6b16e3efb25fd940f606e71df1f575e",
+              "l2_norm": 1639.9655362905366,
+              "max_abs": 559.6474609375,
+              "finite": true,
+              "parameter_count": 4170
+            },
+            "updates": {
+              "sha256": "232c485c191420b3a59437c5666f7f53a969e6bed9c61847c887582b9931ce21",
+              "l2_norm": 1.8430296932245358,
+              "max_abs": 0.00018006563186645508,
+              "finite": true,
+              "parameter_count": 4174
+            }
+          }
+        },
+        "tf32": {
+          "protocol": {
+            "platform": "h100",
+            "model": "protenix-v2",
+            "dtype": "fp32",
+            "seed": 20260825,
+            "max_steps": 2,
+            "warmup_steps_excluded": 1,
+            "formal_steps": 1,
+            "crop_size": 131,
+            "triangle_attention": "triattention",
+            "triangle_attention_flaggems_precision": "tf32",
+            "triangle_multiplicative": "torch",
+            "blocks_per_ckpt": 1,
+            "pairformer_blocks": 48,
+            "msa_blocks": 4,
+            "diffusion_batch_size": 1,
+            "shared_rng": true,
+            "replay_step_rng": false,
+            "learning_rate": 0.0018,
+            "progress_interval": 1,
+            "track_parameter_updates": false,
+            "enable_checkpoints": false,
+            "checkpoint_interval": 1000,
+            "audit_parameter_gradients": false,
+            "gradient_audit_step": 0,
+            "load_strict": true,
+            "tf32": true,
+            "checkpoint_and_eval_in_step_timing": false,
+            "precision_control": "configs.enable_tf32 and explicit official TriAttention deterministic flag"
+          },
+          "environment": {
+            "hostname": "p-jn-sz-cw-h1-su1-gpu02-402-12a-02u-208-118",
+            "python": "3.10.20 (main, Jun 11 2026, 15:17:37) [GCC 14.3.0]",
+            "torch": "2.7.1+cu126",
+            "device_name": "NVIDIA H100 80GB HBM3",
+            "device_count_visible": 1,
+            "flag_gems": null
+          },
+          "input_hashes": {
+            "/data/xishiqing/yes-star24-home/projects/protenix-baseline/checkpoint/protenix-v2.pt": "8f931f9774a396b67033d0e58628e1834f4a1448165e04254b40a780b0c0d599",
+            "/data/xishiqing/protenix-training-parity-20260825/fixture/bioassembly/user_test.pkl.gz": "9629dde6cc8e5c3e09ecac08a62c5e9fd393632353d761dfd861c7587df52fbb",
+            "/data/xishiqing/protenix-training-parity-20260825/fixture/single.csv": "496498123bda979419493d0355f74fcab8592de349a5dd59f2fd49bde485a77a",
+            "/data/xishiqing/protenix-training-parity-20260825/fixture/empty_index.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+          },
+          "batch_sha256": "9cf2c15413c75bd41b0afbd2417c632d8d797106a233428211ba7ba8d6e03f7d",
+          "batch_tensor_count": 71,
+          "batch_leaf_hashes": {
+            "batch.basic.N_asym": {
+              "sha256": "8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_atom": {
+              "sha256": "3ea0a7e8e53412e723c37d255b6722a9292d4896f3167e73c7f07afa59ab40ca",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_dna_atom": {
+              "sha256": "2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_dna_token": {
+              "sha256": "2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_lig_atom": {
+              "sha256": "2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_lig_token": {
+              "sha256": "2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_msa": {
+              "sha256": "c145f362bf357521a45777fcde4f84959c9bccb5d4003d53278088e632f8c4b9",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_msa_prot_pair": {
+              "sha256": "8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_msa_prot_unpair": {
+              "sha256": "8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_msa_rna_pair": {
+              "sha256": "8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_msa_rna_unpair": {
+              "sha256": "8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_prot_atom": {
+              "sha256": "3ea0a7e8e53412e723c37d255b6722a9292d4896f3167e73c7f07afa59ab40ca",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_prot_token": {
+              "sha256": "8f52433d4d56dfe4cef914e738dba34530ecb54e4b7c0438d0dbb77fa9bbc424",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_rna_atom": {
+              "sha256": "2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_rna_token": {
+              "sha256": "2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_token": {
+              "sha256": "8f52433d4d56dfe4cef914e738dba34530ecb54e4b7c0438d0dbb77fa9bbc424",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.input_feature_dict.asym_id": {
+              "sha256": "47b60c5e8424227f8cc7dde19eed194fb4b60acd71c1adcbe1f92ce0ab5bc758",
+              "dtype": "torch.int64",
+              "shape": [
+                131
+              ]
+            },
+            "batch.input_feature_dict.atom_to_tokatom_idx": {
+              "sha256": "fcc6c86d9d5d2e1cfdae5897b3e8464e2a06ae8596cef6bebfd228408c515da1",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.atom_to_token_idx": {
+              "sha256": "81305a703fd82bf22a13a7cf76eb156775a9bae5dd829a328722014789ecbeec",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.bond_mask": {
+              "sha256": "c2b3d88b1744253a1967add1eafbbab7463dfa3618a643a8763ef4530af807d6",
+              "dtype": "torch.int64",
+              "shape": [
+                985,
+                985
+              ]
+            },
+            "batch.input_feature_dict.deletion_mean": {
+              "sha256": "a060c1cc27de976e2bdaff58a766c57f1df01e91599a3e5490dd2a72d27e1d33",
+              "dtype": "torch.float32",
+              "shape": [
+                131
+              ]
+            },
+            "batch.input_feature_dict.deletion_value": {
+              "sha256": "420fd3d69c5ab04f2c1c83bd4f0b1d88785d288d8d368c931b876101a83d3235",
+              "dtype": "torch.float32",
+              "shape": [
+                2,
+                131
+              ]
+            },
+            "batch.input_feature_dict.distogram_rep_atom_mask": {
+              "sha256": "dac0a3ca915b14eacec27e40f3463d68f50fa73d61b5269053df6b711986c249",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.entity_id": {
+              "sha256": "47b60c5e8424227f8cc7dde19eed194fb4b60acd71c1adcbe1f92ce0ab5bc758",
+              "dtype": "torch.int64",
+              "shape": [
+                131
+              ]
+            },
+            "batch.input_feature_dict.entity_mol_id": {
+              "sha256": "8318609e52cab7bee8c3ec661c6ab7b18af95a4630397d3c6f8de7bc3f1c061a",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.frame_atom_index": {
+              "sha256": "cead1da5b07992b90b24e3338a239528ff778cfc027f379c46b4bc0c5df7c18a",
+              "dtype": "torch.int64",
+              "shape": [
+                131,
+                3
+              ]
+            },
+            "batch.input_feature_dict.has_deletion": {
+              "sha256": "420fd3d69c5ab04f2c1c83bd4f0b1d88785d288d8d368c931b876101a83d3235",
+              "dtype": "torch.float32",
+              "shape": [
+                2,
+                131
+              ]
+            },
+            "batch.input_feature_dict.has_frame": {
+              "sha256": "652f6a26f0c1a6d370ea8425595d4711790c1c5064d17eb9d2c075acc91b4f9c",
+              "dtype": "torch.int64",
+              "shape": [
+                131
+              ]
+            },
+            "batch.input_feature_dict.is_distillation": {
+              "sha256": "a63056d911afd30d0fb050244218bf0540e363d9e61c70e1860a1da29326aa03",
+              "dtype": "torch.bool",
+              "shape": [
+                1
+              ]
+            },
+            "batch.input_feature_dict.is_dna": {
+              "sha256": "8318609e52cab7bee8c3ec661c6ab7b18af95a4630397d3c6f8de7bc3f1c061a",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.is_ligand": {
+              "sha256": "8318609e52cab7bee8c3ec661c6ab7b18af95a4630397d3c6f8de7bc3f1c061a",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.is_protein": {
+              "sha256": "f5b948aea575466c08ce14eecfbd457965bffa19add0ca147120f617c086ae41",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.is_rna": {
+              "sha256": "8318609e52cab7bee8c3ec661c6ab7b18af95a4630397d3c6f8de7bc3f1c061a",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.modified_res_mask": {
+              "sha256": "8318609e52cab7bee8c3ec661c6ab7b18af95a4630397d3c6f8de7bc3f1c061a",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.mol_atom_index": {
+              "sha256": "20629c0fca00b16f0efc86130908d8d05d01a88fd3a84fba39904b9a6628e969",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.mol_id": {
+              "sha256": "8318609e52cab7bee8c3ec661c6ab7b18af95a4630397d3c6f8de7bc3f1c061a",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.msa": {
+              "sha256": "6900d6c074333ecdaaea882159e1fb8e7a82b722fb6d4223a4cb228648b7ed75",
+              "dtype": "torch.int64",
+              "shape": [
+                2,
+                131
+              ]
+            },
+            "batch.input_feature_dict.pae_rep_atom_mask": {
+              "sha256": "e3fbf46addf1577b080a243bdd9a31dc4e70a49cf85bd8fe9c2eb7431e3da493",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.plddt_m_rep_atom_mask": {
+              "sha256": "e3fbf46addf1577b080a243bdd9a31dc4e70a49cf85bd8fe9c2eb7431e3da493",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.profile": {
+              "sha256": "6036d720a7ae6b01b3b40429c13b7800971ec1162593df213301929150f71281",
+              "dtype": "torch.float32",
+              "shape": [
+                131,
+                32
+              ]
+            },
+            "batch.input_feature_dict.prot_pair_num_alignments": {
+              "sha256": "35aa899bfc9cc839bcd696a2d658d35288c0c94b0c0e157fff56d59ddb23f8ab",
+              "dtype": "torch.int64",
+              "shape": []
+            },
+            "batch.input_feature_dict.prot_unpair_num_alignments": {
+              "sha256": "35aa899bfc9cc839bcd696a2d658d35288c0c94b0c0e157fff56d59ddb23f8ab",
+              "dtype": "torch.int64",
+              "shape": []
+            },
+            "batch.input_feature_dict.ref_atom_name_chars": {
+              "sha256": "ec8ea0c83897e2b8a5cb8ddba8ec06b6661513fa77e5d37b1b9f0972cda106b3",
+              "dtype": "torch.int64",
+              "shape": [
+                985,
+                4,
+                64
+              ]
+            },
+            "batch.input_feature_dict.ref_charge": {
+              "sha256": "acf59afb7587385f5496f8f80a44281ef6426e83f4aab75d277fa333abdf1209",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.ref_element": {
+              "sha256": "506a9fd97be843541d457fc0156780d14dbcf8bfcaf2e66bb42e2cb1d9a28c20",
+              "dtype": "torch.int64",
+              "shape": [
+                985,
+                128
+              ]
+            },
+            "batch.input_feature_dict.ref_mask": {
+              "sha256": "f5b948aea575466c08ce14eecfbd457965bffa19add0ca147120f617c086ae41",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.ref_pos": {
+              "sha256": "ce8a505fadacee5ca3f5f7f9b99f6bc7335683f220cc7d5e0e9a5a3eda954ad7",
+              "dtype": "torch.float32",
+              "shape": [
+                985,
+                3
+              ]
+            },
+            "batch.input_feature_dict.ref_space_uid": {
+              "sha256": "cc9a753e4d0811bb81eea7209872fa8850c421f4ff40e78badbbeb3026a5acb3",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.input_feature_dict.residue_index": {
+              "sha256": "32e0b98ddacd5c06a7470898c4a2ee213c3b3d26abc00487d0419cb2e5ae7988",
+              "dtype": "torch.int64",
+              "shape": [
+                131
+              ]
+            },
+            "batch.input_feature_dict.resolution": {
+              "sha256": "8d801b21722716812d449a6dfc8fe57b2c5021115e36dc80bcc87b3f7eee28d4",
+              "dtype": "torch.float32",
+              "shape": [
+                1
+              ]
+            },
+            "batch.input_feature_dict.restype": {
+              "sha256": "6036d720a7ae6b01b3b40429c13b7800971ec1162593df213301929150f71281",
+              "dtype": "torch.float32",
+              "shape": [
+                131,
+                32
+              ]
+            },
+            "batch.input_feature_dict.rna_pair_num_alignments": {
+              "sha256": "35aa899bfc9cc839bcd696a2d658d35288c0c94b0c0e157fff56d59ddb23f8ab",
+              "dtype": "torch.int64",
+              "shape": []
+            },
+            "batch.input_feature_dict.rna_unpair_num_alignments": {
+              "sha256": "35aa899bfc9cc839bcd696a2d658d35288c0c94b0c0e157fff56d59ddb23f8ab",
+              "dtype": "torch.int64",
+              "shape": []
+            },
+            "batch.input_feature_dict.sym_id": {
+              "sha256": "47b60c5e8424227f8cc7dde19eed194fb4b60acd71c1adcbe1f92ce0ab5bc758",
+              "dtype": "torch.int64",
+              "shape": [
+                131
+              ]
+            },
+            "batch.input_feature_dict.template_aatype": {
+              "sha256": "ed0b91e4b9e2a94400140948117fb46b34cbd50f83eb8cd60fc49a59a892a173",
+              "dtype": "torch.int64",
+              "shape": [
+                4,
+                131
+              ]
+            },
+            "batch.input_feature_dict.template_atom_mask": {
+              "sha256": "412d5138282aa1a1f5d4da52889ad9a1a1c75256a5cc13291db170592c78795f",
+              "dtype": "torch.bool",
+              "shape": [
+                4,
+                131,
+                24
+              ]
+            },
+            "batch.input_feature_dict.template_atom_positions": {
+              "sha256": "724ec3d0270b9d7aac081058ff2f7e0af6a860ca9e424b4cdcd0c75d82f89d81",
+              "dtype": "torch.float32",
+              "shape": [
+                4,
+                131,
+                24,
+                3
+              ]
+            },
+            "batch.input_feature_dict.template_backbone_frame_mask": {
+              "sha256": "50087f26c3124bacac4db4fb137251a14836da5427230409af1c9082d122bc8e",
+              "dtype": "torch.float32",
+              "shape": [
+                4,
+                131,
+                131
+              ]
+            },
+            "batch.input_feature_dict.template_distogram": {
+              "sha256": "d9637c96fe62dc92b9ad805054d68bb5c5cbaa9fcdea5a6547e38b42af413293",
+              "dtype": "torch.float32",
+              "shape": [
+                4,
+                131,
+                131,
+                39
+              ]
+            },
+            "batch.input_feature_dict.template_pseudo_beta_mask": {
+              "sha256": "50087f26c3124bacac4db4fb137251a14836da5427230409af1c9082d122bc8e",
+              "dtype": "torch.float32",
+              "shape": [
+                4,
+                131,
+                131
+              ]
+            },
+            "batch.input_feature_dict.template_unit_vector": {
+              "sha256": "7da52ac500ecc9d41814946ea4ba4e660d730d89c6ba68d5cbe73f4efaad1eec",
+              "dtype": "torch.float32",
+              "shape": [
+                4,
+                131,
+                131,
+                3
+              ]
+            },
+            "batch.input_feature_dict.token_bonds": {
+              "sha256": "54799c45e7839424d7184d57c9004e83d30f63321fc9332ae43a8d85b20e04d3",
+              "dtype": "torch.float32",
+              "shape": [
+                131,
+                131
+              ]
+            },
+            "batch.input_feature_dict.token_index": {
+              "sha256": "7e5dd8173182c719f8b5bb58e8d0c3fba5f83ce07aedf7b952337a1c9562bc8e",
+              "dtype": "torch.int64",
+              "shape": [
+                131
+              ]
+            },
+            "batch.label_dict.coordinate": {
+              "sha256": "aedbbe33c0728ebf03c2c739affd3d6cadb8350d1a9c2c9f18b609343fd356f5",
+              "dtype": "torch.float32",
+              "shape": [
+                985,
+                3
+              ]
+            },
+            "batch.label_dict.coordinate_mask": {
+              "sha256": "f5b948aea575466c08ce14eecfbd457965bffa19add0ca147120f617c086ae41",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.label_full_dict.coordinate": {
+              "sha256": "aedbbe33c0728ebf03c2c739affd3d6cadb8350d1a9c2c9f18b609343fd356f5",
+              "dtype": "torch.float32",
+              "shape": [
+                985,
+                3
+              ]
+            },
+            "batch.label_full_dict.coordinate_mask": {
+              "sha256": "f5b948aea575466c08ce14eecfbd457965bffa19add0ca147120f617c086ae41",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.label_full_dict.entity_mol_id": {
+              "sha256": "8318609e52cab7bee8c3ec661c6ab7b18af95a4630397d3c6f8de7bc3f1c061a",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.label_full_dict.mol_atom_index": {
+              "sha256": "20629c0fca00b16f0efc86130908d8d05d01a88fd3a84fba39904b9a6628e969",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.label_full_dict.mol_id": {
+              "sha256": "8318609e52cab7bee8c3ec661c6ab7b18af95a4630397d3c6f8de7bc3f1c061a",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            },
+            "batch.label_full_dict.pae_rep_atom_mask": {
+              "sha256": "e3fbf46addf1577b080a243bdd9a31dc4e70a49cf85bd8fe9c2eb7431e3da493",
+              "dtype": "torch.int64",
+              "shape": [
+                985
+              ]
+            }
+          },
+          "losses": [
+            {
+              "step": 0,
+              "global_step": 0,
+              "loss": 23630.703125,
+              "loss_dict": {
+                "smooth_lddt_loss": 1.0,
+                "weighted_smooth_lddt_loss": 4.0,
+                "bond_loss": 0.0,
+                "weighted_bond_loss": 0.0,
+                "mse_loss": 5906.6669921875,
+                "weighted_mse_loss": 23626.66796875,
+                "distogram_loss": 1.1615408658981323,
+                "weighted_distogram_loss": 0.0348462238907814,
+                "loss": 23630.703125
+              }
+            },
+            {
+              "step": 1,
+              "global_step": 1,
+              "loss": 8853.017578125,
+              "loss_dict": {
+                "smooth_lddt_loss": 1.0,
+                "weighted_smooth_lddt_loss": 4.0,
+                "bond_loss": 0.0,
+                "weighted_bond_loss": 0.0,
+                "mse_loss": 2212.250244140625,
+                "weighted_mse_loss": 8849.0009765625,
+                "distogram_loss": 0.5533999800682068,
+                "weighted_distogram_loss": 0.01660199835896492,
+                "loss": 8853.017578125
+              }
+            }
+          ],
+          "gradient_norms": [
+            {
+              "step_index": 0,
+              "preclip_global_norm": 8058.5849609375,
+              "max_norm": 10.0
+            },
+            {
+              "step_index": 1,
+              "preclip_global_norm": 1640.189453125,
+              "max_norm": 10.0
+            }
+          ],
+          "formal_event_median_ms": 9467.6767578125,
+          "formal_wall_median_ms": 9467.608311213553,
+          "runtime": {
+            "precision": "tf32",
+            "candidate": "public",
+            "actual_calls": {
+              "native_triattention_tf32": 512
+            },
+            "parameter_audit_enabled": true,
+            "parameter_audit_step": 1,
+            "matmul_allow_tf32": true,
+            "native_training_triangle_source": "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/tri_attention/op.py",
+            "existing_tool_sha256": "f95cf0205b638c1f8de741fcc5f205c5087b06605a1a549a7d1ded5a9f183566",
+            "candidate_source_sha256": null,
+            "candidate_physical_backward_calls": 0,
+            "legacy_tool_reported_tf32": false
+          },
+          "parameter_audit": {
+            "scope": "Full model parameter gradients before clipping, and actual first optimizer update; tensors stay on original server.",
+            "audit_step": 1,
+            "optimizer_learning_rates_before_step": [
+              0.00018
+            ],
+            "nonzero_update_assertion": "PASS",
+            "precision": "tf32",
+            "candidate": "public",
+            "parameter_count": 4174,
+            "gradient_parameter_count": 4170,
+            "reference": "None",
+            "comparisons": {}
+          },
+          "rng_count": 1635,
+          "rng_semantic_sha256": "f29d35c2d81db73b1f320e8e37e055a4e857a6bd015e9c4f6fa169e015580244",
+          "initial_parameter_sha256": "bdec323329312bc80c6f00be3453339667968fb80e76744fd1fdb35563b612e5",
+          "parameter_signatures": {
+            "gradients": {
+              "sha256": "c1edfcf7a8db00400cb6f1cc14e9007712069e1bcbadaf4efaf4583665f65781",
+              "l2_norm": 1640.1894294993685,
+              "max_abs": 559.58935546875,
+              "finite": true,
+              "parameter_count": 4170
+            },
+            "updates": {
+              "sha256": "bef14cbfb1dff02690bf1aa8281aaf5797fa30aa33a2f9a058bdd2e8b9aced4d",
+              "l2_norm": 1.843026334770905,
+              "max_abs": 0.00018006563186645508,
+              "finite": true,
+              "parameter_count": 4174
+            }
+          },
+          "vs_local_fp32": {
+            "gradients": {
+              "global_relative_l2": 0.0008446361022232275,
+              "global_max_abs": 0.25653076171875,
+              "finite": true
+            },
+            "updates": {
+              "global_relative_l2": 0.013226640749417769,
+              "global_max_abs": 0.00028395652770996094,
+              "finite": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "crop": 245,
+      "modes": {
+        "fp32": {
+          "protocol": {
+            "platform": "h100",
+            "model": "protenix-v2",
+            "dtype": "fp32",
+            "seed": 20260825,
+            "max_steps": 2,
+            "warmup_steps_excluded": 1,
+            "formal_steps": 1,
+            "crop_size": 245,
+            "triangle_attention": "triattention",
+            "triangle_attention_flaggems_precision": "ieee",
+            "triangle_multiplicative": "torch",
+            "blocks_per_ckpt": 1,
+            "pairformer_blocks": 48,
+            "msa_blocks": 4,
+            "diffusion_batch_size": 1,
+            "shared_rng": true,
+            "replay_step_rng": false,
+            "learning_rate": 0.0018,
+            "progress_interval": 1,
+            "track_parameter_updates": false,
+            "enable_checkpoints": false,
+            "checkpoint_interval": 1000,
+            "audit_parameter_gradients": false,
+            "gradient_audit_step": 0,
+            "load_strict": true,
+            "tf32": false,
+            "checkpoint_and_eval_in_step_timing": false,
+            "precision_control": "configs.enable_tf32 and explicit official TriAttention deterministic flag"
+          },
+          "environment": {
+            "hostname": "p-jn-sz-cw-h1-su1-gpu02-402-12a-02u-208-118",
+            "python": "3.10.20 (main, Jun 11 2026, 15:17:37) [GCC 14.3.0]",
+            "torch": "2.7.1+cu126",
+            "device_name": "NVIDIA H100 80GB HBM3",
+            "device_count_visible": 1,
+            "flag_gems": null
+          },
+          "input_hashes": {
+            "/data/xishiqing/yes-star24-home/projects/protenix-baseline/checkpoint/protenix-v2.pt": "8f931f9774a396b67033d0e58628e1834f4a1448165e04254b40a780b0c0d599",
+            "/data/xishiqing/protenix-training-parity-20260825/fixture/bioassembly/user_test.pkl.gz": "9629dde6cc8e5c3e09ecac08a62c5e9fd393632353d761dfd861c7587df52fbb",
+            "/data/xishiqing/protenix-training-parity-20260825/fixture/single.csv": "496498123bda979419493d0355f74fcab8592de349a5dd59f2fd49bde485a77a",
+            "/data/xishiqing/protenix-training-parity-20260825/fixture/empty_index.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+          },
+          "batch_sha256": "5e1e554a9b387bb223e5249befec845a8185cfc3167543b203652118779ac1bc",
+          "batch_tensor_count": 71,
+          "batch_leaf_hashes": {
+            "batch.basic.N_asym": {
+              "sha256": "8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_atom": {
+              "sha256": "c2f34d63b1f39d285b9f26bb36042c098d9c6ad4ad57cd704c0809609ff5f728",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_dna_atom": {
+              "sha256": "2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_dna_token": {
+              "sha256": "2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_lig_atom": {
+              "sha256": "2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_lig_token": {
+              "sha256": "2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_msa": {
+              "sha256": "c145f362bf357521a45777fcde4f84959c9bccb5d4003d53278088e632f8c4b9",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_msa_prot_pair": {
+              "sha256": "8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_msa_prot_unpair": {
+              "sha256": "8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_msa_rna_pair": {
+              "sha256": "8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_msa_rna_unpair": {
+              "sha256": "8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_prot_atom": {
+              "sha256": "c2f34d63b1f39d285b9f26bb36042c098d9c6ad4ad57cd704c0809609ff5f728",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_prot_token": {
+              "sha256": "98fa8d6fe47395b4b26a91b4fd15611210e5e2060820af920cc184919bb4758a",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_rna_atom": {
+              "sha256": "2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_rna_token": {
+              "sha256": "2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_token": {
+              "sha256": "98fa8d6fe47395b4b26a91b4fd15611210e5e2060820af920cc184919bb4758a",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.input_feature_dict.asym_id": {
+              "sha256": "b32f2537a63c4b02ecd66ebf87282d772a0e77f8c49145a55492bca951c9bc9d",
+              "dtype": "torch.int64",
+              "shape": [
+                245
+              ]
+            },
+            "batch.input_feature_dict.atom_to_tokatom_idx": {
+              "sha256": "d82ed200264dab09e33b00f6f5b911d6fa92996f563c5c6574d769bcb5d44f5c",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.atom_to_token_idx": {
+              "sha256": "1b8c97d62f77ef23cc0c3a1bb9009e676e6e7630acb0d3d64837217c7abe4f51",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.bond_mask": {
+              "sha256": "7bafd6621df04ec0af60ed3cf4d2027c9b7b5a0b2dca2fb2615371f64acf6514",
+              "dtype": "torch.int64",
+              "shape": [
+                1961,
+                1961
+              ]
+            },
+            "batch.input_feature_dict.deletion_mean": {
+              "sha256": "d10855e802687e6bdad2cb9c413d36ad4b9888f70e1a9f81a51d5a6f45b99fc5",
+              "dtype": "torch.float32",
+              "shape": [
+                245
+              ]
+            },
+            "batch.input_feature_dict.deletion_value": {
+              "sha256": "7be653430b4160435264bff1db1a9eb4ab57706a448a8433ef86a3d9ef4dfd52",
+              "dtype": "torch.float32",
+              "shape": [
+                2,
+                245
+              ]
+            },
+            "batch.input_feature_dict.distogram_rep_atom_mask": {
+              "sha256": "369958881b107e708133ab2de048279641a77f11f9a524d73bd0ca057b3c8798",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.entity_id": {
+              "sha256": "b32f2537a63c4b02ecd66ebf87282d772a0e77f8c49145a55492bca951c9bc9d",
+              "dtype": "torch.int64",
+              "shape": [
+                245
+              ]
+            },
+            "batch.input_feature_dict.entity_mol_id": {
+              "sha256": "357eae57a1d9c7b525848124bb8431dbc05265b08e85af52f89d97acd22878f0",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.frame_atom_index": {
+              "sha256": "55820ceeadad804743233db5a44949d0255160f8d4c2733cd9712a4a476d3a22",
+              "dtype": "torch.int64",
+              "shape": [
+                245,
+                3
+              ]
+            },
+            "batch.input_feature_dict.has_deletion": {
+              "sha256": "7be653430b4160435264bff1db1a9eb4ab57706a448a8433ef86a3d9ef4dfd52",
+              "dtype": "torch.float32",
+              "shape": [
+                2,
+                245
+              ]
+            },
+            "batch.input_feature_dict.has_frame": {
+              "sha256": "70661638bea41af883f6ec3c356a7169828a249faae1e1874c458242d5d31185",
+              "dtype": "torch.int64",
+              "shape": [
+                245
+              ]
+            },
+            "batch.input_feature_dict.is_distillation": {
+              "sha256": "a63056d911afd30d0fb050244218bf0540e363d9e61c70e1860a1da29326aa03",
+              "dtype": "torch.bool",
+              "shape": [
+                1
+              ]
+            },
+            "batch.input_feature_dict.is_dna": {
+              "sha256": "357eae57a1d9c7b525848124bb8431dbc05265b08e85af52f89d97acd22878f0",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.is_ligand": {
+              "sha256": "357eae57a1d9c7b525848124bb8431dbc05265b08e85af52f89d97acd22878f0",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.is_protein": {
+              "sha256": "f1ea73bba2502bf3f15cb37613401df4c95f64b6bb7184a7342b61e19064c45a",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.is_rna": {
+              "sha256": "357eae57a1d9c7b525848124bb8431dbc05265b08e85af52f89d97acd22878f0",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.modified_res_mask": {
+              "sha256": "357eae57a1d9c7b525848124bb8431dbc05265b08e85af52f89d97acd22878f0",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.mol_atom_index": {
+              "sha256": "07f9c4466e3c0fe076cb5a2f6aadabf2930c283342fb55d1377ccf0338c33b0e",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.mol_id": {
+              "sha256": "357eae57a1d9c7b525848124bb8431dbc05265b08e85af52f89d97acd22878f0",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.msa": {
+              "sha256": "a8a2e5c57fd72c91f0eb8b02d48763b4077513f08ba48bec43e1777de7a8fc6c",
+              "dtype": "torch.int64",
+              "shape": [
+                2,
+                245
+              ]
+            },
+            "batch.input_feature_dict.pae_rep_atom_mask": {
+              "sha256": "7bc02f9b63e105aaa6624b7764727aac544344ac30abcf3ed94bb442a54f811a",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.plddt_m_rep_atom_mask": {
+              "sha256": "7bc02f9b63e105aaa6624b7764727aac544344ac30abcf3ed94bb442a54f811a",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.profile": {
+              "sha256": "27e8a8b8ee3f320c0822f118a0222f29c68c9a3bf19fe99ae2056590e890a01b",
+              "dtype": "torch.float32",
+              "shape": [
+                245,
+                32
+              ]
+            },
+            "batch.input_feature_dict.prot_pair_num_alignments": {
+              "sha256": "35aa899bfc9cc839bcd696a2d658d35288c0c94b0c0e157fff56d59ddb23f8ab",
+              "dtype": "torch.int64",
+              "shape": []
+            },
+            "batch.input_feature_dict.prot_unpair_num_alignments": {
+              "sha256": "35aa899bfc9cc839bcd696a2d658d35288c0c94b0c0e157fff56d59ddb23f8ab",
+              "dtype": "torch.int64",
+              "shape": []
+            },
+            "batch.input_feature_dict.ref_atom_name_chars": {
+              "sha256": "8eb1f0a845aaa0bc4fea28d5d671f38e3b6a6e2b4a3723e227ca46994791f897",
+              "dtype": "torch.int64",
+              "shape": [
+                1961,
+                4,
+                64
+              ]
+            },
+            "batch.input_feature_dict.ref_charge": {
+              "sha256": "98ceb6ebe035c94a4b985b0286c463d3a9eed21bea98c0af65ecb6f97fc05c17",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.ref_element": {
+              "sha256": "5f29d88fd713ec6932e4e3740f96946d4be2eef003703440316f81f454036f26",
+              "dtype": "torch.int64",
+              "shape": [
+                1961,
+                128
+              ]
+            },
+            "batch.input_feature_dict.ref_mask": {
+              "sha256": "f1ea73bba2502bf3f15cb37613401df4c95f64b6bb7184a7342b61e19064c45a",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.ref_pos": {
+              "sha256": "92d05da7161892fe978b957a96bd4cf9c7074dd4ad112eb0c0f0957fad428ae6",
+              "dtype": "torch.float32",
+              "shape": [
+                1961,
+                3
+              ]
+            },
+            "batch.input_feature_dict.ref_space_uid": {
+              "sha256": "62f91e852b68f93dc653c00666973df6335419cd3a2849bf6f73ab19da784f35",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.residue_index": {
+              "sha256": "fdcd857a45b09325f6daffe53dc3df8694b0356102381b3c284a1103148a1402",
+              "dtype": "torch.int64",
+              "shape": [
+                245
+              ]
+            },
+            "batch.input_feature_dict.resolution": {
+              "sha256": "8d801b21722716812d449a6dfc8fe57b2c5021115e36dc80bcc87b3f7eee28d4",
+              "dtype": "torch.float32",
+              "shape": [
+                1
+              ]
+            },
+            "batch.input_feature_dict.restype": {
+              "sha256": "27e8a8b8ee3f320c0822f118a0222f29c68c9a3bf19fe99ae2056590e890a01b",
+              "dtype": "torch.float32",
+              "shape": [
+                245,
+                32
+              ]
+            },
+            "batch.input_feature_dict.rna_pair_num_alignments": {
+              "sha256": "35aa899bfc9cc839bcd696a2d658d35288c0c94b0c0e157fff56d59ddb23f8ab",
+              "dtype": "torch.int64",
+              "shape": []
+            },
+            "batch.input_feature_dict.rna_unpair_num_alignments": {
+              "sha256": "35aa899bfc9cc839bcd696a2d658d35288c0c94b0c0e157fff56d59ddb23f8ab",
+              "dtype": "torch.int64",
+              "shape": []
+            },
+            "batch.input_feature_dict.sym_id": {
+              "sha256": "b32f2537a63c4b02ecd66ebf87282d772a0e77f8c49145a55492bca951c9bc9d",
+              "dtype": "torch.int64",
+              "shape": [
+                245
+              ]
+            },
+            "batch.input_feature_dict.template_aatype": {
+              "sha256": "d89e65e3cb94fc3ac19965946c092b1d0676f23173ae98ef451cb355f03d139c",
+              "dtype": "torch.int64",
+              "shape": [
+                4,
+                245
+              ]
+            },
+            "batch.input_feature_dict.template_atom_mask": {
+              "sha256": "b64d1fef6188361474774ea24be7eb82352de71566e5fcac04d7c359d8061c40",
+              "dtype": "torch.bool",
+              "shape": [
+                4,
+                245,
+                24
+              ]
+            },
+            "batch.input_feature_dict.template_atom_positions": {
+              "sha256": "a92e2fa633cc295e781d41950b8543c5addc0f0725358a1625b858fb155546eb",
+              "dtype": "torch.float32",
+              "shape": [
+                4,
+                245,
+                24,
+                3
+              ]
+            },
+            "batch.input_feature_dict.template_backbone_frame_mask": {
+              "sha256": "2580ac5a34454e9ee5664fa4f10852384ae7458c3d91b898aa709970ef8cffd2",
+              "dtype": "torch.float32",
+              "shape": [
+                4,
+                245,
+                245
+              ]
+            },
+            "batch.input_feature_dict.template_distogram": {
+              "sha256": "7e895d6c327df3c907f685e84a4334008204fb59e19083e2e9e8ebbda78e372c",
+              "dtype": "torch.float32",
+              "shape": [
+                4,
+                245,
+                245,
+                39
+              ]
+            },
+            "batch.input_feature_dict.template_pseudo_beta_mask": {
+              "sha256": "2580ac5a34454e9ee5664fa4f10852384ae7458c3d91b898aa709970ef8cffd2",
+              "dtype": "torch.float32",
+              "shape": [
+                4,
+                245,
+                245
+              ]
+            },
+            "batch.input_feature_dict.template_unit_vector": {
+              "sha256": "06bd2acf67fd6659d2d99c4017f1f95f89cfd08556054da6ec89823a28646cba",
+              "dtype": "torch.float32",
+              "shape": [
+                4,
+                245,
+                245,
+                3
+              ]
+            },
+            "batch.input_feature_dict.token_bonds": {
+              "sha256": "94499d3ac6497545b6a6bfe3426e348952bc8990dbb4307c949bf55f99f44159",
+              "dtype": "torch.float32",
+              "shape": [
+                245,
+                245
+              ]
+            },
+            "batch.input_feature_dict.token_index": {
+              "sha256": "940c655833b715fcf91336a7caae982ebb6d5d81824de4020f2a9677b15beefd",
+              "dtype": "torch.int64",
+              "shape": [
+                245
+              ]
+            },
+            "batch.label_dict.coordinate": {
+              "sha256": "1922c6da0605b162924853e5015aa31db977bcb030ee1024b2ad1d456ce24809",
+              "dtype": "torch.float32",
+              "shape": [
+                1961,
+                3
+              ]
+            },
+            "batch.label_dict.coordinate_mask": {
+              "sha256": "f1ea73bba2502bf3f15cb37613401df4c95f64b6bb7184a7342b61e19064c45a",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.label_full_dict.coordinate": {
+              "sha256": "1922c6da0605b162924853e5015aa31db977bcb030ee1024b2ad1d456ce24809",
+              "dtype": "torch.float32",
+              "shape": [
+                1961,
+                3
+              ]
+            },
+            "batch.label_full_dict.coordinate_mask": {
+              "sha256": "f1ea73bba2502bf3f15cb37613401df4c95f64b6bb7184a7342b61e19064c45a",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.label_full_dict.entity_mol_id": {
+              "sha256": "357eae57a1d9c7b525848124bb8431dbc05265b08e85af52f89d97acd22878f0",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.label_full_dict.mol_atom_index": {
+              "sha256": "07f9c4466e3c0fe076cb5a2f6aadabf2930c283342fb55d1377ccf0338c33b0e",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.label_full_dict.mol_id": {
+              "sha256": "357eae57a1d9c7b525848124bb8431dbc05265b08e85af52f89d97acd22878f0",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.label_full_dict.pae_rep_atom_mask": {
+              "sha256": "7bc02f9b63e105aaa6624b7764727aac544344ac30abcf3ed94bb442a54f811a",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            }
+          },
+          "losses": [
+            {
+              "step": 0,
+              "global_step": 0,
+              "loss": 3168.556884765625,
+              "loss_dict": {
+                "smooth_lddt_loss": 1.0,
+                "weighted_smooth_lddt_loss": 4.0,
+                "bond_loss": 0.0,
+                "weighted_bond_loss": 0.0,
+                "mse_loss": 791.1325073242188,
+                "weighted_mse_loss": 3164.530029296875,
+                "distogram_loss": 0.8979343175888062,
+                "weighted_distogram_loss": 0.026938028633594513,
+                "loss": 3168.556884765625
+              }
+            },
+            {
+              "step": 1,
+              "global_step": 1,
+              "loss": 8870.8466796875,
+              "loss_dict": {
+                "smooth_lddt_loss": 1.0,
+                "weighted_smooth_lddt_loss": 4.0,
+                "bond_loss": 0.0,
+                "weighted_bond_loss": 0.0,
+                "mse_loss": 2216.7080078125,
+                "weighted_mse_loss": 8866.83203125,
+                "distogram_loss": 0.47287946939468384,
+                "weighted_distogram_loss": 0.014186384156346321,
+                "loss": 8870.8466796875
+              }
+            }
+          ],
+          "gradient_norms": [
+            {
+              "step_index": 0,
+              "preclip_global_norm": 922.3468627929688,
+              "max_norm": 10.0
+            },
+            {
+              "step_index": 1,
+              "preclip_global_norm": 1630.3504638671875,
+              "max_norm": 10.0
+            }
+          ],
+          "formal_event_median_ms": 12891.4873046875,
+          "formal_wall_median_ms": 12891.388049349189,
+          "runtime": {
+            "precision": "fp32",
+            "candidate": "public",
+            "actual_calls": {
+              "native_triattention_ieee": 512
+            },
+            "parameter_audit_enabled": true,
+            "parameter_audit_step": 1,
+            "matmul_allow_tf32": false,
+            "native_training_triangle_source": "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/tri_attention/op.py",
+            "existing_tool_sha256": "f95cf0205b638c1f8de741fcc5f205c5087b06605a1a549a7d1ded5a9f183566",
+            "candidate_source_sha256": null,
+            "candidate_physical_backward_calls": 0,
+            "legacy_tool_reported_tf32": false
+          },
+          "parameter_audit": {
+            "scope": "Full model parameter gradients before clipping, and actual first optimizer update; tensors stay on original server.",
+            "audit_step": 1,
+            "optimizer_learning_rates_before_step": [
+              0.00018
+            ],
+            "nonzero_update_assertion": "PASS",
+            "precision": "fp32",
+            "candidate": "public",
+            "parameter_count": 4174,
+            "gradient_parameter_count": 4170,
+            "reference": "None",
+            "comparisons": {}
+          },
+          "rng_count": 2091,
+          "rng_semantic_sha256": "b925708372fa97e6986c4bfa20b875e15b79e28449cab645178a8d4f10b4a877",
+          "initial_parameter_sha256": "bdec323329312bc80c6f00be3453339667968fb80e76744fd1fdb35563b612e5",
+          "parameter_signatures": {
+            "gradients": {
+              "sha256": "328a588f0c26a7fa560a81f6be17317c17309e939803ed92931a111d5e5c043f",
+              "l2_norm": 1630.3504650692153,
+              "max_abs": 555.2230834960938,
+              "finite": true,
+              "parameter_count": 4170
+            },
+            "updates": {
+              "sha256": "c7258445a38e713dd4e8286c0d7886f341624263750b29ade65f3ea1abce9cfc",
+              "l2_norm": 2.032860322696519,
+              "max_abs": 0.00018006563186645508,
+              "finite": true,
+              "parameter_count": 4174
+            }
+          }
+        },
+        "tf32": {
+          "protocol": {
+            "platform": "h100",
+            "model": "protenix-v2",
+            "dtype": "fp32",
+            "seed": 20260825,
+            "max_steps": 2,
+            "warmup_steps_excluded": 1,
+            "formal_steps": 1,
+            "crop_size": 245,
+            "triangle_attention": "triattention",
+            "triangle_attention_flaggems_precision": "tf32",
+            "triangle_multiplicative": "torch",
+            "blocks_per_ckpt": 1,
+            "pairformer_blocks": 48,
+            "msa_blocks": 4,
+            "diffusion_batch_size": 1,
+            "shared_rng": true,
+            "replay_step_rng": false,
+            "learning_rate": 0.0018,
+            "progress_interval": 1,
+            "track_parameter_updates": false,
+            "enable_checkpoints": false,
+            "checkpoint_interval": 1000,
+            "audit_parameter_gradients": false,
+            "gradient_audit_step": 0,
+            "load_strict": true,
+            "tf32": true,
+            "checkpoint_and_eval_in_step_timing": false,
+            "precision_control": "configs.enable_tf32 and explicit official TriAttention deterministic flag"
+          },
+          "environment": {
+            "hostname": "p-jn-sz-cw-h1-su1-gpu02-402-12a-02u-208-118",
+            "python": "3.10.20 (main, Jun 11 2026, 15:17:37) [GCC 14.3.0]",
+            "torch": "2.7.1+cu126",
+            "device_name": "NVIDIA H100 80GB HBM3",
+            "device_count_visible": 1,
+            "flag_gems": null
+          },
+          "input_hashes": {
+            "/data/xishiqing/yes-star24-home/projects/protenix-baseline/checkpoint/protenix-v2.pt": "8f931f9774a396b67033d0e58628e1834f4a1448165e04254b40a780b0c0d599",
+            "/data/xishiqing/protenix-training-parity-20260825/fixture/bioassembly/user_test.pkl.gz": "9629dde6cc8e5c3e09ecac08a62c5e9fd393632353d761dfd861c7587df52fbb",
+            "/data/xishiqing/protenix-training-parity-20260825/fixture/single.csv": "496498123bda979419493d0355f74fcab8592de349a5dd59f2fd49bde485a77a",
+            "/data/xishiqing/protenix-training-parity-20260825/fixture/empty_index.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+          },
+          "batch_sha256": "5e1e554a9b387bb223e5249befec845a8185cfc3167543b203652118779ac1bc",
+          "batch_tensor_count": 71,
+          "batch_leaf_hashes": {
+            "batch.basic.N_asym": {
+              "sha256": "8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_atom": {
+              "sha256": "c2f34d63b1f39d285b9f26bb36042c098d9c6ad4ad57cd704c0809609ff5f728",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_dna_atom": {
+              "sha256": "2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_dna_token": {
+              "sha256": "2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_lig_atom": {
+              "sha256": "2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_lig_token": {
+              "sha256": "2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_msa": {
+              "sha256": "c145f362bf357521a45777fcde4f84959c9bccb5d4003d53278088e632f8c4b9",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_msa_prot_pair": {
+              "sha256": "8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_msa_prot_unpair": {
+              "sha256": "8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_msa_rna_pair": {
+              "sha256": "8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_msa_rna_unpair": {
+              "sha256": "8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_prot_atom": {
+              "sha256": "c2f34d63b1f39d285b9f26bb36042c098d9c6ad4ad57cd704c0809609ff5f728",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_prot_token": {
+              "sha256": "98fa8d6fe47395b4b26a91b4fd15611210e5e2060820af920cc184919bb4758a",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_rna_atom": {
+              "sha256": "2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_rna_token": {
+              "sha256": "2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.basic.N_token": {
+              "sha256": "98fa8d6fe47395b4b26a91b4fd15611210e5e2060820af920cc184919bb4758a",
+              "dtype": "torch.int64",
+              "shape": [
+                1
+              ]
+            },
+            "batch.input_feature_dict.asym_id": {
+              "sha256": "b32f2537a63c4b02ecd66ebf87282d772a0e77f8c49145a55492bca951c9bc9d",
+              "dtype": "torch.int64",
+              "shape": [
+                245
+              ]
+            },
+            "batch.input_feature_dict.atom_to_tokatom_idx": {
+              "sha256": "d82ed200264dab09e33b00f6f5b911d6fa92996f563c5c6574d769bcb5d44f5c",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.atom_to_token_idx": {
+              "sha256": "1b8c97d62f77ef23cc0c3a1bb9009e676e6e7630acb0d3d64837217c7abe4f51",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.bond_mask": {
+              "sha256": "7bafd6621df04ec0af60ed3cf4d2027c9b7b5a0b2dca2fb2615371f64acf6514",
+              "dtype": "torch.int64",
+              "shape": [
+                1961,
+                1961
+              ]
+            },
+            "batch.input_feature_dict.deletion_mean": {
+              "sha256": "d10855e802687e6bdad2cb9c413d36ad4b9888f70e1a9f81a51d5a6f45b99fc5",
+              "dtype": "torch.float32",
+              "shape": [
+                245
+              ]
+            },
+            "batch.input_feature_dict.deletion_value": {
+              "sha256": "7be653430b4160435264bff1db1a9eb4ab57706a448a8433ef86a3d9ef4dfd52",
+              "dtype": "torch.float32",
+              "shape": [
+                2,
+                245
+              ]
+            },
+            "batch.input_feature_dict.distogram_rep_atom_mask": {
+              "sha256": "369958881b107e708133ab2de048279641a77f11f9a524d73bd0ca057b3c8798",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.entity_id": {
+              "sha256": "b32f2537a63c4b02ecd66ebf87282d772a0e77f8c49145a55492bca951c9bc9d",
+              "dtype": "torch.int64",
+              "shape": [
+                245
+              ]
+            },
+            "batch.input_feature_dict.entity_mol_id": {
+              "sha256": "357eae57a1d9c7b525848124bb8431dbc05265b08e85af52f89d97acd22878f0",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.frame_atom_index": {
+              "sha256": "55820ceeadad804743233db5a44949d0255160f8d4c2733cd9712a4a476d3a22",
+              "dtype": "torch.int64",
+              "shape": [
+                245,
+                3
+              ]
+            },
+            "batch.input_feature_dict.has_deletion": {
+              "sha256": "7be653430b4160435264bff1db1a9eb4ab57706a448a8433ef86a3d9ef4dfd52",
+              "dtype": "torch.float32",
+              "shape": [
+                2,
+                245
+              ]
+            },
+            "batch.input_feature_dict.has_frame": {
+              "sha256": "70661638bea41af883f6ec3c356a7169828a249faae1e1874c458242d5d31185",
+              "dtype": "torch.int64",
+              "shape": [
+                245
+              ]
+            },
+            "batch.input_feature_dict.is_distillation": {
+              "sha256": "a63056d911afd30d0fb050244218bf0540e363d9e61c70e1860a1da29326aa03",
+              "dtype": "torch.bool",
+              "shape": [
+                1
+              ]
+            },
+            "batch.input_feature_dict.is_dna": {
+              "sha256": "357eae57a1d9c7b525848124bb8431dbc05265b08e85af52f89d97acd22878f0",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.is_ligand": {
+              "sha256": "357eae57a1d9c7b525848124bb8431dbc05265b08e85af52f89d97acd22878f0",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.is_protein": {
+              "sha256": "f1ea73bba2502bf3f15cb37613401df4c95f64b6bb7184a7342b61e19064c45a",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.is_rna": {
+              "sha256": "357eae57a1d9c7b525848124bb8431dbc05265b08e85af52f89d97acd22878f0",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.modified_res_mask": {
+              "sha256": "357eae57a1d9c7b525848124bb8431dbc05265b08e85af52f89d97acd22878f0",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.mol_atom_index": {
+              "sha256": "07f9c4466e3c0fe076cb5a2f6aadabf2930c283342fb55d1377ccf0338c33b0e",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.mol_id": {
+              "sha256": "357eae57a1d9c7b525848124bb8431dbc05265b08e85af52f89d97acd22878f0",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.msa": {
+              "sha256": "a8a2e5c57fd72c91f0eb8b02d48763b4077513f08ba48bec43e1777de7a8fc6c",
+              "dtype": "torch.int64",
+              "shape": [
+                2,
+                245
+              ]
+            },
+            "batch.input_feature_dict.pae_rep_atom_mask": {
+              "sha256": "7bc02f9b63e105aaa6624b7764727aac544344ac30abcf3ed94bb442a54f811a",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.plddt_m_rep_atom_mask": {
+              "sha256": "7bc02f9b63e105aaa6624b7764727aac544344ac30abcf3ed94bb442a54f811a",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.profile": {
+              "sha256": "27e8a8b8ee3f320c0822f118a0222f29c68c9a3bf19fe99ae2056590e890a01b",
+              "dtype": "torch.float32",
+              "shape": [
+                245,
+                32
+              ]
+            },
+            "batch.input_feature_dict.prot_pair_num_alignments": {
+              "sha256": "35aa899bfc9cc839bcd696a2d658d35288c0c94b0c0e157fff56d59ddb23f8ab",
+              "dtype": "torch.int64",
+              "shape": []
+            },
+            "batch.input_feature_dict.prot_unpair_num_alignments": {
+              "sha256": "35aa899bfc9cc839bcd696a2d658d35288c0c94b0c0e157fff56d59ddb23f8ab",
+              "dtype": "torch.int64",
+              "shape": []
+            },
+            "batch.input_feature_dict.ref_atom_name_chars": {
+              "sha256": "8eb1f0a845aaa0bc4fea28d5d671f38e3b6a6e2b4a3723e227ca46994791f897",
+              "dtype": "torch.int64",
+              "shape": [
+                1961,
+                4,
+                64
+              ]
+            },
+            "batch.input_feature_dict.ref_charge": {
+              "sha256": "98ceb6ebe035c94a4b985b0286c463d3a9eed21bea98c0af65ecb6f97fc05c17",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.ref_element": {
+              "sha256": "5f29d88fd713ec6932e4e3740f96946d4be2eef003703440316f81f454036f26",
+              "dtype": "torch.int64",
+              "shape": [
+                1961,
+                128
+              ]
+            },
+            "batch.input_feature_dict.ref_mask": {
+              "sha256": "f1ea73bba2502bf3f15cb37613401df4c95f64b6bb7184a7342b61e19064c45a",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.ref_pos": {
+              "sha256": "92d05da7161892fe978b957a96bd4cf9c7074dd4ad112eb0c0f0957fad428ae6",
+              "dtype": "torch.float32",
+              "shape": [
+                1961,
+                3
+              ]
+            },
+            "batch.input_feature_dict.ref_space_uid": {
+              "sha256": "62f91e852b68f93dc653c00666973df6335419cd3a2849bf6f73ab19da784f35",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.input_feature_dict.residue_index": {
+              "sha256": "fdcd857a45b09325f6daffe53dc3df8694b0356102381b3c284a1103148a1402",
+              "dtype": "torch.int64",
+              "shape": [
+                245
+              ]
+            },
+            "batch.input_feature_dict.resolution": {
+              "sha256": "8d801b21722716812d449a6dfc8fe57b2c5021115e36dc80bcc87b3f7eee28d4",
+              "dtype": "torch.float32",
+              "shape": [
+                1
+              ]
+            },
+            "batch.input_feature_dict.restype": {
+              "sha256": "27e8a8b8ee3f320c0822f118a0222f29c68c9a3bf19fe99ae2056590e890a01b",
+              "dtype": "torch.float32",
+              "shape": [
+                245,
+                32
+              ]
+            },
+            "batch.input_feature_dict.rna_pair_num_alignments": {
+              "sha256": "35aa899bfc9cc839bcd696a2d658d35288c0c94b0c0e157fff56d59ddb23f8ab",
+              "dtype": "torch.int64",
+              "shape": []
+            },
+            "batch.input_feature_dict.rna_unpair_num_alignments": {
+              "sha256": "35aa899bfc9cc839bcd696a2d658d35288c0c94b0c0e157fff56d59ddb23f8ab",
+              "dtype": "torch.int64",
+              "shape": []
+            },
+            "batch.input_feature_dict.sym_id": {
+              "sha256": "b32f2537a63c4b02ecd66ebf87282d772a0e77f8c49145a55492bca951c9bc9d",
+              "dtype": "torch.int64",
+              "shape": [
+                245
+              ]
+            },
+            "batch.input_feature_dict.template_aatype": {
+              "sha256": "d89e65e3cb94fc3ac19965946c092b1d0676f23173ae98ef451cb355f03d139c",
+              "dtype": "torch.int64",
+              "shape": [
+                4,
+                245
+              ]
+            },
+            "batch.input_feature_dict.template_atom_mask": {
+              "sha256": "b64d1fef6188361474774ea24be7eb82352de71566e5fcac04d7c359d8061c40",
+              "dtype": "torch.bool",
+              "shape": [
+                4,
+                245,
+                24
+              ]
+            },
+            "batch.input_feature_dict.template_atom_positions": {
+              "sha256": "a92e2fa633cc295e781d41950b8543c5addc0f0725358a1625b858fb155546eb",
+              "dtype": "torch.float32",
+              "shape": [
+                4,
+                245,
+                24,
+                3
+              ]
+            },
+            "batch.input_feature_dict.template_backbone_frame_mask": {
+              "sha256": "2580ac5a34454e9ee5664fa4f10852384ae7458c3d91b898aa709970ef8cffd2",
+              "dtype": "torch.float32",
+              "shape": [
+                4,
+                245,
+                245
+              ]
+            },
+            "batch.input_feature_dict.template_distogram": {
+              "sha256": "7e895d6c327df3c907f685e84a4334008204fb59e19083e2e9e8ebbda78e372c",
+              "dtype": "torch.float32",
+              "shape": [
+                4,
+                245,
+                245,
+                39
+              ]
+            },
+            "batch.input_feature_dict.template_pseudo_beta_mask": {
+              "sha256": "2580ac5a34454e9ee5664fa4f10852384ae7458c3d91b898aa709970ef8cffd2",
+              "dtype": "torch.float32",
+              "shape": [
+                4,
+                245,
+                245
+              ]
+            },
+            "batch.input_feature_dict.template_unit_vector": {
+              "sha256": "06bd2acf67fd6659d2d99c4017f1f95f89cfd08556054da6ec89823a28646cba",
+              "dtype": "torch.float32",
+              "shape": [
+                4,
+                245,
+                245,
+                3
+              ]
+            },
+            "batch.input_feature_dict.token_bonds": {
+              "sha256": "94499d3ac6497545b6a6bfe3426e348952bc8990dbb4307c949bf55f99f44159",
+              "dtype": "torch.float32",
+              "shape": [
+                245,
+                245
+              ]
+            },
+            "batch.input_feature_dict.token_index": {
+              "sha256": "940c655833b715fcf91336a7caae982ebb6d5d81824de4020f2a9677b15beefd",
+              "dtype": "torch.int64",
+              "shape": [
+                245
+              ]
+            },
+            "batch.label_dict.coordinate": {
+              "sha256": "1922c6da0605b162924853e5015aa31db977bcb030ee1024b2ad1d456ce24809",
+              "dtype": "torch.float32",
+              "shape": [
+                1961,
+                3
+              ]
+            },
+            "batch.label_dict.coordinate_mask": {
+              "sha256": "f1ea73bba2502bf3f15cb37613401df4c95f64b6bb7184a7342b61e19064c45a",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.label_full_dict.coordinate": {
+              "sha256": "1922c6da0605b162924853e5015aa31db977bcb030ee1024b2ad1d456ce24809",
+              "dtype": "torch.float32",
+              "shape": [
+                1961,
+                3
+              ]
+            },
+            "batch.label_full_dict.coordinate_mask": {
+              "sha256": "f1ea73bba2502bf3f15cb37613401df4c95f64b6bb7184a7342b61e19064c45a",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.label_full_dict.entity_mol_id": {
+              "sha256": "357eae57a1d9c7b525848124bb8431dbc05265b08e85af52f89d97acd22878f0",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.label_full_dict.mol_atom_index": {
+              "sha256": "07f9c4466e3c0fe076cb5a2f6aadabf2930c283342fb55d1377ccf0338c33b0e",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.label_full_dict.mol_id": {
+              "sha256": "357eae57a1d9c7b525848124bb8431dbc05265b08e85af52f89d97acd22878f0",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            },
+            "batch.label_full_dict.pae_rep_atom_mask": {
+              "sha256": "7bc02f9b63e105aaa6624b7764727aac544344ac30abcf3ed94bb442a54f811a",
+              "dtype": "torch.int64",
+              "shape": [
+                1961
+              ]
+            }
+          },
+          "losses": [
+            {
+              "step": 0,
+              "global_step": 0,
+              "loss": 3151.56396484375,
+              "loss_dict": {
+                "smooth_lddt_loss": 1.0,
+                "weighted_smooth_lddt_loss": 4.0,
+                "bond_loss": 0.0,
+                "weighted_bond_loss": 0.0,
+                "mse_loss": 786.88427734375,
+                "weighted_mse_loss": 3147.537109375,
+                "distogram_loss": 0.8980539441108704,
+                "weighted_distogram_loss": 0.02694161795079708,
+                "loss": 3151.56396484375
+              }
+            },
+            {
+              "step": 1,
+              "global_step": 1,
+              "loss": 8881.5068359375,
+              "loss_dict": {
+                "smooth_lddt_loss": 1.0,
+                "weighted_smooth_lddt_loss": 4.0,
+                "bond_loss": 0.0,
+                "weighted_bond_loss": 0.0,
+                "mse_loss": 2219.373046875,
+                "weighted_mse_loss": 8877.4921875,
+                "distogram_loss": 0.47268813848495483,
+                "weighted_distogram_loss": 0.014180643483996391,
+                "loss": 8881.5068359375
+              }
+            }
+          ],
+          "gradient_norms": [
+            {
+              "step_index": 0,
+              "preclip_global_norm": 919.885986328125,
+              "max_norm": 10.0
+            },
+            {
+              "step_index": 1,
+              "preclip_global_norm": 1631.206787109375,
+              "max_norm": 10.0
+            }
+          ],
+          "formal_event_median_ms": 10779.10546875,
+          "formal_wall_median_ms": 10779.02899403125,
+          "runtime": {
+            "precision": "tf32",
+            "candidate": "public",
+            "actual_calls": {
+              "native_triattention_tf32": 512
+            },
+            "parameter_audit_enabled": true,
+            "parameter_audit_step": 1,
+            "matmul_allow_tf32": true,
+            "native_training_triangle_source": "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/tri_attention/op.py",
+            "existing_tool_sha256": "f95cf0205b638c1f8de741fcc5f205c5087b06605a1a549a7d1ded5a9f183566",
+            "candidate_source_sha256": null,
+            "candidate_physical_backward_calls": 0,
+            "legacy_tool_reported_tf32": false
+          },
+          "parameter_audit": {
+            "scope": "Full model parameter gradients before clipping, and actual first optimizer update; tensors stay on original server.",
+            "audit_step": 1,
+            "optimizer_learning_rates_before_step": [
+              0.00018
+            ],
+            "nonzero_update_assertion": "PASS",
+            "precision": "tf32",
+            "candidate": "public",
+            "parameter_count": 4174,
+            "gradient_parameter_count": 4170,
+            "reference": "None",
+            "comparisons": {}
+          },
+          "rng_count": 2091,
+          "rng_semantic_sha256": "b925708372fa97e6986c4bfa20b875e15b79e28449cab645178a8d4f10b4a877",
+          "initial_parameter_sha256": "bdec323329312bc80c6f00be3453339667968fb80e76744fd1fdb35563b612e5",
+          "parameter_signatures": {
+            "gradients": {
+              "sha256": "ad0c54a5a729a16ec32c4fafccef9c9b0e882a6049d606ce84d4f4899765dbf3",
+              "l2_norm": 1631.2067340932692,
+              "max_abs": 555.4530029296875,
+              "finite": true,
+              "parameter_count": 4170
+            },
+            "updates": {
+              "sha256": "def8643134853ad1739202de45fdfe18d91725c6057af338c6e0ddf62f0b2e9a",
+              "l2_norm": 2.0328033216483354,
+              "max_abs": 0.00018006563186645508,
+              "finite": true,
+              "parameter_count": 4174
+            }
+          },
+          "vs_local_fp32": {
+            "gradients": {
+              "global_relative_l2": 0.0010769324637617023,
+              "global_max_abs": 0.391021728515625,
+              "finite": true
+            },
+            "updates": {
+              "global_relative_l2": 0.012885044773807013,
+              "global_max_abs": 0.0003068000078201294,
+              "finite": true
+            }
+          }
+        }
+      }
+    }
+  ],
+  "rng_program_sha256": "97044285d374adb009c4a4d1b28efa9e10a53e1b367a96b90e9bced203051332",
+  "steps": 2,
+  "scope": "Real AF3Trainer, all 48 Pairformer/4 MSA blocks. Parameter audit step and its overhead are explicitly recorded; only performance runs can be used for timing. All parameter tensors stay on their original server."
+}

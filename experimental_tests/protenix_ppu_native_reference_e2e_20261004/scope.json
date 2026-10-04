@@ -1,0 +1,40 @@
+{
+  "purpose": "Quantify full-model consequence of native TriAttention TF32 precision path; original frozen four modes remain separately identifiable.",
+  "models": 9,
+  "inputs": {
+    "G01_tokens": 693,
+    "G02_tokens": 245
+  },
+  "protocol": {
+    "cycle": 1,
+    "step": 1,
+    "sample": 1,
+    "warmups_per_mode": 1,
+    "repeats_per_mode": 3
+  },
+  "gpu_policy": "PPU workers on physical 0 and 7; H100 workers on physical 0 and 7; no shared physical GPU among our jobs.",
+  "new_policies": {
+    "tf32_triangle_ieee": "H100 native CUE IEEE only inside TriAttention, other matmul remains TF32; mixed precision diagnostic.",
+    "tf32_triangle_corrected": "Custom H100 CUDA RNE-once TriAttention adapted to native layout; entire attention implementation changes, so not a query-only ablation and not native CUE.",
+    "confidence_head_ieee": "Six H100 diagnostic cases: disable global matmul TF32 only in ConfidenceHead forward by class; custom triangle explicitly remains TF32. Not a promoted PPU policy."
+  },
+  "training": "No new training claim in this inference-focused round; previous backward-only full-training evidence retained separately.",
+  "data": "Raw weights, activations, coordinates and gradients remain on their original server; aggregate scalar/hash reports only.",
+  "default_package_changed": false,
+  "adapter_control_failure": "Initial adapter returned four dimensions for 4D Q inputs although native low-level CUE retains five dimensions. Real caller [0] removed N instead of B. Initial corrected-mode model outputs and timings discarded; exact native rank assertion added; corrected models rerun.",
+  "precision_intent": "No PPU workaround that imitates measured native query drift; native and corrected diagnostics remain separate.",
+  "confidence_ablation": {
+    "models": [
+      "protenix_base_default_v0.5.0",
+      "protenix-v2",
+      "protenix_mini_esm_v0.5.0"
+    ],
+    "inputs": [
+      "G01",
+      "G02"
+    ],
+    "case_count": 6,
+    "selection_is_dispatch_rule": false,
+    "coordinate_hash_unchanged": true
+  }
+}

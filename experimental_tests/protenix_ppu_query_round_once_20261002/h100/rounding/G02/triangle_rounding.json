@@ -1,0 +1,811 @@
+{
+  "status": "PASS",
+  "server": "h100",
+  "records": [
+    {
+      "family": "template_embedder",
+      "module": "template_embedder.pairformer_stack.blocks.0.tri_att_start",
+      "inputs": [
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            32,
+            128,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "ebf3b6a16841c11771df7f7e36cfe8bb60cee104b8714c74469e518e3334e8e2"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            32,
+            128,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "5e0e9b0139a6f7c220d8b17efe2a06f9d82c2b5636a99198da2833bee50682f6"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            32,
+            128,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "4ebb3c3c6c3642e0ee4628e80a6bb1add7080aa2ce64d42a2b9c01773a2f329e"
+        }
+      ],
+      "teacher_output": {
+        "shape": [
+          1,
+          245,
+          4,
+          245,
+          32
+        ],
+        "stride": [
+          7683200,
+          31360,
+          7840,
+          32,
+          1
+        ],
+        "dtype": "torch.float32",
+        "sha256": "51cb2a95587e986aa20edf45880c9aca1bbce0ac70d6d4ebee0f77b97731d759"
+      },
+      "canonical_shape": [
+        1,
+        245,
+        245,
+        4,
+        32
+      ],
+      "sample_gold": {
+        "groups": [
+          0,
+          244
+        ],
+        "queries": [
+          0,
+          122,
+          244
+        ],
+        "full_keys_and_reduction": true,
+        "dtype": "CPU FP64"
+      },
+      "scale": 0.17677669529663687,
+      "candidate_q_scale_placement": "FP32 Q*scale before once-rounding; native CUE uses QK*scale after dot. PPU inputs already scaled.",
+      "replays": {
+        "tf32": {
+          "output_sha256": "c59b9b870cfe486b6fcb5f1b75984b422fdcbf1930eda96df4097778f2fa38ad",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0011636010512654975,
+            "max_abs": 0.020127534866333008,
+            "rms": 0.001158300553852024,
+            "finite": true
+          },
+          "sample_vs_fp64": {
+            "relative_l2": 0.0010581238134557862,
+            "max_abs": 0.009451070733068834,
+            "rms": 0.001348203997430455,
+            "finite": true
+          }
+        },
+        "fp32": {
+          "output_sha256": "3bbf149d0cf0c16e368076d5817676317e904a9d7591bf23a5edf4715f797aba",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.001163586904642053,
+            "max_abs": 0.020127534866333008,
+            "rms": 0.001158300553852024,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "sample_vs_fp64": {
+            "relative_l2": 3.503581006076011e-07,
+            "max_abs": 7.0435020860237785e-06,
+            "rms": 4.464072972978665e-07,
+            "finite": true
+          }
+        },
+        "fixed_rne_once": {
+          "output_sha256": "3886083495b820a5fa13cf2518c29525123d340c4646ba8e02f0ecf98a763b7c",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0011504889176563926,
+            "max_abs": 0.018966078758239746,
+            "rms": 0.0011452620729965155,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.00017664711272118985,
+            "max_abs": 0.00289309024810791,
+            "rms": 0.00017584244039556022,
+            "finite": true
+          },
+          "sample_vs_fp64": {
+            "relative_l2": 0.00018968250389052627,
+            "max_abs": 0.0017202304073276053,
+            "rms": 0.00024168316291136105,
+            "finite": true
+          }
+        },
+        "fixed_rne_bits_once": {
+          "output_sha256": "3886083495b820a5fa13cf2518c29525123d340c4646ba8e02f0ecf98a763b7c",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0011504889176563926,
+            "max_abs": 0.018966078758239746,
+            "rms": 0.0011452620729965155,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.00017664711272118985,
+            "max_abs": 0.00289309024810791,
+            "rms": 0.00017584244039556022,
+            "finite": true
+          },
+          "sample_vs_fp64": {
+            "relative_l2": 0.00018968250389052627,
+            "max_abs": 0.0017202304073276053,
+            "rms": 0.00024168316291136105,
+            "finite": true
+          }
+        },
+        "fixed_rna_bits_once": {
+          "output_sha256": "f5f56a44902efb764d70deee9d2938f5ecd2f4ce30dc4df5a1834ec25d921f37",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.001150486294272715,
+            "max_abs": 0.018966078758239746,
+            "rms": 0.0011452594615312633,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.00017664934246907168,
+            "max_abs": 0.00289309024810791,
+            "rms": 0.00017584465998637575,
+            "finite": true
+          },
+          "sample_vs_fp64": {
+            "relative_l2": 0.0001896819963565264,
+            "max_abs": 0.0017202304073276053,
+            "rms": 0.00024168251623905414,
+            "finite": true
+          }
+        }
+      }
+    },
+    {
+      "family": "msa_module",
+      "module": "msa_module.blocks.0.pair_stack.tri_att_start",
+      "inputs": [
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            32,
+            128,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "941686708daa75f169a7748894cc4ed4d99511cc98ef7dbc7960f9109e38f423"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            32,
+            128,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "a76b5185f4acb20f50490d4d0c4f67c5c9523d90c43081448eff19dd4c155934"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            32,
+            128,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "b7201911618904660583c61dc7b75e8d465757933d1549031e5a048c12ee8c8a"
+        }
+      ],
+      "teacher_output": {
+        "shape": [
+          1,
+          245,
+          4,
+          245,
+          32
+        ],
+        "stride": [
+          7683200,
+          31360,
+          7840,
+          32,
+          1
+        ],
+        "dtype": "torch.float32",
+        "sha256": "3d25f6659ca06f7ae4d46319ba83af33168b0ecaade3a101e101c0fed7dc531b"
+      },
+      "canonical_shape": [
+        1,
+        245,
+        245,
+        4,
+        32
+      ],
+      "sample_gold": {
+        "groups": [
+          0,
+          244
+        ],
+        "queries": [
+          0,
+          122,
+          244
+        ],
+        "full_keys_and_reduction": true,
+        "dtype": "CPU FP64"
+      },
+      "scale": 0.17677669529663687,
+      "candidate_q_scale_placement": "FP32 Q*scale before once-rounding; native CUE uses QK*scale after dot. PPU inputs already scaled.",
+      "replays": {
+        "tf32": {
+          "output_sha256": "2e4518bc1672e57bf824faf573e14308fc3b006468c6f88fb4051b86ef042722",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.002927889737980456,
+            "max_abs": 0.03596603870391846,
+            "rms": 0.0024533607687579574,
+            "finite": true
+          },
+          "sample_vs_fp64": {
+            "relative_l2": 0.002396524804398729,
+            "max_abs": 0.01931565809751601,
+            "rms": 0.0020362616340734436,
+            "finite": true
+          }
+        },
+        "fp32": {
+          "output_sha256": "678102680b8a9a87f7ac890ea0ba50b59fb6afe2fec14d838ca2f25c41cf66b7",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.002928042529368679,
+            "max_abs": 0.03596603870391846,
+            "rms": 0.0024533607687579574,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "sample_vs_fp64": {
+            "relative_l2": 2.0370573933073107e-07,
+            "max_abs": 1.3234425466635003e-06,
+            "rms": 1.730831998393621e-07,
+            "finite": true
+          }
+        },
+        "fixed_rne_once": {
+          "output_sha256": "f2c11d8c715e3f49383bf90671a6aae9f5bfd40d46054f8daf3703bf91bd18e5",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0029342464738072514,
+            "max_abs": 0.038297414779663086,
+            "rms": 0.002458558956196925,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.00041678295704976185,
+            "max_abs": 0.008175104856491089,
+            "rms": 0.00034923410627444847,
+            "finite": true
+          },
+          "sample_vs_fp64": {
+            "relative_l2": 0.00014936783226639043,
+            "max_abs": 0.0007467241698753124,
+            "rms": 0.0001269137651529869,
+            "finite": true
+          }
+        },
+        "fixed_rne_bits_once": {
+          "output_sha256": "f2c11d8c715e3f49383bf90671a6aae9f5bfd40d46054f8daf3703bf91bd18e5",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0029342464738072514,
+            "max_abs": 0.038297414779663086,
+            "rms": 0.002458558956196925,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.00041678295704976185,
+            "max_abs": 0.008175104856491089,
+            "rms": 0.00034923410627444847,
+            "finite": true
+          },
+          "sample_vs_fp64": {
+            "relative_l2": 0.00014936783226639043,
+            "max_abs": 0.0007467241698753124,
+            "rms": 0.0001269137651529869,
+            "finite": true
+          }
+        },
+        "fixed_rna_bits_once": {
+          "output_sha256": "ea77b96102eae4e20539724714edbe6475c4e59f0f9b1b37415df2f8fb049cf2",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0029341172858885624,
+            "max_abs": 0.038297414779663086,
+            "rms": 0.002458450711672351,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.00041694124607896996,
+            "max_abs": 0.008175104856491089,
+            "rms": 0.00034936674108284124,
+            "finite": true
+          },
+          "sample_vs_fp64": {
+            "relative_l2": 0.00014938203022895398,
+            "max_abs": 0.0007467241698753124,
+            "rms": 0.00012692582877377526,
+            "finite": true
+          }
+        }
+      }
+    },
+    {
+      "family": "pairformer_stack",
+      "module": "pairformer_stack.blocks.0.tri_att_start",
+      "inputs": [
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            32,
+            128,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "08349863ae5fac786c6baa7d5dc24c02a480c5b52ab1a325629e178d76e1f7f1"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            32,
+            128,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "6360570dc472a4b85fc73b4df4efa9a320a55de32c996e25bc32c7431ea23352"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            32,
+            128,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "f355c200dd0074c1f8328dbb5aaf256e67c5fe9c744223fb26ea821636c33150"
+        }
+      ],
+      "teacher_output": {
+        "shape": [
+          1,
+          245,
+          4,
+          245,
+          32
+        ],
+        "stride": [
+          7683200,
+          31360,
+          7840,
+          32,
+          1
+        ],
+        "dtype": "torch.float32",
+        "sha256": "654233fff6eccb19bd04e7c255bd135ff3047d6a3e0adb787c45d22888ec8da8"
+      },
+      "canonical_shape": [
+        1,
+        245,
+        245,
+        4,
+        32
+      ],
+      "sample_gold": {
+        "groups": [
+          0,
+          244
+        ],
+        "queries": [
+          0,
+          122,
+          244
+        ],
+        "full_keys_and_reduction": true,
+        "dtype": "CPU FP64"
+      },
+      "scale": 0.17677669529663687,
+      "candidate_q_scale_placement": "FP32 Q*scale before once-rounding; native CUE uses QK*scale after dot. PPU inputs already scaled.",
+      "replays": {
+        "tf32": {
+          "output_sha256": "12964dcd526f6c5506a10a5fb75b3348d62d8f9400165783528470a3f2d44656",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0021635590063470897,
+            "max_abs": 0.05388200283050537,
+            "rms": 0.0018141035610334522,
+            "finite": true
+          },
+          "sample_vs_fp64": {
+            "relative_l2": 0.001909417262703946,
+            "max_abs": 0.012158257859183674,
+            "rms": 0.0016815083787004872,
+            "finite": true
+          }
+        },
+        "fp32": {
+          "output_sha256": "4022008408c7c58f50a3a3f17df6dd6187d0acc6cff16ed578feb7c814ffe268",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.002162752743308168,
+            "max_abs": 0.05388200283050537,
+            "rms": 0.0018141035610334522,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "sample_vs_fp64": {
+            "relative_l2": 2.410052044831231e-07,
+            "max_abs": 1.3345153155874812e-06,
+            "rms": 2.1223871731153917e-07,
+            "finite": true
+          }
+        },
+        "fixed_rne_once": {
+          "output_sha256": "58449b6cfeee7342bb0cf14460dd0ec319ec954b58ddfd486ab5f53e6214419b",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0021646548280336835,
+            "max_abs": 0.05077171325683594,
+            "rms": 0.0018156990178810031,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.00023189880970040093,
+            "max_abs": 0.00506591796875,
+            "rms": 0.00019444279321364689,
+            "finite": true
+          },
+          "sample_vs_fp64": {
+            "relative_l2": 0.00011828153069678769,
+            "max_abs": 0.0004766921715111394,
+            "rms": 0.00010416339518713429,
+            "finite": true
+          }
+        },
+        "fixed_rne_bits_once": {
+          "output_sha256": "58449b6cfeee7342bb0cf14460dd0ec319ec954b58ddfd486ab5f53e6214419b",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0021646548280336835,
+            "max_abs": 0.05077171325683594,
+            "rms": 0.0018156990178810031,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.00023189880970040093,
+            "max_abs": 0.00506591796875,
+            "rms": 0.00019444279321364689,
+            "finite": true
+          },
+          "sample_vs_fp64": {
+            "relative_l2": 0.00011828153069678769,
+            "max_abs": 0.0004766921715111394,
+            "rms": 0.00010416339518713429,
+            "finite": true
+          }
+        },
+        "fixed_rna_bits_once": {
+          "output_sha256": "f2a621cb4d652ed5af620feb57a9157b3013aa989ab8184a75f6a68937616fa4",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.002164599144217405,
+            "max_abs": 0.05077171325683594,
+            "rms": 0.0018156523106419523,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0002318866100875453,
+            "max_abs": 0.00506591796875,
+            "rms": 0.00019443256406756867,
+            "finite": true
+          },
+          "sample_vs_fp64": {
+            "relative_l2": 0.00011828599442806712,
+            "max_abs": 0.0004766921715111394,
+            "rms": 0.00010416732612548562,
+            "finite": true
+          }
+        }
+      }
+    },
+    {
+      "family": "confidence_head",
+      "module": "confidence_head.pairformer_stack.blocks.0.tri_att_start",
+      "inputs": [
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            32,
+            128,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            32,
+            128,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            32,
+            128,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4"
+        }
+      ],
+      "teacher_output": {
+        "shape": [
+          1,
+          245,
+          4,
+          245,
+          32
+        ],
+        "stride": [
+          7683200,
+          31360,
+          7840,
+          32,
+          1
+        ],
+        "dtype": "torch.float32",
+        "sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4"
+      },
+      "canonical_shape": [
+        1,
+        245,
+        245,
+        4,
+        32
+      ],
+      "sample_gold": {
+        "groups": [
+          0,
+          244
+        ],
+        "queries": [
+          0,
+          122,
+          244
+        ],
+        "full_keys_and_reduction": true,
+        "dtype": "CPU FP64"
+      },
+      "scale": 0.17677669529663687,
+      "candidate_q_scale_placement": "FP32 Q*scale before once-rounding; native CUE uses QK*scale after dot. PPU inputs already scaled.",
+      "replays": {
+        "tf32": {
+          "output_sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "sample_vs_fp64": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          }
+        },
+        "fp32": {
+          "output_sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "sample_vs_fp64": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          }
+        },
+        "fixed_rne_once": {
+          "output_sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "sample_vs_fp64": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          }
+        },
+        "fixed_rne_bits_once": {
+          "output_sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "sample_vs_fp64": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          }
+        },
+        "fixed_rna_bits_once": {
+          "output_sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "sample_vs_fp64": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          }
+        }
+      }
+    }
+  ],
+  "scope": "First live call per semantic family, entire candidate output compared to local baselines. CPU FP64 samples retain full keys. Teacher model predictions unchanged; all tensors stay on original server. Custom H100 candidates are not native baselines."
+}

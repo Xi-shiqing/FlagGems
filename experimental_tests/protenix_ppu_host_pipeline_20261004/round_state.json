@@ -1,0 +1,57 @@
+{
+  "target": "General inference speed improvements with original FP32/TF32 results retained",
+  "protocol": {
+    "inputs": {
+      "G02": 245,
+      "G01": 693
+    },
+    "models": 9,
+    "seed": 101,
+    "cycles": 1,
+    "diffusion_steps": 1,
+    "samples": 1,
+    "warmup_per_mode": 1,
+    "matrix_repeats_per_mode": 5,
+    "physical_gpu": 7,
+    "native_h100": true,
+    "full_input_and_ordered_rng_audit": true
+  },
+  "candidates": {
+    "A": "Pointwise and softmax fully overwritten outputs skip deterministic fill",
+    "B": "A plus sigmoid, triangle forward output and cat",
+    "C": "B plus RHS RNE once in physical layout, same MM tile and reduction; enough M tiles reuse RHS"
+  },
+  "promotion": "Final nine-model data required, exact prediction and five-score hashes against frozen references; small cases may intentionally use original MM",
+  "excluded_claims": [
+    "full production diffusion sampling acceptance",
+    "nine-model training requalification",
+    "80% performance target met",
+    "MFU inferred from latency"
+  ],
+  "failed_build": "candidate_v2_failed_import saved remotely; fixed future import insertion",
+  "status": "COMPLETE",
+  "experiment_complete": true,
+  "formal_production_TF32_acceptance_complete": false,
+  "results": {
+    "tf32_layout": {
+      "case_count": 18,
+      "positive_median_count": 18,
+      "positive_paired_bootstrap95_count": 10,
+      "minimum_time_reduction_pct": 0.8745024483278185,
+      "maximum_time_reduction_pct": 5.6993770311468905,
+      "geometric_mean_time_reduction_pct": 3.569888843950053,
+      "median_H100_native_TF32_performance_pct": 27.221006543100856
+    }
+  },
+  "rechecks": {
+    "PPU": "Three G02 cases: 3 warmups / 15 repeats per mode; originals retained.",
+    "H100": "All 18 native cases: 3 warmups / 7 repeats per mode; original 1/5 records retained."
+  },
+  "validation": {
+    "full_write_operator_cases": 28,
+    "real_mm_activations": 13,
+    "synthetic_mm_controls": 4,
+    "input_and_rng_audit": "PASS",
+    "protected_benchmark_sha256": "6ede90f98d9435b8509fb37b086c6a490296b49a99c6fbbd4094eda2f5506d42"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "scope": "Full model parameter gradients before clipping, and actual first optimizer update; tensors stay on original server.",
+  "audit_step": 1,
+  "optimizer_learning_rates_before_step": [
+    0.00018
+  ],
+  "nonzero_update_assertion": "PASS",
+  "precision": "tf32",
+  "candidate": "backward_only",
+  "parameter_count": 4174,
+  "gradient_parameter_count": 4170,
+  "reference": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/closure_20261003/nonzero_update/245/tf32/first_step_local_snapshot.pt",
+  "comparisons": {
+    "gradients": {
+      "global_relative_l2": 3.904125736793801e-06,
+      "global_max_abs": 0.0020284652709960938,
+      "finite": true
+    },
+    "updates": {
+      "global_relative_l2": 0.001077462274472461,
+      "global_max_abs": 0.0002576112747192383,
+      "finite": true
+    }
+  }
+}

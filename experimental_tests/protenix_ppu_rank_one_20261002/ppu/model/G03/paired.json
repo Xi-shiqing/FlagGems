@@ -1,0 +1,92 @@
+{
+  "status": "PASS",
+  "order": [
+    "baseline_tf32",
+    "candidate_tf32",
+    "fp32",
+    "baseline_tf32",
+    "candidate_tf32",
+    "fp32",
+    "baseline_tf32",
+    "candidate_tf32",
+    "fp32",
+    "baseline_tf32",
+    "candidate_tf32",
+    "fp32"
+  ],
+  "summary": {
+    "baseline_tf32": {
+      "count": 3,
+      "warmup_count": 1,
+      "median_seconds": 31.839776621200144,
+      "samples_seconds": [
+        31.828639412065968,
+        31.839776621200144,
+        31.865458518033847
+      ],
+      "prediction_digest": {
+        "sha256": "ec27d81fccf289a097098e8c8f18a6d2e9aa1054446e6a68fac7dd3d5c1ce031",
+        "sum_fp64": 417.82799714803696,
+        "max_abs": 5176.1416015625
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.6872329711914,
+        "gpde": 7.34899377822876,
+        "ptm": 0.31589511036872864,
+        "iptm": 0.3153989017009735,
+        "ranking_score": 0.31549814343452454
+      },
+      "prediction_equal_reference": true
+    },
+    "candidate_tf32": {
+      "count": 3,
+      "warmup_count": 1,
+      "median_seconds": 31.834358653984964,
+      "samples_seconds": [
+        31.832987928995863,
+        31.834358653984964,
+        32.00770109612495
+      ],
+      "prediction_digest": {
+        "sha256": "94b90b8488afa9381e6507019a8e60b4eda97529d046e56a5beac128fdbb4fef",
+        "sum_fp64": 468.0650313794613,
+        "max_abs": 5176.09765625
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.68582153320312,
+        "gpde": 7.3475799560546875,
+        "ptm": 0.31587323546409607,
+        "iptm": 0.3153765797615051,
+        "ranking_score": 0.3154759407043457
+      },
+      "prediction_equal_reference": false
+    },
+    "fp32": {
+      "count": 3,
+      "warmup_count": 1,
+      "median_seconds": 47.433097870089114,
+      "samples_seconds": [
+        47.425581868039444,
+        47.433097870089114,
+        47.55823316494934
+      ],
+      "prediction_digest": {
+        "sha256": "d7afd4f4d5934afb50897786fe80c79240cad9dfe8677286b7ae245e1d3f589c",
+        "sum_fp64": 318.1579505801201,
+        "max_abs": 5176.298828125
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.69549560546875,
+        "gpde": 7.346736907958984,
+        "ptm": 0.31605884432792664,
+        "iptm": 0.315557599067688,
+        "ranking_score": 0.3156578540802002
+      },
+      "prediction_equal_reference": true
+    }
+  },
+  "rank_one_calls_first_candidate_warmup": {
+    "mm": 8
+  },
+  "policy": "K=1 only, IEEE vector outer-product with optional fused bias. Existing generated Torch autograd rules and all other kernels unchanged."
+}

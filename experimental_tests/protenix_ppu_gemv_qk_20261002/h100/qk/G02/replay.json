@@ -1,0 +1,240 @@
+{
+  "status": "PASS",
+  "records": [
+    {
+      "role": "qk",
+      "inputs": [
+        {
+          "shape": [
+            16,
+            245,
+            24
+          ],
+          "stride": [
+            24,
+            384,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "74e1e7f679e618f053a5e3f70147d3898054329f34665869e12843bb759cd89f"
+        },
+        {
+          "shape": [
+            16,
+            24,
+            245
+          ],
+          "stride": [
+            24,
+            1,
+            384
+          ],
+          "dtype": "torch.float32",
+          "sha256": "080703d743541dda12bb7b96453e0b9c623c3553ea4a3c9417ee095997aa5731"
+        }
+      ],
+      "teacher_output": {
+        "shape": [
+          16,
+          245,
+          245
+        ],
+        "stride": [
+          60025,
+          245,
+          1
+        ],
+        "dtype": "torch.float32",
+        "sha256": "b50b492ac76e7b7c045ccae19673521842327d549c8754bca5537b60e3a32e52"
+      },
+      "teacher_flags": [
+        true,
+        true
+      ],
+      "modes": {
+        "fp32": {
+          "median_ms": 0.060240738093853,
+          "samples_ms": [
+            0.06640050560235977,
+            0.06167590618133545,
+            0.0605899840593338,
+            0.05989149212837219,
+            0.05910173058509827,
+            0.059604644775390625,
+            0.06074924021959305,
+            0.05965679883956909,
+            0.06103329360485077,
+            0.059271231293678284
+          ],
+          "output_sha256": "b50b492ac76e7b7c045ccae19673521842327d549c8754bca5537b60e3a32e52",
+          "vs_ieee_fp64": {
+            "relative_l2": 9.796861737300406e-08,
+            "max_abs": 3.1963729881567815e-05,
+            "rms": 1.9458560227397763e-06,
+            "finite": true
+          },
+          "vs_rne_fp64": {
+            "relative_l2": 0.00028258604297933904,
+            "max_abs": 0.06313426024280488,
+            "rms": 0.005612742310529544,
+            "finite": true
+          },
+          "kernel_trace": [
+            "sm80_xmma_gemm_f32f32_f32f32_f32_tn_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas"
+          ]
+        },
+        "tf32": {
+          "median_ms": 0.06371131166815758,
+          "samples_ms": [
+            0.06985850632190704,
+            0.06574206054210663,
+            0.060527585446834564,
+            0.0626957044005394,
+            0.0638812780380249,
+            0.06415136158466339,
+            0.06359629333019257,
+            0.06279442459344864,
+            0.06382633000612259,
+            0.06339233368635178
+          ],
+          "output_sha256": "b50b492ac76e7b7c045ccae19673521842327d549c8754bca5537b60e3a32e52",
+          "vs_ieee_fp64": {
+            "relative_l2": 9.796861737300406e-08,
+            "max_abs": 3.1963729881567815e-05,
+            "rms": 1.9458560227397763e-06,
+            "finite": true
+          },
+          "vs_rne_fp64": {
+            "relative_l2": 0.00028258604297933904,
+            "max_abs": 0.06313426024280488,
+            "rms": 0.005612742310529544,
+            "finite": true
+          },
+          "kernel_trace": [
+            "sm80_xmma_gemm_f32f32_f32f32_f32_tn_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas"
+          ]
+        }
+      },
+      "gold_ieee_fp64_sha256": "413a92277f6ebb376b3985d63be475a4f4ac87344c75e83eedc6120c6554b80a",
+      "gold_rne_fp64_sha256": "23fd863ad376e90aa4e8f49b83c65d0869af9818f2f6eb30274696d7d346913b"
+    },
+    {
+      "role": "pv",
+      "inputs": [
+        {
+          "shape": [
+            16,
+            245,
+            245
+          ],
+          "stride": [
+            60025,
+            245,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "a841e3ac88205c46c6cf4e1a5d1b55edf32fa1b3609da614c0db66c8837359e9"
+        },
+        {
+          "shape": [
+            16,
+            245,
+            24
+          ],
+          "stride": [
+            24,
+            384,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "2d1c30c59fc65b60adc9d57e622d7825e8899078630a3404a31b448b1cf9f110"
+        }
+      ],
+      "teacher_output": {
+        "shape": [
+          16,
+          245,
+          24
+        ],
+        "stride": [
+          5880,
+          24,
+          1
+        ],
+        "dtype": "torch.float32",
+        "sha256": "dccb8e25368790186ca9bf88c27e12be68ebdd416ffd6001669eb4001d50ea17"
+      },
+      "teacher_flags": [
+        true,
+        true
+      ],
+      "modes": {
+        "fp32": {
+          "median_ms": 0.07110880687832832,
+          "samples_ms": [
+            0.07311441004276276,
+            0.07260963320732117,
+            0.08708890527486801,
+            0.07102731615304947,
+            0.0721961259841919,
+            0.06855279207229614,
+            0.06983987987041473,
+            0.07092393934726715,
+            0.07028970867395401,
+            0.07119029760360718
+          ],
+          "output_sha256": "893e22e20de3871115d1aab251b1a5bc946a108252c39b812bb0fd1688bfd2b2",
+          "vs_ieee_fp64": {
+            "relative_l2": 4.1908620615310674e-07,
+            "max_abs": 3.037429130614555e-05,
+            "rms": 1.1839964327853145e-06,
+            "finite": true
+          },
+          "vs_rne_fp64": {
+            "relative_l2": 8.198223715602441e-05,
+            "max_abs": 0.005400091343371827,
+            "rms": 0.00023161216686896254,
+            "finite": true
+          },
+          "kernel_trace": [
+            "sm80_xmma_gemm_f32f32_f32f32_f32_nn_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas"
+          ]
+        },
+        "tf32": {
+          "median_ms": 0.06753019988536835,
+          "samples_ms": [
+            0.07378775626420975,
+            0.06926804780960083,
+            0.06696581840515137,
+            0.06903335452079773,
+            0.06681866943836212,
+            0.06898399442434311,
+            0.06738957017660141,
+            0.06638001650571823,
+            0.06687268614768982,
+            0.06767082959413528
+          ],
+          "output_sha256": "dccb8e25368790186ca9bf88c27e12be68ebdd416ffd6001669eb4001d50ea17",
+          "vs_ieee_fp64": {
+            "relative_l2": 8.215356356838976e-05,
+            "max_abs": 0.005441780308377275,
+            "rms": 0.0002320990879142396,
+            "finite": true
+          },
+          "vs_rne_fp64": {
+            "relative_l2": 1.753976166390846e-06,
+            "max_abs": 8.181517478078604e-05,
+            "rms": 4.955246826957759e-06,
+            "finite": true
+          },
+          "kernel_trace": [
+            "sm80_xmma_gemm_f32f32_tf32f32_f32_nn_n_tilesize32x32x64_stage3_warpsize2x2x1_tensor16x8x8_aligna4_alignc4_execute_kernel__5x_cublas"
+          ]
+        }
+      },
+      "gold_ieee_fp64_sha256": "78cb8932921258dda6fe6e2f286d1da0550620178e09d2bd7ca60acbbf378868",
+      "gold_rne_fp64_sha256": "a323538a814e759bd3e26f570ce9ca17dd9fd02844b350fce6508b932cc8efcc"
+    }
+  ],
+  "scope": "Full actual QK/PV operands replayed only in original-server memory. Only error/timing/hash JSON persisted; original teacher outputs returned."
+}

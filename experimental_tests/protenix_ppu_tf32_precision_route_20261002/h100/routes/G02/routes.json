@@ -1,0 +1,4232 @@
+{
+  "status": "PASS",
+  "order": [
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32"
+  ],
+  "summary": {
+    "fp32": {
+      "median_seconds": 0.5150780840776861,
+      "samples_seconds": [
+        0.5027379784733057,
+        0.5032128104940057,
+        0.5116502614691854,
+        0.502500431612134,
+        0.5265114353969693,
+        0.5185059066861868,
+        0.5564738446846604,
+        0.5329120391979814,
+        0.5236670272424817,
+        0.5069022607058287
+      ],
+      "prediction_digest": {
+        "sha256": "1183217ca397845df93ac70f2037866e3c524810164436777605bcb2e9119833",
+        "sum_fp64": -4890.661454916,
+        "max_abs": 5452.4052734375
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.26214599609375,
+        "gpde": 7.269092082977295,
+        "ptm": 0.21105259656906128,
+        "iptm": 0.20743019878864288,
+        "ranking_score": 0.20815467834472656
+      },
+      "warmup_count": 3,
+      "count": 10
+    },
+    "tf32": {
+      "median_seconds": 0.513555655721575,
+      "samples_seconds": [
+        0.5024873362854123,
+        0.5107415094971657,
+        0.4964917451143265,
+        0.5290055563673377,
+        0.5140850553289056,
+        0.5364871202036738,
+        0.5130262561142445,
+        0.5461995443329215,
+        0.521553648635745,
+        0.5129051022231579
+      ],
+      "prediction_digest": {
+        "sha256": "604d3c95f6cd8d8d1f85c5757ce094408f0b9012d82d6c26969f21f9a41e81ff",
+        "sum_fp64": -4836.543895959854,
+        "max_abs": 5452.337890625
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.51933288574219,
+        "gpde": 7.270471096038818,
+        "ptm": 0.21090394258499146,
+        "iptm": 0.207359179854393,
+        "ranking_score": 0.2080681324005127
+      },
+      "warmup_count": 3,
+      "count": 10
+    }
+  },
+  "routes": {
+    "fp32": {
+      "scope": "first warmup only; original teacher outputs returned; no tensor export",
+      "replays": [
+        {
+          "op": "aten.bmm.default",
+          "arguments_schema": "aten::bmm(Tensor self, Tensor mat2) -> Tensor",
+          "teacher_flags": [
+            false,
+            false
+          ],
+          "inputs": [
+            {
+              "shape": [
+                320,
+                32,
+                32
+              ],
+              "stride": [
+                1024,
+                32,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b6584cc3a63bc6bf0b3e5816b82abd0cbdb6dbdf84dac65eb90562db6886b339"
+            },
+            {
+              "shape": [
+                320,
+                32,
+                128
+              ],
+              "stride": [
+                4096,
+                1,
+                32
+              ],
+              "dtype": "torch.float32",
+              "sha256": "98790aea5933ea635a6d2dcd255684763ef3f9e771f33e7ddff000b022c640af"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:867:checkpoint_blocks",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:854:exec",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:335:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:229:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:148:local_multihead_attention",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:850:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:592:_local_attention",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:263:_attention"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "c036cbb7553a909f8b8877d4461924307f27ecb66cff928eeeafd569c3887e29",
+            "tf32": "c036cbb7553a909f8b8877d4461924307f27ecb66cff928eeeafd569c3887e29"
+          },
+          "sample_gold": {
+            "fp32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 6.4538727819274916e-40,
+                "max_abs": 3.663915847280468e-70,
+                "rms": 5.704471511270272e-71,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 6.454113824094173e-40,
+                "max_abs": 3.664327540484184e-70,
+                "rms": 5.704684564458538e-71,
+                "finite": true
+              }
+            },
+            "tf32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 6.4538727819274916e-40,
+                "max_abs": 3.663915847280468e-70,
+                "rms": 5.704471511270272e-71,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 6.454113824094173e-40,
+                "max_abs": 3.664327540484184e-70,
+                "rms": 5.704684564458538e-71,
+                "finite": true
+              }
+            }
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "sm80_xmma_gemm_f32f32_f32f32_f32_tn_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "void cutlass::Kernel2<cutlass_80_tensorop_s1688gemm_128x64_16x6_tn_align4>(cutlass_80_tensorop_s1688gemm_128x64_16x6_tn_align4::Params)",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        },
+        {
+          "op": "aten.bmm.default",
+          "arguments_schema": "aten::bmm(Tensor self, Tensor mat2) -> Tensor",
+          "teacher_flags": [
+            false,
+            false
+          ],
+          "inputs": [
+            {
+              "shape": [
+                320,
+                32,
+                128
+              ],
+              "stride": [
+                4096,
+                128,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "374b21bf3e5b7c5dd01dac65209febbd918cfb814714e78bd5541f7627b4c059"
+            },
+            {
+              "shape": [
+                320,
+                128,
+                32
+              ],
+              "stride": [
+                4096,
+                32,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "47bd221c6678b8342be12b7f1ccaa7a5fbb5e414b135373ee75959f65f13a764"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:867:checkpoint_blocks",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:854:exec",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:335:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:229:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:148:local_multihead_attention",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:850:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:592:_local_attention",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:263:_attention"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 0.00010456595929890233,
+            "max_abs": 1.4971010386943817e-06,
+            "rms": 1.3298671202812751e-07,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "4284b1f23f96e1de6bd9c4dd02949835ba5a4637a0eb16269f262e459f4a6c8a",
+            "tf32": "8caae1dd1f05d0d23e4a3589ccf9b8bae250df0317177c7af15af2399cc86f00"
+          },
+          "sample_gold": {
+            "fp32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 1.2276990399777561e-07,
+                "max_abs": 3.8806241813710285e-10,
+                "rms": 8.218982179931735e-11,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 0.0003590585545516629,
+                "max_abs": 7.857979653635994e-07,
+                "rms": 2.403153886206417e-07,
+                "finite": true
+              }
+            },
+            "tf32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 0.0003591554254040658,
+                "max_abs": 7.860389152757486e-07,
+                "rms": 2.4044101568046374e-07,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 1.8773828468441732e-07,
+                "max_abs": 4.5292836148291826e-10,
+                "rms": 1.2565192576804872e-10,
+                "finite": true
+              }
+            }
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "sm80_xmma_gemm_f32f32_f32f32_f32_nn_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "void cutlass::Kernel2<cutlass_80_tensorop_s1688gemm_64x64_16x6_nn_align4>(cutlass_80_tensorop_s1688gemm_64x64_16x6_nn_align4::Params)",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        },
+        {
+          "op": "aten.bmm.default",
+          "arguments_schema": "aten::bmm(Tensor self, Tensor mat2) -> Tensor",
+          "teacher_flags": [
+            false,
+            false
+          ],
+          "inputs": [
+            {
+              "shape": [
+                128,
+                245,
+                245
+              ],
+              "stride": [
+                60025,
+                245,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "423963fa0e5c9eb295df4e36c2e890651860d6c6a3791183e8a92aa66be87503"
+            },
+            {
+              "shape": [
+                128,
+                245,
+                123
+              ],
+              "stride": [
+                1,
+                128,
+                31360
+              ],
+              "dtype": "torch.float32",
+              "sha256": "b9e371fd31aa5e0cea19f473a9a3438c0451d60eea9c923679c5816cd1ac1662"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:1026:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:1088:single_template_forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:335:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:867:checkpoint_blocks",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:854:exec",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:139:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/triangular/triangular.py:521:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/triangular/triangular.py:431:_inference_forward"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 2.3440172611837336e-05,
+            "max_abs": 1.91015625,
+            "rms": 0.04982195083480699,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "11f58d95fdf089ed0b2bad1cf38e951aaa6ae00c221396cb48f0dbe11cf18ca6",
+            "tf32": "b91ae035caf0a084fd18aaa3678db215cc6ec98a5d91a52d33b98c696d8bfdba"
+          },
+          "sample_gold": {
+            "fp32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 2.899561268444211e-07,
+                "max_abs": 0.0020284392739995383,
+                "rms": 0.00032321013469133853,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 1.5714459693528484e-05,
+                "max_abs": 0.07359981536865234,
+                "rms": 0.017516610548819363,
+                "finite": true
+              }
+            },
+            "tf32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 1.6357917074872787e-05,
+                "max_abs": 0.08047691799765744,
+                "rms": 0.018233946764905563,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 1.7045700752844378e-06,
+                "max_abs": 0.006234169006347656,
+                "rms": 0.0019000519740570787,
+                "finite": true
+              }
+            }
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)",
+                "device": "DeviceType.CUDA"
+              },
+              {
+                "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1})",
+                "device": "DeviceType.CUDA"
+              },
+              {
+                "name": "void cutlass::Kernel2<cutlass_80_simt_sgemm_128x256_8x4_nn_align1>(cutlass_80_simt_sgemm_128x256_8x4_nn_align1::Params)",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)",
+                "device": "DeviceType.CUDA"
+              },
+              {
+                "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1})",
+                "device": "DeviceType.CUDA"
+              },
+              {
+                "name": "void cutlass::Kernel2<cutlass_80_tensorop_s1688gemm_128x256_32x3_nn_align1>(cutlass_80_tensorop_s1688gemm_128x256_32x3_nn_align1::Params)",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        },
+        {
+          "op": "aten.bmm.default",
+          "arguments_schema": "aten::bmm(Tensor self, Tensor mat2) -> Tensor",
+          "teacher_flags": [
+            false,
+            false
+          ],
+          "inputs": [
+            {
+              "shape": [
+                128,
+                245,
+                245
+              ],
+              "stride": [
+                60025,
+                245,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "423963fa0e5c9eb295df4e36c2e890651860d6c6a3791183e8a92aa66be87503"
+            },
+            {
+              "shape": [
+                128,
+                245,
+                122
+              ],
+              "stride": [
+                1,
+                128,
+                31360
+              ],
+              "dtype": "torch.float32",
+              "sha256": "9c765da6cddd050933616236f66c4f8ddc42f53d86b56921593f40eb7f218ac6"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:1026:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:1088:single_template_forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:335:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:867:checkpoint_blocks",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:854:exec",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:139:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/triangular/triangular.py:521:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/triangular/triangular.py:431:_inference_forward"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 2.337706101248544e-05,
+            "max_abs": 1.765625,
+            "rms": 0.04734349362374859,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "6f27bf501caa2a81b00e007dafb953720f56c5ba3f1e7d42e1915035ac730c48",
+            "tf32": "720c5a1b9acc70ae756bf1921ca87c23f5b0a684086d133732795512c0423a32"
+          },
+          "sample_gold": {
+            "fp32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 2.62120577751533e-07,
+                "max_abs": 0.0018774829773064994,
+                "rms": 0.00025648181737181967,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 1.6731338633513682e-05,
+                "max_abs": 0.09453487396240234,
+                "rms": 0.01637147135007851,
+                "finite": true
+              }
+            },
+            "tf32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 1.6425433994824378e-05,
+                "max_abs": 0.0879684450133027,
+                "rms": 0.016072088648098466,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 1.7084384805337555e-06,
+                "max_abs": 0.0066890716552734375,
+                "rms": 0.0016716924001170758,
+                "finite": true
+              }
+            }
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)",
+                "device": "DeviceType.CUDA"
+              },
+              {
+                "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1})",
+                "device": "DeviceType.CUDA"
+              },
+              {
+                "name": "void cutlass::Kernel2<cutlass_80_simt_sgemm_128x256_8x4_nn_align1>(cutlass_80_simt_sgemm_128x256_8x4_nn_align1::Params)",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)",
+                "device": "DeviceType.CUDA"
+              },
+              {
+                "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1})",
+                "device": "DeviceType.CUDA"
+              },
+              {
+                "name": "void cutlass::Kernel2<cutlass_80_tensorop_s1688gemm_128x256_32x3_nn_align1>(cutlass_80_tensorop_s1688gemm_128x256_32x3_nn_align1::Params)",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        },
+        {
+          "op": "aten.bmm.default",
+          "arguments_schema": "aten::bmm(Tensor self, Tensor mat2) -> Tensor",
+          "teacher_flags": [
+            false,
+            false
+          ],
+          "inputs": [
+            {
+              "shape": [
+                1,
+                7840,
+                145
+              ],
+              "stride": [
+                7840,
+                1,
+                7840
+              ],
+              "dtype": "torch.float32",
+              "sha256": "01c7265e8d3530fdb3526e6f7e17d0d4fd6bd0496a75b42b78f16eded91354fa"
+            },
+            {
+              "shape": [
+                1,
+                145,
+                7840
+              ],
+              "stride": [
+                1136800,
+                7840,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "4be6fde24ec221b198c0806fe05e6a3ca48c1e65522115206823615fec9e9ac6"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/protenix.py:257:get_pairformer_output",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:911:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:867:checkpoint_blocks",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:854:exec",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:660:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/triangular/layers.py:792:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/triangular/layers.py:767:_forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/triangular/layers.py:692:_opm"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 0.00027992422126951787,
+            "max_abs": 0.18548583984375,
+            "rms": 0.003955758323392436,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "dad4220f0d6169ffb9784ee42480ce8aa77296621ee1078639a793c46fbbca52",
+            "tf32": "e9d849ca93aa3da3829f9720c0904ab7791c3010f1c3d7ab2c6abedaa9bf2fef"
+          },
+          "sample_gold": {
+            "fp32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 9.2980298208288e-07,
+                "max_abs": 3.804553852404524e-05,
+                "rms": 1.5530263366945662e-05,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 0.00024032946109229638,
+                "max_abs": 0.010388374328613281,
+                "rms": 0.0040143112260261045,
+                "finite": true
+              }
+            },
+            "tf32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 0.00024029103472853112,
+                "max_abs": 0.010390642843391973,
+                "rms": 0.0040135202036998135,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 8.255758262258963e-07,
+                "max_abs": 5.23887574672699e-05,
+                "rms": 1.3789896137126671e-05,
+                "finite": true
+              }
+            }
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "sm80_xmma_gemm_f32f32_f32f32_f32_nt_n_tilesize64x64x8_stage3_warpsize1x4x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "Memset (Device)",
+                "device": "DeviceType.CUDA"
+              },
+              {
+                "name": "sm90_xmma_gemm_f32f32_tf32f32_f32_nt_n_tilesize128x128x32_warpgroupsize1x1x1_execute_segment_k_off_kernel__5x_cublas",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        },
+        {
+          "op": "aten.bmm.default",
+          "arguments_schema": "aten::bmm(Tensor self, Tensor mat2) -> Tensor",
+          "teacher_flags": [
+            false,
+            false
+          ],
+          "inputs": [
+            {
+              "shape": [
+                1,
+                245,
+                145
+              ],
+              "stride": [
+                245,
+                1,
+                245
+              ],
+              "dtype": "torch.float32",
+              "sha256": "4ced6e41012f60daf79fb22a2c1602ad34ea4515db6f512fe26be9be0ba9a60f"
+            },
+            {
+              "shape": [
+                1,
+                145,
+                245
+              ],
+              "stride": [
+                35525,
+                245,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "4ced6e41012f60daf79fb22a2c1602ad34ea4515db6f512fe26be9be0ba9a60f"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/protenix.py:503:_main_inference_loop",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/protenix.py:257:get_pairformer_output",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:911:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:867:checkpoint_blocks",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:854:exec",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:660:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/triangular/layers.py:792:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/triangular/layers.py:770:_forward"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "d52e0ef3bbaaef9d1bbccb39dfccb7542d2c3d93149a9d61904bf32a5d0aef73",
+            "tf32": "d52e0ef3bbaaef9d1bbccb39dfccb7542d2c3d93149a9d61904bf32a5d0aef73"
+          },
+          "sample_gold": {
+            "fp32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "rms": 0.0,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "rms": 0.0,
+                "finite": true
+              }
+            },
+            "tf32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "rms": 0.0,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "rms": 0.0,
+                "finite": true
+              }
+            }
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "sm80_xmma_gemm_f32f32_f32f32_f32_nt_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "sm80_xmma_gemm_f32f32_tf32f32_f32_nt_n_tilesize32x32x64_stage3_warpsize2x2x1_tensor16x8x8_aligna4_alignc4_execute_kernel__5x_cublas",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        },
+        {
+          "op": "aten.bmm.default",
+          "arguments_schema": "aten::bmm(Tensor self, Tensor mat2) -> Tensor",
+          "teacher_flags": [
+            false,
+            false
+          ],
+          "inputs": [
+            {
+              "shape": [
+                8,
+                245,
+                245
+              ],
+              "stride": [
+                1,
+                1960,
+                8
+              ],
+              "dtype": "torch.float32",
+              "sha256": "9f4f2f560e6fcc8a25ca1a17b7698c40e7fc160ab368c4e3fa9510623b552bfc"
+            },
+            {
+              "shape": [
+                8,
+                245,
+                1160
+              ],
+              "stride": [
+                284200,
+                1160,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "c57ecb49bc26c7e614e78ffc29f0843c78c742c51ce294939051caab0b299a82"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/protenix.py:257:get_pairformer_output",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:911:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:867:checkpoint_blocks",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:854:exec",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:665:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:493:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:568:inference_forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:412:forward"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 9.881967596287255e-05,
+            "max_abs": 0.002643108367919922,
+            "rms": 7.527983736461792e-05,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "8374739ce5bfb63d5ab44c0c994d206c772b79e48358f841643b0c6fd6284803",
+            "tf32": "9f3cdd3094be36f3af075f0c46d2e252f37d87800747019a9302d8c51a3e2b10"
+          },
+          "sample_gold": {
+            "fp32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 3.5657122686056194e-07,
+                "max_abs": 1.3757767600708348e-06,
+                "rms": 1.7824703147074184e-07,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 7.348877524063664e-05,
+                "max_abs": 9.169609984382987e-05,
+                "rms": 3.6737065385730986e-05,
+                "finite": true
+              }
+            },
+            "tf32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 7.331943949939515e-05,
+                "max_abs": 9.168281921745347e-05,
+                "rms": 3.665178639042711e-05,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 9.054352863097528e-07,
+                "max_abs": 2.207651050412096e-06,
+                "rms": 4.526274278866493e-07,
+                "finite": true
+              }
+            }
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)",
+                "device": "DeviceType.CUDA"
+              },
+              {
+                "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1})",
+                "device": "DeviceType.CUDA"
+              },
+              {
+                "name": "sm80_xmma_gemm_f32f32_f32f32_f32_nn_n_tilesize64x64x8_stage3_warpsize1x4x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)",
+                "device": "DeviceType.CUDA"
+              },
+              {
+                "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1})",
+                "device": "DeviceType.CUDA"
+              },
+              {
+                "name": "void cutlass::Kernel2<cutlass_80_tensorop_s1688gemm_128x256_32x3_nn_align1>(cutlass_80_tensorop_s1688gemm_128x256_32x3_nn_align1::Params)",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        },
+        {
+          "op": "aten.bmm.default",
+          "arguments_schema": "aten::bmm(Tensor self, Tensor mat2) -> Tensor",
+          "teacher_flags": [
+            false,
+            false
+          ],
+          "inputs": [
+            {
+              "shape": [
+                16,
+                245,
+                24
+              ],
+              "stride": [
+                24,
+                384,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "8ffa917d44df3d0cd2e2812eae3c065bdc1a43442141f3f7ebfce07e2f18503d"
+            },
+            {
+              "shape": [
+                16,
+                24,
+                245
+              ],
+              "stride": [
+                24,
+                1,
+                384
+              ],
+              "dtype": "torch.float32",
+              "sha256": "772cf9614035d66155211845682b3f2c264cd4ee1ea3424c3862a62ca977bfe5"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:335:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:867:checkpoint_blocks",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:854:exec",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:218:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:239:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:197:standard_multihead_attention",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:868:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:263:_attention"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "1e322280ee90dc0da4e1a923bd4e10097a0d71d241ea948e662c61121b83e0d0",
+            "tf32": "1e322280ee90dc0da4e1a923bd4e10097a0d71d241ea948e662c61121b83e0d0"
+          },
+          "sample_gold": {
+            "fp32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 7.404151607885165e-08,
+                "max_abs": 1.0388247304149445e-05,
+                "rms": 2.723018285532663e-06,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 0.00039830404927784557,
+                "max_abs": 0.03953397460281849,
+                "rms": 0.014647612204343236,
+                "finite": true
+              }
+            },
+            "tf32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 7.404151607885165e-08,
+                "max_abs": 1.0388247304149445e-05,
+                "rms": 2.723018285532663e-06,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 0.00039830404927784557,
+                "max_abs": 0.03953397460281849,
+                "rms": 0.014647612204343236,
+                "finite": true
+              }
+            }
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "sm80_xmma_gemm_f32f32_f32f32_f32_tn_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "sm80_xmma_gemm_f32f32_f32f32_f32_tn_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        },
+        {
+          "op": "aten.bmm.default",
+          "arguments_schema": "aten::bmm(Tensor self, Tensor mat2) -> Tensor",
+          "teacher_flags": [
+            false,
+            false
+          ],
+          "inputs": [
+            {
+              "shape": [
+                16,
+                245,
+                245
+              ],
+              "stride": [
+                60025,
+                245,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "cde7186089b8676d86b4d35369706db55db6ee751460fb58166945c32ac93e59"
+            },
+            {
+              "shape": [
+                16,
+                245,
+                24
+              ],
+              "stride": [
+                24,
+                384,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "c15d80b66043f3cea8db07b561529adba63a3ee07d0184969308b706a09706eb"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:335:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:867:checkpoint_blocks",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:854:exec",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:218:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:239:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:197:standard_multihead_attention",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:868:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:263:_attention"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 0.00011102746036516094,
+            "max_abs": 0.005847930908203125,
+            "rms": 0.00031372987970490414,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "677218d2aa2bd8cd114424dd500a56b885f143e576cfb6bdc19e7b128219e313",
+            "tf32": "59826a4d4e90460897420fc342d7514888760d2d38792392d785a2383112e0a2"
+          },
+          "sample_gold": {
+            "fp32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 3.702057311094098e-07,
+                "max_abs": 1.2452950709729294e-05,
+                "rms": 2.140448870904525e-06,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 0.00011412933441931279,
+                "max_abs": 0.00468823490261272,
+                "rms": 0.0006599297622693879,
+                "finite": true
+              }
+            },
+            "tf32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 0.00011285817194560646,
+                "max_abs": 0.004654321613180912,
+                "rms": 0.0006525213588385258,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 1.3319378722646818e-06,
+                "max_abs": 3.561634577309292e-05,
+                "rms": 7.70166099603999e-06,
+                "finite": true
+              }
+            }
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "sm80_xmma_gemm_f32f32_f32f32_f32_nn_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "sm80_xmma_gemm_f32f32_tf32f32_f32_nn_n_tilesize32x32x64_stage3_warpsize2x2x1_tensor16x8x8_aligna4_alignc4_execute_kernel__5x_cublas",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        },
+        {
+          "op": "aten.bmm.default",
+          "arguments_schema": "aten::bmm(Tensor self, Tensor mat2) -> Tensor",
+          "teacher_flags": [
+            false,
+            false
+          ],
+          "inputs": [
+            {
+              "shape": [
+                256,
+                32,
+                32
+              ],
+              "stride": [
+                1024,
+                32,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "1cd208d92f2194912baf17997269b486477ab1154828b778faba15548e530631"
+            },
+            {
+              "shape": [
+                256,
+                32,
+                128
+              ],
+              "stride": [
+                4096,
+                1,
+                32
+              ],
+              "dtype": "torch.float32",
+              "sha256": "7c6fdfcb17add5b16cc293aeaaf492d4b06daf0c788ffc2fa0d31a965faba673"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:854:exec",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:335:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:229:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:148:local_multihead_attention",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:850:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:580:_local_attention",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:775:chunk_layer",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:263:_attention"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 0.00027713342149303496,
+            "max_abs": 0.004725456237792969,
+            "rms": 0.0003009333622374254,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "2be75b8b7afc8dd96138f204750580385d279721194591c7de6d24d39e3c2b33",
+            "tf32": "a465f6a7dd92d747ebac87c1960564835f866ba5593a774774a520abd34cfb27"
+          },
+          "sample_gold": {
+            "fp32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 1.7273070923207254e-07,
+                "max_abs": 1.6072646999987228e-06,
+                "rms": 3.186044637075727e-07,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 0.00027544118702038433,
+                "max_abs": 0.002639845300222987,
+                "rms": 0.0005081008307773015,
+                "finite": true
+              }
+            },
+            "tf32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 0.0002754257336169856,
+                "max_abs": 0.0026393945002132213,
+                "rms": 0.0005080270239173587,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 1.283983547461475e-07,
+                "max_abs": 1.0921945658992627e-06,
+                "rms": 2.3685386859782925e-07,
+                "finite": true
+              }
+            }
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "sm80_xmma_gemm_f32f32_f32f32_f32_tn_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "void cutlass::Kernel2<cutlass_80_tensorop_s1688gemm_128x64_16x6_tn_align4>(cutlass_80_tensorop_s1688gemm_128x64_16x6_tn_align4::Params)",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        },
+        {
+          "op": "aten.bmm.default",
+          "arguments_schema": "aten::bmm(Tensor self, Tensor mat2) -> Tensor",
+          "teacher_flags": [
+            false,
+            false
+          ],
+          "inputs": [
+            {
+              "shape": [
+                256,
+                32,
+                128
+              ],
+              "stride": [
+                4096,
+                128,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "a0c3a27ce952f1edbd2ec5496f5e85986f2388d5cdddb30e7aec4478938ac9f7"
+            },
+            {
+              "shape": [
+                256,
+                128,
+                32
+              ],
+              "stride": [
+                4096,
+                32,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "bb655bef010bb24f2ebded7f86ef93b253d64c8692765ef61e53a24fd58baa62"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:854:exec",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:335:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:229:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:148:local_multihead_attention",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:850:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:580:_local_attention",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:775:chunk_layer",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:263:_attention"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 0.0002339704765016173,
+            "max_abs": 0.001283407211303711,
+            "rms": 5.682719008807315e-05,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "350c7b2b30b5cc8631df798faf103e5448178bd56ed6c2ef1f384e2b86e7f9a7",
+            "tf32": "ea919a3d6ded670080783e49e30d4b6b8ac6f8a01cdcb51903dba13cac8811b0"
+          },
+          "sample_gold": {
+            "fp32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 2.5284246229624497e-07,
+                "max_abs": 1.0811589284953627e-07,
+                "rms": 1.780714647056322e-08,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 0.0006116396653312437,
+                "max_abs": 0.00015903497994429472,
+                "rms": 4.3081309616467796e-05,
+                "finite": true
+              }
+            },
+            "tf32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 0.0006117327851597969,
+                "max_abs": 0.00015904134674304266,
+                "rms": 4.308301385478107e-05,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 4.646434134451961e-07,
+                "max_abs": 1.3830852907403823e-07,
+                "rms": 3.272751570983246e-08,
+                "finite": true
+              }
+            }
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "sm80_xmma_gemm_f32f32_f32f32_f32_nn_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "void cutlass::Kernel2<cutlass_80_tensorop_s1688gemm_64x64_16x6_nn_align4>(cutlass_80_tensorop_s1688gemm_64x64_16x6_nn_align4::Params)",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        },
+        {
+          "op": "aten.bmm.default",
+          "arguments_schema": "aten::bmm(Tensor self, Tensor mat2) -> Tensor",
+          "teacher_flags": [
+            false,
+            false
+          ],
+          "inputs": [
+            {
+              "shape": [
+                64,
+                32,
+                32
+              ],
+              "stride": [
+                1024,
+                32,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "d0abd727afe32cabe98e83f587b1403081babb8a6f64aa1b6c17252207dae1e5"
+            },
+            {
+              "shape": [
+                64,
+                32,
+                128
+              ],
+              "stride": [
+                4096,
+                1,
+                32
+              ],
+              "dtype": "torch.float32",
+              "sha256": "fc87c00d2ac70a4c31d5e80ae1b938134cc1cba2c1da265a26de6ba5632cf95a"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:854:exec",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:335:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:229:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:148:local_multihead_attention",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:850:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:580:_local_attention",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:775:chunk_layer",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:263:_attention"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 0.00028487680512808344,
+            "max_abs": 0.004631996154785156,
+            "rms": 0.0007010906119532705,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "20241efe2fdebfa12ff9e5e58c8c8b9dbc3d1ac8bffbb50f4c31e110eee2bb75",
+            "tf32": "b3cf835474469a78751e0bb2f158414126f5472751ef1d5e1dfd15e713c488b4"
+          },
+          "sample_gold": {
+            "fp32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 1.4047598046238404e-07,
+                "max_abs": 7.677325850607986e-07,
+                "rms": 1.9875239237535815e-07,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 0.00023074192131839247,
+                "max_abs": 0.0020398770918745868,
+                "rms": 0.0003264433870603282,
+                "finite": true
+              }
+            },
+            "tf32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 0.00023077671710654502,
+                "max_abs": 0.002040214691076958,
+                "rms": 0.0003265143583869786,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 1.4743979475235128e-07,
+                "max_abs": 7.816898346391099e-07,
+                "rms": 2.0859125082877015e-07,
+                "finite": true
+              }
+            }
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "sm80_xmma_gemm_f32f32_f32f32_f32_tn_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "void cutlass::Kernel2<cutlass_80_tensorop_s1688gemm_64x64_16x6_tn_align4>(cutlass_80_tensorop_s1688gemm_64x64_16x6_tn_align4::Params)",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        },
+        {
+          "op": "aten.bmm.default",
+          "arguments_schema": "aten::bmm(Tensor self, Tensor mat2) -> Tensor",
+          "teacher_flags": [
+            false,
+            false
+          ],
+          "inputs": [
+            {
+              "shape": [
+                64,
+                32,
+                128
+              ],
+              "stride": [
+                4096,
+                128,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "5e66d0f8a1333b403793641a5918da44c35004af576c04deba145883eed1ec40"
+            },
+            {
+              "shape": [
+                64,
+                128,
+                32
+              ],
+              "stride": [
+                4096,
+                32,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "1deb75bc46566bc526080d225166223a03d6f016fd2148be5b8ee997c0f7102d"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:854:exec",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:335:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:229:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:148:local_multihead_attention",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:850:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:580:_local_attention",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:775:chunk_layer",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:263:_attention"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 0.0003285660796853827,
+            "max_abs": 0.00028998963534832,
+            "rms": 2.509569735391778e-05,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "89f32bf8eea84683985c365b31d058544c2100cd16c8f22ad453e2271edf8639",
+            "tf32": "1a76c1179b4c9220388b825e9fc408896e1d81bc49ca66b0369e7f08a2af60c1"
+          },
+          "sample_gold": {
+            "fp32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 9.356309943331436e-08,
+                "max_abs": 1.1487755319228299e-07,
+                "rms": 2.0787202003994423e-08,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 0.00015329981148649735,
+                "max_abs": 0.00013905935365077227,
+                "rms": 3.406045523300266e-05,
+                "finite": true
+              }
+            },
+            "tf32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 0.00015333295548782626,
+                "max_abs": 0.00013917357528911434,
+                "rms": 3.406645503301944e-05,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 1.332773645166145e-07,
+                "max_abs": 1.5900651817446487e-07,
+                "rms": 2.9611828375213386e-08,
+                "finite": true
+              }
+            }
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "sm80_xmma_gemm_f32f32_f32f32_f32_nn_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "void cutlass::Kernel2<cutlass_80_tensorop_s1688gemm_64x64_32x6_nn_align4>(cutlass_80_tensorop_s1688gemm_64x64_32x6_nn_align4::Params)",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        },
+        {
+          "op": "aten._scaled_dot_product_efficient_attention.default",
+          "arguments_schema": "aten::_scaled_dot_product_efficient_attention(Tensor query, Tensor key, Tensor value, Tensor? attn_bias, bool compute_log_sumexp, float dropout_p=0., bool is_causal=False, *, float? scale=None) -> (Tensor output, Tensor log_sumexp, Tensor philox_seed, Tensor philox_offset)",
+          "teacher_flags": [
+            false,
+            false
+          ],
+          "inputs": [
+            {
+              "shape": [
+                1,
+                16,
+                245,
+                48
+              ],
+              "stride": [
+                188160,
+                48,
+                768,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "615e2fff84e43e8bb15375843e891b25d04aa2c740167c19d476c46413cb27b2"
+            },
+            {
+              "shape": [
+                1,
+                16,
+                245,
+                48
+              ],
+              "stride": [
+                188160,
+                48,
+                768,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "e1fbb2332e2ff6e69f4bd4fbf6997e9bb59b082071caaf5d62c4f530039718a0"
+            },
+            {
+              "shape": [
+                1,
+                16,
+                245,
+                48
+              ],
+              "stride": [
+                188160,
+                48,
+                768,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "846ef84905c50cc6b7ffc4a9f7988c133075bdf2e1e1e797b51fe88a2228d7d1"
+            },
+            {
+              "shape": [
+                1,
+                16,
+                245,
+                245
+              ],
+              "stride": [
+                972160,
+                60760,
+                248,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "84fd5062fe3f157496daf2ac84659bbd2b8d88fcfa93eb8726ef0c84ce38ecb5"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:464:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:867:checkpoint_blocks",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:854:exec",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:335:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:239:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:197:standard_multihead_attention",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:868:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:263:_attention"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "e69a28b2d187ddfca3ff4a81c8970ef973d26eef6e22cd2431348e902c385232",
+            "tf32": "e69a28b2d187ddfca3ff4a81c8970ef973d26eef6e22cd2431348e902c385232"
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)",
+                "device": "DeviceType.CUDA"
+              },
+              {
+                "name": "fmha_cutlassF_f32_aligned_64x64_rf_sm80(PyTorchMemEffAttention::AttentionKernel<float, cutlass::arch::Sm80, true, 64, 64, 64, true, true>::Params)",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)",
+                "device": "DeviceType.CUDA"
+              },
+              {
+                "name": "fmha_cutlassF_f32_aligned_64x64_rf_sm80(PyTorchMemEffAttention::AttentionKernel<float, cutlass::arch::Sm80, true, 64, 64, 64, true, true>::Params)",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        },
+        {
+          "op": "aten.bmm.default",
+          "arguments_schema": "aten::bmm(Tensor self, Tensor mat2) -> Tensor",
+          "teacher_flags": [
+            false,
+            false
+          ],
+          "inputs": [
+            {
+              "shape": [
+                2529,
+                1,
+                384
+              ],
+              "stride": [
+                384,
+                384,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "f6e09ff9de8c76c31502551aa06f1b85383039c146da8c507106891bc5780eb1"
+            },
+            {
+              "shape": [
+                2529,
+                384,
+                50
+              ],
+              "stride": [
+                19200,
+                50,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "9b052013c0bd4d36b7685f3706fa9e3c89f11f9b4d4897d5d74efd9c7fcb05d2"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/protenix.py:904:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/protenix.py:432:main_inference_loop",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/protenix.py:593:_main_inference_loop",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/protenix.py:352:run_confidence_head",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/utils/torch_utils.py:219:new_func",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py:218:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py:336:memory_efficient_forward"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "20f864022067fac600ea70741f5e0939ed04505590b9046e8dfe6ce22719e45c",
+            "tf32": "20f864022067fac600ea70741f5e0939ed04505590b9046e8dfe6ce22719e45c"
+          },
+          "sample_gold": {
+            "fp32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 6.533446177379767e-08,
+                "max_abs": 3.3875616356482396e-07,
+                "rms": 1.3674165451368333e-07,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 0.00019376069132411586,
+                "max_abs": 0.0007313530036636706,
+                "rms": 0.00040548469875016825,
+                "finite": true
+              }
+            },
+            "tf32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 6.533446177379767e-08,
+                "max_abs": 3.3875616356482396e-07,
+                "rms": 1.3674165451368333e-07,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 0.00019376069132411586,
+                "max_abs": 0.0007313530036636706,
+                "rms": 0.00040548469875016825,
+                "finite": true
+              }
+            }
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "std::enable_if<!(false), void>::type internal::gemvx::kernel<int, int, float, float, float, float, false, true, false, false, 6, false, cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float> >(cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float>)",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "std::enable_if<!(false), void>::type internal::gemvx::kernel<int, int, float, float, float, float, false, true, false, false, 6, false, cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float> >(cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float>)",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        },
+        {
+          "op": "aten.bmm.default",
+          "arguments_schema": "aten::bmm(Tensor self, Tensor mat2) -> Tensor",
+          "teacher_flags": [
+            false,
+            false
+          ],
+          "inputs": [
+            {
+              "shape": [
+                2529,
+                1,
+                384
+              ],
+              "stride": [
+                384,
+                384,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "336660da28b1339da42cc8ed16edbfe7a1cd3eacfec7f0e17d6f9e9eb84ec1fa"
+            },
+            {
+              "shape": [
+                2529,
+                384,
+                2
+              ],
+              "stride": [
+                768,
+                2,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "0e44d920705afc58b315e5533f7e2dd910de9d37f474ff46e13376c563e0ca1d"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/protenix.py:904:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/protenix.py:432:main_inference_loop",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/protenix.py:593:_main_inference_loop",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/protenix.py:352:run_confidence_head",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/utils/torch_utils.py:219:new_func",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py:218:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py:341:memory_efficient_forward"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "d0b89a75bddfa38cd1fbd51d099c325bc0ed81cf1b94434eb6a673e3b0d8c69b",
+            "tf32": "d0b89a75bddfa38cd1fbd51d099c325bc0ed81cf1b94434eb6a673e3b0d8c69b"
+          },
+          "sample_gold": {
+            "fp32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 7.327576805818742e-08,
+                "max_abs": 2.01137229094428e-07,
+                "rms": 1.6375145934185145e-07,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 0.00030958464355305965,
+                "max_abs": 0.0010379927262240685,
+                "rms": 0.0006918931549008596,
+                "finite": true
+              }
+            },
+            "tf32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 7.327576805818742e-08,
+                "max_abs": 2.01137229094428e-07,
+                "rms": 1.6375145934185145e-07,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 0.00030958464355305965,
+                "max_abs": 0.0010379927262240685,
+                "rms": 0.0006918931549008596,
+                "finite": true
+              }
+            }
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "std::enable_if<!(false), void>::type internal::gemvx::kernel<int, int, float, float, float, float, false, true, false, false, 5, false, cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float> >(cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float>)",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "std::enable_if<!(false), void>::type internal::gemvx::kernel<int, int, float, float, float, float, false, true, false, false, 5, false, cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float> >(cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float>)",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        }
+      ],
+      "counts": [
+        [
+          "aten.bmm.default",
+          [
+            [
+              320,
+              32,
+              32
+            ],
+            [
+              320,
+              32,
+              128
+            ]
+          ],
+          3
+        ],
+        [
+          "aten.bmm.default",
+          [
+            [
+              320,
+              32,
+              128
+            ],
+            [
+              320,
+              128,
+              32
+            ]
+          ],
+          3
+        ],
+        [
+          "aten.bmm.default",
+          [
+            [
+              128,
+              245,
+              245
+            ],
+            [
+              128,
+              245,
+              123
+            ]
+          ],
+          128
+        ],
+        [
+          "aten.bmm.default",
+          [
+            [
+              128,
+              245,
+              245
+            ],
+            [
+              128,
+              245,
+              122
+            ]
+          ],
+          128
+        ],
+        [
+          "aten.bmm.default",
+          [
+            [
+              1,
+              7840,
+              145
+            ],
+            [
+              1,
+              145,
+              7840
+            ]
+          ],
+          4
+        ],
+        [
+          "aten.bmm.default",
+          [
+            [
+              1,
+              245,
+              145
+            ],
+            [
+              1,
+              145,
+              245
+            ]
+          ],
+          4
+        ],
+        [
+          "aten.bmm.default",
+          [
+            [
+              8,
+              245,
+              245
+            ],
+            [
+              8,
+              245,
+              1160
+            ]
+          ],
+          3
+        ],
+        [
+          "aten.bmm.default",
+          [
+            [
+              16,
+              245,
+              24
+            ],
+            [
+              16,
+              24,
+              245
+            ]
+          ],
+          52
+        ],
+        [
+          "aten.bmm.default",
+          [
+            [
+              16,
+              245,
+              245
+            ],
+            [
+              16,
+              245,
+              24
+            ]
+          ],
+          52
+        ],
+        [
+          "aten.bmm.default",
+          [
+            [
+              256,
+              32,
+              32
+            ],
+            [
+              256,
+              32,
+              128
+            ]
+          ],
+          6
+        ],
+        [
+          "aten.bmm.default",
+          [
+            [
+              256,
+              32,
+              128
+            ],
+            [
+              256,
+              128,
+              32
+            ]
+          ],
+          6
+        ],
+        [
+          "aten.bmm.default",
+          [
+            [
+              64,
+              32,
+              32
+            ],
+            [
+              64,
+              32,
+              128
+            ]
+          ],
+          6
+        ],
+        [
+          "aten.bmm.default",
+          [
+            [
+              64,
+              32,
+              128
+            ],
+            [
+              64,
+              128,
+              32
+            ]
+          ],
+          6
+        ],
+        [
+          "aten._scaled_dot_product_efficient_attention.default",
+          [
+            [
+              1,
+              16,
+              245,
+              48
+            ],
+            [
+              1,
+              16,
+              245,
+              48
+            ],
+            [
+              1,
+              16,
+              245,
+              48
+            ],
+            [
+              1,
+              16,
+              245,
+              245
+            ]
+          ],
+          24
+        ],
+        [
+          "aten.bmm.default",
+          [
+            [
+              2529,
+              1,
+              384
+            ],
+            [
+              2529,
+              384,
+              50
+            ]
+          ],
+          1
+        ],
+        [
+          "aten.bmm.default",
+          [
+            [
+              2529,
+              1,
+              384
+            ],
+            [
+              2529,
+              384,
+              2
+            ]
+          ],
+          1
+        ]
+      ]
+    },
+    "tf32": {
+      "scope": "first warmup only; original teacher outputs returned; no tensor export",
+      "replays": [
+        {
+          "op": "aten.bmm.default",
+          "arguments_schema": "aten::bmm(Tensor self, Tensor mat2) -> Tensor",
+          "teacher_flags": [
+            true,
+            true
+          ],
+          "inputs": [
+            {
+              "shape": [
+                320,
+                32,
+                32
+              ],
+              "stride": [
+                1024,
+                32,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "6222b2a2405a97677110577eec71e714229d9a60f3ebfc3f6884680808002b7e"
+            },
+            {
+              "shape": [
+                320,
+                32,
+                128
+              ],
+              "stride": [
+                4096,
+                1,
+                32
+              ],
+              "dtype": "torch.float32",
+              "sha256": "c1a2a809c0275ce0b70c5703e116c18bc0062530f9615246360fa86a3f3b2711"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:867:checkpoint_blocks",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:854:exec",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:335:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:229:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:148:local_multihead_attention",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:850:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:592:_local_attention",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:263:_attention"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "c036cbb7553a909f8b8877d4461924307f27ecb66cff928eeeafd569c3887e29",
+            "tf32": "c036cbb7553a909f8b8877d4461924307f27ecb66cff928eeeafd569c3887e29"
+          },
+          "sample_gold": {
+            "fp32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 6.4565495120431636e-40,
+                "max_abs": 3.6681358701416005e-70,
+                "rms": 5.70683742879052e-71,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 6.457089186967742e-40,
+                "max_abs": 3.668598244581996e-70,
+                "rms": 5.707314438539027e-71,
+                "finite": true
+              }
+            },
+            "tf32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 6.4565495120431636e-40,
+                "max_abs": 3.6681358701416005e-70,
+                "rms": 5.70683742879052e-71,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 6.457089186967742e-40,
+                "max_abs": 3.668598244581996e-70,
+                "rms": 5.707314438539027e-71,
+                "finite": true
+              }
+            }
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "sm80_xmma_gemm_f32f32_f32f32_f32_tn_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "void cutlass::Kernel2<cutlass_80_tensorop_s1688gemm_128x64_16x6_tn_align4>(cutlass_80_tensorop_s1688gemm_128x64_16x6_tn_align4::Params)",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        },
+        {
+          "op": "aten.bmm.default",
+          "arguments_schema": "aten::bmm(Tensor self, Tensor mat2) -> Tensor",
+          "teacher_flags": [
+            true,
+            true
+          ],
+          "inputs": [
+            {
+              "shape": [
+                320,
+                32,
+                128
+              ],
+              "stride": [
+                4096,
+                128,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "56636b0e3a795166867695a88a004f1e8405f4dd2139d9ce288b982425e4aaa8"
+            },
+            {
+              "shape": [
+                320,
+                128,
+                32
+              ],
+              "stride": [
+                4096,
+                32,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "ebc3b1a936041654d4d829cc8e96f09d51533b3f4122a85f8f5eaeaf780f5f19"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:867:checkpoint_blocks",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:854:exec",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:335:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:229:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:148:local_multihead_attention",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:850:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:592:_local_attention",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:263:_attention"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 0.00010839071077648351,
+            "max_abs": 1.6083940863609314e-06,
+            "rms": 1.3793799379135994e-07,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "6c23c62e0b171603c4be35e3e8d6944e241c64e6a8e1eabd73873e04030fa0f9",
+            "tf32": "5115b32976e7731454d012bc4917980dff2814cea45dd02c042ca6bdda154af3"
+          },
+          "sample_gold": {
+            "fp32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 1.0119061896541295e-07,
+                "max_abs": 2.7897270387863826e-10,
+                "rms": 6.777492230183637e-11,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 0.0003831747672492844,
+                "max_abs": 7.032849680399522e-07,
+                "rms": 2.565882221416093e-07,
+                "finite": true
+              }
+            },
+            "tf32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 0.00038320290573595105,
+                "max_abs": 7.033369111013495e-07,
+                "rms": 2.5665963334969926e-07,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 1.752711104120933e-07,
+                "max_abs": 4.547473508864641e-10,
+                "rms": 1.1736812143521624e-10,
+                "finite": true
+              }
+            }
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "sm80_xmma_gemm_f32f32_f32f32_f32_nn_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "void cutlass::Kernel2<cutlass_80_tensorop_s1688gemm_64x64_16x6_nn_align4>(cutlass_80_tensorop_s1688gemm_64x64_16x6_nn_align4::Params)",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        },
+        {
+          "op": "aten.bmm.default",
+          "arguments_schema": "aten::bmm(Tensor self, Tensor mat2) -> Tensor",
+          "teacher_flags": [
+            true,
+            true
+          ],
+          "inputs": [
+            {
+              "shape": [
+                128,
+                245,
+                245
+              ],
+              "stride": [
+                60025,
+                245,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "362d901da648121df1e870d9a1df29cd04ab7825e6c8f55855fb8d3b17565948"
+            },
+            {
+              "shape": [
+                128,
+                245,
+                123
+              ],
+              "stride": [
+                1,
+                128,
+                31360
+              ],
+              "dtype": "torch.float32",
+              "sha256": "49f34661f5d151bc50da2707e1f9f8266f44fadb0f847ab038a39fa770a4e12c"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:1026:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:1088:single_template_forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:335:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:867:checkpoint_blocks",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:854:exec",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:139:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/triangular/triangular.py:521:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/triangular/triangular.py:431:_inference_forward"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 2.286629240229978e-05,
+            "max_abs": 2.095703125,
+            "rms": 0.048597182044783374,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "bb7d0bf0c5c5ffa1f0e75a663cb61260ff09bf29f30b0132443059d9c7ced0bf",
+            "tf32": "2ade6dd31c84106563d2f7d4936797331acc1aa631c7782857bba01681d797fb"
+          },
+          "sample_gold": {
+            "fp32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 2.1186054313066145e-07,
+                "max_abs": 0.0015791271716807387,
+                "rms": 0.00023624345721266472,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 1.775354415437507e-05,
+                "max_abs": 0.11275672912597656,
+                "rms": 0.019796959986500585,
+                "finite": true
+              }
+            },
+            "tf32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 1.7023134651040517e-05,
+                "max_abs": 0.10743592013568559,
+                "rms": 0.01898231791126044,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 1.6939733204614845e-06,
+                "max_abs": 0.006178855895996094,
+                "rms": 0.001888948018027784,
+                "finite": true
+              }
+            }
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)",
+                "device": "DeviceType.CUDA"
+              },
+              {
+                "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1})",
+                "device": "DeviceType.CUDA"
+              },
+              {
+                "name": "void cutlass::Kernel2<cutlass_80_simt_sgemm_128x256_8x4_nn_align1>(cutlass_80_simt_sgemm_128x256_8x4_nn_align1::Params)",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)",
+                "device": "DeviceType.CUDA"
+              },
+              {
+                "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1})",
+                "device": "DeviceType.CUDA"
+              },
+              {
+                "name": "void cutlass::Kernel2<cutlass_80_tensorop_s1688gemm_128x256_32x3_nn_align1>(cutlass_80_tensorop_s1688gemm_128x256_32x3_nn_align1::Params)",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        },
+        {
+          "op": "aten.bmm.default",
+          "arguments_schema": "aten::bmm(Tensor self, Tensor mat2) -> Tensor",
+          "teacher_flags": [
+            true,
+            true
+          ],
+          "inputs": [
+            {
+              "shape": [
+                128,
+                245,
+                245
+              ],
+              "stride": [
+                60025,
+                245,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "362d901da648121df1e870d9a1df29cd04ab7825e6c8f55855fb8d3b17565948"
+            },
+            {
+              "shape": [
+                128,
+                245,
+                122
+              ],
+              "stride": [
+                1,
+                128,
+                31360
+              ],
+              "dtype": "torch.float32",
+              "sha256": "fc3e4484b0d8cd926114151cddcbf8b2c4f7c3b3b1365637bf2cd6a40d81d1ef"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:1026:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:1088:single_template_forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:335:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:867:checkpoint_blocks",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:854:exec",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:139:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/triangular/triangular.py:521:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/triangular/triangular.py:431:_inference_forward"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 2.3458797816268387e-05,
+            "max_abs": 1.7734375,
+            "rms": 0.04750462194687396,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "af6f555dcb79bc5961301c0371c9bc633ab2c77e630c46b6da15c3378ec77cbe",
+            "tf32": "ae618ff7994ffeff5a5ff78d2db259f83b27d59632fdf5bd341c657dabd608a1"
+          },
+          "sample_gold": {
+            "fp32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 2.0875545026318244e-07,
+                "max_abs": 0.0010133045893780945,
+                "rms": 0.00020439028972033796,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 1.6893441772500382e-05,
+                "max_abs": 0.09908103942871094,
+                "rms": 0.016540343112921903,
+                "finite": true
+              }
+            },
+            "tf32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 1.6061874895115062e-05,
+                "max_abs": 0.09373104325959503,
+                "rms": 0.015726014622016237,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 1.7123497964140588e-06,
+                "max_abs": 0.006214141845703125,
+                "rms": 0.001676559077981092,
+                "finite": true
+              }
+            }
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)",
+                "device": "DeviceType.CUDA"
+              },
+              {
+                "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1})",
+                "device": "DeviceType.CUDA"
+              },
+              {
+                "name": "void cutlass::Kernel2<cutlass_80_simt_sgemm_128x256_8x4_nn_align1>(cutlass_80_simt_sgemm_128x256_8x4_nn_align1::Params)",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)",
+                "device": "DeviceType.CUDA"
+              },
+              {
+                "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1})",
+                "device": "DeviceType.CUDA"
+              },
+              {
+                "name": "void cutlass::Kernel2<cutlass_80_tensorop_s1688gemm_128x256_32x3_nn_align1>(cutlass_80_tensorop_s1688gemm_128x256_32x3_nn_align1::Params)",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        },
+        {
+          "op": "aten.bmm.default",
+          "arguments_schema": "aten::bmm(Tensor self, Tensor mat2) -> Tensor",
+          "teacher_flags": [
+            true,
+            true
+          ],
+          "inputs": [
+            {
+              "shape": [
+                1,
+                7840,
+                145
+              ],
+              "stride": [
+                7840,
+                1,
+                7840
+              ],
+              "dtype": "torch.float32",
+              "sha256": "c610b33463dedab5cb0eeb5ceece8b0f0057a01c04cff5af4f61389730321c46"
+            },
+            {
+              "shape": [
+                1,
+                145,
+                7840
+              ],
+              "stride": [
+                1136800,
+                7840,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "d4adea6f1b639542f0a79825b2a923ffa982200867211536a02c8bc474e66e2e"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/protenix.py:257:get_pairformer_output",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:911:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:867:checkpoint_blocks",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:854:exec",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:660:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/triangular/layers.py:792:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/triangular/layers.py:767:_forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/triangular/layers.py:692:_opm"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 0.000274482221231268,
+            "max_abs": 0.137420654296875,
+            "rms": 0.0038800169948325944,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "3b61461af2869926ceb0ffff943664f999a365093d6effb5dfd1825e49f4b9bc",
+            "tf32": "08b6bb0a00c869e06423258d9d0eb0ba016c3af738d93268e328a0b73cc4a37e"
+          },
+          "sample_gold": {
+            "fp32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 8.073347914314472e-07,
+                "max_abs": 4.4206007920877255e-05,
+                "rms": 1.3489267720733279e-05,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 0.0003205082510892514,
+                "max_abs": 0.02111053466796875,
+                "rms": 0.005355261908636123,
+                "finite": true
+              }
+            },
+            "tf32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 0.00032032918926021785,
+                "max_abs": 0.02112911733463463,
+                "rms": 0.005352186278303634,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 6.736531960920931e-07,
+                "max_abs": 3.268709406256676e-05,
+                "rms": 1.1255839088081286e-05,
+                "finite": true
+              }
+            }
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "sm80_xmma_gemm_f32f32_f32f32_f32_nt_n_tilesize64x64x8_stage3_warpsize1x4x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "Memset (Device)",
+                "device": "DeviceType.CUDA"
+              },
+              {
+                "name": "sm90_xmma_gemm_f32f32_tf32f32_f32_nt_n_tilesize128x128x32_warpgroupsize1x1x1_execute_segment_k_off_kernel__5x_cublas",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        },
+        {
+          "op": "aten.bmm.default",
+          "arguments_schema": "aten::bmm(Tensor self, Tensor mat2) -> Tensor",
+          "teacher_flags": [
+            true,
+            true
+          ],
+          "inputs": [
+            {
+              "shape": [
+                1,
+                245,
+                145
+              ],
+              "stride": [
+                245,
+                1,
+                245
+              ],
+              "dtype": "torch.float32",
+              "sha256": "4ced6e41012f60daf79fb22a2c1602ad34ea4515db6f512fe26be9be0ba9a60f"
+            },
+            {
+              "shape": [
+                1,
+                145,
+                245
+              ],
+              "stride": [
+                35525,
+                245,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "4ced6e41012f60daf79fb22a2c1602ad34ea4515db6f512fe26be9be0ba9a60f"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/protenix.py:503:_main_inference_loop",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/protenix.py:257:get_pairformer_output",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:911:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:867:checkpoint_blocks",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:854:exec",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:660:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/triangular/layers.py:792:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/triangular/layers.py:770:_forward"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "d52e0ef3bbaaef9d1bbccb39dfccb7542d2c3d93149a9d61904bf32a5d0aef73",
+            "tf32": "d52e0ef3bbaaef9d1bbccb39dfccb7542d2c3d93149a9d61904bf32a5d0aef73"
+          },
+          "sample_gold": {
+            "fp32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "rms": 0.0,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "rms": 0.0,
+                "finite": true
+              }
+            },
+            "tf32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "rms": 0.0,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "rms": 0.0,
+                "finite": true
+              }
+            }
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "sm80_xmma_gemm_f32f32_f32f32_f32_nt_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "sm80_xmma_gemm_f32f32_tf32f32_f32_nt_n_tilesize32x32x64_stage3_warpsize2x2x1_tensor16x8x8_aligna4_alignc4_execute_kernel__5x_cublas",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        },
+        {
+          "op": "aten.bmm.default",
+          "arguments_schema": "aten::bmm(Tensor self, Tensor mat2) -> Tensor",
+          "teacher_flags": [
+            true,
+            true
+          ],
+          "inputs": [
+            {
+              "shape": [
+                8,
+                245,
+                245
+              ],
+              "stride": [
+                1,
+                1960,
+                8
+              ],
+              "dtype": "torch.float32",
+              "sha256": "7d18469f72f2db34c7b26edaf46fda223e268b6e63a1e05fc5067c42f3756c4b"
+            },
+            {
+              "shape": [
+                8,
+                245,
+                1160
+              ],
+              "stride": [
+                284200,
+                1160,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "29ada4dcf78fa2d6997903d1311284a21507deeb14c27aba3028eaf3cce58805"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/protenix.py:257:get_pairformer_output",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:911:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:867:checkpoint_blocks",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:854:exec",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:665:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:493:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:568:inference_forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:412:forward"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 0.00010275337311371104,
+            "max_abs": 0.0018596649169921875,
+            "rms": 7.828715436779888e-05,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "97e17a62c4b0201916bb2010f8cd6e90b1c7522c7a4243582faa652e7e7f26c6",
+            "tf32": "6f080734b8b971c6ddce31418205ccb608a8fde769a3a666448522a38ab0297b"
+          },
+          "sample_gold": {
+            "fp32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 3.486484890075263e-07,
+                "max_abs": 9.473559281492072e-07,
+                "rms": 1.7436715617775158e-07,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 6.759928449698779e-05,
+                "max_abs": 0.00011527258902788162,
+                "rms": 3.38084982937283e-05,
+                "finite": true
+              }
+            },
+            "tf32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 6.750824769130558e-05,
+                "max_abs": 0.00011492752085340285,
+                "rms": 3.376243276425646e-05,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 8.404332662882721e-07,
+                "max_abs": 1.5226687537506223e-06,
+                "rms": 4.2032673660274703e-07,
+                "finite": true
+              }
+            }
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)",
+                "device": "DeviceType.CUDA"
+              },
+              {
+                "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1})",
+                "device": "DeviceType.CUDA"
+              },
+              {
+                "name": "sm80_xmma_gemm_f32f32_f32f32_f32_nn_n_tilesize64x64x8_stage3_warpsize1x4x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)",
+                "device": "DeviceType.CUDA"
+              },
+              {
+                "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1})",
+                "device": "DeviceType.CUDA"
+              },
+              {
+                "name": "void cutlass::Kernel2<cutlass_80_tensorop_s1688gemm_128x256_32x3_nn_align1>(cutlass_80_tensorop_s1688gemm_128x256_32x3_nn_align1::Params)",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        },
+        {
+          "op": "aten.bmm.default",
+          "arguments_schema": "aten::bmm(Tensor self, Tensor mat2) -> Tensor",
+          "teacher_flags": [
+            true,
+            true
+          ],
+          "inputs": [
+            {
+              "shape": [
+                16,
+                245,
+                24
+              ],
+              "stride": [
+                24,
+                384,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "74e1e7f679e618f053a5e3f70147d3898054329f34665869e12843bb759cd89f"
+            },
+            {
+              "shape": [
+                16,
+                24,
+                245
+              ],
+              "stride": [
+                24,
+                1,
+                384
+              ],
+              "dtype": "torch.float32",
+              "sha256": "080703d743541dda12bb7b96453e0b9c623c3553ea4a3c9417ee095997aa5731"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:335:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:867:checkpoint_blocks",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:854:exec",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:218:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:239:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:197:standard_multihead_attention",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:868:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:263:_attention"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "b50b492ac76e7b7c045ccae19673521842327d549c8754bca5537b60e3a32e52",
+            "tf32": "b50b492ac76e7b7c045ccae19673521842327d549c8754bca5537b60e3a32e52"
+          },
+          "sample_gold": {
+            "fp32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 8.25244353240328e-08,
+                "max_abs": 1.1656538553950213e-05,
+                "rms": 3.0351331192823376e-06,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 0.0002875157720418174,
+                "max_abs": 0.03265911294147372,
+                "rms": 0.010576057081580962,
+                "finite": true
+              }
+            },
+            "tf32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 8.25244353240328e-08,
+                "max_abs": 1.1656538553950213e-05,
+                "rms": 3.0351331192823376e-06,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 0.0002875157720418174,
+                "max_abs": 0.03265911294147372,
+                "rms": 0.010576057081580962,
+                "finite": true
+              }
+            }
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "sm80_xmma_gemm_f32f32_f32f32_f32_tn_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "sm80_xmma_gemm_f32f32_f32f32_f32_tn_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        },
+        {
+          "op": "aten.bmm.default",
+          "arguments_schema": "aten::bmm(Tensor self, Tensor mat2) -> Tensor",
+          "teacher_flags": [
+            true,
+            true
+          ],
+          "inputs": [
+            {
+              "shape": [
+                16,
+                245,
+                245
+              ],
+              "stride": [
+                60025,
+                245,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "a841e3ac88205c46c6cf4e1a5d1b55edf32fa1b3609da614c0db66c8837359e9"
+            },
+            {
+              "shape": [
+                16,
+                245,
+                24
+              ],
+              "stride": [
+                24,
+                384,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "2d1c30c59fc65b60adc9d57e622d7825e8899078630a3404a31b448b1cf9f110"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:335:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:867:checkpoint_blocks",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:854:exec",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/pairformer.py:218:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:239:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:197:standard_multihead_attention",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:868:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:263:_attention"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 8.213231007950974e-05,
+            "max_abs": 0.0054264068603515625,
+            "rms": 0.00023203901079356327,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "893e22e20de3871115d1aab251b1a5bc946a108252c39b812bb0fd1688bfd2b2",
+            "tf32": "dccb8e25368790186ca9bf88c27e12be68ebdd416ffd6001669eb4001d50ea17"
+          },
+          "sample_gold": {
+            "fp32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 3.234561176678853e-07,
+                "max_abs": 1.2123772918926079e-05,
+                "rms": 1.8697164452174822e-06,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 9.137665343534315e-05,
+                "max_abs": 0.004046908754972378,
+                "rms": 0.0005281569129925711,
+                "finite": true
+              }
+            },
+            "tf32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 9.253208001193749e-05,
+                "max_abs": 0.004075344134911063,
+                "rms": 0.0005348754970408054,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 1.2654640291598631e-06,
+                "max_abs": 3.562825239811218e-05,
+                "rms": 7.314380096193162e-06,
+                "finite": true
+              }
+            }
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "sm80_xmma_gemm_f32f32_f32f32_f32_nn_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "sm80_xmma_gemm_f32f32_tf32f32_f32_nn_n_tilesize32x32x64_stage3_warpsize2x2x1_tensor16x8x8_aligna4_alignc4_execute_kernel__5x_cublas",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        },
+        {
+          "op": "aten.bmm.default",
+          "arguments_schema": "aten::bmm(Tensor self, Tensor mat2) -> Tensor",
+          "teacher_flags": [
+            true,
+            true
+          ],
+          "inputs": [
+            {
+              "shape": [
+                256,
+                32,
+                32
+              ],
+              "stride": [
+                1024,
+                32,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "091991c4c87d2e92d6ebb1f223676b8ac56652fce7f85d454b4cb4a8051e0b2e"
+            },
+            {
+              "shape": [
+                256,
+                32,
+                128
+              ],
+              "stride": [
+                4096,
+                1,
+                32
+              ],
+              "dtype": "torch.float32",
+              "sha256": "3e67e1cba8f4dc8db158482c072080dfba4adb01afafda66cad5a5d8cd59b0eb"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:854:exec",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:335:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:229:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:148:local_multihead_attention",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:850:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:580:_local_attention",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:775:chunk_layer",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:263:_attention"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 0.000277137322552158,
+            "max_abs": 0.004536628723144531,
+            "rms": 0.0003009413473957161,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "58ab7ff3ffc274d574474d6b1dbbbb73e69386a25f5d82aaf2d887b7e3f0578a",
+            "tf32": "aebb29059a317092c5b8b67b8b4682c35b1d87a6e5aa0058699c0f1695942deb"
+          },
+          "sample_gold": {
+            "fp32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 1.7060554334815912e-07,
+                "max_abs": 1.4597425614937265e-06,
+                "rms": 3.14679826058482e-07,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 0.00023449595454970792,
+                "max_abs": 0.0021375015092939265,
+                "rms": 0.0004324976803344368,
+                "finite": true
+              }
+            },
+            "tf32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 0.0002345383744920432,
+                "max_abs": 0.0021368535686363543,
+                "rms": 0.0004326031466549743,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 1.292287246415419e-07,
+                "max_abs": 1.2806916718233197e-06,
+                "rms": 2.3834579043109627e-07,
+                "finite": true
+              }
+            }
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "sm80_xmma_gemm_f32f32_f32f32_f32_tn_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "void cutlass::Kernel2<cutlass_80_tensorop_s1688gemm_128x64_16x6_tn_align4>(cutlass_80_tensorop_s1688gemm_128x64_16x6_tn_align4::Params)",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        },
+        {
+          "op": "aten.bmm.default",
+          "arguments_schema": "aten::bmm(Tensor self, Tensor mat2) -> Tensor",
+          "teacher_flags": [
+            true,
+            true
+          ],
+          "inputs": [
+            {
+              "shape": [
+                256,
+                32,
+                128
+              ],
+              "stride": [
+                4096,
+                128,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "ce67526db8a695bfe537d73ba0bc5b065ae912b96171315ed514f09ccf65ad7a"
+            },
+            {
+              "shape": [
+                256,
+                128,
+                32
+              ],
+              "stride": [
+                4096,
+                32,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "6bc40425cdfb0d1626f86479dfb7b14d1b4f55443bbb696f941b5832779f7421"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:854:exec",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:335:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:229:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:148:local_multihead_attention",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:850:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:580:_local_attention",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:775:chunk_layer",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:263:_attention"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 0.00023276204471660294,
+            "max_abs": 0.0013632774353027344,
+            "rms": 5.6536522020219656e-05,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "301da9ee9f717e513fa2fd3d379b5e34840377ae8ef46efccf502c6798f47fde",
+            "tf32": "038196e883c26dd7d3fbfd0d3f97c78c4b9929e429cd5f7f4cc552d167553523"
+          },
+          "sample_gold": {
+            "fp32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 2.255088438974024e-07,
+                "max_abs": 8.568402076747361e-08,
+                "rms": 1.5888070861649294e-08,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 0.00040328097942628514,
+                "max_abs": 0.00012191510904813185,
+                "rms": 2.8413959733213692e-05,
+                "finite": true
+              }
+            },
+            "tf32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 0.0004032472129199233,
+                "max_abs": 0.00012186666090641118,
+                "rms": 2.841050569417655e-05,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 4.6819407724053224e-07,
+                "max_abs": 1.7939748175876957e-07,
+                "rms": 3.298754054051115e-08,
+                "finite": true
+              }
+            }
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "sm80_xmma_gemm_f32f32_f32f32_f32_nn_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "void cutlass::Kernel2<cutlass_80_tensorop_s1688gemm_64x64_16x6_nn_align4>(cutlass_80_tensorop_s1688gemm_64x64_16x6_nn_align4::Params)",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        },
+        {
+          "op": "aten.bmm.default",
+          "arguments_schema": "aten::bmm(Tensor self, Tensor mat2) -> Tensor",
+          "teacher_flags": [
+            true,
+            true
+          ],
+          "inputs": [
+            {
+              "shape": [
+                64,
+                32,
+                32
+              ],
+              "stride": [
+                1024,
+                32,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "8576b2766fb5c75374912446a33acda30c5232d8d82d79536bb70462139e5845"
+            },
+            {
+              "shape": [
+                64,
+                32,
+                128
+              ],
+              "stride": [
+                4096,
+                1,
+                32
+              ],
+              "dtype": "torch.float32",
+              "sha256": "096ffbebf4dd21ebf5e3176dc9d639765ddf39be63ff950c2ca3c9b07ecce5f0"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:854:exec",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:335:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:229:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:148:local_multihead_attention",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:850:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:580:_local_attention",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:775:chunk_layer",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:263:_attention"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 0.0002819351149141053,
+            "max_abs": 0.004508495330810547,
+            "rms": 0.0006938647606255614,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "ce0c3f88d425eb0df275c4f4c10cfc3e7b198ad4a4f4d5d90836785678e5e873",
+            "tf32": "c1c4d290e667128b42c3cb137e9c30885e50ee6e544e49634aca3d030472e04e"
+          },
+          "sample_gold": {
+            "fp32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 1.504343622087269e-07,
+                "max_abs": 1.069712862289407e-06,
+                "rms": 2.1285723695672858e-07,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 0.00025870266236628246,
+                "max_abs": 0.0012988111812664016,
+                "rms": 0.00036605606379484703,
+                "finite": true
+              }
+            },
+            "tf32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 0.0002587133422273337,
+                "max_abs": 0.0012980020692667793,
+                "rms": 0.00036606667773113447,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 1.362349268389522e-07,
+                "max_abs": 6.405046519830648e-07,
+                "rms": 1.9276810147179014e-07,
+                "finite": true
+              }
+            }
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "sm80_xmma_gemm_f32f32_f32f32_f32_tn_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "void cutlass::Kernel2<cutlass_80_tensorop_s1688gemm_64x64_16x6_tn_align4>(cutlass_80_tensorop_s1688gemm_64x64_16x6_tn_align4::Params)",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        },
+        {
+          "op": "aten.bmm.default",
+          "arguments_schema": "aten::bmm(Tensor self, Tensor mat2) -> Tensor",
+          "teacher_flags": [
+            true,
+            true
+          ],
+          "inputs": [
+            {
+              "shape": [
+                64,
+                32,
+                128
+              ],
+              "stride": [
+                4096,
+                128,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "190d38346e87e9a3c803a92df055b6bfd92537052542c429c41e2afa792abfc9"
+            },
+            {
+              "shape": [
+                64,
+                128,
+                32
+              ],
+              "stride": [
+                4096,
+                32,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "ac421b1332c4529453a889caee475485b3d09c7f460a842f48e04bae3e370ce6"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:854:exec",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:335:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:229:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:148:local_multihead_attention",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:850:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:580:_local_attention",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:775:chunk_layer",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:263:_attention"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 0.0003194959875157715,
+            "max_abs": 0.00026588141918182373,
+            "rms": 2.4397991021287816e-05,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "8cd885a5958a0822930dbd4fd51d5bc4d820337c54b595a4b388d09cd5885d58",
+            "tf32": "0967aafc5b1778e5fd197ad3bd88f2298e74a5863e96a288eee722b90f8aaad2"
+          },
+          "sample_gold": {
+            "fp32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 1.4251081356747902e-07,
+                "max_abs": 1.148437149822712e-07,
+                "rms": 3.166716986617798e-08,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 9.816416950992522e-05,
+                "max_abs": 0.00010636837207300687,
+                "rms": 2.181269358989207e-05,
+                "finite": true
+              }
+            },
+            "tf32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 9.816886180436757e-05,
+                "max_abs": 0.00010623549890426132,
+                "rms": 2.1813993931458902e-05,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 1.5072506442672296e-07,
+                "max_abs": 1.9230268222258928e-07,
+                "rms": 3.3492053802018195e-08,
+                "finite": true
+              }
+            }
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "sm80_xmma_gemm_f32f32_f32f32_f32_nn_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "void cutlass::Kernel2<cutlass_80_tensorop_s1688gemm_64x64_32x6_nn_align4>(cutlass_80_tensorop_s1688gemm_64x64_32x6_nn_align4::Params)",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        },
+        {
+          "op": "aten._scaled_dot_product_efficient_attention.default",
+          "arguments_schema": "aten::_scaled_dot_product_efficient_attention(Tensor query, Tensor key, Tensor value, Tensor? attn_bias, bool compute_log_sumexp, float dropout_p=0., bool is_causal=False, *, float? scale=None) -> (Tensor output, Tensor log_sumexp, Tensor philox_seed, Tensor philox_offset)",
+          "teacher_flags": [
+            true,
+            true
+          ],
+          "inputs": [
+            {
+              "shape": [
+                1,
+                16,
+                245,
+                48
+              ],
+              "stride": [
+                188160,
+                48,
+                768,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "bf0501ca2d3136a4704204de7ce6078af77a6e3615e00f530c5cb100cbd9d6fb"
+            },
+            {
+              "shape": [
+                1,
+                16,
+                245,
+                48
+              ],
+              "stride": [
+                188160,
+                48,
+                768,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "04026c203697e89882393b9ab187a855d6ee9d46f1982b47398c36f78521d26d"
+            },
+            {
+              "shape": [
+                1,
+                16,
+                245,
+                48
+              ],
+              "stride": [
+                188160,
+                48,
+                768,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "a376d6da3a95515c9b487a722aa5e6001098d3e9871bef38530f5b95c6949f58"
+            },
+            {
+              "shape": [
+                1,
+                16,
+                245,
+                245
+              ],
+              "stride": [
+                972160,
+                60760,
+                248,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "419239bba3b42c41a30aaab7df9f80a0d1d5745c4cd910e1f883d0a4bf743680"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:464:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:867:checkpoint_blocks",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/utils.py:854:exec",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:335:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:239:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/transformer.py:197:standard_multihead_attention",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:868:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:263:_attention"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "5f0bc2bd72961ded31396053b297c818cf911822156ba8f8024f37a3a690f1a3",
+            "tf32": "5f0bc2bd72961ded31396053b297c818cf911822156ba8f8024f37a3a690f1a3"
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)",
+                "device": "DeviceType.CUDA"
+              },
+              {
+                "name": "fmha_cutlassF_f32_aligned_64x64_rf_sm80(PyTorchMemEffAttention::AttentionKernel<float, cutlass::arch::Sm80, true, 64, 64, 64, true, true>::Params)",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)",
+                "device": "DeviceType.CUDA"
+              },
+              {
+                "name": "fmha_cutlassF_f32_aligned_64x64_rf_sm80(PyTorchMemEffAttention::AttentionKernel<float, cutlass::arch::Sm80, true, 64, 64, 64, true, true>::Params)",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        },
+        {
+          "op": "aten.bmm.default",
+          "arguments_schema": "aten::bmm(Tensor self, Tensor mat2) -> Tensor",
+          "teacher_flags": [
+            true,
+            true
+          ],
+          "inputs": [
+            {
+              "shape": [
+                2529,
+                1,
+                384
+              ],
+              "stride": [
+                384,
+                384,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "d2cb878348906857621282eec4b903181cfabec77bff729af17a065002629551"
+            },
+            {
+              "shape": [
+                2529,
+                384,
+                50
+              ],
+              "stride": [
+                19200,
+                50,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "9b052013c0bd4d36b7685f3706fa9e3c89f11f9b4d4897d5d74efd9c7fcb05d2"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/protenix.py:904:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/protenix.py:432:main_inference_loop",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/protenix.py:593:_main_inference_loop",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/protenix.py:352:run_confidence_head",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/utils/torch_utils.py:219:new_func",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py:218:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py:336:memory_efficient_forward"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "43466059d4f2d59458ccdad1352552986054ef625ecf4f5e35f26124473632af",
+            "tf32": "43466059d4f2d59458ccdad1352552986054ef625ecf4f5e35f26124473632af"
+          },
+          "sample_gold": {
+            "fp32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 6.034746529722578e-08,
+                "max_abs": 2.4245201357686597e-07,
+                "rms": 1.1860606036655008e-07,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 0.00018911975659377327,
+                "max_abs": 0.0007512878553241897,
+                "rms": 0.00037172585779898445,
+                "finite": true
+              }
+            },
+            "tf32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 6.034746529722578e-08,
+                "max_abs": 2.4245201357686597e-07,
+                "rms": 1.1860606036655008e-07,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 0.00018911975659377327,
+                "max_abs": 0.0007512878553241897,
+                "rms": 0.00037172585779898445,
+                "finite": true
+              }
+            }
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "std::enable_if<!(false), void>::type internal::gemvx::kernel<int, int, float, float, float, float, false, true, false, false, 6, false, cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float> >(cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float>)",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "std::enable_if<!(false), void>::type internal::gemvx::kernel<int, int, float, float, float, float, false, true, false, false, 6, false, cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float> >(cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float>)",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        },
+        {
+          "op": "aten.bmm.default",
+          "arguments_schema": "aten::bmm(Tensor self, Tensor mat2) -> Tensor",
+          "teacher_flags": [
+            true,
+            true
+          ],
+          "inputs": [
+            {
+              "shape": [
+                2529,
+                1,
+                384
+              ],
+              "stride": [
+                384,
+                384,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "f86654ea699fa5f0475672fa0a5a2ef8627bba111e28804d3f4d32dc1045c9b1"
+            },
+            {
+              "shape": [
+                2529,
+                384,
+                2
+              ],
+              "stride": [
+                768,
+                2,
+                1
+              ],
+              "dtype": "torch.float32",
+              "sha256": "0e44d920705afc58b315e5533f7e2dd910de9d37f474ff46e13376c563e0ca1d"
+            }
+          ],
+          "stack": [
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/protenix.py:904:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/protenix.py:432:main_inference_loop",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/protenix.py:593:_main_inference_loop",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/protenix.py:352:run_confidence_head",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/utils/torch_utils.py:219:new_func",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py:218:forward",
+            "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py:341:memory_efficient_forward"
+          ],
+          "tf32_vs_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "replay_vs_teacher": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash": {
+            "fp32": "5eb1a64acf52d1b3812697ab5858d045f8c78726bc687557c7316b968ed2e774",
+            "tf32": "5eb1a64acf52d1b3812697ab5858d045f8c78726bc687557c7316b968ed2e774"
+          },
+          "sample_gold": {
+            "fp32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 6.178587541589849e-08,
+                "max_abs": 2.510529499843983e-07,
+                "rms": 1.3550433484538773e-07,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 0.00023171712156907102,
+                "max_abs": 0.0008226134375699523,
+                "rms": 0.0005082344434503491,
+                "finite": true
+              }
+            },
+            "tf32": {
+              "vs_ieee_fp64": {
+                "relative_l2": 6.178587541589849e-08,
+                "max_abs": 2.510529499843983e-07,
+                "rms": 1.3550433484538773e-07,
+                "finite": true
+              },
+              "vs_rne_tf32_fp64": {
+                "relative_l2": 0.00023171712156907102,
+                "max_abs": 0.0008226134375699523,
+                "rms": 0.0005082344434503491,
+                "finite": true
+              }
+            }
+          },
+          "kernel_trace": {
+            "fp32": [
+              {
+                "name": "std::enable_if<!(false), void>::type internal::gemvx::kernel<int, int, float, float, float, float, false, true, false, false, 5, false, cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float> >(cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float>)",
+                "device": "DeviceType.CUDA"
+              }
+            ],
+            "tf32": [
+              {
+                "name": "std::enable_if<!(false), void>::type internal::gemvx::kernel<int, int, float, float, float, float, false, true, false, false, 5, false, cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float> >(cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float>)",
+                "device": "DeviceType.CUDA"
+              }
+            ]
+          }
+        }
+      ],
+      "counts": [
+        [
+          "aten.bmm.default",
+          [
+            [
+              320,
+              32,
+              32
+            ],
+            [
+              320,
+              32,
+              128
+            ]
+          ],
+          3
+        ],
+        [
+          "aten.bmm.default",
+          [
+            [
+              320,
+              32,
+              128
+            ],
+            [
+              320,
+              128,
+              32
+            ]
+          ],
+          3
+        ],
+        [
+          "aten.bmm.default",
+          [
+            [
+              128,
+              245,
+              245
+            ],
+            [
+              128,
+              245,
+              123
+            ]
+          ],
+          128
+        ],
+        [
+          "aten.bmm.default",
+          [
+            [
+              128,
+              245,
+              245
+            ],
+            [
+              128,
+              245,
+              122
+            ]
+          ],
+          128
+        ],
+        [
+          "aten.bmm.default",
+          [
+            [
+              1,
+              7840,
+              145
+            ],
+            [
+              1,
+              145,
+              7840
+            ]
+          ],
+          4
+        ],
+        [
+          "aten.bmm.default",
+          [
+            [
+              1,
+              245,
+              145
+            ],
+            [
+              1,
+              145,
+              245
+            ]
+          ],
+          4
+        ],
+        [
+          "aten.bmm.default",
+          [
+            [
+              8,
+              245,
+              245
+            ],
+            [
+              8,
+              245,
+              1160
+            ]
+          ],
+          3
+        ],
+        [
+          "aten.bmm.default",
+          [
+            [
+              16,
+              245,
+              24
+            ],
+            [
+              16,
+              24,
+              245
+            ]
+          ],
+          52
+        ],
+        [
+          "aten.bmm.default",
+          [
+            [
+              16,
+              245,
+              245
+            ],
+            [
+              16,
+              245,
+              24
+            ]
+          ],
+          52
+        ],
+        [
+          "aten.bmm.default",
+          [
+            [
+              256,
+              32,
+              32
+            ],
+            [
+              256,
+              32,
+              128
+            ]
+          ],
+          6
+        ],
+        [
+          "aten.bmm.default",
+          [
+            [
+              256,
+              32,
+              128
+            ],
+            [
+              256,
+              128,
+              32
+            ]
+          ],
+          6
+        ],
+        [
+          "aten.bmm.default",
+          [
+            [
+              64,
+              32,
+              32
+            ],
+            [
+              64,
+              32,
+              128
+            ]
+          ],
+          6
+        ],
+        [
+          "aten.bmm.default",
+          [
+            [
+              64,
+              32,
+              128
+            ],
+            [
+              64,
+              128,
+              32
+            ]
+          ],
+          6
+        ],
+        [
+          "aten._scaled_dot_product_efficient_attention.default",
+          [
+            [
+              1,
+              16,
+              245,
+              48
+            ],
+            [
+              1,
+              16,
+              245,
+              48
+            ],
+            [
+              1,
+              16,
+              245,
+              48
+            ],
+            [
+              1,
+              16,
+              245,
+              245
+            ]
+          ],
+          24
+        ],
+        [
+          "aten.bmm.default",
+          [
+            [
+              2529,
+              1,
+              384
+            ],
+            [
+              2529,
+              384,
+              50
+            ]
+          ],
+          1
+        ],
+        [
+          "aten.bmm.default",
+          [
+            [
+              2529,
+              1,
+              384
+            ],
+            [
+              2529,
+              384,
+              2
+            ]
+          ],
+          1
+        ]
+      ]
+    }
+  },
+  "limitation": "Replay precision is measured on local identical operands; cross-server input hashes must be checked."
+}

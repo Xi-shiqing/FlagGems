@@ -1,0 +1,448 @@
+{
+  "status": "PASS",
+  "server": "ppu",
+  "records": [
+    {
+      "query_scalar": 32.0,
+      "scale": 1.0,
+      "scale_fp32": 1.0,
+      "gold_qk_max_natural": 30.5,
+      "canonical_inputs": [
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            7840,
+            32,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "29dee77868031de8b8697ab0eb8835e5ef74928e07295841dd0c1b89eb2d78e1"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            7840,
+            32,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "3b9b3c214242d222fd2229096c9ef1c44d15ac1b1ded1ad90de6417f265c5dd7"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            7840,
+            32,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "3b9b3c214242d222fd2229096c9ef1c44d15ac1b1ded1ad90de6417f265c5dd7"
+        }
+      ],
+      "modes": {
+        "fp32": {
+          "output": {
+            "shape": [
+              245,
+              4,
+              245,
+              32
+            ],
+            "stride": [
+              31360,
+              32,
+              128,
+              1
+            ],
+            "dtype": "torch.float32",
+            "sha256": "f30a0add24d3bf76819625ee69ca14b18259c8d0323b8380fdd68f9ac7f4558b"
+          },
+          "vs_fp64_softmax_gold": {
+            "relative_l2": 3.154831926168353e-08,
+            "max_abs": 2.9143941260301176e-08,
+            "rms": 5.151969623915344e-09,
+            "finite": true
+          },
+          "kernel_trace": [
+            "void at::native::vectorized_elementwise_kernel<4, at::native::AUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> >, std::array<char*, 2ul> >(int, at::native::AUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> >, std::array<char*, 2ul>)",
+            "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1})",
+            "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1})",
+            "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1})",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)",
+            "_streaming_triangle_attention_fwd_ieee_v1"
+          ]
+        },
+        "tf32": {
+          "output": {
+            "shape": [
+              245,
+              4,
+              245,
+              32
+            ],
+            "stride": [
+              31360,
+              32,
+              128,
+              1
+            ],
+            "dtype": "torch.float32",
+            "sha256": "fad933755036cfdd9301d6447588e6303b8118c9cc2ef206ad29b74b8ff15052"
+          },
+          "vs_fp64_softmax_gold": {
+            "relative_l2": 2.0872165234392306e-05,
+            "max_abs": 1.9281444203711473e-05,
+            "rms": 3.4085099868786087e-06,
+            "finite": true
+          },
+          "kernel_trace": [
+            "void at::native::vectorized_elementwise_kernel<4, at::native::AUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> >, std::array<char*, 2ul> >(int, at::native::AUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> >, std::array<char*, 2ul>)",
+            "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1})",
+            "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1})",
+            "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1})",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)",
+            "_streaming_triangle_attention_fwd_ieee_v1"
+          ]
+        }
+      }
+    },
+    {
+      "query_scalar": 128.0,
+      "scale": 0.125,
+      "scale_fp32": 0.125,
+      "gold_qk_max_natural": 15.25,
+      "canonical_inputs": [
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            7840,
+            32,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "373fc5f5021e369d1f7529e63163626edc0e587201321f9ec3d20f74d4558464"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            7840,
+            32,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "3b9b3c214242d222fd2229096c9ef1c44d15ac1b1ded1ad90de6417f265c5dd7"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            7840,
+            32,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "3b9b3c214242d222fd2229096c9ef1c44d15ac1b1ded1ad90de6417f265c5dd7"
+        }
+      ],
+      "modes": {
+        "fp32": {
+          "output": {
+            "shape": [
+              245,
+              4,
+              245,
+              32
+            ],
+            "stride": [
+              31360,
+              32,
+              128,
+              1
+            ],
+            "dtype": "torch.float32",
+            "sha256": "9f93a96cacdb70c8fe641c6f7a4a51bd16308d6b5431e52883643de6cc935084"
+          },
+          "vs_fp64_softmax_gold": {
+            "relative_l2": 2.1919320135412447e-07,
+            "max_abs": 1.9564264441829238e-07,
+            "rms": 3.458506013936075e-08,
+            "finite": true
+          }
+        },
+        "tf32": {
+          "output": {
+            "shape": [
+              245,
+              4,
+              245,
+              32
+            ],
+            "stride": [
+              31360,
+              32,
+              128,
+              1
+            ],
+            "dtype": "torch.float32",
+            "sha256": "53b273692365959c7dfdcc8fb1ac3d3c9124724187fc57f77ae10f2e4d841ded"
+          },
+          "vs_fp64_softmax_gold": {
+            "relative_l2": 4.9228341750799e-06,
+            "max_abs": 4.393915003286786e-06,
+            "rms": 7.767417736953494e-07,
+            "finite": true
+          }
+        }
+      }
+    },
+    {
+      "query_scalar": 128.0,
+      "scale": 0.1767766952966369,
+      "scale_fp32": 0.1767766922712326,
+      "gold_qk_max_natural": 21.566756457090378,
+      "canonical_inputs": [
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            7840,
+            32,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "373fc5f5021e369d1f7529e63163626edc0e587201321f9ec3d20f74d4558464"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            7840,
+            32,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "3b9b3c214242d222fd2229096c9ef1c44d15ac1b1ded1ad90de6417f265c5dd7"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            7840,
+            32,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "3b9b3c214242d222fd2229096c9ef1c44d15ac1b1ded1ad90de6417f265c5dd7"
+        }
+      ],
+      "modes": {
+        "fp32": {
+          "output": {
+            "shape": [
+              245,
+              4,
+              245,
+              32
+            ],
+            "stride": [
+              31360,
+              32,
+              128,
+              1
+            ],
+            "dtype": "torch.float32",
+            "sha256": "3d9ea4ba5e71e83e6cc1849f492a484abfc37a50b8a6e1a305d5d08699cae64c"
+          },
+          "vs_fp64_softmax_gold": {
+            "relative_l2": 5.6403369310646475e-08,
+            "max_abs": 5.137530123544565e-08,
+            "rms": 9.081955972271308e-09,
+            "finite": true
+          }
+        },
+        "tf32": {
+          "output": {
+            "shape": [
+              245,
+              4,
+              245,
+              32
+            ],
+            "stride": [
+              31360,
+              32,
+              128,
+              1
+            ],
+            "dtype": "torch.float32",
+            "sha256": "fdbce30b1125a13c2e8ef074109ed79e87bd4927354ca30ce3c287f2c2297268"
+          },
+          "vs_fp64_softmax_gold": {
+            "relative_l2": 4.849867682677331e-05,
+            "max_abs": 4.41752711221044e-05,
+            "rms": 7.809158442798569e-06,
+            "finite": true
+          }
+        }
+      }
+    },
+    {
+      "query_scalar": 32.0,
+      "scale": 0.25,
+      "scale_fp32": 0.25,
+      "gold_qk_max_natural": 7.625,
+      "canonical_inputs": [
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            7840,
+            32,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "29dee77868031de8b8697ab0eb8835e5ef74928e07295841dd0c1b89eb2d78e1"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            7840,
+            32,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "3b9b3c214242d222fd2229096c9ef1c44d15ac1b1ded1ad90de6417f265c5dd7"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            7840,
+            32,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "3b9b3c214242d222fd2229096c9ef1c44d15ac1b1ded1ad90de6417f265c5dd7"
+        }
+      ],
+      "modes": {
+        "fp32": {
+          "output": {
+            "shape": [
+              245,
+              4,
+              245,
+              32
+            ],
+            "stride": [
+              31360,
+              32,
+              128,
+              1
+            ],
+            "dtype": "torch.float32",
+            "sha256": "b90da596020db933213069fb4d618c483eeb3ec23f3163cfd4258d747fbbe1f0"
+          },
+          "vs_fp64_softmax_gold": {
+            "relative_l2": 1.2550083183537314e-08,
+            "max_abs": 1.0423106600043752e-08,
+            "rms": 1.8425623394802987e-09,
+            "finite": true
+          }
+        },
+        "tf32": {
+          "output": {
+            "shape": [
+              245,
+              4,
+              245,
+              32
+            ],
+            "stride": [
+              31360,
+              32,
+              128,
+              1
+            ],
+            "dtype": "torch.float32",
+            "sha256": "6d599a14d1764e968b5b5b9391a5def3a32e810a759bce850863036cd302f9b3"
+          },
+          "vs_fp64_softmax_gold": {
+            "relative_l2": 7.476399489220426e-06,
+            "max_abs": 6.209306163240669e-06,
+            "rms": 1.097660623622725e-06,
+            "finite": true
+          }
+        }
+      }
+    }
+  ],
+  "source_sha256": "4736e1c9ee21fb5aabe103246e766d7acd70664270355a7c40954c55ee99fd08",
+  "scope": "Constructed exact binary inputs, no RNG calls, one full CPU FP64 analytic softmax gold. Accuracy and kernel identity only; no latency claim."
+}

@@ -1,0 +1,474 @@
+{
+  "status": "PASS",
+  "server": "h100",
+  "records": [
+    {
+      "query_scalar": 32.0,
+      "scale": 1.0,
+      "scale_fp32": 1.0,
+      "gold_qk_max_natural": 30.5,
+      "canonical_inputs": [
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            7840,
+            32,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "29dee77868031de8b8697ab0eb8835e5ef74928e07295841dd0c1b89eb2d78e1"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            7840,
+            32,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "3b9b3c214242d222fd2229096c9ef1c44d15ac1b1ded1ad90de6417f265c5dd7"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            7840,
+            32,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "3b9b3c214242d222fd2229096c9ef1c44d15ac1b1ded1ad90de6417f265c5dd7"
+        }
+      ],
+      "modes": {
+        "fp32": {
+          "output": {
+            "shape": [
+              1,
+              245,
+              4,
+              245,
+              32
+            ],
+            "stride": [
+              7683200,
+              31360,
+              7840,
+              32,
+              1
+            ],
+            "dtype": "torch.float32",
+            "sha256": "2c7dd880c17ef8f5df8c21feaaa52dbe46d666916901ac37927930c4ff592f75"
+          },
+          "vs_fp64_softmax_gold": {
+            "relative_l2": 1.6201778211738227e-07,
+            "max_abs": 1.496699930658707e-07,
+            "rms": 2.6458166759255172e-08,
+            "finite": true
+          },
+          "maximum_mean": 30.5,
+          "lse_mean": 32.641292572021484,
+          "kernel_trace": [
+            "native_sm80_fprop_fmha_fp32_ffma_64x32x32"
+          ]
+        },
+        "tf32": {
+          "output": {
+            "shape": [
+              1,
+              245,
+              4,
+              245,
+              32
+            ],
+            "stride": [
+              7683200,
+              31360,
+              7840,
+              32,
+              1
+            ],
+            "dtype": "torch.float32",
+            "sha256": "5157056306c65285613dc8f26e6a5d2d91be4a4a9bd507714503fb1ce8c8dc24"
+          },
+          "vs_fp64_softmax_gold": {
+            "relative_l2": 0.0002690884292364312,
+            "max_abs": 0.0002485805126546392,
+            "rms": 4.394324154223094e-05,
+            "finite": true
+          },
+          "maximum_mean": 30.73828125,
+          "lse_mean": 32.85708236694336,
+          "kernel_trace": [
+            "native_sm80_fprop_fmha_tf32_64x32x32"
+          ]
+        }
+      },
+      "tf32_vs_fp32_maximum_gain": 0.0078125
+    },
+    {
+      "query_scalar": 128.0,
+      "scale": 0.125,
+      "scale_fp32": 0.125,
+      "gold_qk_max_natural": 15.25,
+      "canonical_inputs": [
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            7840,
+            32,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "373fc5f5021e369d1f7529e63163626edc0e587201321f9ec3d20f74d4558464"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            7840,
+            32,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "3b9b3c214242d222fd2229096c9ef1c44d15ac1b1ded1ad90de6417f265c5dd7"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            7840,
+            32,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "3b9b3c214242d222fd2229096c9ef1c44d15ac1b1ded1ad90de6417f265c5dd7"
+        }
+      ],
+      "modes": {
+        "fp32": {
+          "output": {
+            "shape": [
+              1,
+              245,
+              4,
+              245,
+              32
+            ],
+            "stride": [
+              7683200,
+              31360,
+              7840,
+              32,
+              1
+            ],
+            "dtype": "torch.float32",
+            "sha256": "cebc8c69d7e27b50060d0b48b04f18465f4f42fd95ef7fa698faf57e340b5b09"
+          },
+          "vs_fp64_softmax_gold": {
+            "relative_l2": 1.5241362503618566e-07,
+            "max_abs": 1.3603799964290175e-07,
+            "rms": 2.404834801163724e-08,
+            "finite": true
+          },
+          "maximum_mean": 15.25,
+          "lse_mean": 18.05367660522461
+        },
+        "tf32": {
+          "output": {
+            "shape": [
+              1,
+              245,
+              4,
+              245,
+              32
+            ],
+            "stride": [
+              7683200,
+              31360,
+              7840,
+              32,
+              1
+            ],
+            "dtype": "torch.float32",
+            "sha256": "bc2bb06d36217529e8357386dcbd900807f74931f5d8ed34d3b6e4762b9fff9e"
+          },
+          "vs_fp64_softmax_gold": {
+            "relative_l2": 0.0006184268018017972,
+            "max_abs": 0.0005519817865548005,
+            "rms": 9.757751609109121e-05,
+            "finite": true
+          },
+          "maximum_mean": 15.369140625,
+          "lse_mean": 18.154064178466797
+        }
+      },
+      "tf32_vs_fp32_maximum_gain": 0.0078125
+    },
+    {
+      "query_scalar": 128.0,
+      "scale": 0.1767766952966369,
+      "scale_fp32": 0.1767766922712326,
+      "gold_qk_max_natural": 21.566756457090378,
+      "canonical_inputs": [
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            7840,
+            32,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "373fc5f5021e369d1f7529e63163626edc0e587201321f9ec3d20f74d4558464"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            7840,
+            32,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "3b9b3c214242d222fd2229096c9ef1c44d15ac1b1ded1ad90de6417f265c5dd7"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            7840,
+            32,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "3b9b3c214242d222fd2229096c9ef1c44d15ac1b1ded1ad90de6417f265c5dd7"
+        }
+      ],
+      "modes": {
+        "fp32": {
+          "output": {
+            "shape": [
+              1,
+              245,
+              4,
+              245,
+              32
+            ],
+            "stride": [
+              7683200,
+              31360,
+              7840,
+              32,
+              1
+            ],
+            "dtype": "torch.float32",
+            "sha256": "6dfc9b1f93ad3ec1ce9b33610097933e9a221c23dc85b6b401e2c79f5deec0cd"
+          },
+          "vs_fp64_softmax_gold": {
+            "relative_l2": 1.2184148278255115e-07,
+            "max_abs": 1.1097994601083627e-07,
+            "rms": 1.961866809999482e-08,
+            "finite": true
+          },
+          "maximum_mean": 21.566757202148438,
+          "lse_mean": 24.036640167236328
+        },
+        "tf32": {
+          "output": {
+            "shape": [
+              1,
+              245,
+              4,
+              245,
+              32
+            ],
+            "stride": [
+              7683200,
+              31360,
+              7840,
+              32,
+              1
+            ],
+            "dtype": "torch.float32",
+            "sha256": "d82246e4d16447e4b0e538a88a9d7696b15bf1d3193d543b4efacaa414bba271"
+          },
+          "vs_fp64_softmax_gold": {
+            "relative_l2": 0.00040367868726354076,
+            "max_abs": 0.0003676928242758448,
+            "rms": 6.499952235977084e-05,
+            "finite": true
+          },
+          "maximum_mean": 21.735246658325195,
+          "lse_mean": 24.18446159362793
+        }
+      },
+      "tf32_vs_fp32_maximum_gain": 0.00781246130781188
+    },
+    {
+      "query_scalar": 32.0,
+      "scale": 0.25,
+      "scale_fp32": 0.25,
+      "gold_qk_max_natural": 7.625,
+      "canonical_inputs": [
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            7840,
+            32,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "29dee77868031de8b8697ab0eb8835e5ef74928e07295841dd0c1b89eb2d78e1"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            7840,
+            32,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "3b9b3c214242d222fd2229096c9ef1c44d15ac1b1ded1ad90de6417f265c5dd7"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            7840,
+            32,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "3b9b3c214242d222fd2229096c9ef1c44d15ac1b1ded1ad90de6417f265c5dd7"
+        }
+      ],
+      "modes": {
+        "fp32": {
+          "output": {
+            "shape": [
+              1,
+              245,
+              4,
+              245,
+              32
+            ],
+            "stride": [
+              7683200,
+              31360,
+              7840,
+              32,
+              1
+            ],
+            "dtype": "torch.float32",
+            "sha256": "666ca4111cbd5aab7aa76f7d8b44bdac04ef2cbf01a10ac1f83785d877dd37e7"
+          },
+          "vs_fp64_softmax_gold": {
+            "relative_l2": 8.431786593381634e-08,
+            "max_abs": 7.002775137543438e-08,
+            "rms": 1.2379274467203807e-08,
+            "finite": true
+          },
+          "maximum_mean": 7.625,
+          "lse_mean": 11.105846405029297
+        },
+        "tf32": {
+          "output": {
+            "shape": [
+              1,
+              245,
+              4,
+              245,
+              32
+            ],
+            "stride": [
+              7683200,
+              31360,
+              7840,
+              32,
+              1
+            ],
+            "dtype": "torch.float32",
+            "sha256": "102dfb3954357df6a15cdaf62cdb02c518e97b38c0b0b927371f707b7eb0da2c"
+          },
+          "vs_fp64_softmax_gold": {
+            "relative_l2": 0.001328218905441605,
+            "max_abs": 0.0011031135839647543,
+            "rms": 0.00019500477391011848,
+            "finite": true
+          },
+          "maximum_mean": 7.6845703125,
+          "lse_mean": 11.15001106262207
+        }
+      },
+      "tf32_vs_fp32_maximum_gain": 0.0078125
+    }
+  ],
+  "source_sha256": "4736e1c9ee21fb5aabe103246e766d7acd70664270355a7c40954c55ee99fd08",
+  "scope": "Constructed exact binary inputs, no RNG calls, one full CPU FP64 analytic softmax gold. Accuracy and kernel identity only; no latency claim."
+}

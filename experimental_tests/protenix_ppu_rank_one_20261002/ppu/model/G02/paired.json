@@ -1,0 +1,140 @@
+{
+  "status": "PASS",
+  "order": [
+    "baseline_tf32",
+    "candidate_tf32",
+    "fp32",
+    "baseline_tf32",
+    "candidate_tf32",
+    "fp32",
+    "baseline_tf32",
+    "candidate_tf32",
+    "fp32",
+    "baseline_tf32",
+    "candidate_tf32",
+    "fp32",
+    "baseline_tf32",
+    "candidate_tf32",
+    "fp32",
+    "baseline_tf32",
+    "candidate_tf32",
+    "fp32",
+    "baseline_tf32",
+    "candidate_tf32",
+    "fp32",
+    "baseline_tf32",
+    "candidate_tf32",
+    "fp32",
+    "baseline_tf32",
+    "candidate_tf32",
+    "fp32",
+    "baseline_tf32",
+    "candidate_tf32",
+    "fp32",
+    "baseline_tf32",
+    "candidate_tf32",
+    "fp32",
+    "baseline_tf32",
+    "candidate_tf32",
+    "fp32",
+    "baseline_tf32",
+    "candidate_tf32",
+    "fp32"
+  ],
+  "summary": {
+    "baseline_tf32": {
+      "count": 10,
+      "warmup_count": 3,
+      "median_seconds": 1.708622228470631,
+      "samples_seconds": [
+        1.7257839301601052,
+        1.70771188987419,
+        1.7095325670670718,
+        1.7312407679855824,
+        1.7265298028942198,
+        1.6917358878999949,
+        1.709726464934647,
+        1.6859538729768246,
+        1.7039163450244814,
+        1.6734403951559216
+      ],
+      "prediction_digest": {
+        "sha256": "0581e24383903421899aa125da0e4f11f289b72281420ffe59f69c362db0b7ee",
+        "sum_fp64": -4962.270588159561,
+        "max_abs": 5452.3759765625
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.2451171875,
+        "gpde": 7.271669864654541,
+        "ptm": 0.21090072393417358,
+        "iptm": 0.20728075504302979,
+        "ranking_score": 0.20800475776195526
+      },
+      "prediction_equal_reference": true
+    },
+    "candidate_tf32": {
+      "count": 10,
+      "warmup_count": 3,
+      "median_seconds": 1.7106288066133857,
+      "samples_seconds": [
+        1.7097417660988867,
+        1.7630904000252485,
+        1.7115158471278846,
+        1.7335782279260457,
+        1.7568669610191137,
+        1.7027866849675775,
+        1.690545721910894,
+        1.707976465113461,
+        1.7253479030914605,
+        1.6933266809210181
+      ],
+      "prediction_digest": {
+        "sha256": "34c8155a2386f39f777c37d28ae07518abdc4605804678cc33d2811fd1f6dee1",
+        "sum_fp64": -4891.486643075943,
+        "max_abs": 5452.3779296875
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.2438735961914,
+        "gpde": 7.270274639129639,
+        "ptm": 0.21088191866874695,
+        "iptm": 0.2072671800851822,
+        "ranking_score": 0.2079901248216629
+      },
+      "prediction_equal_reference": false
+    },
+    "fp32": {
+      "count": 10,
+      "warmup_count": 3,
+      "median_seconds": 1.7751147800590843,
+      "samples_seconds": [
+        1.7701178679708391,
+        1.7801116921473294,
+        1.7958654779940844,
+        1.7988328128121793,
+        1.8391149421222508,
+        1.7688691718503833,
+        1.764712129952386,
+        1.7820561341941357,
+        1.7640433108899742,
+        1.7606802531518042
+      ],
+      "prediction_digest": {
+        "sha256": "2c719da9be15ef6ae1ac5f13cc79da93554833fdc34c7ee5fcffde22c016148d",
+        "sum_fp64": -4890.661724328995,
+        "max_abs": 5452.4052734375
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.26124572753906,
+        "gpde": 7.2690887451171875,
+        "ptm": 0.21105340123176575,
+        "iptm": 0.20743012428283691,
+        "ranking_score": 0.20815478265285492
+      },
+      "prediction_equal_reference": true
+    }
+  },
+  "rank_one_calls_first_candidate_warmup": {
+    "mm": 8
+  },
+  "policy": "K=1 only, IEEE vector outer-product with optional fused bias. Existing generated Torch autograd rules and all other kernels unchanged."
+}

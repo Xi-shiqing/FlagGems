@@ -1,0 +1,707 @@
+{
+  "status": "pass",
+  "error": null,
+  "protocol": {
+    "platform": "ppu810e",
+    "disable_flaggems": false,
+    "enable_flaggems": false,
+    "model": "protenix-v2",
+    "dtype": "fp32",
+    "seed": 20260825,
+    "max_steps": 4,
+    "warmup_steps_excluded": 1,
+    "formal_steps": 3,
+    "crop_size": 245,
+    "triangle_attention": "triattention",
+    "triangle_multiplicative": "torch",
+    "blocks_per_ckpt": 1,
+    "pairformer_blocks": 48,
+    "msa_blocks": 4,
+    "diffusion_batch_size": 1,
+    "shared_rng": true,
+    "replay_step_rng": false,
+    "learning_rate": 0.0018,
+    "progress_interval": 1,
+    "track_parameter_updates": false,
+    "enable_checkpoints": false,
+    "checkpoint_interval": 1000,
+    "audit_parameter_gradients": false,
+    "gradient_audit_step": 0,
+    "load_strict": true,
+    "tf32": true,
+    "checkpoint_and_eval_in_step_timing": false,
+    "precision_control": "configs.enable_tf32 and explicit official TriAttention deterministic flag"
+  },
+  "environment": {
+    "hostname": "dsw-694941-78fb556445-jdbn5",
+    "python": "3.12.3 (main, Apr 28 2026, 13:59:41) [GCC 13.3.0]",
+    "torch": "2.10.0",
+    "device_name": "PPU-ZW810E",
+    "device_count_visible": 1,
+    "flag_gems": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/gemv_qk_20261002/column_candidate/flag_gems/__init__.py"
+  },
+  "input_hashes": {
+    "/mnt/cpfs/xishiqing/root_migrated/checkpoint/protenix-v2.pt": "8f931f9774a396b67033d0e58628e1834f4a1448165e04254b40a780b0c0d599",
+    "/mnt/cpfs/xishiqing/protenix-training-parity-20260825/fixture/bioassembly/user_test.pkl.gz": "9629dde6cc8e5c3e09ecac08a62c5e9fd393632353d761dfd861c7587df52fbb",
+    "/mnt/cpfs/xishiqing/protenix-training-parity-20260825/fixture/single.csv": "496498123bda979419493d0355f74fcab8592de349a5dd59f2fd49bde485a77a",
+    "/mnt/cpfs/xishiqing/protenix-training-parity-20260825/fixture/empty_index.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+  },
+  "batch_sha256": "5e1e554a9b387bb223e5249befec845a8185cfc3167543b203652118779ac1bc",
+  "batch_tensor_count": 71,
+  "batch_leaf_hashes": {
+    "batch.basic.N_asym": {
+      "sha256": "8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526",
+      "dtype": "torch.int64",
+      "shape": [
+        1
+      ]
+    },
+    "batch.basic.N_atom": {
+      "sha256": "c2f34d63b1f39d285b9f26bb36042c098d9c6ad4ad57cd704c0809609ff5f728",
+      "dtype": "torch.int64",
+      "shape": [
+        1
+      ]
+    },
+    "batch.basic.N_dna_atom": {
+      "sha256": "2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01",
+      "dtype": "torch.int64",
+      "shape": [
+        1
+      ]
+    },
+    "batch.basic.N_dna_token": {
+      "sha256": "2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01",
+      "dtype": "torch.int64",
+      "shape": [
+        1
+      ]
+    },
+    "batch.basic.N_lig_atom": {
+      "sha256": "2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01",
+      "dtype": "torch.int64",
+      "shape": [
+        1
+      ]
+    },
+    "batch.basic.N_lig_token": {
+      "sha256": "2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01",
+      "dtype": "torch.int64",
+      "shape": [
+        1
+      ]
+    },
+    "batch.basic.N_msa": {
+      "sha256": "c145f362bf357521a45777fcde4f84959c9bccb5d4003d53278088e632f8c4b9",
+      "dtype": "torch.int64",
+      "shape": [
+        1
+      ]
+    },
+    "batch.basic.N_msa_prot_pair": {
+      "sha256": "8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526",
+      "dtype": "torch.int64",
+      "shape": [
+        1
+      ]
+    },
+    "batch.basic.N_msa_prot_unpair": {
+      "sha256": "8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526",
+      "dtype": "torch.int64",
+      "shape": [
+        1
+      ]
+    },
+    "batch.basic.N_msa_rna_pair": {
+      "sha256": "8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526",
+      "dtype": "torch.int64",
+      "shape": [
+        1
+      ]
+    },
+    "batch.basic.N_msa_rna_unpair": {
+      "sha256": "8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526",
+      "dtype": "torch.int64",
+      "shape": [
+        1
+      ]
+    },
+    "batch.basic.N_prot_atom": {
+      "sha256": "c2f34d63b1f39d285b9f26bb36042c098d9c6ad4ad57cd704c0809609ff5f728",
+      "dtype": "torch.int64",
+      "shape": [
+        1
+      ]
+    },
+    "batch.basic.N_prot_token": {
+      "sha256": "98fa8d6fe47395b4b26a91b4fd15611210e5e2060820af920cc184919bb4758a",
+      "dtype": "torch.int64",
+      "shape": [
+        1
+      ]
+    },
+    "batch.basic.N_rna_atom": {
+      "sha256": "2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01",
+      "dtype": "torch.int64",
+      "shape": [
+        1
+      ]
+    },
+    "batch.basic.N_rna_token": {
+      "sha256": "2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01",
+      "dtype": "torch.int64",
+      "shape": [
+        1
+      ]
+    },
+    "batch.basic.N_token": {
+      "sha256": "98fa8d6fe47395b4b26a91b4fd15611210e5e2060820af920cc184919bb4758a",
+      "dtype": "torch.int64",
+      "shape": [
+        1
+      ]
+    },
+    "batch.input_feature_dict.asym_id": {
+      "sha256": "b32f2537a63c4b02ecd66ebf87282d772a0e77f8c49145a55492bca951c9bc9d",
+      "dtype": "torch.int64",
+      "shape": [
+        245
+      ]
+    },
+    "batch.input_feature_dict.atom_to_tokatom_idx": {
+      "sha256": "d82ed200264dab09e33b00f6f5b911d6fa92996f563c5c6574d769bcb5d44f5c",
+      "dtype": "torch.int64",
+      "shape": [
+        1961
+      ]
+    },
+    "batch.input_feature_dict.atom_to_token_idx": {
+      "sha256": "1b8c97d62f77ef23cc0c3a1bb9009e676e6e7630acb0d3d64837217c7abe4f51",
+      "dtype": "torch.int64",
+      "shape": [
+        1961
+      ]
+    },
+    "batch.input_feature_dict.bond_mask": {
+      "sha256": "7bafd6621df04ec0af60ed3cf4d2027c9b7b5a0b2dca2fb2615371f64acf6514",
+      "dtype": "torch.int64",
+      "shape": [
+        1961,
+        1961
+      ]
+    },
+    "batch.input_feature_dict.deletion_mean": {
+      "sha256": "d10855e802687e6bdad2cb9c413d36ad4b9888f70e1a9f81a51d5a6f45b99fc5",
+      "dtype": "torch.float32",
+      "shape": [
+        245
+      ]
+    },
+    "batch.input_feature_dict.deletion_value": {
+      "sha256": "7be653430b4160435264bff1db1a9eb4ab57706a448a8433ef86a3d9ef4dfd52",
+      "dtype": "torch.float32",
+      "shape": [
+        2,
+        245
+      ]
+    },
+    "batch.input_feature_dict.distogram_rep_atom_mask": {
+      "sha256": "369958881b107e708133ab2de048279641a77f11f9a524d73bd0ca057b3c8798",
+      "dtype": "torch.int64",
+      "shape": [
+        1961
+      ]
+    },
+    "batch.input_feature_dict.entity_id": {
+      "sha256": "b32f2537a63c4b02ecd66ebf87282d772a0e77f8c49145a55492bca951c9bc9d",
+      "dtype": "torch.int64",
+      "shape": [
+        245
+      ]
+    },
+    "batch.input_feature_dict.entity_mol_id": {
+      "sha256": "357eae57a1d9c7b525848124bb8431dbc05265b08e85af52f89d97acd22878f0",
+      "dtype": "torch.int64",
+      "shape": [
+        1961
+      ]
+    },
+    "batch.input_feature_dict.frame_atom_index": {
+      "sha256": "55820ceeadad804743233db5a44949d0255160f8d4c2733cd9712a4a476d3a22",
+      "dtype": "torch.int64",
+      "shape": [
+        245,
+        3
+      ]
+    },
+    "batch.input_feature_dict.has_deletion": {
+      "sha256": "7be653430b4160435264bff1db1a9eb4ab57706a448a8433ef86a3d9ef4dfd52",
+      "dtype": "torch.float32",
+      "shape": [
+        2,
+        245
+      ]
+    },
+    "batch.input_feature_dict.has_frame": {
+      "sha256": "70661638bea41af883f6ec3c356a7169828a249faae1e1874c458242d5d31185",
+      "dtype": "torch.int64",
+      "shape": [
+        245
+      ]
+    },
+    "batch.input_feature_dict.is_distillation": {
+      "sha256": "a63056d911afd30d0fb050244218bf0540e363d9e61c70e1860a1da29326aa03",
+      "dtype": "torch.bool",
+      "shape": [
+        1
+      ]
+    },
+    "batch.input_feature_dict.is_dna": {
+      "sha256": "357eae57a1d9c7b525848124bb8431dbc05265b08e85af52f89d97acd22878f0",
+      "dtype": "torch.int64",
+      "shape": [
+        1961
+      ]
+    },
+    "batch.input_feature_dict.is_ligand": {
+      "sha256": "357eae57a1d9c7b525848124bb8431dbc05265b08e85af52f89d97acd22878f0",
+      "dtype": "torch.int64",
+      "shape": [
+        1961
+      ]
+    },
+    "batch.input_feature_dict.is_protein": {
+      "sha256": "f1ea73bba2502bf3f15cb37613401df4c95f64b6bb7184a7342b61e19064c45a",
+      "dtype": "torch.int64",
+      "shape": [
+        1961
+      ]
+    },
+    "batch.input_feature_dict.is_rna": {
+      "sha256": "357eae57a1d9c7b525848124bb8431dbc05265b08e85af52f89d97acd22878f0",
+      "dtype": "torch.int64",
+      "shape": [
+        1961
+      ]
+    },
+    "batch.input_feature_dict.modified_res_mask": {
+      "sha256": "357eae57a1d9c7b525848124bb8431dbc05265b08e85af52f89d97acd22878f0",
+      "dtype": "torch.int64",
+      "shape": [
+        1961
+      ]
+    },
+    "batch.input_feature_dict.mol_atom_index": {
+      "sha256": "07f9c4466e3c0fe076cb5a2f6aadabf2930c283342fb55d1377ccf0338c33b0e",
+      "dtype": "torch.int64",
+      "shape": [
+        1961
+      ]
+    },
+    "batch.input_feature_dict.mol_id": {
+      "sha256": "357eae57a1d9c7b525848124bb8431dbc05265b08e85af52f89d97acd22878f0",
+      "dtype": "torch.int64",
+      "shape": [
+        1961
+      ]
+    },
+    "batch.input_feature_dict.msa": {
+      "sha256": "a8a2e5c57fd72c91f0eb8b02d48763b4077513f08ba48bec43e1777de7a8fc6c",
+      "dtype": "torch.int64",
+      "shape": [
+        2,
+        245
+      ]
+    },
+    "batch.input_feature_dict.pae_rep_atom_mask": {
+      "sha256": "7bc02f9b63e105aaa6624b7764727aac544344ac30abcf3ed94bb442a54f811a",
+      "dtype": "torch.int64",
+      "shape": [
+        1961
+      ]
+    },
+    "batch.input_feature_dict.plddt_m_rep_atom_mask": {
+      "sha256": "7bc02f9b63e105aaa6624b7764727aac544344ac30abcf3ed94bb442a54f811a",
+      "dtype": "torch.int64",
+      "shape": [
+        1961
+      ]
+    },
+    "batch.input_feature_dict.profile": {
+      "sha256": "27e8a8b8ee3f320c0822f118a0222f29c68c9a3bf19fe99ae2056590e890a01b",
+      "dtype": "torch.float32",
+      "shape": [
+        245,
+        32
+      ]
+    },
+    "batch.input_feature_dict.prot_pair_num_alignments": {
+      "sha256": "35aa899bfc9cc839bcd696a2d658d35288c0c94b0c0e157fff56d59ddb23f8ab",
+      "dtype": "torch.int64",
+      "shape": []
+    },
+    "batch.input_feature_dict.prot_unpair_num_alignments": {
+      "sha256": "35aa899bfc9cc839bcd696a2d658d35288c0c94b0c0e157fff56d59ddb23f8ab",
+      "dtype": "torch.int64",
+      "shape": []
+    },
+    "batch.input_feature_dict.ref_atom_name_chars": {
+      "sha256": "8eb1f0a845aaa0bc4fea28d5d671f38e3b6a6e2b4a3723e227ca46994791f897",
+      "dtype": "torch.int64",
+      "shape": [
+        1961,
+        4,
+        64
+      ]
+    },
+    "batch.input_feature_dict.ref_charge": {
+      "sha256": "98ceb6ebe035c94a4b985b0286c463d3a9eed21bea98c0af65ecb6f97fc05c17",
+      "dtype": "torch.int64",
+      "shape": [
+        1961
+      ]
+    },
+    "batch.input_feature_dict.ref_element": {
+      "sha256": "5f29d88fd713ec6932e4e3740f96946d4be2eef003703440316f81f454036f26",
+      "dtype": "torch.int64",
+      "shape": [
+        1961,
+        128
+      ]
+    },
+    "batch.input_feature_dict.ref_mask": {
+      "sha256": "f1ea73bba2502bf3f15cb37613401df4c95f64b6bb7184a7342b61e19064c45a",
+      "dtype": "torch.int64",
+      "shape": [
+        1961
+      ]
+    },
+    "batch.input_feature_dict.ref_pos": {
+      "sha256": "92d05da7161892fe978b957a96bd4cf9c7074dd4ad112eb0c0f0957fad428ae6",
+      "dtype": "torch.float32",
+      "shape": [
+        1961,
+        3
+      ]
+    },
+    "batch.input_feature_dict.ref_space_uid": {
+      "sha256": "62f91e852b68f93dc653c00666973df6335419cd3a2849bf6f73ab19da784f35",
+      "dtype": "torch.int64",
+      "shape": [
+        1961
+      ]
+    },
+    "batch.input_feature_dict.residue_index": {
+      "sha256": "fdcd857a45b09325f6daffe53dc3df8694b0356102381b3c284a1103148a1402",
+      "dtype": "torch.int64",
+      "shape": [
+        245
+      ]
+    },
+    "batch.input_feature_dict.resolution": {
+      "sha256": "8d801b21722716812d449a6dfc8fe57b2c5021115e36dc80bcc87b3f7eee28d4",
+      "dtype": "torch.float32",
+      "shape": [
+        1
+      ]
+    },
+    "batch.input_feature_dict.restype": {
+      "sha256": "27e8a8b8ee3f320c0822f118a0222f29c68c9a3bf19fe99ae2056590e890a01b",
+      "dtype": "torch.float32",
+      "shape": [
+        245,
+        32
+      ]
+    },
+    "batch.input_feature_dict.rna_pair_num_alignments": {
+      "sha256": "35aa899bfc9cc839bcd696a2d658d35288c0c94b0c0e157fff56d59ddb23f8ab",
+      "dtype": "torch.int64",
+      "shape": []
+    },
+    "batch.input_feature_dict.rna_unpair_num_alignments": {
+      "sha256": "35aa899bfc9cc839bcd696a2d658d35288c0c94b0c0e157fff56d59ddb23f8ab",
+      "dtype": "torch.int64",
+      "shape": []
+    },
+    "batch.input_feature_dict.sym_id": {
+      "sha256": "b32f2537a63c4b02ecd66ebf87282d772a0e77f8c49145a55492bca951c9bc9d",
+      "dtype": "torch.int64",
+      "shape": [
+        245
+      ]
+    },
+    "batch.input_feature_dict.template_aatype": {
+      "sha256": "d89e65e3cb94fc3ac19965946c092b1d0676f23173ae98ef451cb355f03d139c",
+      "dtype": "torch.int64",
+      "shape": [
+        4,
+        245
+      ]
+    },
+    "batch.input_feature_dict.template_atom_mask": {
+      "sha256": "b64d1fef6188361474774ea24be7eb82352de71566e5fcac04d7c359d8061c40",
+      "dtype": "torch.bool",
+      "shape": [
+        4,
+        245,
+        24
+      ]
+    },
+    "batch.input_feature_dict.template_atom_positions": {
+      "sha256": "a92e2fa633cc295e781d41950b8543c5addc0f0725358a1625b858fb155546eb",
+      "dtype": "torch.float32",
+      "shape": [
+        4,
+        245,
+        24,
+        3
+      ]
+    },
+    "batch.input_feature_dict.template_backbone_frame_mask": {
+      "sha256": "2580ac5a34454e9ee5664fa4f10852384ae7458c3d91b898aa709970ef8cffd2",
+      "dtype": "torch.float32",
+      "shape": [
+        4,
+        245,
+        245
+      ]
+    },
+    "batch.input_feature_dict.template_distogram": {
+      "sha256": "7e895d6c327df3c907f685e84a4334008204fb59e19083e2e9e8ebbda78e372c",
+      "dtype": "torch.float32",
+      "shape": [
+        4,
+        245,
+        245,
+        39
+      ]
+    },
+    "batch.input_feature_dict.template_pseudo_beta_mask": {
+      "sha256": "2580ac5a34454e9ee5664fa4f10852384ae7458c3d91b898aa709970ef8cffd2",
+      "dtype": "torch.float32",
+      "shape": [
+        4,
+        245,
+        245
+      ]
+    },
+    "batch.input_feature_dict.template_unit_vector": {
+      "sha256": "06bd2acf67fd6659d2d99c4017f1f95f89cfd08556054da6ec89823a28646cba",
+      "dtype": "torch.float32",
+      "shape": [
+        4,
+        245,
+        245,
+        3
+      ]
+    },
+    "batch.input_feature_dict.token_bonds": {
+      "sha256": "94499d3ac6497545b6a6bfe3426e348952bc8990dbb4307c949bf55f99f44159",
+      "dtype": "torch.float32",
+      "shape": [
+        245,
+        245
+      ]
+    },
+    "batch.input_feature_dict.token_index": {
+      "sha256": "940c655833b715fcf91336a7caae982ebb6d5d81824de4020f2a9677b15beefd",
+      "dtype": "torch.int64",
+      "shape": [
+        245
+      ]
+    },
+    "batch.label_dict.coordinate": {
+      "sha256": "1922c6da0605b162924853e5015aa31db977bcb030ee1024b2ad1d456ce24809",
+      "dtype": "torch.float32",
+      "shape": [
+        1961,
+        3
+      ]
+    },
+    "batch.label_dict.coordinate_mask": {
+      "sha256": "f1ea73bba2502bf3f15cb37613401df4c95f64b6bb7184a7342b61e19064c45a",
+      "dtype": "torch.int64",
+      "shape": [
+        1961
+      ]
+    },
+    "batch.label_full_dict.coordinate": {
+      "sha256": "1922c6da0605b162924853e5015aa31db977bcb030ee1024b2ad1d456ce24809",
+      "dtype": "torch.float32",
+      "shape": [
+        1961,
+        3
+      ]
+    },
+    "batch.label_full_dict.coordinate_mask": {
+      "sha256": "f1ea73bba2502bf3f15cb37613401df4c95f64b6bb7184a7342b61e19064c45a",
+      "dtype": "torch.int64",
+      "shape": [
+        1961
+      ]
+    },
+    "batch.label_full_dict.entity_mol_id": {
+      "sha256": "357eae57a1d9c7b525848124bb8431dbc05265b08e85af52f89d97acd22878f0",
+      "dtype": "torch.int64",
+      "shape": [
+        1961
+      ]
+    },
+    "batch.label_full_dict.mol_atom_index": {
+      "sha256": "07f9c4466e3c0fe076cb5a2f6aadabf2930c283342fb55d1377ccf0338c33b0e",
+      "dtype": "torch.int64",
+      "shape": [
+        1961
+      ]
+    },
+    "batch.label_full_dict.mol_id": {
+      "sha256": "357eae57a1d9c7b525848124bb8431dbc05265b08e85af52f89d97acd22878f0",
+      "dtype": "torch.int64",
+      "shape": [
+        1961
+      ]
+    },
+    "batch.label_full_dict.pae_rep_atom_mask": {
+      "sha256": "7bc02f9b63e105aaa6624b7764727aac544344ac30abcf3ed94bb442a54f811a",
+      "dtype": "torch.int64",
+      "shape": [
+        1961
+      ]
+    }
+  },
+  "losses": [
+    {
+      "step": 0,
+      "global_step": 0,
+      "loss": 3168.720947265625,
+      "loss_dict": {
+        "smooth_lddt_loss": 1.0,
+        "weighted_smooth_lddt_loss": 4.0,
+        "bond_loss": 0.0,
+        "weighted_bond_loss": 0.0,
+        "mse_loss": 791.1735229492188,
+        "weighted_mse_loss": 3164.694091796875,
+        "distogram_loss": 0.8980284333229065,
+        "weighted_distogram_loss": 0.026940852403640747,
+        "loss": 3168.720947265625
+      }
+    },
+    {
+      "step": 1,
+      "global_step": 1,
+      "loss": 8869.18359375,
+      "loss_dict": {
+        "smooth_lddt_loss": 1.0,
+        "weighted_smooth_lddt_loss": 4.0,
+        "bond_loss": 0.0,
+        "weighted_bond_loss": 0.0,
+        "mse_loss": 2216.292236328125,
+        "weighted_mse_loss": 8865.1689453125,
+        "distogram_loss": 0.4728231132030487,
+        "weighted_distogram_loss": 0.01418469287455082,
+        "loss": 8869.18359375
+      }
+    },
+    {
+      "step": 2,
+      "global_step": 2,
+      "loss": 322.582763671875,
+      "loss_dict": {
+        "smooth_lddt_loss": 1.0,
+        "weighted_smooth_lddt_loss": 4.0,
+        "bond_loss": 0.0,
+        "weighted_bond_loss": 0.0,
+        "mse_loss": 79.640869140625,
+        "weighted_mse_loss": 318.5634765625,
+        "distogram_loss": 0.642453670501709,
+        "weighted_distogram_loss": 0.019273608922958374,
+        "loss": 322.582763671875
+      }
+    },
+    {
+      "step": 3,
+      "global_step": 3,
+      "loss": 719.3896484375,
+      "loss_dict": {
+        "smooth_lddt_loss": 1.0,
+        "weighted_smooth_lddt_loss": 4.0,
+        "bond_loss": 0.0,
+        "weighted_bond_loss": 0.0,
+        "mse_loss": 178.84524536132812,
+        "weighted_mse_loss": 715.3809814453125,
+        "distogram_loss": 0.28868067264556885,
+        "weighted_distogram_loss": 0.008660419844090939,
+        "loss": 719.3896484375
+      }
+    }
+  ],
+  "gradient_norms": [
+    {
+      "step_index": 0,
+      "preclip_global_norm": 922.3525390625,
+      "max_norm": 10.0
+    },
+    {
+      "step_index": 1,
+      "preclip_global_norm": 1629.9320068359375,
+      "max_norm": 10.0
+    },
+    {
+      "step_index": 2,
+      "preclip_global_norm": 296.3257751464844,
+      "max_norm": 10.0
+    },
+    {
+      "step_index": 3,
+      "preclip_global_norm": 441.60162353515625,
+      "max_norm": 10.0
+    }
+  ],
+  "parameter_updates": [],
+  "parameter_gradients": [],
+  "timings": [
+    {
+      "step": 0,
+      "global_step": 0,
+      "event_ms": 47597.453125,
+      "wall_ms": 47603.93251897767,
+      "peak_memory_gib": 19.293115615844727,
+      "learning_rates": [
+        0.00018
+      ]
+    },
+    {
+      "step": 1,
+      "global_step": 1,
+      "event_ms": 26026.56640625,
+      "wall_ms": 26026.77576406859,
+      "peak_memory_gib": 22.746102333068848,
+      "learning_rates": [
+        0.00036
+      ]
+    },
+    {
+      "step": 2,
+      "global_step": 2,
+      "event_ms": 25463.31640625,
+      "wall_ms": 25463.533435948193,
+      "peak_memory_gib": 22.75408363342285,
+      "learning_rates": [
+        0.00054
+      ]
+    },
+    {
+      "step": 3,
+      "global_step": 3,
+      "event_ms": 30702.634765625,
+      "wall_ms": 30702.884995844215,
+      "peak_memory_gib": 22.767173767089844,
+      "learning_rates": [
+        0.00072
+      ]
+    }
+  ],
+  "formal_event_median_ms": 26026.56640625,
+  "formal_wall_median_ms": 26026.77576406859,
+  "launcher_wall_seconds": 198.06571177905425
+}

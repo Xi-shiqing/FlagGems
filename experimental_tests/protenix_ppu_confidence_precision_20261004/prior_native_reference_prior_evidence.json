@@ -1,0 +1,30 @@
+{
+  "source": "comparison/ppu_tf32_precision_20260923/query_round_once_20261002/complete_comparison.json",
+  "source_sha256": "9438db6136f5e8ecc5f1e933e7008b6ee964f0c99e7a60eeb12a767bc5dcabe3",
+  "native_query_drift": {
+    "versions_black_box_tested": [
+      "0.8.0",
+      "0.12.0"
+    ],
+    "latest_installed_in_isolated_target_only": true,
+    "version_import_audit": {
+      "frozen": {
+        "torch": "2.7.1+cu126",
+        "torch_package": "0.8.0",
+        "ops_package": "0.8.0",
+        "import_path": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/__init__.py"
+      },
+      "isolated_latest": {
+        "torch": "2.7.1+cu126",
+        "torch_package": "0.12.0",
+        "ops_package": "0.12.0",
+        "import_path": "/data/xishiqing/ppu_mm_crossdevice_20260920/query_round_once_20261002/vendor_0120/cuequivariance_ops_torch/__init__.py"
+      }
+    },
+    "identical_16_position_drift": true,
+    "last_key_score": 1.0078125,
+    "gold_score": 1.0,
+    "custom_rne_and_rna_once_controls": "All 16 key positions pass output and natural-LSE gold on both devices"
+  },
+  "scope": "Prior operator controls; not a new model-level result."
+}

@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "four_mode_models_and_inputs": 18,
+  "final_candidate_coordinate_and_confidence_retention": "PPU 18/18 exact; all candidate coordinates unchanged on both nodes",
+  "RNE_five_confidence_cross_device_diagnostic_gate": "18/18 PASS",
+  "combined_cross_device_diagnostic_gate": {
+    "PASS": 7,
+    "UNRESOLVED": 11
+  },
+  "formal_native_reference_unchanged": {
+    "fp32": {
+      "PASS": 18
+    },
+    "tf32": {
+      "FAIL": 11,
+      "UNRESOLVED": 4,
+      "PASS": 3
+    }
+  },
+  "full_input_rng_checkpoint_atom_asset_audits": "PASS",
+  "real_activation_operator_probe_audits": "6/6 per node PASS",
+  "kernel_numeric_layout_and_native_gradient_controls": "10/10 per kernel per node PASS; empty/zero-feature PASS; exact native gradient fallback PASS",
+  "source_ast_bash_json_and_csv_checks": "PASS",
+  "all_owned_worker_exit_markers": "PASS",
+  "raw_tensor_export_check": "NONE",
+  "protected_benchmark_sha256": "6ede90f98d9435b8509fb37b086c6a490296b49a99c6fbbd4094eda2f5506d42",
+  "scope_limits": [
+    "Formal frozen native reference is unchanged. Corrected H100 diagnostics are not native TF32.",
+    "Cross-device RMSD intervals are reused only after exact coordinate-hash checks; 11 unresolved intervals cannot be counted as passes.",
+    "Original PPU distance already uses a direct FlagGems kernel and ignores compute_mode. API-request labels do not imply a TF32 GEMM on PPU.",
+    "Operator probe uses each device own real activation coordinates and own CPU FP64 gold; operand hashes differ across devices.",
+    "No new full-model training test or 80%/MFU acceptance. Native gradient fallback verified on small controls only.",
+    "RNE fused phase runs separately from base sweep on same per-case physical GPU. Three wall-time repeats cannot certify small whole-model speed changes."
+  ]
+}

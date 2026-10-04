@@ -1,0 +1,163 @@
+{
+  "status": "PASS",
+  "records": [
+    {
+      "role": "vector_mm",
+      "inputs": [
+        {
+          "shape": [
+            1,
+            256
+          ],
+          "stride": [
+            256,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "1d648ee0d55086e5d688369bc2cfd148fcb6b60fcbfc94e84d0c04f272873c98"
+        },
+        {
+          "shape": [
+            256,
+            384
+          ],
+          "stride": [
+            1,
+            256
+          ],
+          "dtype": "torch.float32",
+          "sha256": "524295742e3edf4f424aee6246d76ab7301cfb1ba426425300034cfae0526a13"
+        }
+      ],
+      "stack": [
+        "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/protenix.py:904:forward",
+        "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/protenix.py:432:main_inference_loop",
+        "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/protenix.py:562:_main_inference_loop",
+        "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/protenix.py:341:sample_diffusion",
+        "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/utils/torch_utils.py:219:new_func",
+        "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/generator.py:281:sample_diffusion",
+        "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/generator.py:245:_chunk_sample_diffusion",
+        "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/modules/diffusion.py:565:forward",
+        "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/modules/diffusion.py:395:f_forward",
+        "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/modules/diffusion.py:166:forward",
+        "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/modules/primitives.py:92:forward"
+      ],
+      "teacher_output": {
+        "shape": [
+          1,
+          384
+        ],
+        "stride": [
+          384,
+          1
+        ],
+        "dtype": "torch.float32",
+        "sha256": "94954138dc31695598649634e55c4cd3b0802e5ce2c4ce2298144ea709abd022"
+      },
+      "teacher_flags": [
+        true,
+        true
+      ],
+      "modes": {
+        "fp32": {
+          "median_ms": 0.16619439702481031,
+          "samples_ms": [
+            0.17121201381087303,
+            0.18572993576526642,
+            0.41930400766432285,
+            0.17230398952960968,
+            0.155966030433774,
+            0.16050506383180618,
+            0.1684008166193962,
+            0.16398797743022442,
+            0.1551690511405468,
+            0.1543089747428894
+          ],
+          "output_sha256": "058562cb61cd40c31af47d75731d0cfe5c0ee89b14db5b017fb7a3c720f8a5ad",
+          "vs_ieee_fp64": {
+            "relative_l2": 9.730429803832335e-08,
+            "max_abs": 6.77242155688873e-07,
+            "rms": 5.5389284197091456e-08,
+            "finite": true
+          },
+          "vs_rne_fp64": {
+            "relative_l2": 0.000135049262606142,
+            "max_abs": 0.0010256941758219895,
+            "rms": 7.687779250556133e-05,
+            "finite": true
+          },
+          "kernel_trace": [
+            "_fill_contiguous_fp32",
+            "mm_direct_fused"
+          ]
+        },
+        "tf32": {
+          "median_ms": 0.08258491288870573,
+          "samples_ms": [
+            0.08628098294138908,
+            0.08472008630633354,
+            0.08260481990873814,
+            0.08256500586867332,
+            0.0806921161711216,
+            0.08096802048385143,
+            0.07995893247425556,
+            0.08051120676100254,
+            0.0993839930742979,
+            0.09690807200968266
+          ],
+          "output_sha256": "94954138dc31695598649634e55c4cd3b0802e5ce2c4ce2298144ea709abd022",
+          "vs_ieee_fp64": {
+            "relative_l2": 0.00013499026165065772,
+            "max_abs": 0.0010260468133775902,
+            "rms": 7.684155907957108e-05,
+            "finite": true
+          },
+          "vs_rne_fp64": {
+            "relative_l2": 2.98677638278384e-07,
+            "max_abs": 1.5082729127868788e-06,
+            "rms": 1.7002445669460778e-07,
+            "finite": true
+          },
+          "kernel_trace": [
+            "mm_direct_fused"
+          ]
+        },
+        "candidate_tf32": {
+          "median_ms": 0.10662293061614037,
+          "samples_ms": [
+            0.124386977404356,
+            0.11359504424035549,
+            0.10062195360660553,
+            0.09704218246042728,
+            0.09331898763775826,
+            0.11132401414215565,
+            0.5400979425758123,
+            0.1442700158804655,
+            0.10192184709012508,
+            0.09708898141980171
+          ],
+          "output_sha256": "198b8046771a36d52e9554242752423562ad444f6e2a32e86429c269c25d100d",
+          "vs_ieee_fp64": {
+            "relative_l2": 6.813322605587118e-08,
+            "max_abs": 6.77242155688873e-07,
+            "rms": 3.8784007462722695e-08,
+            "finite": true
+          },
+          "vs_rne_fp64": {
+            "relative_l2": 0.00013506504261758757,
+            "max_abs": 0.001025932594401091,
+            "rms": 7.688677539389581e-05,
+            "finite": true
+          },
+          "kernel_trace": [
+            "_fill_contiguous_fp32",
+            "mv_kernel"
+          ]
+        }
+      },
+      "gold_ieee_fp64_sha256": "aae17dbeffd064f3eb2ce58d71f6bf58f1958b6523d7a0f72a79cdf07b3dfac6",
+      "gold_rne_fp64_sha256": "33f522527f99b740b275686671dc952c933ce5d50a438e77ed7c713b8e4d1c30"
+    }
+  ],
+  "scope": "Full actual QK/PV operands replayed only in original-server memory. Only error/timing/hash JSON persisted; original teacher outputs returned."
+}

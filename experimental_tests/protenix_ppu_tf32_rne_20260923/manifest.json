@@ -1,0 +1,114 @@
+{
+  "candidate": "ppu-tf32-rne-20260923",
+  "device_scope": "PPU-ZW810E + FlagGems 5.0.2 runtime, isolated experimental overlay",
+  "baseline_sources_sha256": {
+    "mm.py": "c04966e8ad23516a8909fb6d772e441ac3e644c4021a424dda2cc57c2adf211c",
+    "addmm.py": "83aad8b63b491c2e899d0c969c0872a6804c31ca86877e33eebb2d9f78312838",
+    "bmm.py": "d3bf5333aa7d91ba683d3f4888bf3505488574c18c2ab3145d2499012b9e76ea",
+    "mean.py": "7af1a343cf866df1dbaa444d7d51b3af9eb6400e1f8d5e44b38265d810342881",
+    "triangle_attention.py": "57d5990d4d372ae82bae512933b43bd74360cdb91fed3125f524bb6ed0da1b9b"
+  },
+  "candidate_ops_sha256": {
+    "addmm.py": "f5967c177afd31ea59396b3cdc63ee98cb70ce3d10824e3983129d03a9e36d5d",
+    "bmm.py": "61ae7ff9975d52cd499d494ae161d87ed2653b5cfe9d744462aed424587864b1",
+    "mean.py": "7af1a343cf866df1dbaa444d7d51b3af9eb6400e1f8d5e44b38265d810342881",
+    "mm.py": "5e706000d0a344153e8dd280de50706770fc257e126fe50eb3dbfb293d75b1b5",
+    "tf32_precision.py": "44167d7b394ce8d971530beb3c6320dac600b1fc990ad2acf1975f2213c45e53",
+    "triangle_attention.py": "ff37750deb641f0fb1415146f0f4a7ccdc71a942ca5ff500829e8be362fbaf8f"
+  },
+  "auxiliary_sha256": {
+    "test_tf32_rne.py": "75b6d8d805554b27f236047ba5ed90ac52584f4b50b11329d501c6e26c9b3339",
+    "README.md": "7df47a90d76e67fd6c4e261e5e8f3d31a854f48e2a4efae185b894adb4bdf733"
+  },
+  "semantic_contract": {
+    "input_rounding": "IEEE RNE, ties-to-even to 10 fraction bits",
+    "dot": "existing TF32 dot instruction",
+    "accumulation": "FP32",
+    "strict_fp32": "unchanged when allow_tf32 is false",
+    "triangle_modes": [
+      "tf32",
+      "qk_tf32",
+      "pv_tf32",
+      "tf32_rne",
+      "qk_tf32_rne",
+      "pv_tf32_rne"
+    ]
+  },
+  "validation": {
+    "python_compile": "passed locally",
+    "scalar_rne_reference": "8205 FP32 bit patterns, exact bitwise match",
+    "ppu_kernel_and_entry_probe": "passed on PPU-ZW810E device 7; MM/addmm/BMM Torch dispatch and direct FlagGems entry, TriAttention Protenix public adapter forward/backward",
+    "ppu_rne_reference_relative_l2": {
+      "mm_splitk": 1.1421089594451951e-07,
+      "addmm_splitk": 1.1415619350613598e-07,
+      "bmm": 1.4148383490254122e-07,
+      "mm_syrk": 3.064929804835929e-07,
+      "mm_general": 1.3543769223984034e-07
+    },
+    "max_ppu_rne_reference_relative_l2": 3.064929804835929e-07,
+    "model_accuracy_latency": "G01_prefix511 candidate E2E: strict FP32 5.800 s, old TF32-RNE 8.310 s, new candidate six-repeat median 6.878 s. Same-cache warmup 25.757 s after a cold-cache first warmup of 799.084 s. Kabsch RMSD 0.09499 A; max confidence relative delta 0.0667%. Candidate remains 18.6% slower than strict FP32; nine-model acceptance pending.",
+    "validated_utc": "2026-09-24",
+    "real_activation_performance_probe_20260924": {
+      "device": "PPU-ZW810E + isolated FlagGems candidate",
+      "inputs": [
+        "G01_prefix257",
+        "G01_prefix511"
+      ],
+      "result": "BMM RNE candidate is faster on 4 of 5 captured BMM shapes; for [16,511,511] x [16,511,24], TF32 is slower, so strict FP32 fallback was added and remeasured at parity with zero output error.",
+      "training_probe": "MM 1.127x, addmm 0.992x (event medians at parity), BMM 1.200x, Triangle Attention 1.184x.",
+      "e2e_prefix511": {
+        "status": "completed; cold-cache and same-cache rerun both PASS",
+        "strict_fp32_repeat_s": 5.800315316999331,
+        "previous_tf32_rne_repeat_s": 8.309621813008562,
+        "candidate_cold_cache_warmup_s": 799.0838392880978,
+        "candidate_same_cache_warmup_s": 25.757183024077676,
+        "candidate_run1_repeat_median_s": 6.87536895298399,
+        "candidate_same_cache_repeat_median_s": 6.880961528979242,
+        "candidate_six_repeat_median_s": 6.878165240981616,
+        "candidate_six_repeat_cv": 0.005821840914688145,
+        "candidate_over_strict_ratio": 1.1858260913546141,
+        "candidate_over_previous_tf32_ratio": 0.8277350516980175,
+        "kabsch_rmsd_A": 0.0949894614017008,
+        "max_confidence_relative_delta": 0.0006663479688984572,
+        "input_feature_atom_audit": "MSA file bytes unchanged; only MSA paths corrected; feature and atom hashes match; strict 1038-event RNG trace equals candidate prefix (candidate ran 3 repeats vs strict 1).",
+        "prediction_digest_identical_across_repeats": true
+      }
+    },
+    "rhs_cache_ab_20260926": {
+      "status": "passed",
+      "scope": "Protenix base-default v1.0, G01/G02, PPU GPU 7, seed 101; five measured repeats; no CUDA profiler or MM shape/storage tracing",
+      "cache_env": "FLAG_GEMS_PPU_TF32_RNE_RHS_CACHE_MB; default 0 (disabled); test limit 160 MiB",
+      "route_order": {
+        "G02": "cache_off then cache_on",
+        "G01": "cache_on then cache_off"
+      },
+      "cases": {
+        "G01": {
+          "cache_off_median_s": 9.696549817104824,
+          "cache_on_median_s": 9.69377882196568,
+          "cache_speedup_pct": 0.028577124765102473,
+          "steady_state_hits_per_repeat": 3608,
+          "cache_bytes": 136556544,
+          "peak_allocated_delta_bytes": 136556544,
+          "prior_direct_only_median_s": 10.439677528105676,
+          "prediction_rng_features_metrics_equal": true
+        },
+        "G02": {
+          "cache_off_median_s": 2.431336277979426,
+          "cache_on_median_s": 2.364284343086183,
+          "cache_speedup_pct": 2.7578223341843464,
+          "steady_state_hits_per_repeat": 2133,
+          "cache_bytes": 135769088,
+          "peak_allocated_delta_bytes": 135769088,
+          "prior_direct_only_median_s": 2.2469782930566,
+          "prediction_rng_features_metrics_equal": true
+        }
+      },
+      "decision": "keep cache opt-in; G01 is unchanged, G02 improves modestly but remains slower than direct-only",
+      "protenix_summary": "../../../Protenix/comparison/ppu_tf32_precision_20260923/route_diag_20260924/direct_only_control_20260925/route_profile_20260925/rhs_cache_experiment_summary_20260926.json"
+    }
+  },
+  "results_sha256": {
+    "ppu_probe.json": "5a388f18c0afdf440dc995ec2c01435943acfb674aa587c11b7ebc78b692b9c6"
+  }
+}

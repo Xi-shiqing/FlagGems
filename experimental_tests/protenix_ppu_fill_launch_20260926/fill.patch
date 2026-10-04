@@ -1,0 +1,45 @@
+--- a/flag_gems/ops/fill.py
++++ b/flag_gems/ops/fill.py
+@@ -1,11 +1,12 @@
+ import logging
++import math
+ 
+ import torch
+ import triton
+ import triton.language as tl
+ 
+ from flag_gems.runtime import torch_device_fn
+-from flag_gems.utils import pointwise_dynamic
++from flag_gems.utils import libentry, pointwise_dynamic
+ 
+ logger = logging.getLogger(__name__)
+ 
+@@ -83,8 +84,28 @@
+     return self
+ 
+ 
++@libentry()
++@triton.jit(do_not_specialize=["value", "size"])
++def _fill_contiguous_fp32(out, value, size, BLOCK: tl.constexpr):
++    offsets = tl.program_id(0).to(tl.int64) * BLOCK + tl.arange(0, BLOCK)
++    tl.store(out + offsets, value, offsets < size)
++
++
+ def fill_scalar_(self, value):
+     logger.debug("GEMS FILL_SCALAR_")
++    # Flatten contiguous FP32 storage without pointwise broadcasting/codegen.
++    # Keep dtype/layout and scalar conversions outside this contract unchanged.
++    if self.dtype == torch.float32 and self.is_contiguous() and isinstance(value, (int, float)):
++        if not isinstance(value, int) or abs(value) <= (1 << 53):
++            scalar = float(value)
++            if not math.isfinite(scalar) or abs(scalar) <= 3.4028234663852886e38:
++                size = self.numel()
++                if size:
++                    with torch_device_fn.device(self.device):
++                        _fill_contiguous_fp32[(triton.cdiv(size, 1024),)](
++                            self, scalar, size, BLOCK=1024, num_warps=4
++                        )
++                return self
+     with torch_device_fn.device(self.device):
+         fill_scalar_func(self, value, out0=self)
+     return self

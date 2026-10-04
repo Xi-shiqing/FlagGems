@@ -1,0 +1,26 @@
+{
+  "baseline_fill_sha256": "46b800b01b875e6433be81ebf11796e29da721b9f71e6513971eaaa518e77073",
+  "candidate_fill_sha256": "7ecbda6090666f4e2c06ce3bad5897bc0169c86d36cccf4f05af0b58df06465b",
+  "shape_rules_added": 0,
+  "fast_path": "contiguous FP32 scalar fill, all ranks and sizes",
+  "deterministic_memory_fill": "preserved",
+  "tf32_math": "unchanged native RNE baseline",
+  "validation": {
+    "fill_value_shape_cases": 108,
+    "guard_and_fallback_checks": 8,
+    "model_input_pairs": 4,
+    "model_modes_per_pair": 4,
+    "model_repeats_per_mode": 5,
+    "operator_forward_backward_update_cases": 4,
+    "same_precision_baseline_candidate_outputs_exact": true,
+    "source_python_files_compared": 1367,
+    "source_changed_python_files": [
+      "ops/fill.py"
+    ],
+    "nine_model_acceptance": false,
+    "remaining_tf32_rmsd_failures_vs_h100_fp32": [
+      "G01/base v1",
+      "G03/base v1"
+    ]
+  }
+}

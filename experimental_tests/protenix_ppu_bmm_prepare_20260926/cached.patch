@@ -1,0 +1,18 @@
+--- a/flag_gems/ops/bmm.py
++++ b/flag_gems/ops/bmm.py
+@@ -34,6 +34,7 @@
+     return _allow_tf32() and not (M > 1 and N <= 32)
+ 
+ 
++@libentry()
+ @triton.jit
+ def _round_bmm_inputs(
+     A, B, AR, BR,
+@@ -52,6 +53,7 @@
+     tl.store(BR + i, round_tf32_rne(b, True), i < num_b)
+ 
+ 
++@libentry()
+ @triton.jit
+ def _bmm_tf32_preconverted(
+     A, B, O,

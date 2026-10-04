@@ -1,0 +1,31 @@
+{
+  "allocation": {
+    "sites": [
+      "PointwiseDynamicFunction.prepare_args (3)",
+      "softmax forward (2)",
+      "sigmoid flat inference output (1)",
+      "triangle attention forward out only (1)",
+      "cat output (1)"
+    ],
+    "mechanism": "Use the already-verified empty_full_write storage allocator for outputs whose kernels store every logical element; preserve dense transpose strides. No global deterministic flag changes.",
+    "safety": "Enabled only inside candidate inference; poison all eligible output buffers on first whole-model warmup; retain exact coordinate and five-score hashes. Grad-enabled contexts fall back to torch allocation.",
+    "baseline": "Rewrite module allocation alias to torch during FP32/TF32 baselines, eliminating the candidate helper branch from baseline timing."
+  },
+  "mm": {
+    "mechanism": "Prepare RHS with the same shared RNE conversion once per eligible call; keep physical row/column-major layout. Reuse original mm_direct_fused, 64x128x32, four warps, stage=1, same Split-K and index-width rules; A conversion remains in MM.",
+    "amortization": "Original B conversion is repeated across M tiles. Preparation converts K*N values once, at the cost of one launch and a temporary dense RHS. Benefit must amortize this extra launch and allocation.",
+    "resource_rule": "M has at least 2048 tiles of 64 rows; dense RHS <=64MiB; ordinary TF32 inference. All other calls use original direct MM. No persistent RHS cache, no input/model/shape lookup table.",
+    "layout": "Column-major B is prepared as (N,K).T, preserving strides (1,K). Row-major B is prepared as (K,N). The flat preparation kernel reads/writes physical contiguous storage.",
+    "dispatch": "Small-M rejection precedes precision flags and stride checks. Whole-model screening exposed the cost of slow fallback dispatch.",
+    "proof": "Original real activation tensors and their SHA256 are checked on PPU; before/after TF32 MM outputs match bitwise. Compilation excluded, preparation/allocation included in warmed public-MM device timings."
+  },
+  "scope": {
+    "whole_model": "cycle=1, diffusion step=1, sample=1; full real audited inputs G01/G02, nine checkpoints; original hardware servers, physical GPU7.",
+    "precision": "No change in numerical TF32 policy. Formal native H100 TF32 accuracy gate remains unchanged if coordinate hashes remain identical.",
+    "excluded": [
+      "Production diffusion-step configuration acceptance",
+      "Nine-model training requalification",
+      "MFU or 80% performance claim"
+    ]
+  }
+}

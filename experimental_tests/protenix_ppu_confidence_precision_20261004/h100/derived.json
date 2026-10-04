@@ -1,0 +1,5138 @@
+{
+  "status": "PASS",
+  "server": "h100",
+  "cases": [
+    {
+      "case": "G01",
+      "model": "protenix-v2",
+      "N_token": 693,
+      "summary": {
+        "fp32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 7.774129534140229,
+          "samples_seconds": [
+            7.774129534140229,
+            7.761319966055453,
+            7.790191230364144
+          ],
+          "prediction_digest": {
+            "sha256": "718ce45041e8d49a62d2287bcea7554b17adf6af42c729a0ef8b5875cba984d2",
+            "sum_fp64": -6268.000068187714,
+            "max_abs": 5072.15234375
+          },
+          "five_confidence_metrics": {
+            "plddt": 84.97667694091797,
+            "gpde": 1.0504616498947144,
+            "ptm": 0.45684927701950073,
+            "iptm": 0.0,
+            "ranking_score": 0.0913698598742485
+          }
+        },
+        "tf32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 4.304209027439356,
+          "samples_seconds": [
+            4.336519720032811,
+            4.304209027439356,
+            4.3011664394289255
+          ],
+          "prediction_digest": {
+            "sha256": "98d2f735b8774f9d91f160149f8b4644a6e934b6094e9e7e83dddef794cbd4e6",
+            "sum_fp64": -5997.960431098938,
+            "max_abs": 5072.1806640625
+          },
+          "five_confidence_metrics": {
+            "plddt": 84.99573516845703,
+            "gpde": 1.0491853952407837,
+            "ptm": 0.4576975703239441,
+            "iptm": 0.0,
+            "ranking_score": 0.09153951704502106
+          }
+        },
+        "tf32_triangle_corrected": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 4.6521304761990905,
+          "samples_seconds": [
+            4.646714048460126,
+            4.659872838295996,
+            4.6521304761990905
+          ],
+          "prediction_digest": {
+            "sha256": "4cb19a72605c5218b8421fe5c122f358f476864de0a475d661b871909efd2c25",
+            "sum_fp64": -6193.404549121857,
+            "max_abs": 5072.189453125
+          },
+          "five_confidence_metrics": {
+            "plddt": 84.97071838378906,
+            "gpde": 1.0492695569992065,
+            "ptm": 0.45770061016082764,
+            "iptm": 0.0,
+            "ranking_score": 0.09154012054204941
+          }
+        },
+        "tf32_confidence_outputs": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 4.638559267856181,
+          "samples_seconds": [
+            4.635337172076106,
+            4.656632808037102,
+            4.638559267856181
+          ],
+          "prediction_digest": {
+            "sha256": "4cb19a72605c5218b8421fe5c122f358f476864de0a475d661b871909efd2c25",
+            "sum_fp64": -6193.404549121857,
+            "max_abs": 5072.189453125
+          },
+          "five_confidence_metrics": {
+            "plddt": 84.97071838378906,
+            "gpde": 1.0488522052764893,
+            "ptm": 0.4577949047088623,
+            "iptm": 0.0,
+            "ranking_score": 0.09155898541212082
+          }
+        },
+        "tf32_confidence_distance": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 4.640984084457159,
+          "samples_seconds": [
+            4.640984084457159,
+            4.652012581937015,
+            4.632675337605178
+          ],
+          "prediction_digest": {
+            "sha256": "4cb19a72605c5218b8421fe5c122f358f476864de0a475d661b871909efd2c25",
+            "sum_fp64": -6193.404549121857,
+            "max_abs": 5072.189453125
+          },
+          "five_confidence_metrics": {
+            "plddt": 84.9544677734375,
+            "gpde": 1.0509088039398193,
+            "ptm": 0.4567548334598541,
+            "iptm": 0.0,
+            "ranking_score": 0.0913509652018547
+          }
+        },
+        "tf32_confidence_all": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 4.806442731060088,
+          "samples_seconds": [
+            4.804840631783009,
+            4.855443690903485,
+            4.806442731060088
+          ],
+          "prediction_digest": {
+            "sha256": "4cb19a72605c5218b8421fe5c122f358f476864de0a475d661b871909efd2c25",
+            "sum_fp64": -6193.404549121857,
+            "max_abs": 5072.189453125
+          },
+          "five_confidence_metrics": {
+            "plddt": 84.96721649169922,
+            "gpde": 1.0504906177520752,
+            "ptm": 0.456849068403244,
+            "iptm": 0.0,
+            "ranking_score": 0.09136981517076492
+          }
+        }
+      },
+      "checkpoint_sha256": [
+        "8f931f9774a396b67033d0e58628e1834f4a1448165e04254b40a780b0c0d599"
+      ],
+      "feature_tensor_manifest_sha256": "19c74877d181f2c63d906a083cc90fd6aac14748f9ef9584d2d3c59d073aa5c8",
+      "atom_identity_sha256": "db523c3e8f572ab823239c2f313877331263f1b3df902ea30b5ba5e499a9743a",
+      "canonical_input_sha256": "b114196121e5991453c620dace327776e15351e0f449ccf7ba11f75cc9efc38c",
+      "asset_hashes": [
+        "96f59de464675c42579d2106b609879e4aa0a82ff3589107168dd1d806720daa",
+        "ae73737a15edc8e9e86feb67fdb9fc640dc8f2305946581fe0a4c2ac228900f0"
+      ],
+      "rng": {
+        "initialization_semantic_sha256": "3c332922527af11dcff7e927e07766cee5ee98e58e18650d9413e35826720f73",
+        "prediction_semantic_sha256": "6ab053c97834f938a6904a26dcde21cbfec05f14b4ca48c6a7651c474dfb31c4",
+        "prediction_count": 24,
+        "status": "PASS"
+      },
+      "input_and_rng_audit": "PASS",
+      "native_predictions_and_metrics_retained": true,
+      "candidate_coordinates_unchanged": true,
+      "physical_gpu": "7",
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "fp32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_all",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "cdist",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "atom_output_einsum",
+            "count": 8
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pae",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pde",
+            "count": 4
+          },
+          {
+            "mode": "tf32_triangle_corrected",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32."
+      },
+      "runtime_precision_compact": {
+        "fp32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "False": 5508
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 5508
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_triangle_corrected": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 5508
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_outputs": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 5504,
+            "False": 4
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_distance": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 5508
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_all": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 5188,
+            "False": 320
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        }
+      },
+      "triangle_calls_first_warmup": {
+        "fp32": 128,
+        "tf32": 128,
+        "tf32_triangle_corrected": 128,
+        "tf32_confidence_outputs": 128,
+        "tf32_confidence_distance": 128,
+        "tf32_confidence_all": 128
+      }
+    },
+    {
+      "case": "G01",
+      "model": "protenix_base_20250630_v1.0.0",
+      "N_token": 693,
+      "summary": {
+        "fp32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 3.8478046068921685,
+          "samples_seconds": [
+            3.857634276151657,
+            3.8478046068921685,
+            3.8448191238567233
+          ],
+          "prediction_digest": {
+            "sha256": "102129c79c5bb8a27ca09d2007cecb89cceb67c099712295665a5656b7a285af",
+            "sum_fp64": 96969.39717829227,
+            "max_abs": 5084.8515625
+          },
+          "five_confidence_metrics": {
+            "plddt": 84.08070373535156,
+            "gpde": 5.621561050415039,
+            "ptm": 0.1663939654827118,
+            "iptm": 0.0,
+            "ranking_score": 0.03327879309654236
+          }
+        },
+        "tf32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 2.471401732414961,
+          "samples_seconds": [
+            2.4870147285982966,
+            2.471401732414961,
+            2.4662788566201925
+          ],
+          "prediction_digest": {
+            "sha256": "7a2b72dd1cb5ca2dea97d1b5d1275aff24da98a60007fffc069229410ad27c50",
+            "sum_fp64": 95281.4833381176,
+            "max_abs": 5084.2060546875
+          },
+          "five_confidence_metrics": {
+            "plddt": 84.10475158691406,
+            "gpde": 5.623242378234863,
+            "ptm": 0.16644199192523956,
+            "iptm": 0.0,
+            "ranking_score": 0.03328840062022209
+          }
+        },
+        "tf32_triangle_corrected": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 2.6637693820521235,
+          "samples_seconds": [
+            2.677535008639097,
+            2.6625082502141595,
+            2.6637693820521235
+          ],
+          "prediction_digest": {
+            "sha256": "13c9eae19d6a3a0905499961290b5eaffa5562cc01f0b9adc928203f2a448614",
+            "sum_fp64": 96938.06541782618,
+            "max_abs": 5084.9248046875
+          },
+          "five_confidence_metrics": {
+            "plddt": 84.10847473144531,
+            "gpde": 5.623705863952637,
+            "ptm": 0.16644373536109924,
+            "iptm": 0.0,
+            "ranking_score": 0.03328874707221985
+          }
+        },
+        "tf32_confidence_outputs": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 2.6683420222252607,
+          "samples_seconds": [
+            2.6688324958086014,
+            2.6683420222252607,
+            2.6643286058679223
+          ],
+          "prediction_digest": {
+            "sha256": "13c9eae19d6a3a0905499961290b5eaffa5562cc01f0b9adc928203f2a448614",
+            "sum_fp64": 96938.06541782618,
+            "max_abs": 5084.9248046875
+          },
+          "five_confidence_metrics": {
+            "plddt": 84.10847473144531,
+            "gpde": 5.622790813446045,
+            "ptm": 0.16639912128448486,
+            "iptm": 0.0,
+            "ranking_score": 0.03327982500195503
+          }
+        },
+        "tf32_confidence_distance": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 2.6619458589702845,
+          "samples_seconds": [
+            2.6635521203279495,
+            2.6619458589702845,
+            2.6557042226195335
+          ],
+          "prediction_digest": {
+            "sha256": "13c9eae19d6a3a0905499961290b5eaffa5562cc01f0b9adc928203f2a448614",
+            "sum_fp64": 96938.06541782618,
+            "max_abs": 5084.9248046875
+          },
+          "five_confidence_metrics": {
+            "plddt": 84.0897445678711,
+            "gpde": 5.623194694519043,
+            "ptm": 0.16643981635570526,
+            "iptm": 0.0,
+            "ranking_score": 0.03328796476125717
+          }
+        },
+        "tf32_confidence_all": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 2.7060440247878432,
+          "samples_seconds": [
+            2.7060440247878432,
+            2.720493412576616,
+            2.7000670125707984
+          ],
+          "prediction_digest": {
+            "sha256": "13c9eae19d6a3a0905499961290b5eaffa5562cc01f0b9adc928203f2a448614",
+            "sum_fp64": 96938.06541782618,
+            "max_abs": 5084.9248046875
+          },
+          "five_confidence_metrics": {
+            "plddt": 84.08014678955078,
+            "gpde": 5.622303009033203,
+            "ptm": 0.16639479994773865,
+            "iptm": 0.0,
+            "ranking_score": 0.03327896073460579
+          }
+        }
+      },
+      "checkpoint_sha256": [
+        "e850a6b16b3d254ba9a7f67cefd9b59e111fb2036ae036d2703d050aff6ab611"
+      ],
+      "feature_tensor_manifest_sha256": "58ba6e75399adbac6a97e68ddac27653f2bc8ccb808245c4925fc627309a5099",
+      "atom_identity_sha256": "db523c3e8f572ab823239c2f313877331263f1b3df902ea30b5ba5e499a9743a",
+      "canonical_input_sha256": "b114196121e5991453c620dace327776e15351e0f449ccf7ba11f75cc9efc38c",
+      "asset_hashes": [
+        "96f59de464675c42579d2106b609879e4aa0a82ff3589107168dd1d806720daa",
+        "ae73737a15edc8e9e86feb67fdb9fc640dc8f2305946581fe0a4c2ac228900f0"
+      ],
+      "rng": {
+        "initialization_semantic_sha256": "3c332922527af11dcff7e927e07766cee5ee98e58e18650d9413e35826720f73",
+        "prediction_semantic_sha256": "6ab053c97834f938a6904a26dcde21cbfec05f14b4ca48c6a7651c474dfb31c4",
+        "prediction_count": 24,
+        "status": "PASS"
+      },
+      "input_and_rng_audit": "PASS",
+      "native_predictions_and_metrics_retained": true,
+      "candidate_coordinates_unchanged": true,
+      "physical_gpu": "0",
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "fp32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_all",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "cdist",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "atom_output_einsum",
+            "count": 8
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pae",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pde",
+            "count": 4
+          },
+          {
+            "mode": "tf32_triangle_corrected",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32."
+      },
+      "runtime_precision_compact": {
+        "fp32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "False": 5508
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 5508
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_triangle_corrected": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 5508
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_outputs": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 5504,
+            "False": 4
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_distance": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 5508
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_all": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 5188,
+            "False": 320
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        }
+      },
+      "triangle_calls_first_warmup": {
+        "fp32": 128,
+        "tf32": 128,
+        "tf32_triangle_corrected": 128,
+        "tf32_confidence_outputs": 128,
+        "tf32_confidence_distance": 128,
+        "tf32_confidence_all": 128
+      }
+    },
+    {
+      "case": "G01",
+      "model": "protenix_base_constraint_v0.5.0",
+      "N_token": 693,
+      "summary": {
+        "fp32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 3.524285708554089,
+          "samples_seconds": [
+            3.5061860755085945,
+            3.524285708554089,
+            3.554810358211398
+          ],
+          "prediction_digest": {
+            "sha256": "57421858f0202a46d95ed18051f34c5491c689f23aa8ab96300c929d1efbfb9c",
+            "sum_fp64": 12410.23001408577,
+            "max_abs": 5071.2275390625
+          },
+          "five_confidence_metrics": {
+            "plddt": 85.32280731201172,
+            "gpde": 0.2562061548233032,
+            "ptm": 0.9624521732330322,
+            "iptm": 0.0,
+            "ranking_score": 0.19249044358730316
+          }
+        },
+        "tf32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 2.2920797374099493,
+          "samples_seconds": [
+            2.2718943683430552,
+            2.3154922937974334,
+            2.2920797374099493
+          ],
+          "prediction_digest": {
+            "sha256": "2734a8ba638fa30b83853f5921e14f9386fbb85032818c56a0062b9b4d85985d",
+            "sum_fp64": 5214.846834778786,
+            "max_abs": 5069.9482421875
+          },
+          "five_confidence_metrics": {
+            "plddt": 85.32373809814453,
+            "gpde": 0.2561655640602112,
+            "ptm": 0.9624631404876709,
+            "iptm": 0.0,
+            "ranking_score": 0.19249263405799866
+          }
+        },
+        "tf32_triangle_corrected": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 2.431846773251891,
+          "samples_seconds": [
+            2.44636301510036,
+            2.410309919156134,
+            2.431846773251891
+          ],
+          "prediction_digest": {
+            "sha256": "72e8a668097c2f8ec64fe1c8a1d8d934c09f385d1bd9abb9bbc4504b5ed2fb1d",
+            "sum_fp64": 12320.282620310783,
+            "max_abs": 5071.25390625
+          },
+          "five_confidence_metrics": {
+            "plddt": 85.33074188232422,
+            "gpde": 0.256166934967041,
+            "ptm": 0.9624611735343933,
+            "iptm": 0.0,
+            "ranking_score": 0.19249223172664642
+          }
+        },
+        "tf32_confidence_outputs": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 2.4281206307932734,
+          "samples_seconds": [
+            2.4281206307932734,
+            2.430822068825364,
+            2.4194946698844433
+          ],
+          "prediction_digest": {
+            "sha256": "72e8a668097c2f8ec64fe1c8a1d8d934c09f385d1bd9abb9bbc4504b5ed2fb1d",
+            "sum_fp64": 12320.282620310783,
+            "max_abs": 5071.25390625
+          },
+          "five_confidence_metrics": {
+            "plddt": 85.33074188232422,
+            "gpde": 0.2561662197113037,
+            "ptm": 0.9624634385108948,
+            "iptm": 0.0,
+            "ranking_score": 0.19249269366264343
+          }
+        },
+        "tf32_confidence_distance": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 2.408818293362856,
+          "samples_seconds": [
+            2.420000740326941,
+            2.408818293362856,
+            2.4049401646479964
+          ],
+          "prediction_digest": {
+            "sha256": "72e8a668097c2f8ec64fe1c8a1d8d934c09f385d1bd9abb9bbc4504b5ed2fb1d",
+            "sum_fp64": 12320.282620310783,
+            "max_abs": 5071.25390625
+          },
+          "five_confidence_metrics": {
+            "plddt": 85.3296890258789,
+            "gpde": 0.2562069296836853,
+            "ptm": 0.9624497890472412,
+            "iptm": 0.0,
+            "ranking_score": 0.19248996675014496
+          }
+        },
+        "tf32_confidence_all": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 2.464606013149023,
+          "samples_seconds": [
+            2.4816820062696934,
+            2.464606013149023,
+            2.4525497490540147
+          ],
+          "prediction_digest": {
+            "sha256": "72e8a668097c2f8ec64fe1c8a1d8d934c09f385d1bd9abb9bbc4504b5ed2fb1d",
+            "sum_fp64": 12320.282620310783,
+            "max_abs": 5071.25390625
+          },
+          "five_confidence_metrics": {
+            "plddt": 85.32756805419922,
+            "gpde": 0.256206214427948,
+            "ptm": 0.9624521732330322,
+            "iptm": 0.0,
+            "ranking_score": 0.19249044358730316
+          }
+        }
+      },
+      "checkpoint_sha256": [
+        "5358025b20b2212853ad75579be04387859557915f398a1d60f6a1a9a0c8c887"
+      ],
+      "feature_tensor_manifest_sha256": "23e6095c86bf9cc975647ae4287a53975a7c99a5903646d7991b5f75f982223a",
+      "atom_identity_sha256": "db523c3e8f572ab823239c2f313877331263f1b3df902ea30b5ba5e499a9743a",
+      "canonical_input_sha256": "b114196121e5991453c620dace327776e15351e0f449ccf7ba11f75cc9efc38c",
+      "asset_hashes": [
+        "96f59de464675c42579d2106b609879e4aa0a82ff3589107168dd1d806720daa",
+        "ae73737a15edc8e9e86feb67fdb9fc640dc8f2305946581fe0a4c2ac228900f0"
+      ],
+      "rng": {
+        "initialization_semantic_sha256": "3c332922527af11dcff7e927e07766cee5ee98e58e18650d9413e35826720f73",
+        "prediction_semantic_sha256": "6ab053c97834f938a6904a26dcde21cbfec05f14b4ca48c6a7651c474dfb31c4",
+        "prediction_count": 24,
+        "status": "PASS"
+      },
+      "input_and_rng_audit": "PASS",
+      "native_predictions_and_metrics_retained": true,
+      "candidate_coordinates_unchanged": true,
+      "physical_gpu": "7",
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "fp32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_all",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "cdist",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "atom_output_einsum",
+            "count": 8
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pae",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pde",
+            "count": 4
+          },
+          {
+            "mode": "tf32_triangle_corrected",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32."
+      },
+      "runtime_precision_compact": {
+        "fp32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "False": 4967
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 4967
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_triangle_corrected": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 4967
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_outputs": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 4963,
+            "False": 4
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_distance": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 4967
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_all": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 4647,
+            "False": 320
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        }
+      },
+      "triangle_calls_first_warmup": {
+        "fp32": 112,
+        "tf32": 112,
+        "tf32_triangle_corrected": 112,
+        "tf32_confidence_outputs": 112,
+        "tf32_confidence_distance": 112,
+        "tf32_confidence_all": 112
+      }
+    },
+    {
+      "case": "G01",
+      "model": "protenix_base_default_v0.5.0",
+      "N_token": 693,
+      "summary": {
+        "fp32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 3.504289887845516,
+          "samples_seconds": [
+            3.491648830473423,
+            3.6345294788479805,
+            3.504289887845516
+          ],
+          "prediction_digest": {
+            "sha256": "734ad942a314f253bdb98c6591ecbc3bccc95ced3a1d2f7e3fff5664316066f1",
+            "sum_fp64": 114266.0527331829,
+            "max_abs": 5083.3017578125
+          },
+          "five_confidence_metrics": {
+            "plddt": 10.811491012573242,
+            "gpde": 0.25732651352882385,
+            "ptm": 0.8859730958938599,
+            "iptm": 0.0,
+            "ranking_score": 0.17719462513923645
+          }
+        },
+        "tf32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 2.2505612522363663,
+          "samples_seconds": [
+            2.2505612522363663,
+            2.2517746947705746,
+            2.2487656557932496
+          ],
+          "prediction_digest": {
+            "sha256": "c6668c889988922692103f0980ac802ff069f82c4be8e16ff562e6dca64aefbb",
+            "sum_fp64": 113228.16031765938,
+            "max_abs": 5083.158203125
+          },
+          "five_confidence_metrics": {
+            "plddt": 10.895445823669434,
+            "gpde": 0.25723057985305786,
+            "ptm": 0.88609379529953,
+            "iptm": 0.0,
+            "ranking_score": 0.17721876502037048
+          }
+        },
+        "tf32_triangle_corrected": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 2.4210277795791626,
+          "samples_seconds": [
+            2.4172747284173965,
+            2.4210277795791626,
+            2.424350001849234
+          ],
+          "prediction_digest": {
+            "sha256": "c689acfcca098ab7a759102dbdaf70d50995aa1a8b6b46d65870822a54f4a8d5",
+            "sum_fp64": 114177.61030721664,
+            "max_abs": 5083.2880859375
+          },
+          "five_confidence_metrics": {
+            "plddt": 12.762022018432617,
+            "gpde": 0.25724291801452637,
+            "ptm": 0.8860794901847839,
+            "iptm": 0.0,
+            "ranking_score": 0.17721590399742126
+          }
+        },
+        "tf32_confidence_outputs": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 2.4103847267106175,
+          "samples_seconds": [
+            2.412834383547306,
+            2.4103847267106175,
+            2.4070932446047664
+          ],
+          "prediction_digest": {
+            "sha256": "c689acfcca098ab7a759102dbdaf70d50995aa1a8b6b46d65870822a54f4a8d5",
+            "sum_fp64": 114177.61030721664,
+            "max_abs": 5083.2880859375
+          },
+          "five_confidence_metrics": {
+            "plddt": 12.762022018432617,
+            "gpde": 0.2572411298751831,
+            "ptm": 0.8860816955566406,
+            "iptm": 0.0,
+            "ranking_score": 0.1772163361310959
+          }
+        },
+        "tf32_confidence_distance": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 2.4197345888242126,
+          "samples_seconds": [
+            2.4249490406364202,
+            2.4197345888242126,
+            2.412556960247457
+          ],
+          "prediction_digest": {
+            "sha256": "c689acfcca098ab7a759102dbdaf70d50995aa1a8b6b46d65870822a54f4a8d5",
+            "sum_fp64": 114177.61030721664,
+            "max_abs": 5083.2880859375
+          },
+          "five_confidence_metrics": {
+            "plddt": 10.958925247192383,
+            "gpde": 0.25732824206352234,
+            "ptm": 0.8859706521034241,
+            "iptm": 0.0,
+            "ranking_score": 0.17719413340091705
+          }
+        },
+        "tf32_confidence_all": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 2.465438973158598,
+          "samples_seconds": [
+            2.460382739081979,
+            2.4666546126827598,
+            2.465438973158598
+          ],
+          "prediction_digest": {
+            "sha256": "c689acfcca098ab7a759102dbdaf70d50995aa1a8b6b46d65870822a54f4a8d5",
+            "sum_fp64": 114177.61030721664,
+            "max_abs": 5083.2880859375
+          },
+          "five_confidence_metrics": {
+            "plddt": 10.93320369720459,
+            "gpde": 0.2573263645172119,
+            "ptm": 0.8859730958938599,
+            "iptm": 0.0,
+            "ranking_score": 0.17719462513923645
+          }
+        }
+      },
+      "checkpoint_sha256": [
+        "9ea20b0aba42f2256711da1d0cd081510a4b291e64375bff6b70ced70b87a5f1"
+      ],
+      "feature_tensor_manifest_sha256": "8e965f40340bc5f676a3b972909d2dd1344b99743711fc218b84b663229a0265",
+      "atom_identity_sha256": "db523c3e8f572ab823239c2f313877331263f1b3df902ea30b5ba5e499a9743a",
+      "canonical_input_sha256": "b114196121e5991453c620dace327776e15351e0f449ccf7ba11f75cc9efc38c",
+      "asset_hashes": [
+        "96f59de464675c42579d2106b609879e4aa0a82ff3589107168dd1d806720daa",
+        "ae73737a15edc8e9e86feb67fdb9fc640dc8f2305946581fe0a4c2ac228900f0"
+      ],
+      "rng": {
+        "initialization_semantic_sha256": "3c332922527af11dcff7e927e07766cee5ee98e58e18650d9413e35826720f73",
+        "prediction_semantic_sha256": "6ab053c97834f938a6904a26dcde21cbfec05f14b4ca48c6a7651c474dfb31c4",
+        "prediction_count": 24,
+        "status": "PASS"
+      },
+      "input_and_rng_audit": "PASS",
+      "native_predictions_and_metrics_retained": true,
+      "candidate_coordinates_unchanged": true,
+      "physical_gpu": "0",
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "fp32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_all",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "cdist",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "atom_output_einsum",
+            "count": 8
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pae",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pde",
+            "count": 4
+          },
+          {
+            "mode": "tf32_triangle_corrected",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32."
+      },
+      "runtime_precision_compact": {
+        "fp32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "False": 4963
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 4963
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_triangle_corrected": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 4963
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_outputs": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 4959,
+            "False": 4
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_distance": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 4963
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_all": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 4643,
+            "False": 320
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        }
+      },
+      "triangle_calls_first_warmup": {
+        "fp32": 112,
+        "tf32": 112,
+        "tf32_triangle_corrected": 112,
+        "tf32_confidence_outputs": 112,
+        "tf32_confidence_distance": 112,
+        "tf32_confidence_all": 112
+      }
+    },
+    {
+      "case": "G01",
+      "model": "protenix_base_default_v1.0.0",
+      "N_token": 693,
+      "summary": {
+        "fp32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 3.8458663020282984,
+          "samples_seconds": [
+            3.8458663020282984,
+            3.8382695065811276,
+            3.8529209224507213
+          ],
+          "prediction_digest": {
+            "sha256": "feef8d2f4e2f6b4ec407829adf1c844e13b6c65fc7747c613251f577e68eb5bd",
+            "sum_fp64": 73728.85400116444,
+            "max_abs": 5082.2919921875
+          },
+          "five_confidence_metrics": {
+            "plddt": 80.02595520019531,
+            "gpde": 7.311313629150391,
+            "ptm": 0.2725444734096527,
+            "iptm": 0.0,
+            "ranking_score": 0.05450889468193054
+          }
+        },
+        "tf32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 2.4660160318017006,
+          "samples_seconds": [
+            2.4693167181685567,
+            2.4660160318017006,
+            2.4586361246183515
+          ],
+          "prediction_digest": {
+            "sha256": "574e572ea8b7a4890ab62487c028e812609995aeec6fe4c39cac2495e12a6a0e",
+            "sum_fp64": 76621.71441626549,
+            "max_abs": 5082.7392578125
+          },
+          "five_confidence_metrics": {
+            "plddt": 80.0707778930664,
+            "gpde": 7.312370777130127,
+            "ptm": 0.2723744809627533,
+            "iptm": 0.0,
+            "ranking_score": 0.05447489768266678
+          }
+        },
+        "tf32_triangle_corrected": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 2.651973370462656,
+          "samples_seconds": [
+            2.640911449678242,
+            2.655691396445036,
+            2.651973370462656
+          ],
+          "prediction_digest": {
+            "sha256": "495b25f596891d3793816d30ec9044110bc32e9b23cbdf60e14a700e4d30475b",
+            "sum_fp64": 73864.83787965775,
+            "max_abs": 5082.2841796875
+          },
+          "five_confidence_metrics": {
+            "plddt": 80.0620346069336,
+            "gpde": 7.313502311706543,
+            "ptm": 0.27237027883529663,
+            "iptm": 0.0,
+            "ranking_score": 0.054474055767059326
+          }
+        },
+        "tf32_confidence_outputs": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 2.652333210222423,
+          "samples_seconds": [
+            2.6572609916329384,
+            2.652333210222423,
+            2.6447086492553353
+          ],
+          "prediction_digest": {
+            "sha256": "495b25f596891d3793816d30ec9044110bc32e9b23cbdf60e14a700e4d30475b",
+            "sum_fp64": 73864.83787965775,
+            "max_abs": 5082.2841796875
+          },
+          "five_confidence_metrics": {
+            "plddt": 80.0620346069336,
+            "gpde": 7.312771320343018,
+            "ptm": 0.2725507318973541,
+            "iptm": 0.0,
+            "ranking_score": 0.054510146379470825
+          }
+        },
+        "tf32_confidence_distance": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 2.6392217529937625,
+          "samples_seconds": [
+            2.6443254398182034,
+            2.636494795791805,
+            2.6392217529937625
+          ],
+          "prediction_digest": {
+            "sha256": "495b25f596891d3793816d30ec9044110bc32e9b23cbdf60e14a700e4d30475b",
+            "sum_fp64": 73864.83787965775,
+            "max_abs": 5082.2841796875
+          },
+          "five_confidence_metrics": {
+            "plddt": 80.02047729492188,
+            "gpde": 7.312499046325684,
+            "ptm": 0.27236267924308777,
+            "iptm": 0.0,
+            "ranking_score": 0.054472535848617554
+          }
+        },
+        "tf32_confidence_all": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 2.723529844544828,
+          "samples_seconds": [
+            2.69872379116714,
+            2.723529844544828,
+            2.7790698194876313
+          ],
+          "prediction_digest": {
+            "sha256": "495b25f596891d3793816d30ec9044110bc32e9b23cbdf60e14a700e4d30475b",
+            "sum_fp64": 73864.83787965775,
+            "max_abs": 5082.2841796875
+          },
+          "five_confidence_metrics": {
+            "plddt": 80.02550506591797,
+            "gpde": 7.311759948730469,
+            "ptm": 0.2725442349910736,
+            "iptm": 0.0,
+            "ranking_score": 0.05450884625315666
+          }
+        }
+      },
+      "checkpoint_sha256": [
+        "2b7d5a8b30494514fc47fd2271a16260528cdba170ba09cc112fdecd8f85ec04"
+      ],
+      "feature_tensor_manifest_sha256": "58ba6e75399adbac6a97e68ddac27653f2bc8ccb808245c4925fc627309a5099",
+      "atom_identity_sha256": "db523c3e8f572ab823239c2f313877331263f1b3df902ea30b5ba5e499a9743a",
+      "canonical_input_sha256": "b114196121e5991453c620dace327776e15351e0f449ccf7ba11f75cc9efc38c",
+      "asset_hashes": [
+        "96f59de464675c42579d2106b609879e4aa0a82ff3589107168dd1d806720daa",
+        "ae73737a15edc8e9e86feb67fdb9fc640dc8f2305946581fe0a4c2ac228900f0"
+      ],
+      "rng": {
+        "initialization_semantic_sha256": "3c332922527af11dcff7e927e07766cee5ee98e58e18650d9413e35826720f73",
+        "prediction_semantic_sha256": "6ab053c97834f938a6904a26dcde21cbfec05f14b4ca48c6a7651c474dfb31c4",
+        "prediction_count": 24,
+        "status": "PASS"
+      },
+      "input_and_rng_audit": "PASS",
+      "native_predictions_and_metrics_retained": true,
+      "candidate_coordinates_unchanged": true,
+      "physical_gpu": "7",
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "fp32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_all",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "cdist",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "atom_output_einsum",
+            "count": 8
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pae",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pde",
+            "count": 4
+          },
+          {
+            "mode": "tf32_triangle_corrected",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32."
+      },
+      "runtime_precision_compact": {
+        "fp32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "False": 5508
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 5508
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_triangle_corrected": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 5508
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_outputs": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 5504,
+            "False": 4
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_distance": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 5508
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_all": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 5188,
+            "False": 320
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        }
+      },
+      "triangle_calls_first_warmup": {
+        "fp32": 128,
+        "tf32": 128,
+        "tf32_triangle_corrected": 128,
+        "tf32_confidence_outputs": 128,
+        "tf32_confidence_distance": 128,
+        "tf32_confidence_all": 128
+      }
+    },
+    {
+      "case": "G01",
+      "model": "protenix_mini_default_v0.5.0",
+      "N_token": 693,
+      "summary": {
+        "fp32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 1.394902117550373,
+          "samples_seconds": [
+            1.394902117550373,
+            1.4006370324641466,
+            1.3909612698480487
+          ],
+          "prediction_digest": {
+            "sha256": "44dfaa002268dc3681f0717f4c5fe9dedbf44cb124f94be331e6787c6242fa22",
+            "sum_fp64": 89352.04268574715,
+            "max_abs": 52.445068359375
+          },
+          "five_confidence_metrics": {
+            "plddt": 60.584903717041016,
+            "gpde": 2.9087014198303223,
+            "ptm": 0.16898173093795776,
+            "iptm": 0.0,
+            "ranking_score": 0.03379634767770767
+          }
+        },
+        "tf32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.9470573645085096,
+          "samples_seconds": [
+            0.9470573645085096,
+            0.9339909767732024,
+            1.061183514073491
+          ],
+          "prediction_digest": {
+            "sha256": "421506459869778aaba5fb97f66192ef6ff68d2aa4f23099a4eda67e5a0eba96",
+            "sum_fp64": 90227.96274423599,
+            "max_abs": 51.76971435546875
+          },
+          "five_confidence_metrics": {
+            "plddt": 60.48625183105469,
+            "gpde": 2.904238224029541,
+            "ptm": 0.16919851303100586,
+            "iptm": 0.0,
+            "ranking_score": 0.03383970260620117
+          }
+        },
+        "tf32_triangle_corrected": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 1.013722574338317,
+          "samples_seconds": [
+            1.013722574338317,
+            1.0287028197199106,
+            0.9984385566785932
+          ],
+          "prediction_digest": {
+            "sha256": "9414cd6c7dac7fb9876d72c7416d7b168e93b1392d9450404446687f4fb18213",
+            "sum_fp64": 89215.85820746422,
+            "max_abs": 52.485595703125
+          },
+          "five_confidence_metrics": {
+            "plddt": 60.5936393737793,
+            "gpde": 2.9050087928771973,
+            "ptm": 0.16899001598358154,
+            "iptm": 0.0,
+            "ranking_score": 0.03379800543189049
+          }
+        },
+        "tf32_confidence_outputs": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.9975144043564796,
+          "samples_seconds": [
+            0.997971716336906,
+            0.9975144043564796,
+            0.9910424957051873
+          ],
+          "prediction_digest": {
+            "sha256": "9414cd6c7dac7fb9876d72c7416d7b168e93b1392d9450404446687f4fb18213",
+            "sum_fp64": 89215.85820746422,
+            "max_abs": 52.485595703125
+          },
+          "five_confidence_metrics": {
+            "plddt": 60.5936393737793,
+            "gpde": 2.90503191947937,
+            "ptm": 0.1689884066581726,
+            "iptm": 0.0,
+            "ranking_score": 0.03379768133163452
+          }
+        },
+        "tf32_confidence_distance": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.9964036233723164,
+          "samples_seconds": [
+            0.9964036233723164,
+            0.997911392711103,
+            0.9963182155042887
+          ],
+          "prediction_digest": {
+            "sha256": "9414cd6c7dac7fb9876d72c7416d7b168e93b1392d9450404446687f4fb18213",
+            "sum_fp64": 89215.85820746422,
+            "max_abs": 52.485595703125
+          },
+          "five_confidence_metrics": {
+            "plddt": 60.58665084838867,
+            "gpde": 2.9067792892456055,
+            "ptm": 0.16899295151233673,
+            "iptm": 0.0,
+            "ranking_score": 0.033798590302467346
+          }
+        },
+        "tf32_confidence_all": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 1.0433641355484724,
+          "samples_seconds": [
+            1.0433641355484724,
+            1.045741781592369,
+            1.0408917777240276
+          ],
+          "prediction_digest": {
+            "sha256": "9414cd6c7dac7fb9876d72c7416d7b168e93b1392d9450404446687f4fb18213",
+            "sum_fp64": 89215.85820746422,
+            "max_abs": 52.485595703125
+          },
+          "five_confidence_metrics": {
+            "plddt": 60.586029052734375,
+            "gpde": 2.9069061279296875,
+            "ptm": 0.16899311542510986,
+            "iptm": 0.0,
+            "ranking_score": 0.03379862383008003
+          }
+        }
+      },
+      "checkpoint_sha256": [
+        "3803340c5d9958c038e799ddd2b53b532db21855f261592ad455a5f003791f81"
+      ],
+      "feature_tensor_manifest_sha256": "af6b6d0a8ec2426a7a38e377508d5371e05c190e83010a06a95300259b4ca360",
+      "atom_identity_sha256": "db523c3e8f572ab823239c2f313877331263f1b3df902ea30b5ba5e499a9743a",
+      "canonical_input_sha256": "b114196121e5991453c620dace327776e15351e0f449ccf7ba11f75cc9efc38c",
+      "asset_hashes": [
+        "96f59de464675c42579d2106b609879e4aa0a82ff3589107168dd1d806720daa",
+        "ae73737a15edc8e9e86feb67fdb9fc640dc8f2305946581fe0a4c2ac228900f0"
+      ],
+      "rng": {
+        "initialization_semantic_sha256": "3c332922527af11dcff7e927e07766cee5ee98e58e18650d9413e35826720f73",
+        "prediction_semantic_sha256": "6ab053c97834f938a6904a26dcde21cbfec05f14b4ca48c6a7651c474dfb31c4",
+        "prediction_count": 24,
+        "status": "PASS"
+      },
+      "input_and_rng_audit": "PASS",
+      "native_predictions_and_metrics_retained": true,
+      "candidate_coordinates_unchanged": true,
+      "physical_gpu": "0",
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "fp32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_all",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "cdist",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "atom_output_einsum",
+            "count": 8
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pae",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pde",
+            "count": 4
+          },
+          {
+            "mode": "tf32_triangle_corrected",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32."
+      },
+      "runtime_precision_compact": {
+        "fp32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "False": 1911
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1911
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_triangle_corrected": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1911
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_outputs": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1907,
+            "False": 4
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_distance": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1911
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_all": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1591,
+            "False": 320
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        }
+      },
+      "triangle_calls_first_warmup": {
+        "fp32": 42,
+        "tf32": 42,
+        "tf32_triangle_corrected": 42,
+        "tf32_confidence_outputs": 42,
+        "tf32_confidence_distance": 42,
+        "tf32_confidence_all": 42
+      }
+    },
+    {
+      "case": "G01",
+      "model": "protenix_mini_esm_v0.5.0",
+      "N_token": 693,
+      "summary": {
+        "fp32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 1.3981815297156572,
+          "samples_seconds": [
+            1.3981815297156572,
+            1.3890641378238797,
+            1.4027356524020433
+          ],
+          "prediction_digest": {
+            "sha256": "715f8aa90457073f17df4124e3eb95ad24ec04c54e2367104569f61b2e6393bc",
+            "sum_fp64": 44446.480432748795,
+            "max_abs": 32.0440673828125
+          },
+          "five_confidence_metrics": {
+            "plddt": 38.15787124633789,
+            "gpde": 8.782015800476074,
+            "ptm": 0.20074895024299622,
+            "iptm": 0.0,
+            "ranking_score": 0.040149789303541183
+          }
+        },
+        "tf32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.9354555476456881,
+          "samples_seconds": [
+            0.9376125233247876,
+            0.9298242945224047,
+            0.9354555476456881
+          ],
+          "prediction_digest": {
+            "sha256": "4faca01132a8cf60edb11514bd73d2bafb37ed822871bca0f101545c8a5d11fa",
+            "sum_fp64": 43169.49813050032,
+            "max_abs": 31.9080810546875
+          },
+          "five_confidence_metrics": {
+            "plddt": 38.04708480834961,
+            "gpde": 8.796857833862305,
+            "ptm": 0.19994835555553436,
+            "iptm": 0.0,
+            "ranking_score": 0.03998967260122299
+          }
+        },
+        "tf32_triangle_corrected": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.9953808477148414,
+          "samples_seconds": [
+            0.9965162379667163,
+            0.9936310974881053,
+            0.9953808477148414
+          ],
+          "prediction_digest": {
+            "sha256": "1a305f90f89572d4addbee2a20e387723ee0b69f4482d72e57e0d5216f6068be",
+            "sum_fp64": 44555.826207339764,
+            "max_abs": 32.020751953125
+          },
+          "five_confidence_metrics": {
+            "plddt": 38.157958984375,
+            "gpde": 8.777050971984863,
+            "ptm": 0.20061542093753815,
+            "iptm": 0.0,
+            "ranking_score": 0.04012308642268181
+          }
+        },
+        "tf32_confidence_outputs": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.9972916459664702,
+          "samples_seconds": [
+            0.9972916459664702,
+            0.9868398988619447,
+            1.0043904008343816
+          ],
+          "prediction_digest": {
+            "sha256": "1a305f90f89572d4addbee2a20e387723ee0b69f4482d72e57e0d5216f6068be",
+            "sum_fp64": 44555.826207339764,
+            "max_abs": 32.020751953125
+          },
+          "five_confidence_metrics": {
+            "plddt": 38.157958984375,
+            "gpde": 8.777044296264648,
+            "ptm": 0.20062708854675293,
+            "iptm": 0.0,
+            "ranking_score": 0.040125418454408646
+          }
+        },
+        "tf32_confidence_distance": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.9913772623986006,
+          "samples_seconds": [
+            0.9902868885546923,
+            0.9913772623986006,
+            1.1444182312116027
+          ],
+          "prediction_digest": {
+            "sha256": "1a305f90f89572d4addbee2a20e387723ee0b69f4482d72e57e0d5216f6068be",
+            "sum_fp64": 44555.826207339764,
+            "max_abs": 32.020751953125
+          },
+          "five_confidence_metrics": {
+            "plddt": 38.15375518798828,
+            "gpde": 8.776854515075684,
+            "ptm": 0.20061978697776794,
+            "iptm": 0.0,
+            "ranking_score": 0.04012395814061165
+          }
+        },
+        "tf32_confidence_all": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 1.0395751744508743,
+          "samples_seconds": [
+            1.0339655056595802,
+            1.0395751744508743,
+            1.0598179837688804
+          ],
+          "prediction_digest": {
+            "sha256": "1a305f90f89572d4addbee2a20e387723ee0b69f4482d72e57e0d5216f6068be",
+            "sum_fp64": 44555.826207339764,
+            "max_abs": 32.020751953125
+          },
+          "five_confidence_metrics": {
+            "plddt": 38.15235900878906,
+            "gpde": 8.776987075805664,
+            "ptm": 0.2006380558013916,
+            "iptm": 0.0,
+            "ranking_score": 0.04012761265039444
+          }
+        }
+      },
+      "checkpoint_sha256": [
+        "1301bba9ad322518eace60fd244ded7904439f55317e90d402cc7a0c06026664"
+      ],
+      "feature_tensor_manifest_sha256": "e266fa3294c00afd0d6e8fe09da3e4ffc585f8b52c338837b2e7bfae44c8d3a8",
+      "atom_identity_sha256": "db523c3e8f572ab823239c2f313877331263f1b3df902ea30b5ba5e499a9743a",
+      "canonical_input_sha256": "b114196121e5991453c620dace327776e15351e0f449ccf7ba11f75cc9efc38c",
+      "asset_hashes": [
+        "96f59de464675c42579d2106b609879e4aa0a82ff3589107168dd1d806720daa",
+        "ae73737a15edc8e9e86feb67fdb9fc640dc8f2305946581fe0a4c2ac228900f0"
+      ],
+      "rng": {
+        "initialization_semantic_sha256": "3c332922527af11dcff7e927e07766cee5ee98e58e18650d9413e35826720f73",
+        "prediction_semantic_sha256": "6ab053c97834f938a6904a26dcde21cbfec05f14b4ca48c6a7651c474dfb31c4",
+        "prediction_count": 24,
+        "status": "PASS"
+      },
+      "input_and_rng_audit": "PASS",
+      "native_predictions_and_metrics_retained": true,
+      "candidate_coordinates_unchanged": true,
+      "physical_gpu": "0",
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "fp32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_all",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "cdist",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "atom_output_einsum",
+            "count": 8
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pae",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pde",
+            "count": 4
+          },
+          {
+            "mode": "tf32_triangle_corrected",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32."
+      },
+      "runtime_precision_compact": {
+        "fp32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "False": 1912
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1912
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_triangle_corrected": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1912
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_outputs": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1908,
+            "False": 4
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_distance": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1912
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_all": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1592,
+            "False": 320
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        }
+      },
+      "triangle_calls_first_warmup": {
+        "fp32": 42,
+        "tf32": 42,
+        "tf32_triangle_corrected": 42,
+        "tf32_confidence_outputs": 42,
+        "tf32_confidence_distance": 42,
+        "tf32_confidence_all": 42
+      }
+    },
+    {
+      "case": "G01",
+      "model": "protenix_mini_ism_v0.5.0",
+      "N_token": 693,
+      "summary": {
+        "fp32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 1.3973624035716057,
+          "samples_seconds": [
+            1.3973624035716057,
+            1.3877229252830148,
+            1.4057800564914942
+          ],
+          "prediction_digest": {
+            "sha256": "02d32e2fee10fb3d5eedbf35fb4882dc5319fecb729a8a3f7fea3d1b709dd2c6",
+            "sum_fp64": 21072.10770010948,
+            "max_abs": 50.71875
+          },
+          "five_confidence_metrics": {
+            "plddt": 44.91362380981445,
+            "gpde": 8.31057357788086,
+            "ptm": 0.16945089399814606,
+            "iptm": 0.0,
+            "ranking_score": 0.03389018028974533
+          }
+        },
+        "tf32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.9388475911691785,
+          "samples_seconds": [
+            0.9388475911691785,
+            0.945291455835104,
+            0.9378882646560669
+          ],
+          "prediction_digest": {
+            "sha256": "7d9d561234adac2dc828d0394671082255b90cd3554907e9e9798c0e15322373",
+            "sum_fp64": 21088.569231987,
+            "max_abs": 50.637939453125
+          },
+          "five_confidence_metrics": {
+            "plddt": 44.96135330200195,
+            "gpde": 8.321900367736816,
+            "ptm": 0.16960683465003967,
+            "iptm": 0.0,
+            "ranking_score": 0.033921368420124054
+          }
+        },
+        "tf32_triangle_corrected": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 1.0004589492455125,
+          "samples_seconds": [
+            1.0004589492455125,
+            1.0097007853910327,
+            0.9977546967566013
+          ],
+          "prediction_digest": {
+            "sha256": "9cfef4217330a12eed86d321a2884de55c9ab6ea21817a466d97c1742effd7c6",
+            "sum_fp64": 20879.55831360817,
+            "max_abs": 50.685302734375
+          },
+          "five_confidence_metrics": {
+            "plddt": 44.90856170654297,
+            "gpde": 8.3236083984375,
+            "ptm": 0.16948553919792175,
+            "iptm": 0.0,
+            "ranking_score": 0.03389710932970047
+          }
+        },
+        "tf32_confidence_outputs": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.9984712591394782,
+          "samples_seconds": [
+            0.9984712591394782,
+            0.9977116640657187,
+            1.0000627292320132
+          ],
+          "prediction_digest": {
+            "sha256": "9cfef4217330a12eed86d321a2884de55c9ab6ea21817a466d97c1742effd7c6",
+            "sum_fp64": 20879.55831360817,
+            "max_abs": 50.685302734375
+          },
+          "five_confidence_metrics": {
+            "plddt": 44.90856170654297,
+            "gpde": 8.323578834533691,
+            "ptm": 0.1694883406162262,
+            "iptm": 0.0,
+            "ranking_score": 0.03389766812324524
+          }
+        },
+        "tf32_confidence_distance": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 1.0006186924874783,
+          "samples_seconds": [
+            0.9972854759544134,
+            1.0021580178290606,
+            1.0006186924874783
+          ],
+          "prediction_digest": {
+            "sha256": "9cfef4217330a12eed86d321a2884de55c9ab6ea21817a466d97c1742effd7c6",
+            "sum_fp64": 20879.55831360817,
+            "max_abs": 50.685302734375
+          },
+          "five_confidence_metrics": {
+            "plddt": 44.911251068115234,
+            "gpde": 8.323870658874512,
+            "ptm": 0.16947780549526215,
+            "iptm": 0.0,
+            "ranking_score": 0.03389556333422661
+          }
+        },
+        "tf32_confidence_all": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 1.0441548777744174,
+          "samples_seconds": [
+            1.0405666241422296,
+            1.0444617215543985,
+            1.0441548777744174
+          ],
+          "prediction_digest": {
+            "sha256": "9cfef4217330a12eed86d321a2884de55c9ab6ea21817a466d97c1742effd7c6",
+            "sum_fp64": 20879.55831360817,
+            "max_abs": 50.685302734375
+          },
+          "five_confidence_metrics": {
+            "plddt": 44.910736083984375,
+            "gpde": 8.323810577392578,
+            "ptm": 0.1694812923669815,
+            "iptm": 0.0,
+            "ranking_score": 0.03389625996351242
+          }
+        }
+      },
+      "checkpoint_sha256": [
+        "a90d3040cdb2c84430878ea724ad817698ee68cc8b12f802a91dac3b081521a2"
+      ],
+      "feature_tensor_manifest_sha256": "45a9d428935199fc1be55f860c6a914c9ade5fa91502e15c4dc26de606b83a02",
+      "atom_identity_sha256": "db523c3e8f572ab823239c2f313877331263f1b3df902ea30b5ba5e499a9743a",
+      "canonical_input_sha256": "b114196121e5991453c620dace327776e15351e0f449ccf7ba11f75cc9efc38c",
+      "asset_hashes": [
+        "96f59de464675c42579d2106b609879e4aa0a82ff3589107168dd1d806720daa",
+        "ae73737a15edc8e9e86feb67fdb9fc640dc8f2305946581fe0a4c2ac228900f0"
+      ],
+      "rng": {
+        "initialization_semantic_sha256": "3c332922527af11dcff7e927e07766cee5ee98e58e18650d9413e35826720f73",
+        "prediction_semantic_sha256": "6ab053c97834f938a6904a26dcde21cbfec05f14b4ca48c6a7651c474dfb31c4",
+        "prediction_count": 24,
+        "status": "PASS"
+      },
+      "input_and_rng_audit": "PASS",
+      "native_predictions_and_metrics_retained": true,
+      "candidate_coordinates_unchanged": true,
+      "physical_gpu": "0",
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "fp32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_all",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "cdist",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "atom_output_einsum",
+            "count": 8
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pae",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pde",
+            "count": 4
+          },
+          {
+            "mode": "tf32_triangle_corrected",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32."
+      },
+      "runtime_precision_compact": {
+        "fp32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "False": 1912
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1912
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_triangle_corrected": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1912
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_outputs": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1908,
+            "False": 4
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_distance": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1912
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_all": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1592,
+            "False": 320
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        }
+      },
+      "triangle_calls_first_warmup": {
+        "fp32": 42,
+        "tf32": 42,
+        "tf32_triangle_corrected": 42,
+        "tf32_confidence_outputs": 42,
+        "tf32_confidence_distance": 42,
+        "tf32_confidence_all": 42
+      }
+    },
+    {
+      "case": "G01",
+      "model": "protenix_tiny_default_v0.5.0",
+      "N_token": 693,
+      "summary": {
+        "fp32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.9514074120670557,
+          "samples_seconds": [
+            0.9660867052152753,
+            0.9514074120670557,
+            0.9481399897485971
+          ],
+          "prediction_digest": {
+            "sha256": "8042996dc678d8e0d5bf5d39c9e89b028d6a406981b41f5878b09d9fbfbda2f7",
+            "sum_fp64": -2079.997036218643,
+            "max_abs": 40.8289794921875
+          },
+          "five_confidence_metrics": {
+            "plddt": 32.48081970214844,
+            "gpde": 9.042652130126953,
+            "ptm": 0.16864646971225739,
+            "iptm": 0.0,
+            "ranking_score": 0.033729296177625656
+          }
+        },
+        "tf32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.653116318397224,
+          "samples_seconds": [
+            0.6581436190754175,
+            0.6526917377486825,
+            0.653116318397224
+          ],
+          "prediction_digest": {
+            "sha256": "5556d134eb7ef372a55f683f32326a1145a73d68a4b51c26ae846391b5d0328f",
+            "sum_fp64": -1872.2760314941406,
+            "max_abs": 40.9637451171875
+          },
+          "five_confidence_metrics": {
+            "plddt": 32.438236236572266,
+            "gpde": 9.064541816711426,
+            "ptm": 0.16839340329170227,
+            "iptm": 0.0,
+            "ranking_score": 0.033678680658340454
+          }
+        },
+        "tf32_triangle_corrected": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.6960519040003419,
+          "samples_seconds": [
+            0.7044185353443027,
+            0.6960519040003419,
+            0.6870215693488717
+          ],
+          "prediction_digest": {
+            "sha256": "f3494964cc661473a11ab723e0de6ee401bd92fce39d9504a73ffcddff1b042b",
+            "sum_fp64": -2045.2194619178772,
+            "max_abs": 40.6925048828125
+          },
+          "five_confidence_metrics": {
+            "plddt": 32.469322204589844,
+            "gpde": 9.056074142456055,
+            "ptm": 0.16864481568336487,
+            "iptm": 0.0,
+            "ranking_score": 0.03372896462678909
+          }
+        },
+        "tf32_confidence_outputs": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.6902504907920957,
+          "samples_seconds": [
+            0.6902504907920957,
+            0.689853997901082,
+            0.7249164609238505
+          ],
+          "prediction_digest": {
+            "sha256": "f3494964cc661473a11ab723e0de6ee401bd92fce39d9504a73ffcddff1b042b",
+            "sum_fp64": -2045.2194619178772,
+            "max_abs": 40.6925048828125
+          },
+          "five_confidence_metrics": {
+            "plddt": 32.469322204589844,
+            "gpde": 9.056290626525879,
+            "ptm": 0.16864639520645142,
+            "iptm": 0.0,
+            "ranking_score": 0.03372928127646446
+          }
+        },
+        "tf32_confidence_distance": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.689538118429482,
+          "samples_seconds": [
+            0.7006703289225698,
+            0.6868773447349668,
+            0.689538118429482
+          ],
+          "prediction_digest": {
+            "sha256": "f3494964cc661473a11ab723e0de6ee401bd92fce39d9504a73ffcddff1b042b",
+            "sum_fp64": -2045.2194619178772,
+            "max_abs": 40.6925048828125
+          },
+          "five_confidence_metrics": {
+            "plddt": 32.47074890136719,
+            "gpde": 9.05586051940918,
+            "ptm": 0.16864736378192902,
+            "iptm": 0.0,
+            "ranking_score": 0.03372947499155998
+          }
+        },
+        "tf32_confidence_all": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.7354706479236484,
+          "samples_seconds": [
+            0.7354706479236484,
+            0.7397927474230528,
+            0.7333994647487998
+          ],
+          "prediction_digest": {
+            "sha256": "f3494964cc661473a11ab723e0de6ee401bd92fce39d9504a73ffcddff1b042b",
+            "sum_fp64": -2045.2194619178772,
+            "max_abs": 40.6925048828125
+          },
+          "five_confidence_metrics": {
+            "plddt": 32.47060775756836,
+            "gpde": 9.056022644042969,
+            "ptm": 0.1686473786830902,
+            "iptm": 0.0,
+            "ranking_score": 0.03372947499155998
+          }
+        }
+      },
+      "checkpoint_sha256": [
+        "7ad252e023d61f94572f51ab60c2a58f3a12205271898fe581fa38d20de9566b"
+      ],
+      "feature_tensor_manifest_sha256": "5cd94546b211fcbe8be6a60dd157fd8d0d357205c799ba33efebc6c29cf60e2c",
+      "atom_identity_sha256": "db523c3e8f572ab823239c2f313877331263f1b3df902ea30b5ba5e499a9743a",
+      "canonical_input_sha256": "b114196121e5991453c620dace327776e15351e0f449ccf7ba11f75cc9efc38c",
+      "asset_hashes": [
+        "96f59de464675c42579d2106b609879e4aa0a82ff3589107168dd1d806720daa",
+        "ae73737a15edc8e9e86feb67fdb9fc640dc8f2305946581fe0a4c2ac228900f0"
+      ],
+      "rng": {
+        "initialization_semantic_sha256": "3c332922527af11dcff7e927e07766cee5ee98e58e18650d9413e35826720f73",
+        "prediction_semantic_sha256": "6ab053c97834f938a6904a26dcde21cbfec05f14b4ca48c6a7651c474dfb31c4",
+        "prediction_count": 24,
+        "status": "PASS"
+      },
+      "input_and_rng_audit": "PASS",
+      "native_predictions_and_metrics_retained": true,
+      "candidate_coordinates_unchanged": true,
+      "physical_gpu": "7",
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "fp32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_all",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "cdist",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "atom_output_einsum",
+            "count": 8
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pae",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pde",
+            "count": 4
+          },
+          {
+            "mode": "tf32_triangle_corrected",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32."
+      },
+      "runtime_precision_compact": {
+        "fp32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "False": 1287
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1287
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_triangle_corrected": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1287
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_outputs": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1283,
+            "False": 4
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_distance": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1287
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_all": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 967,
+            "False": 320
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        }
+      },
+      "triangle_calls_first_warmup": {
+        "fp32": 26,
+        "tf32": 26,
+        "tf32_triangle_corrected": 26,
+        "tf32_confidence_outputs": 26,
+        "tf32_confidence_distance": 26,
+        "tf32_confidence_all": 26
+      }
+    },
+    {
+      "case": "G02",
+      "model": "protenix-v2",
+      "N_token": 245,
+      "summary": {
+        "fp32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.9523868318647146,
+          "samples_seconds": [
+            0.9523868318647146,
+            0.9661926673725247,
+            0.95073770172894
+          ],
+          "prediction_digest": {
+            "sha256": "a75eddb8c87afea627d7bab24b383f8f6794b11aa6cfd15cdb1e19d43589094e",
+            "sum_fp64": -38664.16071975231,
+            "max_abs": 5460.693359375
+          },
+          "five_confidence_metrics": {
+            "plddt": 87.38002014160156,
+            "gpde": 1.082903265953064,
+            "ptm": 0.34446805715560913,
+            "iptm": 0.3427650034427643,
+            "ranking_score": 0.34310561418533325
+          }
+        },
+        "tf32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.5922574726864696,
+          "samples_seconds": [
+            0.5976168625056744,
+            0.5922574726864696,
+            0.5906915981322527
+          ],
+          "prediction_digest": {
+            "sha256": "91fe98f77e9020acfd1d656fc82c6f01290a1387a667853170bf47851e51f5de",
+            "sum_fp64": -38761.55967795849,
+            "max_abs": 5460.6640625
+          },
+          "five_confidence_metrics": {
+            "plddt": 87.1813735961914,
+            "gpde": 1.0804444551467896,
+            "ptm": 0.34977391362190247,
+            "iptm": 0.347533255815506,
+            "ranking_score": 0.34798139333724976
+          }
+        },
+        "tf32_triangle_corrected": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.5888859825208783,
+          "samples_seconds": [
+            0.5888859825208783,
+            0.5893862983211875,
+            0.5836405092850327
+          ],
+          "prediction_digest": {
+            "sha256": "6898b0a154745e3fa6b72b3a227952f07cd44df2e6c740e435793a0965bfaf22",
+            "sum_fp64": -38740.60360229015,
+            "max_abs": 5460.6767578125
+          },
+          "five_confidence_metrics": {
+            "plddt": 87.17472839355469,
+            "gpde": 1.0803929567337036,
+            "ptm": 0.3495807647705078,
+            "iptm": 0.3473166823387146,
+            "ranking_score": 0.34776949882507324
+          }
+        },
+        "tf32_confidence_outputs": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.5907750520855188,
+          "samples_seconds": [
+            0.591587788425386,
+            0.5907750520855188,
+            0.5858252197504044
+          ],
+          "prediction_digest": {
+            "sha256": "6898b0a154745e3fa6b72b3a227952f07cd44df2e6c740e435793a0965bfaf22",
+            "sum_fp64": -38740.60360229015,
+            "max_abs": 5460.6767578125
+          },
+          "five_confidence_metrics": {
+            "plddt": 87.17472839355469,
+            "gpde": 1.0799604654312134,
+            "ptm": 0.3496478199958801,
+            "iptm": 0.3473830819129944,
+            "ranking_score": 0.34783604741096497
+          }
+        },
+        "tf32_confidence_distance": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.5925607075914741,
+          "samples_seconds": [
+            0.5925607075914741,
+            0.5976684261113405,
+            0.5897510740906
+          ],
+          "prediction_digest": {
+            "sha256": "6898b0a154745e3fa6b72b3a227952f07cd44df2e6c740e435793a0965bfaf22",
+            "sum_fp64": -38740.60360229015,
+            "max_abs": 5460.6767578125
+          },
+          "five_confidence_metrics": {
+            "plddt": 87.37200164794922,
+            "gpde": 1.0833346843719482,
+            "ptm": 0.34440162777900696,
+            "iptm": 0.3426918387413025,
+            "ranking_score": 0.3430337905883789
+          }
+        },
+        "tf32_confidence_all": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.6087646288797259,
+          "samples_seconds": [
+            0.6284732380881906,
+            0.6087646288797259,
+            0.6062577841803432
+          ],
+          "prediction_digest": {
+            "sha256": "6898b0a154745e3fa6b72b3a227952f07cd44df2e6c740e435793a0965bfaf22",
+            "sum_fp64": -38740.60360229015,
+            "max_abs": 5460.6767578125
+          },
+          "five_confidence_metrics": {
+            "plddt": 87.38154602050781,
+            "gpde": 1.0829389095306396,
+            "ptm": 0.3444681465625763,
+            "iptm": 0.34276482462882996,
+            "ranking_score": 0.3431054949760437
+          }
+        }
+      },
+      "checkpoint_sha256": [
+        "8f931f9774a396b67033d0e58628e1834f4a1448165e04254b40a780b0c0d599"
+      ],
+      "feature_tensor_manifest_sha256": "389b1f6403fec57e6da15d88cd83734a20ff096993d59edb1696bda42308840b",
+      "atom_identity_sha256": "b5b151945aeaaf3eb4dc6fd8ff4f5bb88d0cc9287a4e0a854f2a52bd08fc618a",
+      "canonical_input_sha256": "5bd6824e45a8907f91c5bb4c83e10eb6c226561209d68b3496dadf93b40d37bb",
+      "asset_hashes": [
+        "105e7c949a533f488248476e0b13307a2c94fbf138b3859ea8b1ccbdb8e27223",
+        "15388d7ed4fa8dac77770d2887d7234847b5aee1252651917efc5c1dba149066"
+      ],
+      "rng": {
+        "initialization_semantic_sha256": "23b7d34a9317924185e824e3146ba53b91b7fcbbc9cc8881059a6024a74bfd70",
+        "prediction_semantic_sha256": "1b9707b2394f3dd80c1caa095ee8ad20dc3a1f03ebf07867f69bb3b6997f6290",
+        "prediction_count": 24,
+        "status": "PASS"
+      },
+      "input_and_rng_audit": "PASS",
+      "native_predictions_and_metrics_retained": true,
+      "candidate_coordinates_unchanged": true,
+      "physical_gpu": "7",
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "fp32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_all",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "cdist",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "atom_output_einsum",
+            "count": 8
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pae",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pde",
+            "count": 4
+          },
+          {
+            "mode": "tf32_triangle_corrected",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32."
+      },
+      "runtime_precision_compact": {
+        "fp32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "False": 3704
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 3704
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_triangle_corrected": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 3704
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_outputs": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 3700,
+            "False": 4
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_distance": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 3704
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_all": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 3496,
+            "False": 208
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        }
+      },
+      "triangle_calls_first_warmup": {
+        "fp32": 128,
+        "tf32": 128,
+        "tf32_triangle_corrected": 128,
+        "tf32_confidence_outputs": 128,
+        "tf32_confidence_distance": 128,
+        "tf32_confidence_all": 128
+      }
+    },
+    {
+      "case": "G02",
+      "model": "protenix_base_20250630_v1.0.0",
+      "N_token": 245,
+      "summary": {
+        "fp32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.49369611497968435,
+          "samples_seconds": [
+            0.49461636506021023,
+            0.48887166660279036,
+            0.49369611497968435
+          ],
+          "prediction_digest": {
+            "sha256": "2162517fce578a9cb519bef0b83f1621b8aff73960d0e26ed3ca3ad2abfe7041",
+            "sum_fp64": 2257.7338864803314,
+            "max_abs": 5442.7763671875
+          },
+          "five_confidence_metrics": {
+            "plddt": 77.06895446777344,
+            "gpde": 5.662887096405029,
+            "ptm": 0.11810528486967087,
+            "iptm": 0.11469664424657822,
+            "ranking_score": 0.11537837982177734
+          }
+        },
+        "tf32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.46076841559261084,
+          "samples_seconds": [
+            0.46076841559261084,
+            0.46728783939033747,
+            0.4554014280438423
+          ],
+          "prediction_digest": {
+            "sha256": "0e56e80fc5f3670de620d4c1d88e7608d096ec7a249f6923c157480f1cca5124",
+            "sum_fp64": 2189.4209911823273,
+            "max_abs": 5442.7431640625
+          },
+          "five_confidence_metrics": {
+            "plddt": 77.31338500976562,
+            "gpde": 5.665272235870361,
+            "ptm": 0.11815392971038818,
+            "iptm": 0.11474470049142838,
+            "ranking_score": 0.11542655527591705
+          }
+        },
+        "tf32_triangle_corrected": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.4501028470695019,
+          "samples_seconds": [
+            0.44959772285073996,
+            0.4628775482997298,
+            0.4501028470695019
+          ],
+          "prediction_digest": {
+            "sha256": "861783f48b3aa95c7987ed7cacdc35721116282882b2161dc925a353f0060236",
+            "sum_fp64": 2042.782721400261,
+            "max_abs": 5442.7177734375
+          },
+          "five_confidence_metrics": {
+            "plddt": 77.33324432373047,
+            "gpde": 5.6661906242370605,
+            "ptm": 0.118155337870121,
+            "iptm": 0.11474530398845673,
+            "ranking_score": 0.11542730778455734
+          }
+        },
+        "tf32_confidence_outputs": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.4462594259530306,
+          "samples_seconds": [
+            0.4348022686317563,
+            0.4462594259530306,
+            0.4681446338072419
+          ],
+          "prediction_digest": {
+            "sha256": "861783f48b3aa95c7987ed7cacdc35721116282882b2161dc925a353f0060236",
+            "sum_fp64": 2042.782721400261,
+            "max_abs": 5442.7177734375
+          },
+          "five_confidence_metrics": {
+            "plddt": 77.33324432373047,
+            "gpde": 5.665227890014648,
+            "ptm": 0.11811023950576782,
+            "iptm": 0.11470121890306473,
+            "ranking_score": 0.11538302898406982
+          }
+        },
+        "tf32_confidence_distance": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.4393605748191476,
+          "samples_seconds": [
+            0.4393605748191476,
+            0.4514428311958909,
+            0.431465576402843
+          ],
+          "prediction_digest": {
+            "sha256": "861783f48b3aa95c7987ed7cacdc35721116282882b2161dc925a353f0060236",
+            "sum_fp64": 2042.782721400261,
+            "max_abs": 5442.7177734375
+          },
+          "five_confidence_metrics": {
+            "plddt": 77.08289337158203,
+            "gpde": 5.664404392242432,
+            "ptm": 0.11815159767866135,
+            "iptm": 0.11474157869815826,
+            "ranking_score": 0.11542358249425888
+          }
+        },
+        "tf32_confidence_all": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.4494497859850526,
+          "samples_seconds": [
+            0.44078903924673796,
+            0.4494497859850526,
+            0.45158251468092203
+          ],
+          "prediction_digest": {
+            "sha256": "861783f48b3aa95c7987ed7cacdc35721116282882b2161dc925a353f0060236",
+            "sum_fp64": 2042.782721400261,
+            "max_abs": 5442.7177734375
+          },
+          "five_confidence_metrics": {
+            "plddt": 77.06957244873047,
+            "gpde": 5.663392066955566,
+            "ptm": 0.11810518056154251,
+            "iptm": 0.11469655483961105,
+            "ranking_score": 0.11537828296422958
+          }
+        }
+      },
+      "checkpoint_sha256": [
+        "e850a6b16b3d254ba9a7f67cefd9b59e111fb2036ae036d2703d050aff6ab611"
+      ],
+      "feature_tensor_manifest_sha256": "22a4deec50634f8d4ea5749b2532b9c508f31d78e414aab31b24eaa537a533c1",
+      "atom_identity_sha256": "b5b151945aeaaf3eb4dc6fd8ff4f5bb88d0cc9287a4e0a854f2a52bd08fc618a",
+      "canonical_input_sha256": "5bd6824e45a8907f91c5bb4c83e10eb6c226561209d68b3496dadf93b40d37bb",
+      "asset_hashes": [
+        "105e7c949a533f488248476e0b13307a2c94fbf138b3859ea8b1ccbdb8e27223",
+        "15388d7ed4fa8dac77770d2887d7234847b5aee1252651917efc5c1dba149066"
+      ],
+      "rng": {
+        "initialization_semantic_sha256": "23b7d34a9317924185e824e3146ba53b91b7fcbbc9cc8881059a6024a74bfd70",
+        "prediction_semantic_sha256": "1b9707b2394f3dd80c1caa095ee8ad20dc3a1f03ebf07867f69bb3b6997f6290",
+        "prediction_count": 24,
+        "status": "PASS"
+      },
+      "input_and_rng_audit": "PASS",
+      "native_predictions_and_metrics_retained": true,
+      "candidate_coordinates_unchanged": true,
+      "physical_gpu": "0",
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "fp32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_all",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "cdist",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "atom_output_einsum",
+            "count": 8
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pae",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pde",
+            "count": 4
+          },
+          {
+            "mode": "tf32_triangle_corrected",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32."
+      },
+      "runtime_precision_compact": {
+        "fp32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "False": 3704
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 3704
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_triangle_corrected": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 3704
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_outputs": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 3700,
+            "False": 4
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_distance": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 3704
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_all": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 3496,
+            "False": 208
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        }
+      },
+      "triangle_calls_first_warmup": {
+        "fp32": 128,
+        "tf32": 128,
+        "tf32_triangle_corrected": 128,
+        "tf32_confidence_outputs": 128,
+        "tf32_confidence_distance": 128,
+        "tf32_confidence_all": 128
+      }
+    },
+    {
+      "case": "G02",
+      "model": "protenix_base_constraint_v0.5.0",
+      "N_token": 245,
+      "summary": {
+        "fp32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.4489495875313878,
+          "samples_seconds": [
+            0.4502047626301646,
+            0.4489495875313878,
+            0.447524675168097
+          ],
+          "prediction_digest": {
+            "sha256": "f37ff11ec3df5bc838cf5a459f8ae1344e893d9c22e04448e2ed7bae43354ce1",
+            "sum_fp64": 2840.4368290901184,
+            "max_abs": 5437.859375
+          },
+          "five_confidence_metrics": {
+            "plddt": 85.74337768554688,
+            "gpde": 0.25679081678390503,
+            "ptm": 0.9315417408943176,
+            "iptm": 0.9310479164123535,
+            "ranking_score": 0.9311467409133911
+          }
+        },
+        "tf32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.4282649205997586,
+          "samples_seconds": [
+            0.4282649205997586,
+            0.42284684255719185,
+            0.42948051542043686
+          ],
+          "prediction_digest": {
+            "sha256": "09bb535cc325bc391dfecda95d4d9d7497d2839d60536714e9da05ed303424b9",
+            "sum_fp64": 2817.108141899109,
+            "max_abs": 5437.833984375
+          },
+          "five_confidence_metrics": {
+            "plddt": 85.74434661865234,
+            "gpde": 0.2566419541835785,
+            "ptm": 0.931688666343689,
+            "iptm": 0.9312058687210083,
+            "ranking_score": 0.9313024282455444
+          }
+        },
+        "tf32_triangle_corrected": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.42560000717639923,
+          "samples_seconds": [
+            0.4310229420661926,
+            0.42560000717639923,
+            0.40964996721595526
+          ],
+          "prediction_digest": {
+            "sha256": "c8849b33903ae8c21c166588a34e947543bbd7d5d6c827b9162bbb187bf6c1e9",
+            "sum_fp64": 2848.9752264022827,
+            "max_abs": 5437.85546875
+          },
+          "five_confidence_metrics": {
+            "plddt": 85.74337768554688,
+            "gpde": 0.25663915276527405,
+            "ptm": 0.9316887855529785,
+            "iptm": 0.9312049150466919,
+            "ranking_score": 0.9313017129898071
+          }
+        },
+        "tf32_confidence_outputs": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.4269206281751394,
+          "samples_seconds": [
+            0.4269206281751394,
+            0.4198325639590621,
+            0.4355200966820121
+          ],
+          "prediction_digest": {
+            "sha256": "c8849b33903ae8c21c166588a34e947543bbd7d5d6c827b9162bbb187bf6c1e9",
+            "sum_fp64": 2848.9752264022827,
+            "max_abs": 5437.85546875
+          },
+          "five_confidence_metrics": {
+            "plddt": 85.74337768554688,
+            "gpde": 0.25663864612579346,
+            "ptm": 0.9316926002502441,
+            "iptm": 0.9312079548835754,
+            "ranking_score": 0.931304931640625
+          }
+        },
+        "tf32_confidence_distance": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.42742510605603456,
+          "samples_seconds": [
+            0.42742510605603456,
+            0.4371975138783455,
+            0.40229487139731646
+          ],
+          "prediction_digest": {
+            "sha256": "c8849b33903ae8c21c166588a34e947543bbd7d5d6c827b9162bbb187bf6c1e9",
+            "sum_fp64": 2848.9752264022827,
+            "max_abs": 5437.85546875
+          },
+          "five_confidence_metrics": {
+            "plddt": 85.74504089355469,
+            "gpde": 0.2567916512489319,
+            "ptm": 0.9315392971038818,
+            "iptm": 0.93104487657547,
+            "ranking_score": 0.9311437606811523
+          }
+        },
+        "tf32_confidence_all": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.41847452986985445,
+          "samples_seconds": [
+            0.42091493401676416,
+            0.41847452986985445,
+            0.4061027569696307
+          ],
+          "prediction_digest": {
+            "sha256": "c8849b33903ae8c21c166588a34e947543bbd7d5d6c827b9162bbb187bf6c1e9",
+            "sum_fp64": 2848.9752264022827,
+            "max_abs": 5437.85546875
+          },
+          "five_confidence_metrics": {
+            "plddt": 85.74183654785156,
+            "gpde": 0.25679081678390503,
+            "ptm": 0.9315418004989624,
+            "iptm": 0.931047797203064,
+            "ranking_score": 0.9311466217041016
+          }
+        }
+      },
+      "checkpoint_sha256": [
+        "5358025b20b2212853ad75579be04387859557915f398a1d60f6a1a9a0c8c887"
+      ],
+      "feature_tensor_manifest_sha256": "de1414a43c48edb561556ab4cdd2425381db47fb023828f718d0d1e23fc6fa08",
+      "atom_identity_sha256": "b5b151945aeaaf3eb4dc6fd8ff4f5bb88d0cc9287a4e0a854f2a52bd08fc618a",
+      "canonical_input_sha256": "5bd6824e45a8907f91c5bb4c83e10eb6c226561209d68b3496dadf93b40d37bb",
+      "asset_hashes": [
+        "105e7c949a533f488248476e0b13307a2c94fbf138b3859ea8b1ccbdb8e27223",
+        "15388d7ed4fa8dac77770d2887d7234847b5aee1252651917efc5c1dba149066"
+      ],
+      "rng": {
+        "initialization_semantic_sha256": "23b7d34a9317924185e824e3146ba53b91b7fcbbc9cc8881059a6024a74bfd70",
+        "prediction_semantic_sha256": "1b9707b2394f3dd80c1caa095ee8ad20dc3a1f03ebf07867f69bb3b6997f6290",
+        "prediction_count": 24,
+        "status": "PASS"
+      },
+      "input_and_rng_audit": "PASS",
+      "native_predictions_and_metrics_retained": true,
+      "candidate_coordinates_unchanged": true,
+      "physical_gpu": "7",
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "fp32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_all",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "cdist",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "atom_output_einsum",
+            "count": 8
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pae",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pde",
+            "count": 4
+          },
+          {
+            "mode": "tf32_triangle_corrected",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32."
+      },
+      "runtime_precision_compact": {
+        "fp32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "False": 3387
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 3387
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_triangle_corrected": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 3387
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_outputs": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 3383,
+            "False": 4
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_distance": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 3387
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_all": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 3179,
+            "False": 208
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        }
+      },
+      "triangle_calls_first_warmup": {
+        "fp32": 112,
+        "tf32": 112,
+        "tf32_triangle_corrected": 112,
+        "tf32_confidence_outputs": 112,
+        "tf32_confidence_distance": 112,
+        "tf32_confidence_all": 112
+      }
+    },
+    {
+      "case": "G02",
+      "model": "protenix_base_default_v0.5.0",
+      "N_token": 245,
+      "summary": {
+        "fp32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.4551957892253995,
+          "samples_seconds": [
+            0.45141496136784554,
+            0.48251247126609087,
+            0.4551957892253995
+          ],
+          "prediction_digest": {
+            "sha256": "19750ffcacae7a11ddaa2d7b8e6a962fb956e3248acc3ee650f3027fe8f681da",
+            "sum_fp64": 9707.65809059143,
+            "max_abs": 5456.19921875
+          },
+          "five_confidence_metrics": {
+            "plddt": 8.4921875,
+            "gpde": 0.25803619623184204,
+            "ptm": 0.8444980978965759,
+            "iptm": 0.843529999256134,
+            "ranking_score": 0.8437236547470093
+          }
+        },
+        "tf32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.44161435682326555,
+          "samples_seconds": [
+            0.4472529822960496,
+            0.44161435682326555,
+            0.4372211964800954
+          ],
+          "prediction_digest": {
+            "sha256": "88cdabfd705f355776fec118ec9e4b1de77017cf7e41d9589adc18b520aa3440",
+            "sum_fp64": 9624.022045612335,
+            "max_abs": 5456.146484375
+          },
+          "five_confidence_metrics": {
+            "plddt": 9.110799789428711,
+            "gpde": 0.25782379508018494,
+            "ptm": 0.8445654511451721,
+            "iptm": 0.8437227010726929,
+            "ranking_score": 0.8438912630081177
+          }
+        },
+        "tf32_triangle_corrected": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.43831747211515903,
+          "samples_seconds": [
+            0.43830980360507965,
+            0.43831747211515903,
+            0.43860358837991953
+          ],
+          "prediction_digest": {
+            "sha256": "542f339d75c1e1ce96c93def72268702d47cbdd1dd866f6fec8ae13c70e92aa7",
+            "sum_fp64": 9677.574210643768,
+            "max_abs": 5456.2216796875
+          },
+          "five_confidence_metrics": {
+            "plddt": 9.098090171813965,
+            "gpde": 0.2578066885471344,
+            "ptm": 0.8445655703544617,
+            "iptm": 0.8437182307243347,
+            "ranking_score": 0.8438877463340759
+          }
+        },
+        "tf32_confidence_outputs": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.46547638066112995,
+          "samples_seconds": [
+            0.4434242891147733,
+            0.6655847793444991,
+            0.46547638066112995
+          ],
+          "prediction_digest": {
+            "sha256": "542f339d75c1e1ce96c93def72268702d47cbdd1dd866f6fec8ae13c70e92aa7",
+            "sum_fp64": 9677.574210643768,
+            "max_abs": 5456.2216796875
+          },
+          "five_confidence_metrics": {
+            "plddt": 9.098090171813965,
+            "gpde": 0.2578047811985016,
+            "ptm": 0.8445693254470825,
+            "iptm": 0.8437277674674988,
+            "ranking_score": 0.8438961505889893
+          }
+        },
+        "tf32_confidence_distance": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.45120252668857574,
+          "samples_seconds": [
+            0.4743749462068081,
+            0.4456421220675111,
+            0.45120252668857574
+          ],
+          "prediction_digest": {
+            "sha256": "542f339d75c1e1ce96c93def72268702d47cbdd1dd866f6fec8ae13c70e92aa7",
+            "sum_fp64": 9677.574210643768,
+            "max_abs": 5456.2216796875
+          },
+          "five_confidence_metrics": {
+            "plddt": 8.5052490234375,
+            "gpde": 0.2580385208129883,
+            "ptm": 0.8445129990577698,
+            "iptm": 0.8435394763946533,
+            "ranking_score": 0.8437341451644897
+          }
+        },
+        "tf32_confidence_all": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.4374389657750726,
+          "samples_seconds": [
+            0.4374389657750726,
+            0.4355856580659747,
+            0.44800932332873344
+          ],
+          "prediction_digest": {
+            "sha256": "542f339d75c1e1ce96c93def72268702d47cbdd1dd866f6fec8ae13c70e92aa7",
+            "sum_fp64": 9677.574210643768,
+            "max_abs": 5456.2216796875
+          },
+          "five_confidence_metrics": {
+            "plddt": 8.498514175415039,
+            "gpde": 0.2580362856388092,
+            "ptm": 0.8445168733596802,
+            "iptm": 0.8435471653938293,
+            "ranking_score": 0.8437411785125732
+          }
+        }
+      },
+      "checkpoint_sha256": [
+        "9ea20b0aba42f2256711da1d0cd081510a4b291e64375bff6b70ced70b87a5f1"
+      ],
+      "feature_tensor_manifest_sha256": "b7cc696d802b55fe9fc67eef3090dcd6b60c5d8443df7d96598e15b8e23164cb",
+      "atom_identity_sha256": "b5b151945aeaaf3eb4dc6fd8ff4f5bb88d0cc9287a4e0a854f2a52bd08fc618a",
+      "canonical_input_sha256": "5bd6824e45a8907f91c5bb4c83e10eb6c226561209d68b3496dadf93b40d37bb",
+      "asset_hashes": [
+        "105e7c949a533f488248476e0b13307a2c94fbf138b3859ea8b1ccbdb8e27223",
+        "15388d7ed4fa8dac77770d2887d7234847b5aee1252651917efc5c1dba149066"
+      ],
+      "rng": {
+        "initialization_semantic_sha256": "23b7d34a9317924185e824e3146ba53b91b7fcbbc9cc8881059a6024a74bfd70",
+        "prediction_semantic_sha256": "1b9707b2394f3dd80c1caa095ee8ad20dc3a1f03ebf07867f69bb3b6997f6290",
+        "prediction_count": 24,
+        "status": "PASS"
+      },
+      "input_and_rng_audit": "PASS",
+      "native_predictions_and_metrics_retained": true,
+      "candidate_coordinates_unchanged": true,
+      "physical_gpu": "0",
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "fp32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_all",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "cdist",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "atom_output_einsum",
+            "count": 8
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pae",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pde",
+            "count": 4
+          },
+          {
+            "mode": "tf32_triangle_corrected",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32."
+      },
+      "runtime_precision_compact": {
+        "fp32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "False": 3383
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 3383
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_triangle_corrected": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 3383
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_outputs": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 3379,
+            "False": 4
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_distance": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 3383
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_all": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 3175,
+            "False": 208
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        }
+      },
+      "triangle_calls_first_warmup": {
+        "fp32": 112,
+        "tf32": 112,
+        "tf32_triangle_corrected": 112,
+        "tf32_confidence_outputs": 112,
+        "tf32_confidence_distance": 112,
+        "tf32_confidence_all": 112
+      }
+    },
+    {
+      "case": "G02",
+      "model": "protenix_base_default_v1.0.0",
+      "N_token": 245,
+      "summary": {
+        "fp32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.4919553007930517,
+          "samples_seconds": [
+            0.5019000759348273,
+            0.48700506892055273,
+            0.4919553007930517
+          ],
+          "prediction_digest": {
+            "sha256": "1183217ca397845df93ac70f2037866e3c524810164436777605bcb2e9119833",
+            "sum_fp64": -4890.661454916,
+            "max_abs": 5452.4052734375
+          },
+          "five_confidence_metrics": {
+            "plddt": 80.26214599609375,
+            "gpde": 7.269092082977295,
+            "ptm": 0.21105259656906128,
+            "iptm": 0.20743019878864288,
+            "ranking_score": 0.20815467834472656
+          }
+        },
+        "tf32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.47089339047670364,
+          "samples_seconds": [
+            0.4893831657245755,
+            0.46122230123728514,
+            0.47089339047670364
+          ],
+          "prediction_digest": {
+            "sha256": "604d3c95f6cd8d8d1f85c5757ce094408f0b9012d82d6c26969f21f9a41e81ff",
+            "sum_fp64": -4836.543895959854,
+            "max_abs": 5452.337890625
+          },
+          "five_confidence_metrics": {
+            "plddt": 80.51933288574219,
+            "gpde": 7.270471096038818,
+            "ptm": 0.21090394258499146,
+            "iptm": 0.207359179854393,
+            "ranking_score": 0.2080681324005127
+          }
+        },
+        "tf32_triangle_corrected": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.4572168542072177,
+          "samples_seconds": [
+            0.4736386714503169,
+            0.4524718150496483,
+            0.4572168542072177
+          ],
+          "prediction_digest": {
+            "sha256": "771977566f2b47cea3c00e66a8b2ea0f56dc76fbf4381224b1da6f9362fc59ae",
+            "sum_fp64": -4947.854088544846,
+            "max_abs": 5452.37109375
+          },
+          "five_confidence_metrics": {
+            "plddt": 80.48078155517578,
+            "gpde": 7.270891189575195,
+            "ptm": 0.2109033614397049,
+            "iptm": 0.20735928416252136,
+            "ranking_score": 0.2080681025981903
+          }
+        },
+        "tf32_confidence_outputs": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.4737019194290042,
+          "samples_seconds": [
+            0.4737019194290042,
+            0.497560097835958,
+            0.46015302184969187
+          ],
+          "prediction_digest": {
+            "sha256": "771977566f2b47cea3c00e66a8b2ea0f56dc76fbf4381224b1da6f9362fc59ae",
+            "sum_fp64": -4947.854088544846,
+            "max_abs": 5452.37109375
+          },
+          "five_confidence_metrics": {
+            "plddt": 80.48078155517578,
+            "gpde": 7.270233631134033,
+            "ptm": 0.21107444167137146,
+            "iptm": 0.20752234756946564,
+            "ranking_score": 0.20823276042938232
+          }
+        },
+        "tf32_confidence_distance": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.483351687900722,
+          "samples_seconds": [
+            0.483351687900722,
+            0.4877279680222273,
+            0.45645838137716055
+          ],
+          "prediction_digest": {
+            "sha256": "771977566f2b47cea3c00e66a8b2ea0f56dc76fbf4381224b1da6f9362fc59ae",
+            "sum_fp64": -4947.854088544846,
+            "max_abs": 5452.37109375
+          },
+          "five_confidence_metrics": {
+            "plddt": 80.24547576904297,
+            "gpde": 7.270267486572266,
+            "ptm": 0.21088236570358276,
+            "iptm": 0.20726680755615234,
+            "ranking_score": 0.2079899162054062
+          }
+        },
+        "tf32_confidence_all": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.4714542543515563,
+          "samples_seconds": [
+            0.44569228682667017,
+            0.4714542543515563,
+            0.48300748132169247
+          ],
+          "prediction_digest": {
+            "sha256": "771977566f2b47cea3c00e66a8b2ea0f56dc76fbf4381224b1da6f9362fc59ae",
+            "sum_fp64": -4947.854088544846,
+            "max_abs": 5452.37109375
+          },
+          "five_confidence_metrics": {
+            "plddt": 80.26280212402344,
+            "gpde": 7.26959228515625,
+            "ptm": 0.21105457842350006,
+            "iptm": 0.20743060111999512,
+            "ranking_score": 0.20815540850162506
+          }
+        }
+      },
+      "checkpoint_sha256": [
+        "2b7d5a8b30494514fc47fd2271a16260528cdba170ba09cc112fdecd8f85ec04"
+      ],
+      "feature_tensor_manifest_sha256": "22a4deec50634f8d4ea5749b2532b9c508f31d78e414aab31b24eaa537a533c1",
+      "atom_identity_sha256": "b5b151945aeaaf3eb4dc6fd8ff4f5bb88d0cc9287a4e0a854f2a52bd08fc618a",
+      "canonical_input_sha256": "5bd6824e45a8907f91c5bb4c83e10eb6c226561209d68b3496dadf93b40d37bb",
+      "asset_hashes": [
+        "105e7c949a533f488248476e0b13307a2c94fbf138b3859ea8b1ccbdb8e27223",
+        "15388d7ed4fa8dac77770d2887d7234847b5aee1252651917efc5c1dba149066"
+      ],
+      "rng": {
+        "initialization_semantic_sha256": "23b7d34a9317924185e824e3146ba53b91b7fcbbc9cc8881059a6024a74bfd70",
+        "prediction_semantic_sha256": "1b9707b2394f3dd80c1caa095ee8ad20dc3a1f03ebf07867f69bb3b6997f6290",
+        "prediction_count": 24,
+        "status": "PASS"
+      },
+      "input_and_rng_audit": "PASS",
+      "native_predictions_and_metrics_retained": true,
+      "candidate_coordinates_unchanged": true,
+      "physical_gpu": "7",
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "fp32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_all",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "cdist",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "atom_output_einsum",
+            "count": 8
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pae",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pde",
+            "count": 4
+          },
+          {
+            "mode": "tf32_triangle_corrected",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32."
+      },
+      "runtime_precision_compact": {
+        "fp32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "False": 3704
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 3704
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_triangle_corrected": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 3704
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_outputs": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 3700,
+            "False": 4
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_distance": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 3704
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_all": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 3496,
+            "False": 208
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        }
+      },
+      "triangle_calls_first_warmup": {
+        "fp32": 128,
+        "tf32": 128,
+        "tf32_triangle_corrected": 128,
+        "tf32_confidence_outputs": 128,
+        "tf32_confidence_distance": 128,
+        "tf32_confidence_all": 128
+      }
+    },
+    {
+      "case": "G02",
+      "model": "protenix_mini_default_v0.5.0",
+      "N_token": 245,
+      "summary": {
+        "fp32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.2128640403971076,
+          "samples_seconds": [
+            0.20721258223056793,
+            0.2128640403971076,
+            0.21565666794776917
+          ],
+          "prediction_digest": {
+            "sha256": "e788c17aaec575c7e47729b6a961be2959d445653ee55ec5178f1576493c863b",
+            "sum_fp64": -17594.292254447937,
+            "max_abs": 36.030517578125
+          },
+          "five_confidence_metrics": {
+            "plddt": 77.49272918701172,
+            "gpde": 0.8869869112968445,
+            "ptm": 0.7408616542816162,
+            "iptm": 0.691526472568512,
+            "ranking_score": 0.7013934850692749
+          }
+        },
+        "tf32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.20733874198049307,
+          "samples_seconds": [
+            0.21654232777655125,
+            0.20733874198049307,
+            0.20585895888507366
+          ],
+          "prediction_digest": {
+            "sha256": "4ec33dcb1c0d94cf32539e2df476e0581feb4ecb7fe0cfd6564a10af5805a0a5",
+            "sum_fp64": -17586.406634807587,
+            "max_abs": 36.052978515625
+          },
+          "five_confidence_metrics": {
+            "plddt": 77.42265319824219,
+            "gpde": 0.8870718479156494,
+            "ptm": 0.7402897477149963,
+            "iptm": 0.6901406049728394,
+            "ranking_score": 0.7001704573631287
+          }
+        },
+        "tf32_triangle_corrected": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.20308171026408672,
+          "samples_seconds": [
+            0.2124637858942151,
+            0.1992443511262536,
+            0.20308171026408672
+          ],
+          "prediction_digest": {
+            "sha256": "293f3521fed7ea883333139b6453865dcdcc660ce32465a92abb0d9524da3ffe",
+            "sum_fp64": -17583.042411327362,
+            "max_abs": 36.059326171875
+          },
+          "five_confidence_metrics": {
+            "plddt": 77.49408721923828,
+            "gpde": 0.8860865235328674,
+            "ptm": 0.7408485412597656,
+            "iptm": 0.6914746165275574,
+            "ranking_score": 0.7013493776321411
+          }
+        },
+        "tf32_confidence_outputs": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.20233014039695263,
+          "samples_seconds": [
+            0.2059729853644967,
+            0.1904709553346038,
+            0.20233014039695263
+          ],
+          "prediction_digest": {
+            "sha256": "293f3521fed7ea883333139b6453865dcdcc660ce32465a92abb0d9524da3ffe",
+            "sum_fp64": -17583.042411327362,
+            "max_abs": 36.059326171875
+          },
+          "five_confidence_metrics": {
+            "plddt": 77.49408721923828,
+            "gpde": 0.8860774040222168,
+            "ptm": 0.7408478260040283,
+            "iptm": 0.6914758682250977,
+            "ranking_score": 0.7013502717018127
+          }
+        },
+        "tf32_confidence_distance": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.1968299224972725,
+          "samples_seconds": [
+            0.19212729670107365,
+            0.2018549544736743,
+            0.1968299224972725
+          ],
+          "prediction_digest": {
+            "sha256": "293f3521fed7ea883333139b6453865dcdcc660ce32465a92abb0d9524da3ffe",
+            "sum_fp64": -17583.042411327362,
+            "max_abs": 36.059326171875
+          },
+          "five_confidence_metrics": {
+            "plddt": 77.49180603027344,
+            "gpde": 0.8863332867622375,
+            "ptm": 0.7408014535903931,
+            "iptm": 0.6913338899612427,
+            "ranking_score": 0.7012274265289307
+          }
+        },
+        "tf32_confidence_all": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.2029582792893052,
+          "samples_seconds": [
+            0.20136372186243534,
+            0.2029582792893052,
+            0.20539999101310968
+          ],
+          "prediction_digest": {
+            "sha256": "293f3521fed7ea883333139b6453865dcdcc660ce32465a92abb0d9524da3ffe",
+            "sum_fp64": -17583.042411327362,
+            "max_abs": 36.059326171875
+          },
+          "five_confidence_metrics": {
+            "plddt": 77.49134063720703,
+            "gpde": 0.886370062828064,
+            "ptm": 0.7407950162887573,
+            "iptm": 0.6913312077522278,
+            "ranking_score": 0.7012240290641785
+          }
+        }
+      },
+      "checkpoint_sha256": [
+        "3803340c5d9958c038e799ddd2b53b532db21855f261592ad455a5f003791f81"
+      ],
+      "feature_tensor_manifest_sha256": "f5192cb981591bce9fe869b0a22b94b792f4a68933b0d26fea57acdc438fc8e1",
+      "atom_identity_sha256": "b5b151945aeaaf3eb4dc6fd8ff4f5bb88d0cc9287a4e0a854f2a52bd08fc618a",
+      "canonical_input_sha256": "5bd6824e45a8907f91c5bb4c83e10eb6c226561209d68b3496dadf93b40d37bb",
+      "asset_hashes": [
+        "105e7c949a533f488248476e0b13307a2c94fbf138b3859ea8b1ccbdb8e27223",
+        "15388d7ed4fa8dac77770d2887d7234847b5aee1252651917efc5c1dba149066"
+      ],
+      "rng": {
+        "initialization_semantic_sha256": "23b7d34a9317924185e824e3146ba53b91b7fcbbc9cc8881059a6024a74bfd70",
+        "prediction_semantic_sha256": "1b9707b2394f3dd80c1caa095ee8ad20dc3a1f03ebf07867f69bb3b6997f6290",
+        "prediction_count": 24,
+        "status": "PASS"
+      },
+      "input_and_rng_audit": "PASS",
+      "native_predictions_and_metrics_retained": true,
+      "candidate_coordinates_unchanged": true,
+      "physical_gpu": "0",
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "fp32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_all",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "cdist",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "atom_output_einsum",
+            "count": 8
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pae",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pde",
+            "count": 4
+          },
+          {
+            "mode": "tf32_triangle_corrected",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32."
+      },
+      "runtime_precision_compact": {
+        "fp32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "False": 1319
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1319
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_triangle_corrected": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1319
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_outputs": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1315,
+            "False": 4
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_distance": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1319
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_all": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1111,
+            "False": 208
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        }
+      },
+      "triangle_calls_first_warmup": {
+        "fp32": 42,
+        "tf32": 42,
+        "tf32_triangle_corrected": 42,
+        "tf32_confidence_outputs": 42,
+        "tf32_confidence_distance": 42,
+        "tf32_confidence_all": 42
+      }
+    },
+    {
+      "case": "G02",
+      "model": "protenix_mini_esm_v0.5.0",
+      "N_token": 245,
+      "summary": {
+        "fp32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.19996088184416294,
+          "samples_seconds": [
+            0.19622933119535446,
+            0.20448226761072874,
+            0.19996088184416294
+          ],
+          "prediction_digest": {
+            "sha256": "29f8ffb1aa00b7f5ec02dd767232cf13af87fc6cb6cef94a622be8de4262b7c7",
+            "sum_fp64": -8783.523668527603,
+            "max_abs": 38.008056640625
+          },
+          "five_confidence_metrics": {
+            "plddt": 61.11382293701172,
+            "gpde": 2.124718427658081,
+            "ptm": 0.36090055108070374,
+            "iptm": 0.7234218120574951,
+            "ranking_score": 0.6509175300598145
+          }
+        },
+        "tf32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.19360847026109695,
+          "samples_seconds": [
+            0.19360847026109695,
+            0.19424462225288153,
+            0.19267444871366024
+          ],
+          "prediction_digest": {
+            "sha256": "e280efbf0eaebf48ee1d7a8d4187d36703c52ed1a574986c2c9bd34539c42084",
+            "sum_fp64": -8507.021550893784,
+            "max_abs": 38.181640625
+          },
+          "five_confidence_metrics": {
+            "plddt": 60.974365234375,
+            "gpde": 2.1365435123443604,
+            "ptm": 0.3601803481578827,
+            "iptm": 0.7214500308036804,
+            "ranking_score": 0.6491961479187012
+          }
+        },
+        "tf32_triangle_corrected": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.18655044492334127,
+          "samples_seconds": [
+            0.19880539923906326,
+            0.18655044492334127,
+            0.18397526536136866
+          ],
+          "prediction_digest": {
+            "sha256": "8dab0373bccab3c7b67a35e274d5c47a27e6d2765711fa32d44ed53da939a8b9",
+            "sum_fp64": -8758.599718689919,
+            "max_abs": 38.195556640625
+          },
+          "five_confidence_metrics": {
+            "plddt": 61.13365936279297,
+            "gpde": 2.1238772869110107,
+            "ptm": 0.3608628213405609,
+            "iptm": 0.7232524752616882,
+            "ranking_score": 0.6507745981216431
+          }
+        },
+        "tf32_confidence_outputs": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.18505658488720655,
+          "samples_seconds": [
+            0.18770304881036282,
+            0.18343172501772642,
+            0.18505658488720655
+          ],
+          "prediction_digest": {
+            "sha256": "8dab0373bccab3c7b67a35e274d5c47a27e6d2765711fa32d44ed53da939a8b9",
+            "sum_fp64": -8758.599718689919,
+            "max_abs": 38.195556640625
+          },
+          "five_confidence_metrics": {
+            "plddt": 61.13365936279297,
+            "gpde": 2.1238784790039062,
+            "ptm": 0.3608674705028534,
+            "iptm": 0.7232553362846375,
+            "ranking_score": 0.6507777571678162
+          }
+        },
+        "tf32_confidence_distance": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.18521317560225725,
+          "samples_seconds": [
+            0.18021040875464678,
+            0.18521317560225725,
+            0.18964275810867548
+          ],
+          "prediction_digest": {
+            "sha256": "8dab0373bccab3c7b67a35e274d5c47a27e6d2765711fa32d44ed53da939a8b9",
+            "sum_fp64": -8758.599718689919,
+            "max_abs": 38.195556640625
+          },
+          "five_confidence_metrics": {
+            "plddt": 61.13680648803711,
+            "gpde": 2.122230291366577,
+            "ptm": 0.36077550053596497,
+            "iptm": 0.723121166229248,
+            "ranking_score": 0.6506520509719849
+          }
+        },
+        "tf32_confidence_all": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.19367013312876225,
+          "samples_seconds": [
+            0.19871362391859293,
+            0.19367013312876225,
+            0.190560064278543
+          ],
+          "prediction_digest": {
+            "sha256": "8dab0373bccab3c7b67a35e274d5c47a27e6d2765711fa32d44ed53da939a8b9",
+            "sum_fp64": -8758.599718689919,
+            "max_abs": 38.195556640625
+          },
+          "five_confidence_metrics": {
+            "plddt": 61.135284423828125,
+            "gpde": 2.1222729682922363,
+            "ptm": 0.360779345035553,
+            "iptm": 0.7230955362319946,
+            "ranking_score": 0.6506323218345642
+          }
+        }
+      },
+      "checkpoint_sha256": [
+        "1301bba9ad322518eace60fd244ded7904439f55317e90d402cc7a0c06026664"
+      ],
+      "feature_tensor_manifest_sha256": "fcab6fac2d1bbc40f3e7c8e86e9ec9f3ecce3c21bb611b76e6d7b0db7a21ac13",
+      "atom_identity_sha256": "b5b151945aeaaf3eb4dc6fd8ff4f5bb88d0cc9287a4e0a854f2a52bd08fc618a",
+      "canonical_input_sha256": "5bd6824e45a8907f91c5bb4c83e10eb6c226561209d68b3496dadf93b40d37bb",
+      "asset_hashes": [
+        "105e7c949a533f488248476e0b13307a2c94fbf138b3859ea8b1ccbdb8e27223",
+        "15388d7ed4fa8dac77770d2887d7234847b5aee1252651917efc5c1dba149066"
+      ],
+      "rng": {
+        "initialization_semantic_sha256": "23b7d34a9317924185e824e3146ba53b91b7fcbbc9cc8881059a6024a74bfd70",
+        "prediction_semantic_sha256": "1b9707b2394f3dd80c1caa095ee8ad20dc3a1f03ebf07867f69bb3b6997f6290",
+        "prediction_count": 24,
+        "status": "PASS"
+      },
+      "input_and_rng_audit": "PASS",
+      "native_predictions_and_metrics_retained": true,
+      "candidate_coordinates_unchanged": true,
+      "physical_gpu": "0",
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "fp32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_all",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "cdist",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "atom_output_einsum",
+            "count": 8
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pae",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pde",
+            "count": 4
+          },
+          {
+            "mode": "tf32_triangle_corrected",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32."
+      },
+      "runtime_precision_compact": {
+        "fp32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "False": 1320
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1320
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_triangle_corrected": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1320
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_outputs": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1316,
+            "False": 4
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_distance": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1320
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_all": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1112,
+            "False": 208
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        }
+      },
+      "triangle_calls_first_warmup": {
+        "fp32": 42,
+        "tf32": 42,
+        "tf32_triangle_corrected": 42,
+        "tf32_confidence_outputs": 42,
+        "tf32_confidence_distance": 42,
+        "tf32_confidence_all": 42
+      }
+    },
+    {
+      "case": "G02",
+      "model": "protenix_mini_ism_v0.5.0",
+      "N_token": 245,
+      "summary": {
+        "fp32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.2017222885042429,
+          "samples_seconds": [
+            0.21464890986680984,
+            0.2017222885042429,
+            0.20091694220900536
+          ],
+          "prediction_digest": {
+            "sha256": "29cfa9bc102f40ba88093afd0b80d364d2a9f7fa15b8f6aa13edd98b24a18e51",
+            "sum_fp64": 5710.60718357563,
+            "max_abs": 28.6826171875
+          },
+          "five_confidence_metrics": {
+            "plddt": 59.19908142089844,
+            "gpde": 2.767296075820923,
+            "ptm": 0.3718818128108978,
+            "iptm": 0.6902403235435486,
+            "ranking_score": 0.626568615436554
+          }
+        },
+        "tf32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.19771670456975698,
+          "samples_seconds": [
+            0.19771670456975698,
+            0.21353999059647322,
+            0.1914997547864914
+          ],
+          "prediction_digest": {
+            "sha256": "ad286e2c97cb0c79b736747504fdff4f954454110bcd7c13d4935a6489cfb31c",
+            "sum_fp64": 5716.222160100937,
+            "max_abs": 28.7822265625
+          },
+          "five_confidence_metrics": {
+            "plddt": 59.18833541870117,
+            "gpde": 2.7664270401000977,
+            "ptm": 0.37255072593688965,
+            "iptm": 0.6907452940940857,
+            "ranking_score": 0.6271064281463623
+          }
+        },
+        "tf32_triangle_corrected": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.2011766117066145,
+          "samples_seconds": [
+            0.2141896691173315,
+            0.18443684466183186,
+            0.2011766117066145
+          ],
+          "prediction_digest": {
+            "sha256": "f69b4b24b1e149806f31978cb85cf3aa8465034db1198400750913073a70f9cd",
+            "sum_fp64": 5723.235865473747,
+            "max_abs": 28.732421875
+          },
+          "five_confidence_metrics": {
+            "plddt": 59.21149444580078,
+            "gpde": 2.767774820327759,
+            "ptm": 0.3720470666885376,
+            "iptm": 0.6904643774032593,
+            "ranking_score": 0.6267809271812439
+          }
+        },
+        "tf32_confidence_outputs": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.18641798943281174,
+          "samples_seconds": [
+            0.2146182144060731,
+            0.18641798943281174,
+            0.18634808156639338
+          ],
+          "prediction_digest": {
+            "sha256": "f69b4b24b1e149806f31978cb85cf3aa8465034db1198400750913073a70f9cd",
+            "sum_fp64": 5723.235865473747,
+            "max_abs": 28.732421875
+          },
+          "five_confidence_metrics": {
+            "plddt": 59.21149444580078,
+            "gpde": 2.7677831649780273,
+            "ptm": 0.37204569578170776,
+            "iptm": 0.6904584169387817,
+            "ranking_score": 0.626775860786438
+          }
+        },
+        "tf32_confidence_distance": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.18476894404739141,
+          "samples_seconds": [
+            0.24022168945521116,
+            0.18294050078839064,
+            0.18476894404739141
+          ],
+          "prediction_digest": {
+            "sha256": "f69b4b24b1e149806f31978cb85cf3aa8465034db1198400750913073a70f9cd",
+            "sum_fp64": 5723.235865473747,
+            "max_abs": 28.732421875
+          },
+          "five_confidence_metrics": {
+            "plddt": 59.20852279663086,
+            "gpde": 2.7680153846740723,
+            "ptm": 0.372021347284317,
+            "iptm": 0.6904460191726685,
+            "ranking_score": 0.6267610788345337
+          }
+        },
+        "tf32_confidence_all": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.18998183216899633,
+          "samples_seconds": [
+            0.18553559388965368,
+            0.2072410574182868,
+            0.18998183216899633
+          ],
+          "prediction_digest": {
+            "sha256": "f69b4b24b1e149806f31978cb85cf3aa8465034db1198400750913073a70f9cd",
+            "sum_fp64": 5723.235865473747,
+            "max_abs": 28.732421875
+          },
+          "five_confidence_metrics": {
+            "plddt": 59.207969665527344,
+            "gpde": 2.767982244491577,
+            "ptm": 0.37201976776123047,
+            "iptm": 0.6904453635215759,
+            "ranking_score": 0.6267602443695068
+          }
+        }
+      },
+      "checkpoint_sha256": [
+        "a90d3040cdb2c84430878ea724ad817698ee68cc8b12f802a91dac3b081521a2"
+      ],
+      "feature_tensor_manifest_sha256": "91ce0de338c0574913377f4b77a501a1da69ab01d67e223b7ecf79a8ec95bc54",
+      "atom_identity_sha256": "b5b151945aeaaf3eb4dc6fd8ff4f5bb88d0cc9287a4e0a854f2a52bd08fc618a",
+      "canonical_input_sha256": "5bd6824e45a8907f91c5bb4c83e10eb6c226561209d68b3496dadf93b40d37bb",
+      "asset_hashes": [
+        "105e7c949a533f488248476e0b13307a2c94fbf138b3859ea8b1ccbdb8e27223",
+        "15388d7ed4fa8dac77770d2887d7234847b5aee1252651917efc5c1dba149066"
+      ],
+      "rng": {
+        "initialization_semantic_sha256": "23b7d34a9317924185e824e3146ba53b91b7fcbbc9cc8881059a6024a74bfd70",
+        "prediction_semantic_sha256": "1b9707b2394f3dd80c1caa095ee8ad20dc3a1f03ebf07867f69bb3b6997f6290",
+        "prediction_count": 24,
+        "status": "PASS"
+      },
+      "input_and_rng_audit": "PASS",
+      "native_predictions_and_metrics_retained": true,
+      "candidate_coordinates_unchanged": true,
+      "physical_gpu": "0",
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "fp32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_all",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "cdist",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "atom_output_einsum",
+            "count": 8
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pae",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pde",
+            "count": 4
+          },
+          {
+            "mode": "tf32_triangle_corrected",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32."
+      },
+      "runtime_precision_compact": {
+        "fp32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "False": 1320
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1320
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_triangle_corrected": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1320
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_outputs": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1316,
+            "False": 4
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_distance": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1320
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_all": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 1112,
+            "False": 208
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        }
+      },
+      "triangle_calls_first_warmup": {
+        "fp32": 42,
+        "tf32": 42,
+        "tf32_triangle_corrected": 42,
+        "tf32_confidence_outputs": 42,
+        "tf32_confidence_distance": 42,
+        "tf32_confidence_all": 42
+      }
+    },
+    {
+      "case": "G02",
+      "model": "protenix_tiny_default_v0.5.0",
+      "N_token": 245,
+      "summary": {
+        "fp32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.14605180639773607,
+          "samples_seconds": [
+            0.1479446031153202,
+            0.1450571110472083,
+            0.14605180639773607
+          ],
+          "prediction_digest": {
+            "sha256": "312b035b617d1127da139a7829efba6a67d9cc0d1eac6062fe8de1df06776f13",
+            "sum_fp64": -15645.289196491241,
+            "max_abs": 34.11279296875
+          },
+          "five_confidence_metrics": {
+            "plddt": 50.968170166015625,
+            "gpde": 1.813961386680603,
+            "ptm": 0.5053560137748718,
+            "iptm": 0.16722705960273743,
+            "ranking_score": 0.2348528504371643
+          }
+        },
+        "tf32": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.13563959766179323,
+          "samples_seconds": [
+            0.13563959766179323,
+            0.14204381592571735,
+            0.1349878553301096
+          ],
+          "prediction_digest": {
+            "sha256": "f9f758f19e82fcf3a2218f71bdd4d2547a123ad3e9d5adda2da270aa755a4f59",
+            "sum_fp64": -15681.64441728592,
+            "max_abs": 34.1962890625
+          },
+          "five_confidence_metrics": {
+            "plddt": 50.86586380004883,
+            "gpde": 1.8152961730957031,
+            "ptm": 0.5033380389213562,
+            "iptm": 0.16688001155853271,
+            "ranking_score": 0.23417162895202637
+          }
+        },
+        "tf32_triangle_corrected": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.13385474309325218,
+          "samples_seconds": [
+            0.13337254989892244,
+            0.1343591995537281,
+            0.13385474309325218
+          ],
+          "prediction_digest": {
+            "sha256": "966046fe484bbe4058d5b09c5d7ddae02eb896f0c3502d43ae928263b4a1b895",
+            "sum_fp64": -15679.581085205078,
+            "max_abs": 34.09619140625
+          },
+          "five_confidence_metrics": {
+            "plddt": 50.97797393798828,
+            "gpde": 1.8137739896774292,
+            "ptm": 0.5053579807281494,
+            "iptm": 0.16734695434570312,
+            "ranking_score": 0.23494915664196014
+          }
+        },
+        "tf32_confidence_outputs": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.1339512374252081,
+          "samples_seconds": [
+            0.1339512374252081,
+            0.13421506062150002,
+            0.13335381634533405
+          ],
+          "prediction_digest": {
+            "sha256": "966046fe484bbe4058d5b09c5d7ddae02eb896f0c3502d43ae928263b4a1b895",
+            "sum_fp64": -15679.581085205078,
+            "max_abs": 34.09619140625
+          },
+          "five_confidence_metrics": {
+            "plddt": 50.97797393798828,
+            "gpde": 1.81377112865448,
+            "ptm": 0.5053572058677673,
+            "iptm": 0.1673491895198822,
+            "ranking_score": 0.23495078086853027
+          }
+        },
+        "tf32_confidence_distance": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.13385750446468592,
+          "samples_seconds": [
+            0.13514749705791473,
+            0.1334868110716343,
+            0.13385750446468592
+          ],
+          "prediction_digest": {
+            "sha256": "966046fe484bbe4058d5b09c5d7ddae02eb896f0c3502d43ae928263b4a1b895",
+            "sum_fp64": -15679.581085205078,
+            "max_abs": 34.09619140625
+          },
+          "five_confidence_metrics": {
+            "plddt": 50.97415542602539,
+            "gpde": 1.813857913017273,
+            "ptm": 0.5053202509880066,
+            "iptm": 0.16731330752372742,
+            "ranking_score": 0.23491469025611877
+          }
+        },
+        "tf32_confidence_all": {
+          "count": 3,
+          "warmup_count": 1,
+          "median_seconds": 0.13556742947548628,
+          "samples_seconds": [
+            0.13564448710530996,
+            0.13556742947548628,
+            0.13513868488371372
+          ],
+          "prediction_digest": {
+            "sha256": "966046fe484bbe4058d5b09c5d7ddae02eb896f0c3502d43ae928263b4a1b895",
+            "sum_fp64": -15679.581085205078,
+            "max_abs": 34.09619140625
+          },
+          "five_confidence_metrics": {
+            "plddt": 50.97385787963867,
+            "gpde": 1.8138662576675415,
+            "ptm": 0.5053219795227051,
+            "iptm": 0.16731879115104675,
+            "ranking_score": 0.23491942882537842
+          }
+        }
+      },
+      "checkpoint_sha256": [
+        "7ad252e023d61f94572f51ab60c2a58f3a12205271898fe581fa38d20de9566b"
+      ],
+      "feature_tensor_manifest_sha256": "628423aea4fab1a4fc12dcecc426ad5180d8b31ce2611b390c8c34cf75296306",
+      "atom_identity_sha256": "b5b151945aeaaf3eb4dc6fd8ff4f5bb88d0cc9287a4e0a854f2a52bd08fc618a",
+      "canonical_input_sha256": "5bd6824e45a8907f91c5bb4c83e10eb6c226561209d68b3496dadf93b40d37bb",
+      "asset_hashes": [
+        "105e7c949a533f488248476e0b13307a2c94fbf138b3859ea8b1ccbdb8e27223",
+        "15388d7ed4fa8dac77770d2887d7234847b5aee1252651917efc5c1dba149066"
+      ],
+      "rng": {
+        "initialization_semantic_sha256": "23b7d34a9317924185e824e3146ba53b91b7fcbbc9cc8881059a6024a74bfd70",
+        "prediction_semantic_sha256": "1b9707b2394f3dd80c1caa095ee8ad20dc3a1f03ebf07867f69bb3b6997f6290",
+        "prediction_count": 24,
+        "status": "PASS"
+      },
+      "input_and_rng_audit": "PASS",
+      "native_predictions_and_metrics_retained": true,
+      "candidate_coordinates_unchanged": true,
+      "physical_gpu": "7",
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "fp32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_all",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "cdist",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_distance",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "atom_output_einsum",
+            "count": 8
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "head",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pae",
+            "count": 4
+          },
+          {
+            "mode": "tf32_confidence_outputs",
+            "operation": "linear_no_bias_pde",
+            "count": 4
+          },
+          {
+            "mode": "tf32_triangle_corrected",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32."
+      },
+      "runtime_precision_compact": {
+        "fp32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "False": 919
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 919
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_triangle_corrected": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 919
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_outputs": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 915,
+            "False": 4
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_distance": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 919
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32_confidence_all": {
+          "aten_matmul_calls_by_allow_tf32": {
+            "True": 711,
+            "False": 208
+          },
+          "flag_gems_entries_by_allow_tf32": {},
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        }
+      },
+      "triangle_calls_first_warmup": {
+        "fp32": 26,
+        "tf32": 26,
+        "tf32_triangle_corrected": 26,
+        "tf32_confidence_outputs": 26,
+        "tf32_confidence_distance": 26,
+        "tf32_confidence_all": 26
+      }
+    }
+  ],
+  "scope": "All input features, assets, atom order, checkpoints and ordered RNG audited on original server. Confidence candidates retain exact coordinates; only scalar/hash evidence exported.",
+  "worker_exit_markers": "0 0"
+}

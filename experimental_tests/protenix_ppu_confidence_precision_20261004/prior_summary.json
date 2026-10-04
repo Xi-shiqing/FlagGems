@@ -1,0 +1,3331 @@
+{
+  "status": "NATIVE_REFERENCE_MODEL_ABLATION_COMPLETE",
+  "case_count": 18,
+  "native_gate_counts": {
+    "fp32": {
+      "PASS": 18
+    },
+    "tf32": {
+      "FAIL": 11,
+      "UNRESOLVED": 4,
+      "PASS": 3
+    }
+  },
+  "diagnostic_gate_counts": {
+    "tf32_triangle_ieee": {
+      "UNRESOLVED": 11,
+      "FAIL": 2,
+      "PASS": 5
+    },
+    "tf32_triangle_corrected": {
+      "UNRESOLVED": 11,
+      "FAIL": 2,
+      "PASS": 5
+    }
+  },
+  "median_native_structure_drift_A": 0.2643223815133834,
+  "median_corrected_structure_drift_A": 0.05681110353101051,
+  "median_drift_reduction_pct": 82.42575537629509,
+  "same_device_structure_gate_counts": {
+    "H100_native_TF32_vs_own_FP32": 4,
+    "H100_custom_triangle_RNE_vs_own_FP32": 16,
+    "PPU_FlagGems_TF32_vs_own_FP32": 16
+  },
+  "adapter_validation": {
+    "status": "PASS",
+    "cases": [
+      {
+        "shape": [
+          1,
+          3,
+          2,
+          67,
+          16
+        ],
+        "scale": null,
+        "squeezed": false,
+        "relative_l2_vs_cpu_fp64": 0.00023821691386765538,
+        "input_sha256": [
+          "4233ea6c9b1b78ad396ed8cf1e2e7b99e764bd7a2e0344ce06595f4437dd7c34",
+          "b00117cc42204488d10b2e92ec8085badf2e85f48d6eca258d5073a7cccd9da7",
+          "0c7e3f5fbc156d587e4952d983ca486978377812efbe4019ab4a385328d9e101"
+        ]
+      },
+      {
+        "shape": [
+          1,
+          3,
+          2,
+          67,
+          16
+        ],
+        "scale": null,
+        "squeezed": true,
+        "relative_l2_vs_cpu_fp64": 0.00023821691386765538,
+        "input_sha256": [
+          "4233ea6c9b1b78ad396ed8cf1e2e7b99e764bd7a2e0344ce06595f4437dd7c34",
+          "b00117cc42204488d10b2e92ec8085badf2e85f48d6eca258d5073a7cccd9da7",
+          "0c7e3f5fbc156d587e4952d983ca486978377812efbe4019ab4a385328d9e101"
+        ]
+      },
+      {
+        "shape": [
+          1,
+          3,
+          2,
+          67,
+          16
+        ],
+        "scale": 0.125,
+        "squeezed": false,
+        "relative_l2_vs_cpu_fp64": 0.0002333613980184393,
+        "input_sha256": [
+          "4233ea6c9b1b78ad396ed8cf1e2e7b99e764bd7a2e0344ce06595f4437dd7c34",
+          "b00117cc42204488d10b2e92ec8085badf2e85f48d6eca258d5073a7cccd9da7",
+          "0c7e3f5fbc156d587e4952d983ca486978377812efbe4019ab4a385328d9e101"
+        ]
+      },
+      {
+        "shape": [
+          1,
+          3,
+          2,
+          67,
+          16
+        ],
+        "scale": 0.125,
+        "squeezed": true,
+        "relative_l2_vs_cpu_fp64": 0.0002333613980184393,
+        "input_sha256": [
+          "4233ea6c9b1b78ad396ed8cf1e2e7b99e764bd7a2e0344ce06595f4437dd7c34",
+          "b00117cc42204488d10b2e92ec8085badf2e85f48d6eca258d5073a7cccd9da7",
+          "0c7e3f5fbc156d587e4952d983ca486978377812efbe4019ab4a385328d9e101"
+        ]
+      },
+      {
+        "shape": [
+          1,
+          3,
+          2,
+          67,
+          16
+        ],
+        "scale": 1.0,
+        "squeezed": false,
+        "relative_l2_vs_cpu_fp64": 0.00026442632971135414,
+        "input_sha256": [
+          "4233ea6c9b1b78ad396ed8cf1e2e7b99e764bd7a2e0344ce06595f4437dd7c34",
+          "b00117cc42204488d10b2e92ec8085badf2e85f48d6eca258d5073a7cccd9da7",
+          "0c7e3f5fbc156d587e4952d983ca486978377812efbe4019ab4a385328d9e101"
+        ]
+      },
+      {
+        "shape": [
+          1,
+          3,
+          2,
+          67,
+          16
+        ],
+        "scale": 1.0,
+        "squeezed": true,
+        "relative_l2_vs_cpu_fp64": 0.00026442632971135414,
+        "input_sha256": [
+          "4233ea6c9b1b78ad396ed8cf1e2e7b99e764bd7a2e0344ce06595f4437dd7c34",
+          "b00117cc42204488d10b2e92ec8085badf2e85f48d6eca258d5073a7cccd9da7",
+          "0c7e3f5fbc156d587e4952d983ca486978377812efbe4019ab4a385328d9e101"
+        ]
+      },
+      {
+        "shape": [
+          2,
+          5,
+          8,
+          129,
+          32
+        ],
+        "scale": null,
+        "squeezed": false,
+        "relative_l2_vs_cpu_fp64": 0.00025754694548226593,
+        "input_sha256": [
+          "6b05e7f98ebf025f07b5990c92baff81bcfb9b188201a12c8f33a32da142a478",
+          "e07b7e64764bf3e5b70b3da0b33213545962cb90275faca14849152441bd0fc9",
+          "e91663708de7fbbe61952830f43001fd40ca5116f21d2f2a02e63f29595d5769"
+        ]
+      },
+      {
+        "shape": [
+          2,
+          5,
+          8,
+          129,
+          32
+        ],
+        "scale": 0.125,
+        "squeezed": false,
+        "relative_l2_vs_cpu_fp64": 0.0002527197272343754,
+        "input_sha256": [
+          "6b05e7f98ebf025f07b5990c92baff81bcfb9b188201a12c8f33a32da142a478",
+          "e07b7e64764bf3e5b70b3da0b33213545962cb90275faca14849152441bd0fc9",
+          "e91663708de7fbbe61952830f43001fd40ca5116f21d2f2a02e63f29595d5769"
+        ]
+      },
+      {
+        "shape": [
+          2,
+          5,
+          8,
+          129,
+          32
+        ],
+        "scale": 1.0,
+        "squeezed": false,
+        "relative_l2_vs_cpu_fp64": 0.0002943145195397832,
+        "input_sha256": [
+          "6b05e7f98ebf025f07b5990c92baff81bcfb9b188201a12c8f33a32da142a478",
+          "e07b7e64764bf3e5b70b3da0b33213545962cb90275faca14849152441bd0fc9",
+          "e91663708de7fbbe61952830f43001fd40ca5116f21d2f2a02e63f29595d5769"
+        ]
+      }
+    ],
+    "scope": "Adapter scale/mask/layout check; full native correctness is not inferred from this test."
+  },
+  "scope": {
+    "purpose": "Quantify full-model consequence of native TriAttention TF32 precision path; original frozen four modes remain separately identifiable.",
+    "models": 9,
+    "inputs": {
+      "G01_tokens": 693,
+      "G02_tokens": 245
+    },
+    "protocol": {
+      "cycle": 1,
+      "step": 1,
+      "sample": 1,
+      "warmups_per_mode": 1,
+      "repeats_per_mode": 3
+    },
+    "gpu_policy": "PPU workers on physical 0 and 7; H100 workers on physical 0 and 7; no shared physical GPU among our jobs.",
+    "new_policies": {
+      "tf32_triangle_ieee": "H100 native CUE IEEE only inside TriAttention, other matmul remains TF32; mixed precision diagnostic.",
+      "tf32_triangle_corrected": "Custom H100 CUDA RNE-once TriAttention adapted to native layout; entire attention implementation changes, so not a query-only ablation and not native CUE.",
+      "confidence_head_ieee": "Six H100 diagnostic cases: disable global matmul TF32 only in ConfidenceHead forward by class; custom triangle explicitly remains TF32. Not a promoted PPU policy."
+    },
+    "training": "No new training claim in this inference-focused round; previous backward-only full-training evidence retained separately.",
+    "data": "Raw weights, activations, coordinates and gradients remain on their original server; aggregate scalar/hash reports only.",
+    "default_package_changed": false,
+    "adapter_control_failure": "Initial adapter returned four dimensions for 4D Q inputs although native low-level CUE retains five dimensions. Real caller [0] removed N instead of B. Initial corrected-mode model outputs and timings discarded; exact native rank assertion added; corrected models rerun.",
+    "precision_intent": "No PPU workaround that imitates measured native query drift; native and corrected diagnostics remain separate.",
+    "confidence_ablation": {
+      "models": [
+        "protenix_base_default_v0.5.0",
+        "protenix-v2",
+        "protenix_mini_esm_v0.5.0"
+      ],
+      "inputs": [
+        "G01",
+        "G02"
+      ],
+      "case_count": 6,
+      "selection_is_dispatch_rule": false,
+      "coordinate_hash_unchanged": true
+    }
+  },
+  "cases": [
+    {
+      "input": "G01",
+      "tokens": 693,
+      "model": "protenix-v2",
+      "input_and_rng_audit": "PASS",
+      "frozen_four_mode_predictions_retained": true,
+      "timing": {
+        "input": "G01",
+        "tokens": 693,
+        "model": "protenix-v2",
+        "H100_native_FP32_s": 7.753093854524195,
+        "H100_native_TF32_s": 4.29381553363055,
+        "PPU_FlagGems_FP32_s": 21.80016459687613,
+        "PPU_FlagGems_TF32_s": 17.202026195125654,
+        "H100_mixed_triangle_IEEE_s": 5.36255644634366,
+        "H100_custom_triangle_RNE_s": 4.670408152043819,
+        "PPU_TF32_vs_native_H100_TF32_time_ratio": 4.006233164977356,
+        "PPU_gpu": "0",
+        "H100_gpu": "0"
+      },
+      "same_device_structure": {
+        "input": "G01",
+        "tokens": 693,
+        "model": "protenix-v2",
+        "H100_native_FP32_vs_own_FP32_A": 0,
+        "H100_native_TF32_vs_own_FP32_A": 1.0141580076464647,
+        "PPU_FP32_vs_own_FP32_A": 0,
+        "PPU_TF32_vs_own_FP32_A": 0.06152266871354198,
+        "H100_mixed_triangle_IEEE_vs_own_FP32_A": 0.0658815169387455,
+        "H100_custom_triangle_RNE_vs_own_FP32_A": 0.08175273849526349,
+        "H100_custom_triangle_RNE_vs_native_TF32_A": 1.0079653612397832,
+        "H100_drift_reduction_pct": 91.93885589041639
+      },
+      "cross_device_gates": {
+        "native_fp32": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 4.927545813987466e-05,
+            "upper_A": 0.01981606430816102,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 7.182577437387452e-05,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.0011575241738142838,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.0,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.0,
+              "pass": true
+            }
+          }
+        },
+        "native_tf32": {
+          "status": "FAIL",
+          "rmsd": {
+            "lower_A": 0.9652377462421642,
+            "upper_A": 1.05073950802525,
+            "status": "FAIL"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.04825609769561874,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.16526146135671196,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.20571329896465518,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.20571817578481788,
+              "pass": true
+            }
+          }
+        },
+        "mixed_triangle_ieee": {
+          "status": "UNRESOLVED",
+          "rmsd": {
+            "lower_A": 0,
+            "upper_A": 0.13780325934969131,
+            "status": "UNRESOLVED"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.021889769477742245,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.15909341634109683,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.2076236632765719,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.20762691551293738,
+              "pass": true
+            }
+          }
+        },
+        "custom_triangle_rne": {
+          "status": "UNRESOLVED",
+          "rmsd": {
+            "lower_A": 0.007727595355219066,
+            "upper_A": 0.1506382725486039,
+            "status": "UNRESOLVED"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.01882865137113346,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.15722722031613362,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.2063760867056946,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.20637609006514326,
+              "pass": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "input": "G01",
+      "tokens": 693,
+      "model": "protenix_base_20250630_v1.0.0",
+      "input_and_rng_audit": "PASS",
+      "frozen_four_mode_predictions_retained": true,
+      "timing": {
+        "input": "G01",
+        "tokens": 693,
+        "model": "protenix_base_20250630_v1.0.0",
+        "H100_native_FP32_s": 3.8279579346999526,
+        "H100_native_TF32_s": 2.448982847854495,
+        "PPU_FlagGems_FP32_s": 11.425754643976688,
+        "PPU_FlagGems_TF32_s": 8.645786216948181,
+        "H100_mixed_triangle_IEEE_s": 3.031108120456338,
+        "H100_custom_triangle_RNE_s": 2.6432970724999905,
+        "PPU_TF32_vs_native_H100_TF32_time_ratio": 3.530358011499583,
+        "PPU_gpu": "7",
+        "H100_gpu": "7"
+      },
+      "same_device_structure": {
+        "input": "G01",
+        "tokens": 693,
+        "model": "protenix_base_20250630_v1.0.0",
+        "H100_native_FP32_vs_own_FP32_A": 0,
+        "H100_native_TF32_vs_own_FP32_A": 1.09564473388817,
+        "PPU_FP32_vs_own_FP32_A": 0,
+        "PPU_TF32_vs_own_FP32_A": 0.1783444869468523,
+        "H100_mixed_triangle_IEEE_vs_own_FP32_A": 0.23218029222822403,
+        "H100_custom_triangle_RNE_vs_own_FP32_A": 0.1955265279030225,
+        "H100_custom_triangle_RNE_vs_native_TF32_A": 1.169752597719045,
+        "H100_drift_reduction_pct": 82.15420365238761
+      },
+      "cross_device_gates": {
+        "native_fp32": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 2.0387800118652072e-05,
+            "upper_A": 0.01680134342129193,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 2.7221684140265715e-05,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 4.241145421412084e-05,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.00022388373807035502,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.00022388373807035502,
+              "pass": true
+            }
+          }
+        },
+        "native_tf32": {
+          "status": "FAIL",
+          "rmsd": {
+            "lower_A": 1.0016551031929155,
+            "upper_A": 1.2264355568919774,
+            "status": "FAIL"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.019448867711232935,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.0010684490884857313,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.0013071037597765318,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.0013093418632292824,
+              "pass": true
+            }
+          }
+        },
+        "mixed_triangle_ieee": {
+          "status": "UNRESOLVED",
+          "rmsd": {
+            "lower_A": 0.05015297092159046,
+            "upper_A": 0.4236636760367056,
+            "status": "UNRESOLVED"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.027048561147163766,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.009555872388828194,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.0024261722933272742,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.0024284102965939475,
+              "pass": true
+            }
+          }
+        },
+        "custom_triangle_rne": {
+          "status": "UNRESOLVED",
+          "rmsd": {
+            "lower_A": 0.012798291497936404,
+            "upper_A": 0.3863089966130515,
+            "status": "UNRESOLVED"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.023874605347875315,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.009310003267828106,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.002354552657376778,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.0023500763215262514,
+              "pass": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "input": "G01",
+      "tokens": 693,
+      "model": "protenix_base_constraint_v0.5.0",
+      "input_and_rng_audit": "PASS",
+      "frozen_four_mode_predictions_retained": true,
+      "timing": {
+        "input": "G01",
+        "tokens": 693,
+        "model": "protenix_base_constraint_v0.5.0",
+        "H100_native_FP32_s": 3.4984305072575808,
+        "H100_native_TF32_s": 2.231617304496467,
+        "PPU_FlagGems_FP32_s": 10.477728768019006,
+        "PPU_FlagGems_TF32_s": 7.836855615023524,
+        "H100_mixed_triangle_IEEE_s": 2.7442720951512456,
+        "H100_custom_triangle_RNE_s": 2.4283242812380195,
+        "PPU_TF32_vs_native_H100_TF32_time_ratio": 3.5117381457981653,
+        "PPU_gpu": "0",
+        "H100_gpu": "0"
+      },
+      "same_device_structure": {
+        "input": "G01",
+        "tokens": 693,
+        "model": "protenix_base_constraint_v0.5.0",
+        "H100_native_FP32_vs_own_FP32_A": 0,
+        "H100_native_TF32_vs_own_FP32_A": 4.67912526920363,
+        "PPU_FP32_vs_own_FP32_A": 0,
+        "PPU_TF32_vs_own_FP32_A": 0.046950482493470364,
+        "H100_mixed_triangle_IEEE_vs_own_FP32_A": 0.06311960996097969,
+        "H100_custom_triangle_RNE_vs_own_FP32_A": 0.0619000246786282,
+        "H100_custom_triangle_RNE_vs_native_TF32_A": 4.634623320984439,
+        "H100_drift_reduction_pct": 98.67710263954605
+      },
+      "cross_device_gates": {
+        "native_fp32": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 0.0003521225335711975,
+            "upper_A": 0.007597947787398142,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.0,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.00017448247335187346,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.00019817593911242447,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.00020127242881245783,
+              "pass": true
+            }
+          }
+        },
+        "native_tf32": {
+          "status": "FAIL",
+          "rmsd": {
+            "lower_A": 4.631822664176589,
+            "upper_A": 4.660133465498481,
+            "status": "FAIL"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.0055527970404396524,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.016345781334164776,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.0015853894472019486,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.001586937629945033,
+              "pass": true
+            }
+          }
+        },
+        "mixed_triangle_ieee": {
+          "status": "UNRESOLVED",
+          "rmsd": {
+            "lower_A": 0.06788096639167931,
+            "upper_A": 0.11330281407516521,
+            "status": "UNRESOLVED"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.0014395133908274385,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.015566181458630313,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.0013810256611288777,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.0013779292123702433,
+              "pass": true
+            }
+          }
+        },
+        "custom_triangle_rne": {
+          "status": "UNRESOLVED",
+          "rmsd": {
+            "lower_A": 0.011627161762280534,
+            "upper_A": 0.11321409303515928,
+            "status": "UNRESOLVED"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.002655467567487099,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.015810532350745782,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.0013810256611288777,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.0013779292123702433,
+              "pass": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "input": "G01",
+      "tokens": 693,
+      "model": "protenix_base_default_v0.5.0",
+      "input_and_rng_audit": "PASS",
+      "frozen_four_mode_predictions_retained": true,
+      "timing": {
+        "input": "G01",
+        "tokens": 693,
+        "model": "protenix_base_default_v0.5.0",
+        "H100_native_FP32_s": 3.487188655883074,
+        "H100_native_TF32_s": 2.240789707750082,
+        "PPU_FlagGems_FP32_s": 10.461408731061965,
+        "PPU_FlagGems_TF32_s": 8.006177299888805,
+        "H100_mixed_triangle_IEEE_s": 2.745072193443775,
+        "H100_custom_triangle_RNE_s": 2.421047723852098,
+        "PPU_TF32_vs_native_H100_TF32_time_ratio": 3.5729266660759507,
+        "PPU_gpu": "7",
+        "H100_gpu": "7"
+      },
+      "same_device_structure": {
+        "input": "G01",
+        "tokens": 693,
+        "model": "protenix_base_default_v0.5.0",
+        "H100_native_FP32_vs_own_FP32_A": 0,
+        "H100_native_TF32_vs_own_FP32_A": 0.9989481480777178,
+        "PPU_FP32_vs_own_FP32_A": 0,
+        "PPU_TF32_vs_own_FP32_A": 0.02631441159680802,
+        "H100_mixed_triangle_IEEE_vs_own_FP32_A": 0.02877215631440074,
+        "H100_custom_triangle_RNE_vs_own_FP32_A": 0.03328623287482486,
+        "H100_custom_triangle_RNE_vs_native_TF32_A": 0.9852710617825473,
+        "H100_drift_reduction_pct": 96.66787180707249
+      },
+      "cross_device_gates": {
+        "native_fp32": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 8.108690907016654e-06,
+            "upper_A": 0.006638797332303601,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.005504261833501372,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.00033586408854303896,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 6.054831749008118e-05,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 5.88664178018775e-05,
+              "pass": true
+            }
+          }
+        },
+        "native_tf32": {
+          "status": "FAIL",
+          "rmsd": {
+            "lower_A": 0.9808218316491074,
+            "upper_A": 1.0213930200305226,
+            "status": "FAIL"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.5466312778546628,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.03831437156204692,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.01391748940061093,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.013915807263967309,
+              "pass": true
+            }
+          }
+        },
+        "mixed_triangle_ieee": {
+          "status": "FAIL",
+          "rmsd": {
+            "lower_A": 0,
+            "upper_A": 0.05877001238537311,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 14.165486305368011,
+              "pass": false
+            },
+            "gpde": {
+              "relative_difference_pct": 0.033365567406382066,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.012283108291003922,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.012276381713068166,
+              "pass": true
+            }
+          }
+        },
+        "custom_triangle_rne": {
+          "status": "FAIL",
+          "rmsd": {
+            "lower_A": 0.004341198112264851,
+            "upper_A": 0.06360070994727747,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 14.15934150105179,
+              "pass": false
+            },
+            "gpde": {
+              "relative_difference_pct": 0.0335162263486429,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.012303286161318885,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.012301604051810354,
+              "pass": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "input": "G01",
+      "tokens": 693,
+      "model": "protenix_base_default_v1.0.0",
+      "input_and_rng_audit": "PASS",
+      "frozen_four_mode_predictions_retained": true,
+      "timing": {
+        "input": "G01",
+        "tokens": 693,
+        "model": "protenix_base_default_v1.0.0",
+        "H100_native_FP32_s": 3.835850034840405,
+        "H100_native_TF32_s": 2.4546459885314107,
+        "PPU_FlagGems_FP32_s": 11.479391783941537,
+        "PPU_FlagGems_TF32_s": 8.65373903606087,
+        "H100_mixed_triangle_IEEE_s": 3.044536452740431,
+        "H100_custom_triangle_RNE_s": 2.642305636778474,
+        "PPU_TF32_vs_native_H100_TF32_time_ratio": 3.525452988533924,
+        "PPU_gpu": "0",
+        "H100_gpu": "0"
+      },
+      "same_device_structure": {
+        "input": "G01",
+        "tokens": 693,
+        "model": "protenix_base_default_v1.0.0",
+        "H100_native_FP32_vs_own_FP32_A": 0,
+        "H100_native_TF32_vs_own_FP32_A": 2.2065673492460975,
+        "PPU_FP32_vs_own_FP32_A": 0,
+        "PPU_TF32_vs_own_FP32_A": 0.07612398259402381,
+        "H100_mixed_triangle_IEEE_vs_own_FP32_A": 0.09309610423284606,
+        "H100_custom_triangle_RNE_vs_own_FP32_A": 0.06750707680096757,
+        "H100_custom_triangle_RNE_vs_native_TF32_A": 2.173823549843338,
+        "H100_drift_reduction_pct": 96.94062921650534
+      },
+      "cross_device_gates": {
+        "native_fp32": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 0.00012079323425195909,
+            "upper_A": 0.02362770245222736,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.0002288076015986787,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 7.82628975950855e-05,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 1.093484744520958e-05,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 6.8342796532559875e-06,
+              "pass": true
+            }
+          }
+        },
+        "native_tf32": {
+          "status": "FAIL",
+          "rmsd": {
+            "lower_A": 2.1305641598863136,
+            "upper_A": 2.2028593939290455,
+            "status": "FAIL"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.06368724569527483,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.0019628105438530673,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.004453260514317671,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.004451892683536627,
+              "pass": true
+            }
+          }
+        },
+        "mixed_triangle_ieee": {
+          "status": "UNRESOLVED",
+          "rmsd": {
+            "lower_A": 0.014232610636878223,
+            "upper_A": 0.18999368176258646,
+            "status": "UNRESOLVED"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.051754448157118535,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.013907011578809626,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.002910529661689223,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.0029064264713766913,
+              "pass": true
+            }
+          }
+        },
+        "custom_triangle_rne": {
+          "status": "UNRESOLVED",
+          "rmsd": {
+            "lower_A": 0,
+            "upper_A": 0.1622343900555305,
+            "status": "UNRESOLVED"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.05277356130342882,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.013509349552202878,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.002910529661689223,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.0029064264713766913,
+              "pass": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "input": "G01",
+      "tokens": 693,
+      "model": "protenix_mini_default_v0.5.0",
+      "input_and_rng_audit": "PASS",
+      "frozen_four_mode_predictions_retained": true,
+      "timing": {
+        "input": "G01",
+        "tokens": 693,
+        "model": "protenix_mini_default_v0.5.0",
+        "H100_native_FP32_s": 1.3842981830239296,
+        "H100_native_TF32_s": 0.9207359664142132,
+        "PPU_FlagGems_FP32_s": 4.034962075063959,
+        "PPU_FlagGems_TF32_s": 3.077881229110062,
+        "H100_mixed_triangle_IEEE_s": 1.1152622178196907,
+        "H100_custom_triangle_RNE_s": 0.9953382974490523,
+        "PPU_TF32_vs_native_H100_TF32_time_ratio": 3.3428489180202288,
+        "PPU_gpu": "7",
+        "H100_gpu": "7"
+      },
+      "same_device_structure": {
+        "input": "G01",
+        "tokens": 693,
+        "model": "protenix_mini_default_v0.5.0",
+        "H100_native_FP32_vs_own_FP32_A": 0,
+        "H100_native_TF32_vs_own_FP32_A": 0.6799669771827015,
+        "PPU_FP32_vs_own_FP32_A": 0,
+        "PPU_TF32_vs_own_FP32_A": 0.0643986825956023,
+        "H100_mixed_triangle_IEEE_vs_own_FP32_A": 0.06453979752114665,
+        "H100_custom_triangle_RNE_vs_own_FP32_A": 0.05798045139398859,
+        "H100_custom_triangle_RNE_vs_native_TF32_A": 0.6594786310511536,
+        "H100_drift_reduction_pct": 91.47304893625595
+      },
+      "cross_device_gates": {
+        "native_fp32": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 2.250743210052697e-05,
+            "upper_A": 0.005720585481108451,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 5.037158805687129e-05,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.0001967216662193981,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 2.6454625203215612e-05,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 3.306828004600459e-05,
+              "pass": true
+            }
+          }
+        },
+        "native_tf32": {
+          "status": "FAIL",
+          "rmsd": {
+            "lower_A": 0.6380562506962854,
+            "upper_A": 0.6887868709090589,
+            "status": "FAIL"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.16157180564108164,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.08955561075875743,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.12081319486521905,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.12080879141009201,
+              "pass": true
+            }
+          }
+        },
+        "mixed_triangle_ieee": {
+          "status": "UNRESOLVED",
+          "rmsd": {
+            "lower_A": 0,
+            "upper_A": 0.1320206303797776,
+            "status": "UNRESOLVED"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.01782863471374937,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.06211119463184632,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.003094868839723091,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.003097072957450075,
+              "pass": true
+            }
+          }
+        },
+        "custom_triangle_rne": {
+          "status": "UNRESOLVED",
+          "rmsd": {
+            "lower_A": 0.003651489520849295,
+            "upper_A": 0.12514587567035532,
+            "status": "UNRESOLVED"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.015940309208002715,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.06300633017877647,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.002416070643789358,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.0024138660401343257,
+              "pass": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "input": "G01",
+      "tokens": 693,
+      "model": "protenix_mini_esm_v0.5.0",
+      "input_and_rng_audit": "PASS",
+      "frozen_four_mode_predictions_retained": true,
+      "timing": {
+        "input": "G01",
+        "tokens": 693,
+        "model": "protenix_mini_esm_v0.5.0",
+        "H100_native_FP32_s": 1.387780942954123,
+        "H100_native_TF32_s": 0.9282210422679782,
+        "PPU_FlagGems_FP32_s": 4.0029485849663615,
+        "PPU_FlagGems_TF32_s": 3.059987902874127,
+        "H100_mixed_triangle_IEEE_s": 1.1163610629737377,
+        "H100_custom_triangle_RNE_s": 0.9949284056201577,
+        "PPU_TF32_vs_native_H100_TF32_time_ratio": 3.2966155296344875,
+        "PPU_gpu": "0",
+        "H100_gpu": "0"
+      },
+      "same_device_structure": {
+        "input": "G01",
+        "tokens": 693,
+        "model": "protenix_mini_esm_v0.5.0",
+        "H100_native_FP32_vs_own_FP32_A": 0,
+        "H100_native_TF32_vs_own_FP32_A": 0.27312702765652747,
+        "PPU_FP32_vs_own_FP32_A": 0,
+        "PPU_TF32_vs_own_FP32_A": 0.0426589130758717,
+        "H100_mixed_triangle_IEEE_vs_own_FP32_A": 0.040925042298924,
+        "H100_custom_triangle_RNE_vs_own_FP32_A": 0.04257896089242139,
+        "H100_custom_triangle_RNE_vs_native_TF32_A": 0.2859670019357006,
+        "H100_drift_reduction_pct": 84.41056483579985
+      },
+      "cross_device_gates": {
+        "native_fp32": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 2.061890620069784e-05,
+            "upper_A": 0.00813637239780778,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 7.997715052809412e-05,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 7.601580737855036e-05,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.00010391897763915976,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.00011134176382240729,
+              "pass": true
+            }
+          }
+        },
+        "native_tf32": {
+          "status": "FAIL",
+          "rmsd": {
+            "lower_A": 0.26046005803627753,
+            "upper_A": 0.2912969916298043,
+            "status": "FAIL"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.2738871735639773,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.2157483152421019,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.34141415902915323,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.34140855692865885,
+              "pass": true
+            }
+          }
+        },
+        "mixed_triangle_ieee": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 0,
+            "upper_A": 0.0881237189136293,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.006349684420684292,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.0030095623683452275,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.005050205353975206,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.005050205447742024,
+              "pass": true
+            }
+          }
+        },
+        "custom_triangle_rne": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 0,
+            "upper_A": 0.08931645384960117,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.01747496720944368,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.009431292005513178,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.007769400047076919,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.007761971889963092,
+              "pass": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "input": "G01",
+      "tokens": 693,
+      "model": "protenix_mini_ism_v0.5.0",
+      "input_and_rng_audit": "PASS",
+      "frozen_four_mode_predictions_retained": true,
+      "timing": {
+        "input": "G01",
+        "tokens": 693,
+        "model": "protenix_mini_ism_v0.5.0",
+        "H100_native_FP32_s": 1.3983231093734503,
+        "H100_native_TF32_s": 0.9220574013888836,
+        "PPU_FlagGems_FP32_s": 4.0014771989081055,
+        "PPU_FlagGems_TF32_s": 3.057756287045777,
+        "H100_mixed_triangle_IEEE_s": 1.1154984282329679,
+        "H100_custom_triangle_RNE_s": 0.9912865031510592,
+        "PPU_TF32_vs_native_H100_TF32_time_ratio": 3.316232028982053,
+        "PPU_gpu": "7",
+        "H100_gpu": "7"
+      },
+      "same_device_structure": {
+        "input": "G01",
+        "tokens": 693,
+        "model": "protenix_mini_ism_v0.5.0",
+        "H100_native_FP32_vs_own_FP32_A": 0,
+        "H100_native_TF32_vs_own_FP32_A": 0.2555177353702393,
+        "PPU_FP32_vs_own_FP32_A": 0,
+        "PPU_TF32_vs_own_FP32_A": 0.04504328744575489,
+        "H100_mixed_triangle_IEEE_vs_own_FP32_A": 0.04359583595286874,
+        "H100_custom_triangle_RNE_vs_own_FP32_A": 0.04421144905562962,
+        "H100_custom_triangle_RNE_vs_native_TF32_A": 0.2480076544723965,
+        "H100_drift_reduction_pct": 82.69730710020255
+      },
+      "cross_device_gates": {
+        "native_fp32": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 1.370842651347761e-05,
+            "upper_A": 0.005334438210120935,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 8.49340788393792e-06,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 3.442629948952683e-05,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 2.6381379600176122e-05,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 3.297672305026774e-05,
+              "pass": true
+            }
+          }
+        },
+        "native_tf32": {
+          "status": "FAIL",
+          "rmsd": {
+            "lower_A": 0.23102483556682646,
+            "upper_A": 0.26319756232501873,
+            "status": "FAIL"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.11174792126043442,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.024501082665942406,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.0827701548094459,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.08277234760037067,
+              "pass": true
+            }
+          }
+        },
+        "mixed_triangle_ieee": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 0,
+            "upper_A": 0.09050923124657104,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.0035842902765509275,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.015801709288884122,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.009697722943001304,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.009693327089453254,
+              "pass": true
+            }
+          }
+        },
+        "custom_triangle_rne": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 0,
+            "upper_A": 0.09119331008907097,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.00567423599555235,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.0039757395104638715,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.01126254639755892,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.011264743901267651,
+              "pass": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "input": "G01",
+      "tokens": 693,
+      "model": "protenix_tiny_default_v0.5.0",
+      "input_and_rng_audit": "PASS",
+      "frozen_four_mode_predictions_retained": true,
+      "timing": {
+        "input": "G01",
+        "tokens": 693,
+        "model": "protenix_tiny_default_v0.5.0",
+        "H100_native_FP32_s": 0.9412673618644476,
+        "H100_native_TF32_s": 0.6456781160086393,
+        "PPU_FlagGems_FP32_s": 2.645121034933254,
+        "PPU_FlagGems_TF32_s": 2.0593585539609194,
+        "H100_mixed_triangle_IEEE_s": 0.7644210066646338,
+        "H100_custom_triangle_RNE_s": 0.682391525246203,
+        "PPU_TF32_vs_native_H100_TF32_time_ratio": 3.1894507540245716,
+        "PPU_gpu": "0",
+        "H100_gpu": "0"
+      },
+      "same_device_structure": {
+        "input": "G01",
+        "tokens": 693,
+        "model": "protenix_tiny_default_v0.5.0",
+        "H100_native_FP32_vs_own_FP32_A": 0,
+        "H100_native_TF32_vs_own_FP32_A": 0.4492550660471767,
+        "PPU_FP32_vs_own_FP32_A": 0,
+        "PPU_TF32_vs_own_FP32_A": 0.06918617333210883,
+        "H100_mixed_triangle_IEEE_vs_own_FP32_A": 0.07360200800870761,
+        "H100_custom_triangle_RNE_vs_own_FP32_A": 0.059119233694046376,
+        "H100_custom_triangle_RNE_vs_native_TF32_A": 0.4784781447880672,
+        "H100_drift_reduction_pct": 86.84060833988721
+      },
+      "cross_device_gates": {
+        "native_fp32": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 1.3716900130189558e-05,
+            "upper_A": 0.0064194128489474134,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 9.395568955724791e-05,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 9.491760519085399e-05,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 8.835738583364266e-06,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 1.1044672497296541e-05,
+              "pass": true
+            }
+          }
+        },
+        "native_tf32": {
+          "status": "FAIL",
+          "rmsd": {
+            "lower_A": 0.4567417834992869,
+            "upper_A": 0.5060739733483229,
+            "status": "FAIL"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.0941143100202752,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.0813899330037546,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.1507607057622145,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.15076513027080649,
+              "pass": true
+            }
+          }
+        },
+        "mixed_triangle_ieee": {
+          "status": "UNRESOLVED",
+          "rmsd": {
+            "lower_A": 0.0021892463094889403,
+            "upper_A": 0.1469688946722281,
+            "status": "UNRESOLVED"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.028569544865173723,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.009717786223021826,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.012645480464632597,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.01264768938865488,
+              "pass": true
+            }
+          }
+        },
+        "custom_triangle_rne": {
+          "status": "UNRESOLVED",
+          "rmsd": {
+            "lower_A": 0.005953300261617528,
+            "upper_A": 0.13241904640260013,
+            "status": "UNRESOLVED"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.0017152985124602338,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.01203666982519554,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.0014579111649664477,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.0014579111005572091,
+              "pass": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "input": "G02",
+      "tokens": 245,
+      "model": "protenix-v2",
+      "input_and_rng_audit": "PASS",
+      "frozen_four_mode_predictions_retained": true,
+      "timing": {
+        "input": "G02",
+        "tokens": 245,
+        "model": "protenix-v2",
+        "H100_native_FP32_s": 0.944439921528101,
+        "H100_native_TF32_s": 0.5931241810321808,
+        "PPU_FlagGems_FP32_s": 2.596911379136145,
+        "PPU_FlagGems_TF32_s": 2.3326561101712286,
+        "H100_mixed_triangle_IEEE_s": 0.6363705601543188,
+        "H100_custom_triangle_RNE_s": 0.6028569908812642,
+        "PPU_TF32_vs_native_H100_TF32_time_ratio": 3.932829219863938,
+        "PPU_gpu": "0",
+        "H100_gpu": "0"
+      },
+      "same_device_structure": {
+        "input": "G02",
+        "tokens": 245,
+        "model": "protenix-v2",
+        "H100_native_FP32_vs_own_FP32_A": 0,
+        "H100_native_TF32_vs_own_FP32_A": 0.11663354036053362,
+        "PPU_FP32_vs_own_FP32_A": 0,
+        "PPU_TF32_vs_own_FP32_A": 0.06261530502795076,
+        "H100_mixed_triangle_IEEE_vs_own_FP32_A": 0.0676801482772462,
+        "H100_custom_triangle_RNE_vs_own_FP32_A": 0.07647518582452319,
+        "H100_custom_triangle_RNE_vs_native_TF32_A": 0.07624263951324674,
+        "H100_drift_reduction_pct": 34.4312231386223
+      },
+      "cross_device_gates": {
+        "native_fp32": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 0.00010967259134363194,
+            "upper_A": 0.011420164963762197,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.0017899124724069712,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.0017833453378894503,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 4.325847022476236e-05,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 2.6084041913577484e-05,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 3.4744196720252065e-05,
+              "pass": true
+            }
+          }
+        },
+        "native_tf32": {
+          "status": "UNRESOLVED",
+          "rmsd": {
+            "lower_A": 0.05412790792392859,
+            "upper_A": 0.12262238093706176,
+            "status": "UNRESOLVED"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.21961948666132786,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.27032826994210246,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 1.5359820865993294,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 1.3943751119623993,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 1.4228457977934483,
+              "pass": true
+            }
+          }
+        },
+        "mixed_triangle_ieee": {
+          "status": "UNRESOLVED",
+          "rmsd": {
+            "lower_A": 0,
+            "upper_A": 0.13356647034225905,
+            "status": "UNRESOLVED"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.21868983349556403,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.271711186874538,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 1.4818815313187872,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 1.33289686000919,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 1.3628507690662337,
+              "pass": true
+            }
+          }
+        },
+        "custom_triangle_rne": {
+          "status": "UNRESOLVED",
+          "rmsd": {
+            "lower_A": 0.006304394629408766,
+            "upper_A": 0.14303991450910733,
+            "status": "UNRESOLVED"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.22725908235535874,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.27510779275676367,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 1.4815791735095292,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 1.3328883936470302,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 1.362783146893945,
+              "pass": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "input": "G02",
+      "tokens": 245,
+      "model": "protenix_base_20250630_v1.0.0",
+      "input_and_rng_audit": "PASS",
+      "frozen_four_mode_predictions_retained": true,
+      "timing": {
+        "input": "G02",
+        "tokens": 245,
+        "model": "protenix_base_20250630_v1.0.0",
+        "H100_native_FP32_s": 0.48955048620700836,
+        "H100_native_TF32_s": 0.48960442934185266,
+        "PPU_FlagGems_FP32_s": 2.016147440066561,
+        "PPU_FlagGems_TF32_s": 1.9491941418964416,
+        "H100_mixed_triangle_IEEE_s": 0.4850328229367733,
+        "H100_custom_triangle_RNE_s": 0.45606575813144445,
+        "PPU_TF32_vs_native_H100_TF32_time_ratio": 3.981161168244806,
+        "PPU_gpu": "7",
+        "H100_gpu": "7"
+      },
+      "same_device_structure": {
+        "input": "G02",
+        "tokens": 245,
+        "model": "protenix_base_20250630_v1.0.0",
+        "H100_native_FP32_vs_own_FP32_A": 0,
+        "H100_native_TF32_vs_own_FP32_A": 0.11875747769226434,
+        "PPU_FP32_vs_own_FP32_A": 0,
+        "PPU_TF32_vs_own_FP32_A": 0.15929562180196885,
+        "H100_mixed_triangle_IEEE_vs_own_FP32_A": 0.14853433676937233,
+        "H100_custom_triangle_RNE_vs_own_FP32_A": 0.16916451105098365,
+        "H100_custom_triangle_RNE_vs_native_TF32_A": 0.16108265647697467,
+        "H100_drift_reduction_pct": -42.44535530582656
+      },
+      "cross_device_gates": {
+        "native_fp32": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 0.00021286512513111686,
+            "upper_A": 0.04096372969206179,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.0005543686127578829,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 8.420389636689658e-05,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.0,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 6.495901118873497e-06,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 6.457518824958879e-06,
+              "pass": true
+            }
+          }
+        },
+        "native_tf32": {
+          "status": "UNRESOLVED",
+          "rmsd": {
+            "lower_A": 0.0648795315763035,
+            "upper_A": 0.18700972366782492,
+            "status": "UNRESOLVED"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.3011855585664353,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.015293406572225743,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.0019863350239671816,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0.0028050540060554105,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.002646477699552487,
+              "pass": true
+            }
+          }
+        },
+        "mixed_triangle_ieee": {
+          "status": "UNRESOLVED",
+          "rmsd": {
+            "lower_A": 0,
+            "upper_A": 0.33364843121665316,
+            "status": "UNRESOLVED"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.3293155020283175,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.024776840118013167,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.0029826257321778652,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0.002967378703363293,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.0029756639103154263,
+              "pass": true
+            }
+          }
+        },
+        "custom_triangle_rne": {
+          "status": "UNRESOLVED",
+          "rmsd": {
+            "lower_A": 0,
+            "upper_A": 0.3480923801447996,
+            "status": "UNRESOLVED"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.3267883905079831,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.03149914292540443,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.0031780981617413606,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0.0033309841129589308,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.0032983933855013086,
+              "pass": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "input": "G02",
+      "tokens": 245,
+      "model": "protenix_base_constraint_v0.5.0",
+      "input_and_rng_audit": "PASS",
+      "frozen_four_mode_predictions_retained": true,
+      "timing": {
+        "input": "G02",
+        "tokens": 245,
+        "model": "protenix_base_constraint_v0.5.0",
+        "H100_native_FP32_s": 0.4517643330618739,
+        "H100_native_TF32_s": 0.44399953447282314,
+        "PPU_FlagGems_FP32_s": 1.6398548840079457,
+        "PPU_FlagGems_TF32_s": 1.5608474558684975,
+        "H100_mixed_triangle_IEEE_s": 0.4570340821519494,
+        "H100_custom_triangle_RNE_s": 0.4331959253177047,
+        "PPU_TF32_vs_native_H100_TF32_time_ratio": 3.5154258837720374,
+        "PPU_gpu": "0",
+        "H100_gpu": "0"
+      },
+      "same_device_structure": {
+        "input": "G02",
+        "tokens": 245,
+        "model": "protenix_base_constraint_v0.5.0",
+        "H100_native_FP32_vs_own_FP32_A": 0,
+        "H100_native_TF32_vs_own_FP32_A": 0.030567461944994944,
+        "PPU_FP32_vs_own_FP32_A": 0,
+        "PPU_TF32_vs_own_FP32_A": 0.04308460712355941,
+        "H100_mixed_triangle_IEEE_vs_own_FP32_A": 0.026093245767677128,
+        "H100_custom_triangle_RNE_vs_own_FP32_A": 0.031086310163439608,
+        "H100_custom_triangle_RNE_vs_native_TF32_A": 0.05312801773642577,
+        "H100_drift_reduction_pct": -1.6973873047697374
+      },
+      "cross_device_gates": {
+        "native_fp32": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 3.424829087055395e-05,
+            "upper_A": 0.017114625302315112,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 1.779588053838945e-05,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.00035977610320699776,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 6.398494255143925e-06,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 1.92056639807759e-05,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 2.560483419269558e-05,
+              "pass": true
+            }
+          }
+        },
+        "native_tf32": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 0.03584042607643216,
+            "upper_A": 0.07258565553636022,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.0010321494075417911,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.05868913281406495,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.01604489294512199,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0.017333372079522028,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.0170755693787168,
+              "pass": true
+            }
+          }
+        },
+        "mixed_triangle_ieee": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 0.006711360292000049,
+            "upper_A": 0.07945785395511877,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.0012368022522257992,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.06025775314875501,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.01607047877359728,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0.017230976892696717,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.01699878077268931,
+              "pass": true
+            }
+          }
+        },
+        "custom_triangle_rne": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 0.0017795565333723687,
+            "upper_A": 0.08438965771374646,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.002162199485414318,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.059781352143169604,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.01605768586099648,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0.017230976892696717,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.01699878077268931,
+              "pass": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "input": "G02",
+      "tokens": 245,
+      "model": "protenix_base_default_v0.5.0",
+      "input_and_rng_audit": "PASS",
+      "frozen_four_mode_predictions_retained": true,
+      "timing": {
+        "input": "G02",
+        "tokens": 245,
+        "model": "protenix_base_default_v0.5.0",
+        "H100_native_FP32_s": 0.4483019644394517,
+        "H100_native_TF32_s": 0.41877391189336777,
+        "PPU_FlagGems_FP32_s": 1.6336765089072287,
+        "PPU_FlagGems_TF32_s": 1.5549469259567559,
+        "H100_mixed_triangle_IEEE_s": 0.4136530691757798,
+        "H100_custom_triangle_RNE_s": 0.4123134259134531,
+        "PPU_TF32_vs_native_H100_TF32_time_ratio": 3.7130940629193048,
+        "PPU_gpu": "7",
+        "H100_gpu": "7"
+      },
+      "same_device_structure": {
+        "input": "G02",
+        "tokens": 245,
+        "model": "protenix_base_default_v0.5.0",
+        "H100_native_FP32_vs_own_FP32_A": 0,
+        "H100_native_TF32_vs_own_FP32_A": 0.055209166934715524,
+        "PPU_FP32_vs_own_FP32_A": 0,
+        "PPU_TF32_vs_own_FP32_A": 0.0382838909551265,
+        "H100_mixed_triangle_IEEE_vs_own_FP32_A": 0.04233717503869595,
+        "H100_custom_triangle_RNE_vs_own_FP32_A": 0.04076948433617815,
+        "H100_custom_triangle_RNE_vs_native_TF32_A": 0.0614289178733091,
+        "H100_drift_reduction_pct": 26.1545018703365
+      },
+      "cross_device_gates": {
+        "native_fp32": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 5.6097645671999985e-05,
+            "upper_A": 0.009370849365702975,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.004761528288868445,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.0006467813733432291,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 4.940597432569138e-05,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 4.2396579726591526e-05,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 4.945132343751126e-05,
+              "pass": true
+            }
+          }
+        },
+        "native_tf32": {
+          "status": "FAIL",
+          "rmsd": {
+            "lower_A": 0.07116538231465125,
+            "upper_A": 0.09343696024418097,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 6.686836869852992,
+              "pass": false
+            },
+            "gpde": {
+              "relative_difference_pct": 0.0838965448563893,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.008624183693136582,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0.023439953803934325,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.020475844789282438,
+              "pass": true
+            }
+          }
+        },
+        "mixed_triangle_ieee": {
+          "status": "FAIL",
+          "rmsd": {
+            "lower_A": 0.007669789054213325,
+            "upper_A": 0.08906019906511384,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 6.55688421900026,
+              "pass": false
+            },
+            "gpde": {
+              "relative_difference_pct": 0.08410478512995957,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.008511274368551307,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0.0227548549047733,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.019903849855188546,
+              "pass": true
+            }
+          }
+        },
+        "custom_triangle_rne": {
+          "status": "FAIL",
+          "rmsd": {
+            "lower_A": 0.00973646444134215,
+            "upper_A": 0.08700402754691997,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 6.5564826307313835,
+              "pass": false
+            },
+            "gpde": {
+              "relative_difference_pct": 0.09053752261270574,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.008638297340780619,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0.02291023898353423,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.02005920715136162,
+              "pass": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "input": "G02",
+      "tokens": 245,
+      "model": "protenix_base_default_v1.0.0",
+      "input_and_rng_audit": "PASS",
+      "frozen_four_mode_predictions_retained": true,
+      "timing": {
+        "input": "G02",
+        "tokens": 245,
+        "model": "protenix_base_default_v1.0.0",
+        "H100_native_FP32_s": 0.4957365021109581,
+        "H100_native_TF32_s": 0.49046824499964714,
+        "PPU_FlagGems_FP32_s": 1.7769991050008684,
+        "PPU_FlagGems_TF32_s": 1.693731945939362,
+        "H100_mixed_triangle_IEEE_s": 0.47341315541416407,
+        "H100_custom_triangle_RNE_s": 0.44218013994395733,
+        "PPU_TF32_vs_native_H100_TF32_time_ratio": 3.453295831497879,
+        "PPU_gpu": "0",
+        "H100_gpu": "0"
+      },
+      "same_device_structure": {
+        "input": "G02",
+        "tokens": 245,
+        "model": "protenix_base_default_v1.0.0",
+        "H100_native_FP32_vs_own_FP32_A": 0,
+        "H100_native_TF32_vs_own_FP32_A": 0.1459315101505578,
+        "PPU_FP32_vs_own_FP32_A": 0,
+        "PPU_TF32_vs_own_FP32_A": 0.058650581277728944,
+        "H100_mixed_triangle_IEEE_vs_own_FP32_A": 0.09078073486801963,
+        "H100_custom_triangle_RNE_vs_own_FP32_A": 0.0892330497232077,
+        "H100_custom_triangle_RNE_vs_native_TF32_A": 0.1762090792641402,
+        "H100_drift_reduction_pct": 38.85278811193977
+      },
+      "cross_device_gates": {
+        "native_fp32": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 2.3737577281801592e-05,
+            "upper_A": 0.01356505501710866,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.0011216602091991346,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 4.591852832953445e-05,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.0003812616937903767,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 3.5918495187460424e-05,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 5.011087388782495e-05,
+              "pass": true
+            }
+          }
+        },
+        "native_tf32": {
+          "status": "UNRESOLVED",
+          "rmsd": {
+            "lower_A": 0.08730466645011266,
+            "upper_A": 0.20460582900557056,
+            "status": "UNRESOLVED"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.34210329330679007,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.002702120764729034,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.010442628987664132,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0.04436734813255791,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.03749136302124095,
+              "pass": true
+            }
+          }
+        },
+        "mixed_triangle_ieee": {
+          "status": "UNRESOLVED",
+          "rmsd": {
+            "lower_A": 0.02797493120618673,
+            "upper_A": 0.15885300826179943,
+            "status": "UNRESOLVED"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.2515021465739981,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.006125471830207692,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.008838929897394225,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0.04316777756442613,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.036217046748708986,
+              "pass": true
+            }
+          }
+        },
+        "custom_triangle_rne": {
+          "status": "UNRESOLVED",
+          "rmsd": {
+            "lower_A": 0.02474516695782074,
+            "upper_A": 0.15562324401343347,
+            "status": "UNRESOLVED"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.2943658776747295,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.008479709426000402,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.010167107253089964,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0.04441762890490316,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.03747704504134936,
+              "pass": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "input": "G02",
+      "tokens": 245,
+      "model": "protenix_mini_default_v0.5.0",
+      "input_and_rng_audit": "PASS",
+      "frozen_four_mode_predictions_retained": true,
+      "timing": {
+        "input": "G02",
+        "tokens": 245,
+        "model": "protenix_mini_default_v0.5.0",
+        "H100_native_FP32_s": 0.19827195070683956,
+        "H100_native_TF32_s": 0.186990175396204,
+        "PPU_FlagGems_FP32_s": 0.846961344126612,
+        "PPU_FlagGems_TF32_s": 0.8564137979410589,
+        "H100_mixed_triangle_IEEE_s": 0.18681749515235424,
+        "H100_custom_triangle_RNE_s": 0.19849240221083164,
+        "PPU_TF32_vs_native_H100_TF32_time_ratio": 4.57999355381344,
+        "PPU_gpu": "7",
+        "H100_gpu": "7"
+      },
+      "same_device_structure": {
+        "input": "G02",
+        "tokens": 245,
+        "model": "protenix_mini_default_v0.5.0",
+        "H100_native_FP32_vs_own_FP32_A": 0,
+        "H100_native_TF32_vs_own_FP32_A": 0.025380633640221962,
+        "PPU_FP32_vs_own_FP32_A": 0,
+        "PPU_TF32_vs_own_FP32_A": 0.016081895417345764,
+        "H100_mixed_triangle_IEEE_vs_own_FP32_A": 0.015946867479388515,
+        "H100_custom_triangle_RNE_vs_own_FP32_A": 0.016194260672857976,
+        "H100_custom_triangle_RNE_vs_native_TF32_A": 0.029098986726723286,
+        "H100_drift_reduction_pct": 36.19441932610334
+      },
+      "cross_device_gates": {
+        "native_fp32": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 2.849572570986364e-06,
+            "upper_A": 0.0018171920891230796,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 7.876242957285067e-05,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.00018815723574441823,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 4.8271882690314314e-05,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 2.5857858147065533e-05,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 2.5494096841876264e-05,
+              "pass": true
+            }
+          }
+        },
+        "native_tf32": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 0.010861478564294385,
+            "upper_A": 0.03741335523615994,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.09610815670803007,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.10086277958495951,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.0745249537419522,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0.19057509181995327,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.16602662606365196,
+              "pass": true
+            }
+          }
+        },
+        "mixed_triangle_ieee": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 0,
+            "upper_A": 0.03301081596948904,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.0046075567672160915,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.023239798747108558,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.0003700958974789309,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0.025664267600577127,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.020172000719190456,
+              "pass": true
+            }
+          }
+        },
+        "custom_triangle_rne": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 0,
+            "upper_A": 0.03334424136769895,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.003839601154046275,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.010224629046085834,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.0009574092858724364,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0.0027152787181884625,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.00234560441381561,
+              "pass": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "input": "G02",
+      "tokens": 245,
+      "model": "protenix_mini_esm_v0.5.0",
+      "input_and_rng_audit": "PASS",
+      "frozen_four_mode_predictions_retained": true,
+      "timing": {
+        "input": "G02",
+        "tokens": 245,
+        "model": "protenix_mini_esm_v0.5.0",
+        "H100_native_FP32_s": 0.20051822438836098,
+        "H100_native_TF32_s": 0.19004271272569895,
+        "PPU_FlagGems_FP32_s": 0.7902668039314449,
+        "PPU_FlagGems_TF32_s": 0.79242406017147,
+        "H100_mixed_triangle_IEEE_s": 0.19001413136720657,
+        "H100_custom_triangle_RNE_s": 0.17994524911046028,
+        "PPU_TF32_vs_native_H100_TF32_time_ratio": 4.169715580282352,
+        "PPU_gpu": "0",
+        "H100_gpu": "0"
+      },
+      "same_device_structure": {
+        "input": "G02",
+        "tokens": 245,
+        "model": "protenix_mini_esm_v0.5.0",
+        "H100_native_FP32_vs_own_FP32_A": 0,
+        "H100_native_TF32_vs_own_FP32_A": 0.12011973553232885,
+        "PPU_FP32_vs_own_FP32_A": 0,
+        "PPU_TF32_vs_own_FP32_A": 0.04985629344871917,
+        "H100_mixed_triangle_IEEE_vs_own_FP32_A": 0.04436985379686865,
+        "H100_custom_triangle_RNE_vs_own_FP32_A": 0.05129807119004074,
+        "H100_custom_triangle_RNE_vs_native_TF32_A": 0.1389465433652232,
+        "H100_drift_reduction_pct": 57.29421900347553
+      },
+      "cross_device_gates": {
+        "native_fp32": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 1.992889022088551e-05,
+            "upper_A": 0.013691193344632483,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 4.993563920302221e-05,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.00015709658578623757,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.0006936523297263136,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0.0008733621575802397,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.0008424457886135027,
+              "pass": true
+            }
+          }
+        },
+        "native_tf32": {
+          "status": "UNRESOLVED",
+          "rmsd": {
+            "lower_A": 0.08068912362287789,
+            "upper_A": 0.16409223274505116,
+            "status": "UNRESOLVED"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.20598641246681695,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.5612235617704683,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.05332772006331146,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0.05504826823501769,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.0548490851385605,
+              "pass": true
+            }
+          }
+        },
+        "mixed_triangle_ieee": {
+          "status": "UNRESOLVED",
+          "rmsd": {
+            "lower_A": 0,
+            "upper_A": 0.10011741136128427,
+            "status": "UNRESOLVED"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.05730002148984798,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.24044829686674776,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.16840467979746526,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0.25584661063364533,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.2461515873074718,
+              "pass": true
+            }
+          }
+        },
+        "custom_triangle_rne": {
+          "status": "UNRESOLVED",
+          "rmsd": {
+            "lower_A": 0,
+            "upper_A": 0.10669852251800917,
+            "status": "UNRESOLVED"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.055117297571381986,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.0318022062177186,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.1358957437254858,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0.19430264782169154,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.18783340016372682,
+              "pass": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "input": "G02",
+      "tokens": 245,
+      "model": "protenix_mini_ism_v0.5.0",
+      "input_and_rng_audit": "PASS",
+      "frozen_four_mode_predictions_retained": true,
+      "timing": {
+        "input": "G02",
+        "tokens": 245,
+        "model": "protenix_mini_ism_v0.5.0",
+        "H100_native_FP32_s": 0.22067400440573692,
+        "H100_native_TF32_s": 0.24142018053680658,
+        "PPU_FlagGems_FP32_s": 0.8171916569117457,
+        "PPU_FlagGems_TF32_s": 0.8116913249250501,
+        "H100_mixed_triangle_IEEE_s": 0.21521972119808197,
+        "H100_custom_triangle_RNE_s": 0.18509600032120943,
+        "PPU_TF32_vs_native_H100_TF32_time_ratio": 3.3621519258258563,
+        "PPU_gpu": "7",
+        "H100_gpu": "7"
+      },
+      "same_device_structure": {
+        "input": "G02",
+        "tokens": 245,
+        "model": "protenix_mini_ism_v0.5.0",
+        "H100_native_FP32_vs_own_FP32_A": 0,
+        "H100_native_TF32_vs_own_FP32_A": 0.08436856215050323,
+        "PPU_FP32_vs_own_FP32_A": 0,
+        "PPU_TF32_vs_own_FP32_A": 0.04942638917209644,
+        "H100_mixed_triangle_IEEE_vs_own_FP32_A": 0.05439376432588443,
+        "H100_custom_triangle_RNE_vs_own_FP32_A": 0.05564175566803243,
+        "H100_custom_triangle_RNE_vs_native_TF32_A": 0.07327236654154708,
+        "H100_drift_reduction_pct": 34.04918342833161
+      },
+      "cross_device_gates": {
+        "native_fp32": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 2.359288469255382e-05,
+            "upper_A": 0.00841530524912289,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 3.221922683650237e-05,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 9.477136881131115e-05,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 2.4041769208151475e-05,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 5.181208000372356e-05,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 4.756433956866945e-05,
+              "pass": true
+            }
+          }
+        },
+        "native_tf32": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 0.04918527103851458,
+            "upper_A": 0.09509352076991612,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.037858019793544244,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.05916452961915107,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.13757598757448367,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0.03235887668273709,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.044862229234585736,
+              "pass": true
+            }
+          }
+        },
+        "mixed_triangle_ieee": {
+          "status": "UNRESOLVED",
+          "rmsd": {
+            "lower_A": 0.0011468678556198417,
+            "upper_A": 0.10839135856424306,
+            "status": "UNRESOLVED"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.004516041999061746,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.013421150268384242,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.011237545287587847,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0.024706814766028276,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.023101472504969668,
+              "pass": true
+            }
+          }
+        },
+        "custom_triangle_rne": {
+          "status": "UNRESOLVED",
+          "rmsd": {
+            "lower_A": 0.002558601958226145,
+            "upper_A": 0.10980309266684937,
+            "status": "UNRESOLVED"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.0012691714140334795,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.010440275550916199,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.0023870883193840863,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0.008313140372943189,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.007046647379203489,
+              "pass": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "input": "G02",
+      "tokens": 245,
+      "model": "protenix_tiny_default_v0.5.0",
+      "input_and_rng_audit": "PASS",
+      "frozen_four_mode_predictions_retained": true,
+      "timing": {
+        "input": "G02",
+        "tokens": 245,
+        "model": "protenix_tiny_default_v0.5.0",
+        "H100_native_FP32_s": 0.14787822030484676,
+        "H100_native_TF32_s": 0.13871964812278748,
+        "PPU_FlagGems_FP32_s": 0.6262909679207951,
+        "PPU_FlagGems_TF32_s": 0.6161421400029212,
+        "H100_mixed_triangle_IEEE_s": 0.14037332870066166,
+        "H100_custom_triangle_RNE_s": 0.1424440210685134,
+        "PPU_TF32_vs_native_H100_TF32_time_ratio": 4.441635689974818,
+        "PPU_gpu": "0",
+        "H100_gpu": "0"
+      },
+      "same_device_structure": {
+        "input": "G02",
+        "tokens": 245,
+        "model": "protenix_tiny_default_v0.5.0",
+        "H100_native_FP32_vs_own_FP32_A": 0,
+        "H100_native_TF32_vs_own_FP32_A": 0.299662010000576,
+        "PPU_FP32_vs_own_FP32_A": 0,
+        "PPU_TF32_vs_own_FP32_A": 0.036760243974110325,
+        "H100_mixed_triangle_IEEE_vs_own_FP32_A": 0.039551891315603126,
+        "H100_custom_triangle_RNE_vs_own_FP32_A": 0.041124243629742256,
+        "H100_custom_triangle_RNE_vs_native_TF32_A": 0.2963442598342643,
+        "H100_drift_reduction_pct": 86.27645738955592
+      },
+      "cross_device_gates": {
+        "native_fp32": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 5.044745639572277e-06,
+            "upper_A": 0.007732987191818754,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 1.4968939450639922e-05,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.00011172001439742398,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 1.179458503524281e-05,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0.0006683051727355014,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.00036800377241936083,
+              "pass": true
+            }
+          }
+        },
+        "native_tf32": {
+          "status": "FAIL",
+          "rmsd": {
+            "lower_A": 0.26289906215835884,
+            "upper_A": 0.30400445030965445,
+            "status": "FAIL"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.21638374340351313,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.08623696857748667,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.42995467760445094,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0.09992742292078455,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.2417945869778362,
+              "pass": true
+            }
+          }
+        },
+        "mixed_triangle_ieee": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 0,
+            "upper_A": 0.08054842521941641,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.007415430605674563,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.02177977082001133,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.0035492696404908226,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0.02864396593722352,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.0147886555144548,
+              "pass": true
+            }
+          }
+        },
+        "custom_triangle_rne": {
+          "status": "PASS",
+          "rmsd": {
+            "lower_A": 0.0013641849539523312,
+            "upper_A": 0.08261261534835215,
+            "status": "PASS"
+          },
+          "five_confidence": {
+            "plddt": {
+              "relative_difference_pct": 0.00401090427183754,
+              "pass": true
+            },
+            "gpde": {
+              "relative_difference_pct": 0.0023857973679857146,
+              "pass": true
+            },
+            "ptm": {
+              "relative_difference_pct": 0.028530990151559826,
+              "pass": true
+            },
+            "iptm": {
+              "relative_difference_pct": 0.17937816282568556,
+              "pass": true
+            },
+            "ranking_score": {
+              "relative_difference_pct": 0.08994004060715774,
+              "pass": true
+            }
+          }
+        }
+      }
+    }
+  ],
+  "confidence_scope_ablation": {
+    "tested_case_count": 6,
+    "gate_counts": {
+      "PASS": 3,
+      "UNRESOLVED": 3
+    },
+    "cases": [
+      {
+        "input": "G01",
+        "model": "protenix_base_default_v0.5.0",
+        "coordinate_hash_unchanged": true,
+        "input_and_rng_audit": "PASS",
+        "before_gate": "FAIL",
+        "after_gate": "PASS",
+        "rmsd_interval_unchanged": {
+          "lower_A": 0.004341198112264851,
+          "upper_A": 0.06360070994727747,
+          "status": "PASS"
+        },
+        "five_confidence": {
+          "plddt": {
+            "relative_difference_pct": 0.19939298491533933,
+            "pass": true
+          },
+          "gpde": {
+            "relative_difference_pct": 0.0010770820111090007,
+            "pass": true
+          },
+          "ptm": {
+            "relative_difference_pct": 0.0002960139966181746,
+            "pass": true
+          },
+          "iptm": {
+            "relative_difference_pct": 0,
+            "pass": true
+          },
+          "ranking_score": {
+            "relative_difference_pct": 0.0002943320890093875,
+            "pass": true
+          }
+        },
+        "precision_audit": {
+          "status": "PASS",
+          "actual_calls": {
+            "confidence_head": 4
+          },
+          "matched_source_files": {
+            "confidence_head": "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py"
+          },
+          "scope": "Global matmul TF32 disabled only during ConfidenceHead forward. Custom corrected TriAttention retains explicit TF32 RNE. No model or shape whitelist."
+        }
+      },
+      {
+        "input": "G02",
+        "model": "protenix_base_default_v0.5.0",
+        "coordinate_hash_unchanged": true,
+        "input_and_rng_audit": "PASS",
+        "before_gate": "FAIL",
+        "after_gate": "PASS",
+        "rmsd_interval_unchanged": {
+          "lower_A": 0.00973646444134215,
+          "upper_A": 0.08700402754691997,
+          "status": "PASS"
+        },
+        "five_confidence": {
+          "plddt": {
+            "relative_difference_pct": 0.03602152673369588,
+            "pass": true
+          },
+          "gpde": {
+            "relative_difference_pct": 0.0014783569125486054,
+            "pass": true
+          },
+          "ptm": {
+            "relative_difference_pct": 0.0028725406429211775,
+            "pass": true
+          },
+          "iptm": {
+            "relative_difference_pct": 0.002635600404257293,
+            "pass": true
+          },
+          "ranking_score": {
+            "relative_difference_pct": 0.002691508988509729,
+            "pass": true
+          }
+        },
+        "precision_audit": {
+          "status": "PASS",
+          "actual_calls": {
+            "confidence_head": 4
+          },
+          "matched_source_files": {
+            "confidence_head": "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py"
+          },
+          "scope": "Global matmul TF32 disabled only during ConfidenceHead forward. Custom corrected TriAttention retains explicit TF32 RNE. No model or shape whitelist."
+        }
+      },
+      {
+        "input": "G01",
+        "model": "protenix-v2",
+        "coordinate_hash_unchanged": true,
+        "input_and_rng_audit": "PASS",
+        "before_gate": "UNRESOLVED",
+        "after_gate": "UNRESOLVED",
+        "rmsd_interval_unchanged": {
+          "lower_A": 0.007727595355219066,
+          "upper_A": 0.1506382725486039,
+          "status": "UNRESOLVED"
+        },
+        "five_confidence": {
+          "plddt": {
+            "relative_difference_pct": 0.01470796474003403,
+            "pass": true
+          },
+          "gpde": {
+            "relative_difference_pct": 0.040807275950919604,
+            "pass": true
+          },
+          "ptm": {
+            "relative_difference_pct": 0.020366212153957865,
+            "pass": true
+          },
+          "iptm": {
+            "relative_difference_pct": 0,
+            "pass": true
+          },
+          "ranking_score": {
+            "relative_difference_pct": 0.020369473546960566,
+            "pass": true
+          }
+        },
+        "precision_audit": {
+          "status": "PASS",
+          "actual_calls": {
+            "confidence_head": 4
+          },
+          "matched_source_files": {
+            "confidence_head": "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py"
+          },
+          "scope": "Global matmul TF32 disabled only during ConfidenceHead forward. Custom corrected TriAttention retains explicit TF32 RNE. No model or shape whitelist."
+        }
+      },
+      {
+        "input": "G02",
+        "model": "protenix-v2",
+        "coordinate_hash_unchanged": true,
+        "input_and_rng_audit": "PASS",
+        "before_gate": "UNRESOLVED",
+        "after_gate": "UNRESOLVED",
+        "rmsd_interval_unchanged": {
+          "lower_A": 0.006304394629408766,
+          "upper_A": 0.14303991450910733,
+          "status": "UNRESOLVED"
+        },
+        "five_confidence": {
+          "plddt": {
+            "relative_difference_pct": 0.00996221691718892,
+            "pass": true
+          },
+          "gpde": {
+            "relative_difference_pct": 0.03936440141562137,
+            "pass": true
+          },
+          "ptm": {
+            "relative_difference_pct": 0.019362486247054424,
+            "pass": true
+          },
+          "iptm": {
+            "relative_difference_pct": 0.02260618145164551,
+            "pass": true
+          },
+          "ranking_score": {
+            "relative_difference_pct": 0.021958339956448133,
+            "pass": true
+          }
+        },
+        "precision_audit": {
+          "status": "PASS",
+          "actual_calls": {
+            "confidence_head": 4
+          },
+          "matched_source_files": {
+            "confidence_head": "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py"
+          },
+          "scope": "Global matmul TF32 disabled only during ConfidenceHead forward. Custom corrected TriAttention retains explicit TF32 RNE. No model or shape whitelist."
+        }
+      },
+      {
+        "input": "G01",
+        "model": "protenix_mini_esm_v0.5.0",
+        "coordinate_hash_unchanged": true,
+        "input_and_rng_audit": "PASS",
+        "before_gate": "PASS",
+        "after_gate": "PASS",
+        "rmsd_interval_unchanged": {
+          "lower_A": 0,
+          "upper_A": 0.08931645384960117,
+          "status": "PASS"
+        },
+        "five_confidence": {
+          "plddt": {
+            "relative_difference_pct": 0.0027996046958169507,
+            "pass": true
+          },
+          "gpde": {
+            "relative_difference_pct": 0.010159357398370027,
+            "pass": true
+          },
+          "ptm": {
+            "relative_difference_pct": 0.003512917435597009,
+            "pass": true
+          },
+          "iptm": {
+            "relative_difference_pct": 0,
+            "pass": true
+          },
+          "ranking_score": {
+            "relative_difference_pct": 0.0035184874700069832,
+            "pass": true
+          }
+        },
+        "precision_audit": {
+          "status": "PASS",
+          "actual_calls": {
+            "confidence_head": 4
+          },
+          "matched_source_files": {
+            "confidence_head": "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py"
+          },
+          "scope": "Global matmul TF32 disabled only during ConfidenceHead forward. Custom corrected TriAttention retains explicit TF32 RNE. No model or shape whitelist."
+        }
+      },
+      {
+        "input": "G02",
+        "model": "protenix_mini_esm_v0.5.0",
+        "coordinate_hash_unchanged": true,
+        "input_and_rng_audit": "PASS",
+        "before_gate": "UNRESOLVED",
+        "after_gate": "UNRESOLVED",
+        "rmsd_interval_unchanged": {
+          "lower_A": 0,
+          "upper_A": 0.10669852251800917,
+          "status": "UNRESOLVED"
+        },
+        "five_confidence": {
+          "plddt": {
+            "relative_difference_pct": 0.05777397179926331,
+            "pass": true
+          },
+          "gpde": {
+            "relative_difference_pct": 0.10742060457960932,
+            "pass": true
+          },
+          "ptm": {
+            "relative_difference_pct": 0.11278941421701727,
+            "pass": true
+          },
+          "iptm": {
+            "relative_difference_pct": 0.17264104362763807,
+            "pass": true
+          },
+          "ranking_score": {
+            "relative_difference_pct": 0.16600708752515506,
+            "pass": true
+          }
+        },
+        "precision_audit": {
+          "status": "PASS",
+          "actual_calls": {
+            "confidence_head": 4
+          },
+          "matched_source_files": {
+            "confidence_head": "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/confidence.py"
+          },
+          "scope": "Global matmul TF32 disabled only during ConfidenceHead forward. Custom corrected TriAttention retains explicit TF32 RNE. No model or shape whitelist."
+        }
+      }
+    ],
+    "scope": "H100 custom RNE TriAttention with IEEE matmul only during the ConfidenceHead class. TriAttention remains explicit TF32. No PPU policy or 18-case acceptance claim."
+  },
+  "limits": [
+    "Initial corrected model results were discarded because the adapter squeezed the native five-dimensional output. Fixed rank-contract tests and all 18 corrected model runs replace those results.",
+    "The IEEE counterfactual changes only native triangle precision; the corrected counterfactual changes the complete triangle kernel, not just query rounding.",
+    "Counterfactual H100 results are separately labeled and do not replace the frozen native acceptance reference.",
+    "Cross-device RMSDs are rigorous intervals from frozen anchors, not newly measured exact cross-server coordinate distances.",
+    "One cycle/step/sample, 1 warmup/3 repeats per mode. No full sampling, new training, MFU or 80% target acceptance claim.",
+    "PPU FP32/TF32 kernels were not changed in this round; fresh timings do not establish a PPU optimization gain."
+  ]
+}

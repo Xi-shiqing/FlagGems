@@ -1,0 +1,1823 @@
+{
+  "status": "PASS",
+  "scope": "single process; model/checkpoint/preprocess/dataloader initialized once; timed scope is InferenceRunner.predict including to_device and model forward; no result dump",
+  "protocol": {
+    "model": "protenix_base_default_v1.0.0",
+    "input": "/mnt/cpfs/xishiqing/ppu_mm_generalization_20260919/inputs/G02/input.json",
+    "input_sha256": "14795463eb608b29497ee78787c48030d18634c0b6ebb6239540d48f6ca52ba1",
+    "dtype": "fp32",
+    "seed": 101,
+    "cycle": 1,
+    "step": 1,
+    "sample": 1,
+    "use_msa": true,
+    "use_template": false,
+    "use_rna_msa": false,
+    "triatt_kernel": "triattention",
+    "trimul_kernel": "torch",
+    "enable_cache": true,
+    "enable_fusion": true,
+    "enable_tf32": true,
+    "warmup": 9,
+    "repeats": 30,
+    "save_predictions": true,
+    "cueq_trimul_trace": false,
+    "bmm_shape_trace": false,
+    "direct_tf32_enabled": "1",
+    "rhs_prepack_enabled": "0"
+  },
+  "environment": {
+    "repo_root": "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile",
+    "git_revision": "c3bfc365b3e1341a11935eddfe7bfdc308092147",
+    "torch_version": "2.10.0",
+    "torch_cuda_version": "13.0",
+    "device_name": "PPU-ZW810E",
+    "device_capability": [
+      8,
+      0
+    ],
+    "cuda_visible_devices": "7",
+    "layernorm_type": null,
+    "python": "/usr/local/bin/python3",
+    "deterministic_algorithms": true,
+    "fill_uninitialized_memory": true,
+    "benchmark_source_sha256": "c83fedae5f755754649ea84433fc6d555141f6916c983206fa9bb0707e6af189",
+    "use_flag_gems": true,
+    "flag_gems_exclude": [],
+    "flag_gems_source": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/gemv_qk_20261002/column_candidate/flag_gems/__init__.py",
+    "flag_gems_version": "5.0.2"
+  },
+  "initialization_seconds": {
+    "imports": 0.006860898109152913,
+    "runner_and_checkpoint": 70.95170689187944,
+    "preprocess": 0.006372029194608331,
+    "dataloader_first_batch": 11.469263071892783,
+    "total_before_warmup": 82.43420289107598
+  },
+  "records": [
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "warmup",
+      "index": 1,
+      "wall_seconds": 27.781809339066967,
+      "device_event_ms": 27774.546875,
+      "peak_memory_allocated_bytes": 2222833664,
+      "peak_memory_reserved_bytes": 2952790016,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "2c719da9be15ef6ae1ac5f13cc79da93554833fdc34c7ee5fcffde22c016148d",
+        "sum_fp64": -4890.661724328995,
+        "max_abs": 5452.4052734375
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.26124572753906,
+        "gpde": 7.2690887451171875,
+        "ptm": 0.21105340123176575,
+        "iptm": 0.20743012428283691,
+        "ranking_score": 0.20815478265285492
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_warmup_1.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "warmup",
+      "index": 2,
+      "wall_seconds": 50.21550161088817,
+      "device_event_ms": 50215.08984375,
+      "peak_memory_allocated_bytes": 2338092544,
+      "peak_memory_reserved_bytes": 2407530496,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "34c8155a2386f39f777c37d28ae07518abdc4605804678cc33d2811fd1f6dee1",
+        "sum_fp64": -4891.486643075943,
+        "max_abs": 5452.3779296875
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.2438735961914,
+        "gpde": 7.270274639129639,
+        "ptm": 0.21088191866874695,
+        "iptm": 0.2072671800851822,
+        "ranking_score": 0.2079901248216629
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_warmup_2.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "warmup",
+      "index": 3,
+      "wall_seconds": 5.081909172004089,
+      "device_event_ms": 5081.79833984375,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "34c8155a2386f39f777c37d28ae07518abdc4605804678cc33d2811fd1f6dee1",
+        "sum_fp64": -4891.486643075943,
+        "max_abs": 5452.3779296875
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.2438735961914,
+        "gpde": 7.270274639129639,
+        "ptm": 0.21088191866874695,
+        "iptm": 0.2072671800851822,
+        "ranking_score": 0.2079901248216629
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_warmup_3.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "warmup",
+      "index": 4,
+      "wall_seconds": 1.8113503560889512,
+      "device_event_ms": 1811.267333984375,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "2c719da9be15ef6ae1ac5f13cc79da93554833fdc34c7ee5fcffde22c016148d",
+        "sum_fp64": -4890.661724328995,
+        "max_abs": 5452.4052734375
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.26124572753906,
+        "gpde": 7.2690887451171875,
+        "ptm": 0.21105340123176575,
+        "iptm": 0.20743012428283691,
+        "ranking_score": 0.20815478265285492
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_warmup_4.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "warmup",
+      "index": 5,
+      "wall_seconds": 1.865358843933791,
+      "device_event_ms": 1865.2752685546875,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "34c8155a2386f39f777c37d28ae07518abdc4605804678cc33d2811fd1f6dee1",
+        "sum_fp64": -4891.486643075943,
+        "max_abs": 5452.3779296875
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.2438735961914,
+        "gpde": 7.270274639129639,
+        "ptm": 0.21088191866874695,
+        "iptm": 0.2072671800851822,
+        "ranking_score": 0.2079901248216629
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_warmup_5.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "warmup",
+      "index": 6,
+      "wall_seconds": 1.7520946089643985,
+      "device_event_ms": 1752.0316162109375,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "34c8155a2386f39f777c37d28ae07518abdc4605804678cc33d2811fd1f6dee1",
+        "sum_fp64": -4891.486643075943,
+        "max_abs": 5452.3779296875
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.2438735961914,
+        "gpde": 7.270274639129639,
+        "ptm": 0.21088191866874695,
+        "iptm": 0.2072671800851822,
+        "ranking_score": 0.2079901248216629
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_warmup_6.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "warmup",
+      "index": 7,
+      "wall_seconds": 1.8921057949773967,
+      "device_event_ms": 1892.0140380859375,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "2c719da9be15ef6ae1ac5f13cc79da93554833fdc34c7ee5fcffde22c016148d",
+        "sum_fp64": -4890.661724328995,
+        "max_abs": 5452.4052734375
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.26124572753906,
+        "gpde": 7.2690887451171875,
+        "ptm": 0.21105340123176575,
+        "iptm": 0.20743012428283691,
+        "ranking_score": 0.20815478265285492
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_warmup_7.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "warmup",
+      "index": 8,
+      "wall_seconds": 1.7690311959013343,
+      "device_event_ms": 1768.94970703125,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "34c8155a2386f39f777c37d28ae07518abdc4605804678cc33d2811fd1f6dee1",
+        "sum_fp64": -4891.486643075943,
+        "max_abs": 5452.3779296875
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.2438735961914,
+        "gpde": 7.270274639129639,
+        "ptm": 0.21088191866874695,
+        "iptm": 0.2072671800851822,
+        "ranking_score": 0.2079901248216629
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_warmup_8.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "warmup",
+      "index": 9,
+      "wall_seconds": 1.687997107859701,
+      "device_event_ms": 1687.929443359375,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "34c8155a2386f39f777c37d28ae07518abdc4605804678cc33d2811fd1f6dee1",
+        "sum_fp64": -4891.486643075943,
+        "max_abs": 5452.3779296875
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.2438735961914,
+        "gpde": 7.270274639129639,
+        "ptm": 0.21088191866874695,
+        "iptm": 0.2072671800851822,
+        "ranking_score": 0.2079901248216629
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_warmup_9.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "repeat",
+      "index": 1,
+      "wall_seconds": 1.7683772218879312,
+      "device_event_ms": 1768.3115234375,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "2c719da9be15ef6ae1ac5f13cc79da93554833fdc34c7ee5fcffde22c016148d",
+        "sum_fp64": -4890.661724328995,
+        "max_abs": 5452.4052734375
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.26124572753906,
+        "gpde": 7.2690887451171875,
+        "ptm": 0.21105340123176575,
+        "iptm": 0.20743012428283691,
+        "ranking_score": 0.20815478265285492
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_repeat_1.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "repeat",
+      "index": 2,
+      "wall_seconds": 1.6770302068907768,
+      "device_event_ms": 1676.9716796875,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "34c8155a2386f39f777c37d28ae07518abdc4605804678cc33d2811fd1f6dee1",
+        "sum_fp64": -4891.486643075943,
+        "max_abs": 5452.3779296875
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.2438735961914,
+        "gpde": 7.270274639129639,
+        "ptm": 0.21088191866874695,
+        "iptm": 0.2072671800851822,
+        "ranking_score": 0.2079901248216629
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_repeat_2.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "repeat",
+      "index": 3,
+      "wall_seconds": 1.710417876020074,
+      "device_event_ms": 1710.359130859375,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "34c8155a2386f39f777c37d28ae07518abdc4605804678cc33d2811fd1f6dee1",
+        "sum_fp64": -4891.486643075943,
+        "max_abs": 5452.3779296875
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.2438735961914,
+        "gpde": 7.270274639129639,
+        "ptm": 0.21088191866874695,
+        "iptm": 0.2072671800851822,
+        "ranking_score": 0.2079901248216629
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_repeat_3.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "repeat",
+      "index": 4,
+      "wall_seconds": 1.7419622361194342,
+      "device_event_ms": 1741.90478515625,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "2c719da9be15ef6ae1ac5f13cc79da93554833fdc34c7ee5fcffde22c016148d",
+        "sum_fp64": -4890.661724328995,
+        "max_abs": 5452.4052734375
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.26124572753906,
+        "gpde": 7.2690887451171875,
+        "ptm": 0.21105340123176575,
+        "iptm": 0.20743012428283691,
+        "ranking_score": 0.20815478265285492
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_repeat_4.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "repeat",
+      "index": 5,
+      "wall_seconds": 1.7228928338736296,
+      "device_event_ms": 1722.8302001953125,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "34c8155a2386f39f777c37d28ae07518abdc4605804678cc33d2811fd1f6dee1",
+        "sum_fp64": -4891.486643075943,
+        "max_abs": 5452.3779296875
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.2438735961914,
+        "gpde": 7.270274639129639,
+        "ptm": 0.21088191866874695,
+        "iptm": 0.2072671800851822,
+        "ranking_score": 0.2079901248216629
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_repeat_5.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "repeat",
+      "index": 6,
+      "wall_seconds": 1.6835730262100697,
+      "device_event_ms": 1683.517333984375,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "34c8155a2386f39f777c37d28ae07518abdc4605804678cc33d2811fd1f6dee1",
+        "sum_fp64": -4891.486643075943,
+        "max_abs": 5452.3779296875
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.2438735961914,
+        "gpde": 7.270274639129639,
+        "ptm": 0.21088191866874695,
+        "iptm": 0.2072671800851822,
+        "ranking_score": 0.2079901248216629
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_repeat_6.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "repeat",
+      "index": 7,
+      "wall_seconds": 1.812867526896298,
+      "device_event_ms": 1812.8074951171875,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "2c719da9be15ef6ae1ac5f13cc79da93554833fdc34c7ee5fcffde22c016148d",
+        "sum_fp64": -4890.661724328995,
+        "max_abs": 5452.4052734375
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.26124572753906,
+        "gpde": 7.2690887451171875,
+        "ptm": 0.21105340123176575,
+        "iptm": 0.20743012428283691,
+        "ranking_score": 0.20815478265285492
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_repeat_7.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "repeat",
+      "index": 8,
+      "wall_seconds": 1.721674453932792,
+      "device_event_ms": 1721.62158203125,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "34c8155a2386f39f777c37d28ae07518abdc4605804678cc33d2811fd1f6dee1",
+        "sum_fp64": -4891.486643075943,
+        "max_abs": 5452.3779296875
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.2438735961914,
+        "gpde": 7.270274639129639,
+        "ptm": 0.21088191866874695,
+        "iptm": 0.2072671800851822,
+        "ranking_score": 0.2079901248216629
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_repeat_8.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "repeat",
+      "index": 9,
+      "wall_seconds": 1.7325513090472668,
+      "device_event_ms": 1732.4898681640625,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "34c8155a2386f39f777c37d28ae07518abdc4605804678cc33d2811fd1f6dee1",
+        "sum_fp64": -4891.486643075943,
+        "max_abs": 5452.3779296875
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.2438735961914,
+        "gpde": 7.270274639129639,
+        "ptm": 0.21088191866874695,
+        "iptm": 0.2072671800851822,
+        "ranking_score": 0.2079901248216629
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_repeat_9.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "repeat",
+      "index": 10,
+      "wall_seconds": 1.7665299659129232,
+      "device_event_ms": 1766.4718017578125,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "2c719da9be15ef6ae1ac5f13cc79da93554833fdc34c7ee5fcffde22c016148d",
+        "sum_fp64": -4890.661724328995,
+        "max_abs": 5452.4052734375
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.26124572753906,
+        "gpde": 7.2690887451171875,
+        "ptm": 0.21105340123176575,
+        "iptm": 0.20743012428283691,
+        "ranking_score": 0.20815478265285492
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_repeat_10.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "repeat",
+      "index": 11,
+      "wall_seconds": 1.7149353600107133,
+      "device_event_ms": 1714.8682861328125,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "34c8155a2386f39f777c37d28ae07518abdc4605804678cc33d2811fd1f6dee1",
+        "sum_fp64": -4891.486643075943,
+        "max_abs": 5452.3779296875
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.2438735961914,
+        "gpde": 7.270274639129639,
+        "ptm": 0.21088191866874695,
+        "iptm": 0.2072671800851822,
+        "ranking_score": 0.2079901248216629
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_repeat_11.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "repeat",
+      "index": 12,
+      "wall_seconds": 1.7582108660135418,
+      "device_event_ms": 1758.111083984375,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "34c8155a2386f39f777c37d28ae07518abdc4605804678cc33d2811fd1f6dee1",
+        "sum_fp64": -4891.486643075943,
+        "max_abs": 5452.3779296875
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.2438735961914,
+        "gpde": 7.270274639129639,
+        "ptm": 0.21088191866874695,
+        "iptm": 0.2072671800851822,
+        "ranking_score": 0.2079901248216629
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_repeat_12.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "repeat",
+      "index": 13,
+      "wall_seconds": 1.7751921531744301,
+      "device_event_ms": 1775.1263427734375,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "2c719da9be15ef6ae1ac5f13cc79da93554833fdc34c7ee5fcffde22c016148d",
+        "sum_fp64": -4890.661724328995,
+        "max_abs": 5452.4052734375
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.26124572753906,
+        "gpde": 7.2690887451171875,
+        "ptm": 0.21105340123176575,
+        "iptm": 0.20743012428283691,
+        "ranking_score": 0.20815478265285492
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_repeat_13.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "repeat",
+      "index": 14,
+      "wall_seconds": 1.7381185309495777,
+      "device_event_ms": 1738.0543212890625,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "34c8155a2386f39f777c37d28ae07518abdc4605804678cc33d2811fd1f6dee1",
+        "sum_fp64": -4891.486643075943,
+        "max_abs": 5452.3779296875
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.2438735961914,
+        "gpde": 7.270274639129639,
+        "ptm": 0.21088191866874695,
+        "iptm": 0.2072671800851822,
+        "ranking_score": 0.2079901248216629
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_repeat_14.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "repeat",
+      "index": 15,
+      "wall_seconds": 1.7543463038746268,
+      "device_event_ms": 1754.2784423828125,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "34c8155a2386f39f777c37d28ae07518abdc4605804678cc33d2811fd1f6dee1",
+        "sum_fp64": -4891.486643075943,
+        "max_abs": 5452.3779296875
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.2438735961914,
+        "gpde": 7.270274639129639,
+        "ptm": 0.21088191866874695,
+        "iptm": 0.2072671800851822,
+        "ranking_score": 0.2079901248216629
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_repeat_15.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "repeat",
+      "index": 16,
+      "wall_seconds": 1.7661535360384732,
+      "device_event_ms": 1766.09375,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "2c719da9be15ef6ae1ac5f13cc79da93554833fdc34c7ee5fcffde22c016148d",
+        "sum_fp64": -4890.661724328995,
+        "max_abs": 5452.4052734375
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.26124572753906,
+        "gpde": 7.2690887451171875,
+        "ptm": 0.21105340123176575,
+        "iptm": 0.20743012428283691,
+        "ranking_score": 0.20815478265285492
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_repeat_16.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "repeat",
+      "index": 17,
+      "wall_seconds": 1.682261612964794,
+      "device_event_ms": 1682.19873046875,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "34c8155a2386f39f777c37d28ae07518abdc4605804678cc33d2811fd1f6dee1",
+        "sum_fp64": -4891.486643075943,
+        "max_abs": 5452.3779296875
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.2438735961914,
+        "gpde": 7.270274639129639,
+        "ptm": 0.21088191866874695,
+        "iptm": 0.2072671800851822,
+        "ranking_score": 0.2079901248216629
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_repeat_17.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "repeat",
+      "index": 18,
+      "wall_seconds": 1.710451849969104,
+      "device_event_ms": 1710.37744140625,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "34c8155a2386f39f777c37d28ae07518abdc4605804678cc33d2811fd1f6dee1",
+        "sum_fp64": -4891.486643075943,
+        "max_abs": 5452.3779296875
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.2438735961914,
+        "gpde": 7.270274639129639,
+        "ptm": 0.21088191866874695,
+        "iptm": 0.2072671800851822,
+        "ranking_score": 0.2079901248216629
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_repeat_18.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "repeat",
+      "index": 19,
+      "wall_seconds": 1.8155032452195883,
+      "device_event_ms": 1815.4251708984375,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "2c719da9be15ef6ae1ac5f13cc79da93554833fdc34c7ee5fcffde22c016148d",
+        "sum_fp64": -4890.661724328995,
+        "max_abs": 5452.4052734375
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.26124572753906,
+        "gpde": 7.2690887451171875,
+        "ptm": 0.21105340123176575,
+        "iptm": 0.20743012428283691,
+        "ranking_score": 0.20815478265285492
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_repeat_19.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "repeat",
+      "index": 20,
+      "wall_seconds": 1.7473060609772801,
+      "device_event_ms": 1747.2393798828125,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "34c8155a2386f39f777c37d28ae07518abdc4605804678cc33d2811fd1f6dee1",
+        "sum_fp64": -4891.486643075943,
+        "max_abs": 5452.3779296875
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.2438735961914,
+        "gpde": 7.270274639129639,
+        "ptm": 0.21088191866874695,
+        "iptm": 0.2072671800851822,
+        "ranking_score": 0.2079901248216629
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_repeat_20.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "repeat",
+      "index": 21,
+      "wall_seconds": 1.7326576819177717,
+      "device_event_ms": 1732.6002197265625,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "34c8155a2386f39f777c37d28ae07518abdc4605804678cc33d2811fd1f6dee1",
+        "sum_fp64": -4891.486643075943,
+        "max_abs": 5452.3779296875
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.2438735961914,
+        "gpde": 7.270274639129639,
+        "ptm": 0.21088191866874695,
+        "iptm": 0.2072671800851822,
+        "ranking_score": 0.2079901248216629
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_repeat_21.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "repeat",
+      "index": 22,
+      "wall_seconds": 1.7521658150944859,
+      "device_event_ms": 1752.0880126953125,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "2c719da9be15ef6ae1ac5f13cc79da93554833fdc34c7ee5fcffde22c016148d",
+        "sum_fp64": -4890.661724328995,
+        "max_abs": 5452.4052734375
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.26124572753906,
+        "gpde": 7.2690887451171875,
+        "ptm": 0.21105340123176575,
+        "iptm": 0.20743012428283691,
+        "ranking_score": 0.20815478265285492
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_repeat_22.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "repeat",
+      "index": 23,
+      "wall_seconds": 1.7150598429143429,
+      "device_event_ms": 1714.9736328125,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "34c8155a2386f39f777c37d28ae07518abdc4605804678cc33d2811fd1f6dee1",
+        "sum_fp64": -4891.486643075943,
+        "max_abs": 5452.3779296875
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.2438735961914,
+        "gpde": 7.270274639129639,
+        "ptm": 0.21088191866874695,
+        "iptm": 0.2072671800851822,
+        "ranking_score": 0.2079901248216629
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_repeat_23.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "repeat",
+      "index": 24,
+      "wall_seconds": 1.7083122490439564,
+      "device_event_ms": 1708.240966796875,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "34c8155a2386f39f777c37d28ae07518abdc4605804678cc33d2811fd1f6dee1",
+        "sum_fp64": -4891.486643075943,
+        "max_abs": 5452.3779296875
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.2438735961914,
+        "gpde": 7.270274639129639,
+        "ptm": 0.21088191866874695,
+        "iptm": 0.2072671800851822,
+        "ranking_score": 0.2079901248216629
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_repeat_24.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "repeat",
+      "index": 25,
+      "wall_seconds": 1.7695158489514142,
+      "device_event_ms": 1769.425048828125,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "2c719da9be15ef6ae1ac5f13cc79da93554833fdc34c7ee5fcffde22c016148d",
+        "sum_fp64": -4890.661724328995,
+        "max_abs": 5452.4052734375
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.26124572753906,
+        "gpde": 7.2690887451171875,
+        "ptm": 0.21105340123176575,
+        "iptm": 0.20743012428283691,
+        "ranking_score": 0.20815478265285492
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_repeat_25.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "repeat",
+      "index": 26,
+      "wall_seconds": 1.7249041269533336,
+      "device_event_ms": 1724.8209228515625,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "34c8155a2386f39f777c37d28ae07518abdc4605804678cc33d2811fd1f6dee1",
+        "sum_fp64": -4891.486643075943,
+        "max_abs": 5452.3779296875
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.2438735961914,
+        "gpde": 7.270274639129639,
+        "ptm": 0.21088191866874695,
+        "iptm": 0.2072671800851822,
+        "ranking_score": 0.2079901248216629
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_repeat_26.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "repeat",
+      "index": 27,
+      "wall_seconds": 1.7106141920667142,
+      "device_event_ms": 1710.55419921875,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "34c8155a2386f39f777c37d28ae07518abdc4605804678cc33d2811fd1f6dee1",
+        "sum_fp64": -4891.486643075943,
+        "max_abs": 5452.3779296875
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.2438735961914,
+        "gpde": 7.270274639129639,
+        "ptm": 0.21088191866874695,
+        "iptm": 0.2072671800851822,
+        "ranking_score": 0.2079901248216629
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_repeat_27.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "repeat",
+      "index": 28,
+      "wall_seconds": 1.7653184379450977,
+      "device_event_ms": 1765.25732421875,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "2c719da9be15ef6ae1ac5f13cc79da93554833fdc34c7ee5fcffde22c016148d",
+        "sum_fp64": -4890.661724328995,
+        "max_abs": 5452.4052734375
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.26124572753906,
+        "gpde": 7.2690887451171875,
+        "ptm": 0.21105340123176575,
+        "iptm": 0.20743012428283691,
+        "ranking_score": 0.20815478265285492
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_repeat_28.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "repeat",
+      "index": 29,
+      "wall_seconds": 1.7080925989430398,
+      "device_event_ms": 1708.03173828125,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "34c8155a2386f39f777c37d28ae07518abdc4605804678cc33d2811fd1f6dee1",
+        "sum_fp64": -4891.486643075943,
+        "max_abs": 5452.3779296875
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.2438735961914,
+        "gpde": 7.270274639129639,
+        "ptm": 0.21088191866874695,
+        "iptm": 0.2072671800851822,
+        "ranking_score": 0.2079901248216629
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_repeat_29.pt"
+    },
+    {
+      "diagnostic_profiled": false,
+      "mm_diagnostic_trace_enabled": false,
+      "ppu_mm_path_available": true,
+      "direct_tf32_enabled": "1",
+      "rhs_prepack_enabled": "0",
+      "phase": "repeat",
+      "index": 30,
+      "wall_seconds": 1.718636334175244,
+      "device_event_ms": 1718.5732421875,
+      "peak_memory_allocated_bytes": 2222864384,
+      "peak_memory_reserved_bytes": 2365587456,
+      "prediction": {
+        "shape": [
+          1,
+          2529,
+          3
+        ],
+        "dtype": "torch.float32",
+        "device": "cuda:0",
+        "finite": true
+      },
+      "prediction_digest": {
+        "sha256": "34c8155a2386f39f777c37d28ae07518abdc4605804678cc33d2811fd1f6dee1",
+        "sum_fp64": -4891.486643075943,
+        "max_abs": 5452.3779296875
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.2438735961914,
+        "gpde": 7.270274639129639,
+        "ptm": 0.21088191866874695,
+        "iptm": 0.2072671800851822,
+        "ranking_score": 0.2079901248216629
+      },
+      "tf32_rne_rhs_cache": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "uncacheable": 0,
+        "entries": 0,
+        "bytes": 0,
+        "capacity_bytes": 0
+      },
+      "prediction_path": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/backward_dataflow_20261003/forward_model/G02/prediction_repeat_30.pt"
+    }
+  ],
+  "summary": {
+    "wall_median_seconds": 1.7326044954825193,
+    "wall_mean_seconds": 1.736854443466291,
+    "wall_min_seconds": 1.6770302068907768,
+    "wall_max_seconds": 1.8155032452195883,
+    "wall_cv": 0.01976993932461105,
+    "device_event_median_ms": 1732.5450439453125
+  },
+  "cueq_trimul_trace": null
+}

@@ -1,0 +1,90 @@
+--- a/flag_gems/ops/mm.py
++++ b/flag_gems/ops/mm.py
+@@ -14,6 +14,7 @@
+ from flag_gems.utils.device_info import get_device_capability, get_sm_count
+ from flag_gems.ops.tf32_precision import (
+     capture_real_operands,
++    empty_full_write,
+     round_tf32_rne,
+     tf32_enabled_for_active_module,
+ )
+@@ -651,7 +652,7 @@
+ 
+ def _direct_mm(a, b, c, M, N, K):
+     # N>512 uses the original unsplit general-MM accumulation order.
+-    split_k = _ppu_h100_splitk_parts(M, N, K) or 1
++    split_k = 1 if _allow_tf32() else (_ppu_h100_splitk_parts(M, N, K) or 1)
+     prepack_rhs = _tf32_rne_rhs_prepack_enabled()
+     if prepack_rhs:
+         cache_key, b_rne = _tf32_rne_rhs_cache_lookup(b)
+@@ -676,7 +677,7 @@
+             ALLOW_TF32=allow_tf32,
+             B_RNE_PREPACKED=prepack_rhs,
+             INDEX_64=not (allow_tf32 and _direct_offsets_fit_i32(M, N, K, am, ak, bk, bn, cm, cn, split_k)),
+-            num_warps=4, num_stages=1,
++            num_warps=4, num_stages=3 if allow_tf32 else 1,
+         )
+     return c
+ 
+@@ -720,7 +721,9 @@
+         b = _maybe_pack_rhs(a, b)
+     # allocates output
+     c_dtype = get_higher_dtype(a.dtype, b.dtype)
+-    c = torch.empty((M, N), device=device, dtype=c_dtype)
++    c = (empty_full_write((M, N), device=device, dtype=c_dtype)
++         if use_direct and _allow_tf32()
++         else torch.empty((M, N), device=device, dtype=c_dtype))
+     # l2_cache_size = get_l2_cache_size()
+     sm_count = get_sm_count()
+     if use_direct:
+--- a/flag_gems/ops/bmm.py
++++ b/flag_gems/ops/bmm.py
+@@ -11,6 +11,7 @@
+ from flag_gems.utils import triton_lang_extension as tle
+ from flag_gems.ops.tf32_precision import (
+     capture_real_operands,
++    empty_full_write,
+     round_tf32_rne,
+     tf32_enabled_for_active_module,
+ )
+@@ -84,8 +85,8 @@
+     # For small operands, keep the single-kernel path to avoid an extra launch.
+     if A.numel() + B.numel() < (1 << 20):
+         return False
+-    rounded_a = torch.empty((batch, M, K), dtype=A.dtype, device=A.device)
+-    rounded_b = torch.empty((batch, K, N), dtype=B.dtype, device=B.device)
++    rounded_a = empty_full_write((batch, M, K), dtype=A.dtype, device=A.device)
++    rounded_b = empty_full_write((batch, K, N), dtype=B.dtype, device=B.device)
+     _round_bmm_inputs[(triton.cdiv(max(A.numel(), B.numel()), 1024),)](
+         A, B, rounded_a, rounded_b, M, N, K, batch,
+         *A.stride(), *B.stride(), 1024, num_warps=4,
+@@ -243,8 +244,10 @@
+         "bmm", [A, B], flops=2 * batch * M * N * K,
+         output_elements=batch * M * N,
+     )
+-    out = torch.empty((batch, M, N), dtype=A.dtype, device=A.device)
+     allow_tf32 = _allow_bmm_tf32(batch, M, N)
++    out = (empty_full_write((batch, M, N), dtype=A.dtype, device=A.device)
++           if allow_tf32 and A.dtype == torch.float32
++           else torch.empty((batch, M, N), dtype=A.dtype, device=A.device))
+ 
+     grid_fn = lambda meta: (
+         triton.cdiv(meta["M"], meta["TILE_M"]),
+--- a/flag_gems/ops/tf32_precision.py
++++ b/flag_gems/ops/tf32_precision.py
+@@ -160,3 +160,15 @@
+             tl.float32, bitcast=True
+         )
+     return x
++
++def empty_full_write(shape, *, dtype, device):
++    """Allocate fresh contiguous storage for a kernel that writes every element.
++
++    No global deterministic flag is changed. Callers must never read the buffer
++    before the complete-writing kernel, including masked logical edge elements.
++    """
++    import math
++    out = torch.empty(0, dtype=dtype, device=device)
++    storage = torch.UntypedStorage(math.prod(shape) * out.element_size(), device=out.device)
++    return out.set_(storage, 0, shape)
++

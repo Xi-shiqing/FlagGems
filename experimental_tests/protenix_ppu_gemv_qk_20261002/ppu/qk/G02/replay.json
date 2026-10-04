@@ -1,0 +1,243 @@
+{
+  "status": "PASS",
+  "records": [
+    {
+      "role": "qk",
+      "inputs": [
+        {
+          "shape": [
+            16,
+            245,
+            24
+          ],
+          "stride": [
+            24,
+            384,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "1e344763a08b07d7377e1061f01e2a468f8576fad8056de06a0c15e52b061284"
+        },
+        {
+          "shape": [
+            16,
+            24,
+            245
+          ],
+          "stride": [
+            24,
+            1,
+            384
+          ],
+          "dtype": "torch.float32",
+          "sha256": "0a4c34eed1ddf1e5aced5e29dcd626f807ef87d8958d1fa72762028e904c56ae"
+        }
+      ],
+      "teacher_output": {
+        "shape": [
+          16,
+          245,
+          245
+        ],
+        "stride": [
+          60025,
+          245,
+          1
+        ],
+        "dtype": "torch.float32",
+        "sha256": "7811a1318fab90903b90f90ca3eff5c21ae72ec0a36b5575eb03e77ac4525d68"
+      },
+      "teacher_flags": [
+        true,
+        true
+      ],
+      "modes": {
+        "fp32": {
+          "median_ms": 0.09964196942746639,
+          "samples_ms": [
+            0.14295312575995922,
+            0.11847098357975483,
+            0.10242289863526821,
+            0.09973603300750256,
+            0.09752088226377964,
+            0.0967751257121563,
+            0.0970128457993269,
+            0.09794509969651699,
+            0.09954790584743023,
+            0.11006882414221764
+          ],
+          "output_sha256": "9033ba9a4b709b0b339db61c961173a1484e57e733cc0322faddeabdff6a3e2a",
+          "vs_ieee_fp64": {
+            "relative_l2": 9.777523373968273e-08,
+            "max_abs": 3.6110757662299875e-05,
+            "rms": 1.942017900253958e-06,
+            "finite": true
+          },
+          "vs_rne_fp64": {
+            "relative_l2": 0.0002825724238082595,
+            "max_abs": 0.06297404295764863,
+            "rms": 0.005612479125009127,
+            "finite": true
+          },
+          "kernel_trace": [
+            "_fill_contiguous_fp32",
+            "bmm_kernel"
+          ]
+        },
+        "tf32": {
+          "median_ms": 0.07751816883683205,
+          "samples_ms": [
+            0.09798095561563969,
+            0.08740299381315708,
+            0.08897320367395878,
+            0.07934495806694031,
+            0.07876916788518429,
+            0.0762671697884798,
+            0.07476308383047581,
+            0.07580197416245937,
+            0.07548113353550434,
+            0.07607182487845421
+          ],
+          "output_sha256": "7811a1318fab90903b90f90ca3eff5c21ae72ec0a36b5575eb03e77ac4525d68",
+          "vs_ieee_fp64": {
+            "relative_l2": 0.0002825734447145923,
+            "max_abs": 0.0629679437942201,
+            "rms": 0.005612491699413266,
+            "finite": true
+          },
+          "vs_rne_fp64": {
+            "relative_l2": 1.5378885967351342e-07,
+            "max_abs": 4.585739225149155e-05,
+            "rms": 3.054568287110215e-06,
+            "finite": true
+          },
+          "kernel_trace": [
+            "bmm_kernel"
+          ]
+        }
+      },
+      "gold_ieee_fp64_sha256": "ea2df2c3abd1c9162225dced06ec4b432024ebe23010eaed3464dc284d5032e3",
+      "gold_rne_fp64_sha256": "6d43beb9670567be012a1e5436b7dc55a79858d40da94059df924056207fb675"
+    },
+    {
+      "role": "pv",
+      "inputs": [
+        {
+          "shape": [
+            16,
+            245,
+            245
+          ],
+          "stride": [
+            60025,
+            245,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "94ff3336ca59457879351eefbb98ec8c80b71d34f1c73731ac482157dad463b3"
+        },
+        {
+          "shape": [
+            16,
+            245,
+            24
+          ],
+          "stride": [
+            24,
+            384,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "6137f9ac92e5431ccef812e481a1a233aedc00e5102f45a62db85643f1c771cd"
+        }
+      ],
+      "teacher_output": {
+        "shape": [
+          16,
+          245,
+          24
+        ],
+        "stride": [
+          5880,
+          24,
+          1
+        ],
+        "dtype": "torch.float32",
+        "sha256": "b150d70029d96a12190884f75108c9e55a66d6572fc3c12be0ceaeeb07cf001c"
+      },
+      "teacher_flags": [
+        true,
+        true
+      ],
+      "modes": {
+        "fp32": {
+          "median_ms": 0.11303951032459736,
+          "samples_ms": [
+            0.11312891729176044,
+            0.12713600881397724,
+            0.14348304830491543,
+            0.12214807793498039,
+            0.11563301086425781,
+            0.10889791883528233,
+            0.11295010335743427,
+            0.10823993943631649,
+            0.10964414104819298,
+            0.11046393774449825
+          ],
+          "output_sha256": "b150d70029d96a12190884f75108c9e55a66d6572fc3c12be0ceaeeb07cf001c",
+          "vs_ieee_fp64": {
+            "relative_l2": 4.1136667568380993e-07,
+            "max_abs": 2.761639881754263e-05,
+            "rms": 1.16219682252254e-06,
+            "finite": true
+          },
+          "vs_rne_fp64": {
+            "relative_l2": 8.451828485439958e-05,
+            "max_abs": 0.006238162774440781,
+            "rms": 0.0002387785757690127,
+            "finite": true
+          },
+          "kernel_trace": [
+            "_fill_contiguous_fp32",
+            "bmm_kernel"
+          ]
+        },
+        "tf32": {
+          "median_ms": 0.1178995007649064,
+          "samples_ms": [
+            0.12238393537700176,
+            0.11842395178973675,
+            0.11400203220546246,
+            0.11913804337382317,
+            0.13762107118964195,
+            0.12772809714078903,
+            0.11737504974007607,
+            0.1134991180151701,
+            0.11171516962349415,
+            0.11166115291416645
+          ],
+          "output_sha256": "b150d70029d96a12190884f75108c9e55a66d6572fc3c12be0ceaeeb07cf001c",
+          "vs_ieee_fp64": {
+            "relative_l2": 4.1136667568380993e-07,
+            "max_abs": 2.761639881754263e-05,
+            "rms": 1.16219682252254e-06,
+            "finite": true
+          },
+          "vs_rne_fp64": {
+            "relative_l2": 8.451828485439958e-05,
+            "max_abs": 0.006238162774440781,
+            "rms": 0.0002387785757690127,
+            "finite": true
+          },
+          "kernel_trace": [
+            "_fill_contiguous_fp32",
+            "bmm_kernel"
+          ]
+        }
+      },
+      "gold_ieee_fp64_sha256": "f80b8532589f0d3504afe07283080ca248b1cffbe051405f08ff1e849f91ed6d",
+      "gold_rne_fp64_sha256": "3ed1c9bfb2286970e82f7ca83234ef25993ee986e449775f397b58d8a68348db"
+    }
+  ],
+  "scope": "Full actual QK/PV operands replayed only in original-server memory. Only error/timing/hash JSON persisted; original teacher outputs returned."
+}

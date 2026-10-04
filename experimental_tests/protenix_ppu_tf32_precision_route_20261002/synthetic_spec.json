@@ -1,0 +1,164 @@
+[
+  {
+    "name": "pairformer_qk",
+    "op": "bmm",
+    "inputs": [
+      {
+        "shape": [
+          16,
+          245,
+          24
+        ],
+        "stride": [
+          24,
+          384,
+          1
+        ],
+        "dtype": "torch.float32"
+      },
+      {
+        "shape": [
+          16,
+          24,
+          245
+        ],
+        "stride": [
+          24,
+          1,
+          384
+        ],
+        "dtype": "torch.float32"
+      }
+    ]
+  },
+  {
+    "name": "pairformer_pv",
+    "op": "bmm",
+    "inputs": [
+      {
+        "shape": [
+          16,
+          245,
+          245
+        ],
+        "stride": [
+          60025,
+          245,
+          1
+        ],
+        "dtype": "torch.float32"
+      },
+      {
+        "shape": [
+          16,
+          245,
+          24
+        ],
+        "stride": [
+          24,
+          384,
+          1
+        ],
+        "dtype": "torch.float32"
+      }
+    ]
+  },
+  {
+    "name": "confidence_gemv",
+    "op": "bmm",
+    "inputs": [
+      {
+        "shape": [
+          2529,
+          1,
+          384
+        ],
+        "stride": [
+          384,
+          384,
+          1
+        ],
+        "dtype": "torch.float32"
+      },
+      {
+        "shape": [
+          2529,
+          384,
+          50
+        ],
+        "stride": [
+          19200,
+          50,
+          1
+        ],
+        "dtype": "torch.float32"
+      }
+    ]
+  },
+  {
+    "name": "diffusion_efficient_sdpa",
+    "op": "efficient",
+    "inputs": [
+      {
+        "shape": [
+          1,
+          16,
+          245,
+          48
+        ],
+        "stride": [
+          188160,
+          48,
+          768,
+          1
+        ],
+        "dtype": "torch.float32"
+      },
+      {
+        "shape": [
+          1,
+          16,
+          245,
+          48
+        ],
+        "stride": [
+          188160,
+          48,
+          768,
+          1
+        ],
+        "dtype": "torch.float32"
+      },
+      {
+        "shape": [
+          1,
+          16,
+          245,
+          48
+        ],
+        "stride": [
+          188160,
+          48,
+          768,
+          1
+        ],
+        "dtype": "torch.float32"
+      },
+      {
+        "shape": [
+          1,
+          16,
+          245,
+          245
+        ],
+        "stride": [
+          972160,
+          60760,
+          248,
+          1
+        ],
+        "dtype": "torch.float32"
+      }
+    ]
+  }
+]

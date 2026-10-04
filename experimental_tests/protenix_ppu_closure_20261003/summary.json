@@ -1,0 +1,2229 @@
+{
+  "status": "MEASUREMENTS_COMPLETE",
+  "operator": [
+    {
+      "shape": [
+        1,
+        131,
+        131,
+        4,
+        32
+      ],
+      "memory_peak_extra_MiB": {
+        "tf32": 34.30419921875,
+        "combined_64m": 67.82177734375,
+        "combined_128m": 67.82177734375,
+        "combined_256m": 67.82177734375
+      }
+    },
+    {
+      "shape": [
+        1,
+        245,
+        245,
+        4,
+        32
+      ],
+      "memory_peak_extra_MiB": {
+        "tf32": 119.984375,
+        "combined_64m": 184.12451171875,
+        "combined_128m": 237.220703125,
+        "combined_256m": 237.220703125
+      }
+    },
+    {
+      "shape": [
+        1,
+        384,
+        384,
+        4,
+        32
+      ],
+      "memory_peak_extra_MiB": {
+        "tf32": 294.75,
+        "combined_64m": 358.998046875,
+        "combined_128m": 423.24609375,
+        "combined_256m": 552.498046875
+      }
+    }
+  ],
+  "matrix": [
+    {
+      "case": "G01",
+      "model": "protenix-v2",
+      "input_audit": "PASS",
+      "gates": {
+        "fp32": {
+          "status": "PASS",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 6.103515625e-05,
+              "relative_difference_pct": 7.182577437387452e-05,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 1.2159347534179688e-05,
+              "relative_difference_pct": 0.0011575241738142838,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 0.0,
+              "relative_difference_pct": 0.0,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 0.0,
+              "relative_difference_pct": 0,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 0.0,
+              "relative_difference_pct": 0.0,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 4.927545813987466e-05,
+            "upper_A": 0.01981606430816102,
+            "status": "PASS",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        },
+        "tf32": {
+          "status": "FAIL",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 0.041015625,
+              "relative_difference_pct": 0.04825609769561874,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 0.0017338991165161133,
+              "relative_difference_pct": 0.16526146135671196,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 0.000941544771194458,
+              "relative_difference_pct": 0.20571329896465518,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 0.0,
+              "relative_difference_pct": 0,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 0.00018831342458724976,
+              "relative_difference_pct": 0.20571817578481788,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 0.9652377462421642,
+            "upper_A": 1.05073950802525,
+            "status": "FAIL",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        }
+      },
+      "timing": {
+        "input": "G01",
+        "tokens": 693,
+        "model": "protenix-v2",
+        "H100_FP32_s": 7.796488463878632,
+        "H100_TF32_s": 4.315406198613346,
+        "PPU_FP32_s": 21.725422946037725,
+        "PPU_TF32_s": 17.138612359995022,
+        "PPU_combined_TF32_s": 17.12605171906762,
+        "new_vs_old_TF32_change_pct": -0.07328855255938072,
+        "PPU_TF32_vs_H100_TF32_time_ratio": 3.9714945873466356,
+        "timing_control": "serial"
+      }
+    },
+    {
+      "case": "G01",
+      "model": "protenix_base_20250630_v1.0.0",
+      "input_audit": "PASS",
+      "gates": {
+        "fp32": {
+          "status": "PASS",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 2.288818359375e-05,
+              "relative_difference_pct": 2.7221684140265715e-05,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 2.384185791015625e-06,
+              "relative_difference_pct": 4.241145421412084e-05,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 3.725290298461914e-07,
+              "relative_difference_pct": 0.00022388373807035502,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 0.0,
+              "relative_difference_pct": 0,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 7.450580596923828e-08,
+              "relative_difference_pct": 0.00022388373807035502,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 2.0387800118652072e-05,
+            "upper_A": 0.01680134342129193,
+            "status": "PASS",
+            "exact_A": null,
+            "anchor_interval_count": 10,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        },
+        "tf32": {
+          "status": "FAIL",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 0.016357421875,
+              "relative_difference_pct": 0.019448867711232935,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 6.008148193359375e-05,
+              "relative_difference_pct": 0.0010684490884857313,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 2.175569534301758e-06,
+              "relative_difference_pct": 0.0013071037597765318,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 0.0,
+              "relative_difference_pct": 0,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 4.3585896492004395e-07,
+              "relative_difference_pct": 0.0013093418632292824,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 1.123410562892372,
+            "upper_A": 1.2150167899384003,
+            "status": "FAIL",
+            "exact_A": null,
+            "anchor_interval_count": 10,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        }
+      },
+      "timing": {
+        "input": "G01",
+        "tokens": 693,
+        "model": "protenix_base_20250630_v1.0.0",
+        "H100_FP32_s": 3.856486367061734,
+        "H100_TF32_s": 2.4736378472298384,
+        "PPU_FP32_s": 11.443329723086208,
+        "PPU_TF32_s": 8.650643368018791,
+        "PPU_combined_TF32_s": 8.741718400968239,
+        "new_vs_old_TF32_change_pct": 1.0528122484640745,
+        "PPU_TF32_vs_H100_TF32_time_ratio": 3.497134141000639,
+        "timing_control": "serial"
+      }
+    },
+    {
+      "case": "G01",
+      "model": "protenix_base_constraint_v0.5.0",
+      "input_audit": "PASS",
+      "gates": {
+        "fp32": {
+          "status": "PASS",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 0.0,
+              "relative_difference_pct": 0.0,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 4.470348358154297e-07,
+              "relative_difference_pct": 0.00017448247335187346,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 1.9073486328125e-06,
+              "relative_difference_pct": 0.00019817593911242447,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 0.0,
+              "relative_difference_pct": 0,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 3.8743019104003906e-07,
+              "relative_difference_pct": 0.00020127242881245783,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 0.0003521225335711975,
+            "upper_A": 0.007597947787398142,
+            "status": "PASS",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        },
+        "tf32": {
+          "status": "FAIL",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 0.00473785400390625,
+              "relative_difference_pct": 0.0055527970404396524,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 4.1872262954711914e-05,
+              "relative_difference_pct": 0.016345781334164776,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 1.52587890625e-05,
+              "relative_difference_pct": 0.0015853894472019486,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 0.0,
+              "relative_difference_pct": 0,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 3.0547380447387695e-06,
+              "relative_difference_pct": 0.001586937629945033,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 4.631822664176589,
+            "upper_A": 4.658821080710128,
+            "status": "FAIL",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        }
+      },
+      "timing": {
+        "input": "G01",
+        "tokens": 693,
+        "model": "protenix_base_constraint_v0.5.0",
+        "H100_FP32_s": 3.504847555421293,
+        "H100_TF32_s": 2.255001704208553,
+        "PPU_FP32_s": 10.44071088382043,
+        "PPU_TF32_s": 7.835848473012447,
+        "PPU_combined_TF32_s": 7.8412268839310855,
+        "new_vs_old_TF32_change_pct": 0.06863852634673151,
+        "PPU_TF32_vs_H100_TF32_time_ratio": 3.474874745499417,
+        "timing_control": "serial"
+      }
+    },
+    {
+      "case": "G01",
+      "model": "protenix_base_default_v0.5.0",
+      "input_audit": "PASS",
+      "gates": {
+        "fp32": {
+          "status": "PASS",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 0.0005950927734375,
+              "relative_difference_pct": 0.005504261833501372,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 8.642673492431641e-07,
+              "relative_difference_pct": 0.00033586408854303896,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 5.364418029785156e-07,
+              "relative_difference_pct": 6.054831749008118e-05,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 0.0,
+              "relative_difference_pct": 0,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 1.043081283569336e-07,
+              "relative_difference_pct": 5.88664178018775e-05,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 8.108690907016654e-06,
+            "upper_A": 0.006638797332303601,
+            "status": "PASS",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        },
+        "tf32": {
+          "status": "FAIL",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 0.05955791473388672,
+              "relative_difference_pct": 0.5466312778546628,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 9.85562801361084e-05,
+              "relative_difference_pct": 0.03831437156204692,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 0.0001233220100402832,
+              "relative_difference_pct": 0.01391748940061093,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 0.0,
+              "relative_difference_pct": 0,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 2.466142177581787e-05,
+              "relative_difference_pct": 0.013915807263967309,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 0.9808218316491074,
+            "upper_A": 1.0213930200305226,
+            "status": "FAIL",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        }
+      },
+      "timing": {
+        "input": "G01",
+        "tokens": 693,
+        "model": "protenix_base_default_v0.5.0",
+        "H100_FP32_s": 3.5052711348980665,
+        "H100_TF32_s": 2.253039823845029,
+        "PPU_FP32_s": 10.410176331177354,
+        "PPU_TF32_s": 7.824927702080458,
+        "PPU_combined_TF32_s": 7.836845566984266,
+        "new_vs_old_TF32_change_pct": 0.1523063900084276,
+        "PPU_TF32_vs_H100_TF32_time_ratio": 3.4730534361911403,
+        "timing_control": "serial"
+      }
+    },
+    {
+      "case": "G01",
+      "model": "protenix_base_default_v1.0.0",
+      "input_audit": "PASS",
+      "gates": {
+        "fp32": {
+          "status": "PASS",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 0.00018310546875,
+              "relative_difference_pct": 0.0002288076015986787,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 5.7220458984375e-06,
+              "relative_difference_pct": 7.82628975950855e-05,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 2.9802322387695312e-08,
+              "relative_difference_pct": 1.093484744520958e-05,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 0.0,
+              "relative_difference_pct": 0,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 3.725290298461914e-09,
+              "relative_difference_pct": 6.8342796532559875e-06,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 0.00012079323425195909,
+            "upper_A": 0.02362770245222736,
+            "status": "PASS",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        },
+        "tf32": {
+          "status": "FAIL",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 0.050994873046875,
+              "relative_difference_pct": 0.06368724569527483,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 0.00014352798461914062,
+              "relative_difference_pct": 0.0019628105438530673,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 1.2129545211791992e-05,
+              "relative_difference_pct": 0.004453260514317671,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 0.0,
+              "relative_difference_pct": 0,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 2.425163984298706e-06,
+              "relative_difference_pct": 0.004451892683536627,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 2.1430176118733115,
+            "upper_A": 2.2028593939290455,
+            "status": "FAIL",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        }
+      },
+      "timing": {
+        "input": "G01",
+        "tokens": 693,
+        "model": "protenix_base_default_v1.0.0",
+        "H100_FP32_s": 3.835414007306099,
+        "H100_TF32_s": 2.465073635801673,
+        "PPU_FP32_s": 11.432786478893831,
+        "PPU_TF32_s": 8.61562491604127,
+        "PPU_combined_TF32_s": 8.614804644836113,
+        "new_vs_old_TF32_change_pct": -0.00952073950700738,
+        "PPU_TF32_vs_H100_TF32_time_ratio": 3.495078114873173,
+        "timing_control": "serial"
+      }
+    },
+    {
+      "case": "G01",
+      "model": "protenix_mini_default_v0.5.0",
+      "input_audit": "PASS",
+      "gates": {
+        "fp32": {
+          "status": "PASS",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 3.0517578125e-05,
+              "relative_difference_pct": 5.037158805687129e-05,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 5.7220458984375e-06,
+              "relative_difference_pct": 0.0001967216662193981,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 4.470348358154297e-08,
+              "relative_difference_pct": 2.6454625203215612e-05,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 0.0,
+              "relative_difference_pct": 0,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 1.1175870895385742e-08,
+              "relative_difference_pct": 3.306828004600459e-05,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 2.250743210052697e-05,
+            "upper_A": 0.005720585481108451,
+            "status": "PASS",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        },
+        "tf32": {
+          "status": "FAIL",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 0.09772872924804688,
+              "relative_difference_pct": 0.16157180564108164,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 0.0026009082794189453,
+              "relative_difference_pct": 0.08955561075875743,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 0.00020441412925720215,
+              "relative_difference_pct": 0.12081319486521905,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 0.0,
+              "relative_difference_pct": 0,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 4.0881335735321045e-05,
+              "relative_difference_pct": 0.12080879141009201,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 0.63861543586281,
+            "upper_A": 0.6887868709090589,
+            "status": "FAIL",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        }
+      },
+      "timing": {
+        "input": "G01",
+        "tokens": 693,
+        "model": "protenix_mini_default_v0.5.0",
+        "H100_FP32_s": 1.3926000948995352,
+        "H100_TF32_s": 0.9415075108408928,
+        "PPU_FP32_s": 4.01709302701056,
+        "PPU_TF32_s": 3.062511610100046,
+        "PPU_combined_TF32_s": 3.065371776930988,
+        "new_vs_old_TF32_change_pct": 0.09339284858576047,
+        "PPU_TF32_vs_H100_TF32_time_ratio": 3.2527744864879633,
+        "timing_control": "serial"
+      }
+    },
+    {
+      "case": "G01",
+      "model": "protenix_mini_esm_v0.5.0",
+      "input_audit": "PASS",
+      "gates": {
+        "fp32": {
+          "status": "PASS",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 3.0517578125e-05,
+              "relative_difference_pct": 7.997715052809412e-05,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 6.67572021484375e-06,
+              "relative_difference_pct": 7.601580737855036e-05,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 2.086162567138672e-07,
+              "relative_difference_pct": 0.00010391897763915976,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 0.0,
+              "relative_difference_pct": 0,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 4.470348358154297e-08,
+              "relative_difference_pct": 0.00011134176382240729,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 2.061890620069784e-05,
+            "upper_A": 0.00813637239780778,
+            "status": "PASS",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        },
+        "tf32": {
+          "status": "FAIL",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 0.10420608520507812,
+              "relative_difference_pct": 0.2738871735639773,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 0.01897907257080078,
+              "relative_difference_pct": 0.2157483152421019,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 0.0006826519966125488,
+              "relative_difference_pct": 0.34141415902915323,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 0.0,
+              "relative_difference_pct": 0,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 0.0001365281641483307,
+              "relative_difference_pct": 0.34140855692865885,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 0.26046005803627753,
+            "upper_A": 0.2912969916298043,
+            "status": "FAIL",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        }
+      },
+      "timing": {
+        "input": "G01",
+        "tokens": 693,
+        "model": "protenix_mini_esm_v0.5.0",
+        "H100_FP32_s": 1.4007358802482486,
+        "H100_TF32_s": 0.9368190849199891,
+        "PPU_FP32_s": 4.001072028884664,
+        "PPU_TF32_s": 3.0620439341291785,
+        "PPU_combined_TF32_s": 3.0519571909680963,
+        "new_vs_old_TF32_change_pct": -0.32941209786889747,
+        "PPU_TF32_vs_H100_TF32_time_ratio": 3.2685541780894636,
+        "timing_control": "serial"
+      }
+    },
+    {
+      "case": "G01",
+      "model": "protenix_mini_ism_v0.5.0",
+      "input_audit": "PASS",
+      "gates": {
+        "fp32": {
+          "status": "PASS",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 3.814697265625e-06,
+              "relative_difference_pct": 8.49340788393792e-06,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 2.86102294921875e-06,
+              "relative_difference_pct": 3.442629948952683e-05,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 4.470348358154297e-08,
+              "relative_difference_pct": 2.6381379600176122e-05,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 0.0,
+              "relative_difference_pct": 0,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 1.1175870895385742e-08,
+              "relative_difference_pct": 3.297672305026774e-05,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 1.370842651347761e-05,
+            "upper_A": 0.005334438210120935,
+            "status": "PASS",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        },
+        "tf32": {
+          "status": "FAIL",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 0.050243377685546875,
+              "relative_difference_pct": 0.11174792126043442,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 0.0020389556884765625,
+              "relative_difference_pct": 0.024501082665942406,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 0.00014038383960723877,
+              "relative_difference_pct": 0.0827701548094459,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 0.0,
+              "relative_difference_pct": 0,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 2.8077512979507446e-05,
+              "relative_difference_pct": 0.08277234760037067,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 0.23102483556682646,
+            "upper_A": 0.26319756232501873,
+            "status": "FAIL",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        }
+      },
+      "timing": {
+        "input": "G01",
+        "tokens": 693,
+        "model": "protenix_mini_ism_v0.5.0",
+        "H100_FP32_s": 1.3942277543246746,
+        "H100_TF32_s": 0.9428846463561058,
+        "PPU_FP32_s": 3.994111963082105,
+        "PPU_TF32_s": 3.0554791619069874,
+        "PPU_combined_TF32_s": 3.0491392000112683,
+        "new_vs_old_TF32_change_pct": -0.20749484973617838,
+        "PPU_TF32_vs_H100_TF32_time_ratio": 3.2405651886636018,
+        "timing_control": "serial"
+      }
+    },
+    {
+      "case": "G01",
+      "model": "protenix_tiny_default_v0.5.0",
+      "input_audit": "PASS",
+      "gates": {
+        "fp32": {
+          "status": "PASS",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 3.0517578125e-05,
+              "relative_difference_pct": 9.395568955724791e-05,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 8.58306884765625e-06,
+              "relative_difference_pct": 9.491760519085399e-05,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 1.4901161193847656e-08,
+              "relative_difference_pct": 8.835738583364266e-06,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 0.0,
+              "relative_difference_pct": 0,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 3.725290298461914e-09,
+              "relative_difference_pct": 1.1044672497296541e-05,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 1.3716900130189558e-05,
+            "upper_A": 0.0064194128489474134,
+            "status": "PASS",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        },
+        "tf32": {
+          "status": "FAIL",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 0.030529022216796875,
+              "relative_difference_pct": 0.0941143100202752,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 0.00737762451171875,
+              "relative_difference_pct": 0.0813899330037546,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 0.0002538710832595825,
+              "relative_difference_pct": 0.1507607057622145,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 0.0,
+              "relative_difference_pct": 0,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 5.077570676803589e-05,
+              "relative_difference_pct": 0.15076513027080649,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 0.4567417834992869,
+            "upper_A": 0.5060739733483229,
+            "status": "FAIL",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        }
+      },
+      "timing": {
+        "input": "G01",
+        "tokens": 693,
+        "model": "protenix_tiny_default_v0.5.0",
+        "H100_FP32_s": 0.9545173645019531,
+        "H100_TF32_s": 0.6586703909561038,
+        "PPU_FP32_s": 2.6749943799804896,
+        "PPU_TF32_s": 2.0717611748259515,
+        "PPU_combined_TF32_s": 2.0626152898184955,
+        "new_vs_old_TF32_change_pct": -0.4414546000083397,
+        "PPU_TF32_vs_H100_TF32_time_ratio": 3.1453686142148465,
+        "timing_control": "serial"
+      }
+    },
+    {
+      "case": "G02",
+      "model": "protenix-v2",
+      "input_audit": "PASS",
+      "gates": {
+        "fp32": {
+          "status": "PASS",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 0.00156402587890625,
+              "relative_difference_pct": 0.0017899124724069712,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 1.9311904907226562e-05,
+              "relative_difference_pct": 0.0017833453378894503,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 1.4901161193847656e-07,
+              "relative_difference_pct": 4.325847022476236e-05,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 8.940696716308594e-08,
+              "relative_difference_pct": 2.6084041913577484e-05,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 1.1920928955078125e-07,
+              "relative_difference_pct": 3.4744196720252065e-05,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 0.00010967259134363194,
+            "upper_A": 0.011420164963762197,
+            "status": "PASS",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        },
+        "tf32": {
+          "status": "UNRESOLVED",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 0.19146728515625,
+              "relative_difference_pct": 0.21961948666132786,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 0.0029207468032836914,
+              "relative_difference_pct": 0.27032826994210246,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 0.005372464656829834,
+              "relative_difference_pct": 1.5359820865993294,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 0.004845917224884033,
+              "relative_difference_pct": 1.3943751119623993,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 0.0049512386322021484,
+              "relative_difference_pct": 1.4228457977934483,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 0.05412790792392859,
+            "upper_A": 0.12262238093706176,
+            "status": "UNRESOLVED",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        }
+      },
+      "timing": {
+        "input": "G02",
+        "tokens": 245,
+        "model": "protenix-v2",
+        "H100_FP32_s": 0.9543688856065273,
+        "H100_TF32_s": 0.5958674428984523,
+        "PPU_FP32_s": 2.6388533159624785,
+        "PPU_TF32_s": 2.3242203588597476,
+        "PPU_combined_TF32_s": 2.3384264199994504,
+        "new_vs_old_TF32_change_pct": 0.6112183419076489,
+        "PPU_TF32_vs_H100_TF32_time_ratio": 3.900566118454371,
+        "timing_control": "serial"
+      }
+    },
+    {
+      "case": "G02",
+      "model": "protenix_base_20250630_v1.0.0",
+      "input_audit": "PASS",
+      "gates": {
+        "fp32": {
+          "status": "PASS",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 0.00042724609375,
+              "relative_difference_pct": 0.0005543686127578829,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 4.76837158203125e-06,
+              "relative_difference_pct": 8.420389636689658e-05,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 0.0,
+              "relative_difference_pct": 0.0,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 7.450580596923828e-09,
+              "relative_difference_pct": 6.495901118873497e-06,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 7.450580596923828e-09,
+              "relative_difference_pct": 6.457518824958879e-06,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 0.00021286512513111686,
+            "upper_A": 0.04096372969206179,
+            "status": "PASS",
+            "exact_A": null,
+            "anchor_interval_count": 10,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        },
+        "tf32": {
+          "status": "UNRESOLVED",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 0.23285675048828125,
+              "relative_difference_pct": 0.3011855585664353,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 0.0008664131164550781,
+              "relative_difference_pct": 0.015293406572225743,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 2.346932888031006e-06,
+              "relative_difference_pct": 0.0019863350239671816,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 3.2186508178710938e-06,
+              "relative_difference_pct": 0.0028050540060554105,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 3.0547380447387695e-06,
+              "relative_difference_pct": 0.002646477699552487,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 0.0648795315763035,
+            "upper_A": 0.18700972366782492,
+            "status": "UNRESOLVED",
+            "exact_A": null,
+            "anchor_interval_count": 10,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        }
+      },
+      "timing": {
+        "input": "G02",
+        "tokens": 245,
+        "model": "protenix_base_20250630_v1.0.0",
+        "H100_FP32_s": 0.4897940419614315,
+        "H100_TF32_s": 0.4765705540776253,
+        "PPU_FP32_s": 1.8243943110574037,
+        "PPU_TF32_s": 1.8342447839677334,
+        "PPU_combined_TF32_s": 1.8543282439932227,
+        "new_vs_old_TF32_change_pct": 1.094917112537508,
+        "PPU_TF32_vs_H100_TF32_time_ratio": 3.8488420408554362,
+        "timing_control": "serial"
+      }
+    },
+    {
+      "case": "G02",
+      "model": "protenix_base_constraint_v0.5.0",
+      "input_audit": "PASS",
+      "gates": {
+        "fp32": {
+          "status": "PASS",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 1.52587890625e-05,
+              "relative_difference_pct": 1.779588053838945e-05,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 9.238719940185547e-07,
+              "relative_difference_pct": 0.00035977610320699776,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 5.960464477539063e-08,
+              "relative_difference_pct": 6.398494255143925e-06,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 1.7881393432617188e-07,
+              "relative_difference_pct": 1.92056639807759e-05,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 2.384185791015625e-07,
+              "relative_difference_pct": 2.560483419269558e-05,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 3.424829087055395e-05,
+            "upper_A": 0.017114625302315112,
+            "status": "PASS",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        },
+        "tf32": {
+          "status": "PASS",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 0.000885009765625,
+              "relative_difference_pct": 0.0010321494075417911,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 0.0001506209373474121,
+              "relative_difference_pct": 0.05868913281406495,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 0.0001494884490966797,
+              "relative_difference_pct": 0.01604489294512199,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 0.0001614093780517578,
+              "relative_difference_pct": 0.017333372079522028,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 0.0001590251922607422,
+              "relative_difference_pct": 0.0170755693787168,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 0.03584042607643216,
+            "upper_A": 0.06919406127534157,
+            "status": "PASS",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        }
+      },
+      "timing": {
+        "input": "G02",
+        "tokens": 245,
+        "model": "protenix_base_constraint_v0.5.0",
+        "H100_FP32_s": 0.45141800958663225,
+        "H100_TF32_s": 0.4438098603859544,
+        "PPU_FP32_s": 1.6338022088166326,
+        "PPU_TF32_s": 1.5559415630996227,
+        "PPU_combined_TF32_s": 1.5462213968858123,
+        "new_vs_old_TF32_change_pct": -0.6247128069801433,
+        "PPU_TF32_vs_H100_TF32_time_ratio": 3.5058742537773164,
+        "timing_control": "serial"
+      }
+    },
+    {
+      "case": "G02",
+      "model": "protenix_base_default_v0.5.0",
+      "input_audit": "PASS",
+      "gates": {
+        "fp32": {
+          "status": "PASS",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 0.00040435791015625,
+              "relative_difference_pct": 0.004761528288868445,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 1.6689300537109375e-06,
+              "relative_difference_pct": 0.0006467813733432291,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 4.172325134277344e-07,
+              "relative_difference_pct": 4.940597432569138e-05,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 3.5762786865234375e-07,
+              "relative_difference_pct": 4.2396579726591526e-05,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 4.172325134277344e-07,
+              "relative_difference_pct": 4.945132343751126e-05,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 5.6097645671999985e-05,
+            "upper_A": 0.009370849365702975,
+            "status": "PASS",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        },
+        "tf32": {
+          "status": "FAIL",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 0.6092243194580078,
+              "relative_difference_pct": 6.686836869852992,
+              "pass_le_5pct": false
+            },
+            "gpde": {
+              "absolute_difference": 0.00021630525588989258,
+              "relative_difference_pct": 0.0838965448563893,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 7.283687591552734e-05,
+              "relative_difference_pct": 0.008624183693136582,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 0.0001977682113647461,
+              "relative_difference_pct": 0.023439953803934325,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 0.00017279386520385742,
+              "relative_difference_pct": 0.020475844789282438,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 0.07116538231465125,
+            "upper_A": 0.09343696024418097,
+            "status": "PASS",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        }
+      },
+      "timing": {
+        "input": "G02",
+        "tokens": 245,
+        "model": "protenix_base_default_v0.5.0",
+        "H100_FP32_s": 0.4558166451752186,
+        "H100_TF32_s": 0.451668213121593,
+        "PPU_FP32_s": 1.646962999831885,
+        "PPU_TF32_s": 1.6611112980172038,
+        "PPU_combined_TF32_s": 1.641091255005449,
+        "new_vs_old_TF32_change_pct": -1.2052198450309581,
+        "PPU_TF32_vs_H100_TF32_time_ratio": 3.677724599074273,
+        "timing_control": "serial"
+      }
+    },
+    {
+      "case": "G02",
+      "model": "protenix_base_default_v1.0.0",
+      "input_audit": "PASS",
+      "gates": {
+        "fp32": {
+          "status": "PASS",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 0.0009002685546875,
+              "relative_difference_pct": 0.0011216602091991346,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 3.337860107421875e-06,
+              "relative_difference_pct": 4.591852832953445e-05,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 8.046627044677734e-07,
+              "relative_difference_pct": 0.0003812616937903767,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 7.450580596923828e-08,
+              "relative_difference_pct": 3.5918495187460424e-05,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 1.043081283569336e-07,
+              "relative_difference_pct": 5.011087388782495e-05,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 2.3737577281801592e-05,
+            "upper_A": 0.01356505501710866,
+            "status": "PASS",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        },
+        "tf32": {
+          "status": "UNRESOLVED",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 0.27545928955078125,
+              "relative_difference_pct": 0.34210329330679007,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 0.0001964569091796875,
+              "relative_difference_pct": 0.002702120764729034,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 2.2023916244506836e-05,
+              "relative_difference_pct": 0.010442628987664132,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 9.199976921081543e-05,
+              "relative_difference_pct": 0.04436734813255791,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 7.800757884979248e-05,
+              "relative_difference_pct": 0.03749136302124095,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 0.08730466645011266,
+            "upper_A": 0.20089312290317324,
+            "status": "UNRESOLVED",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        }
+      },
+      "timing": {
+        "input": "G02",
+        "tokens": 245,
+        "model": "protenix_base_default_v1.0.0",
+        "H100_FP32_s": 0.49360084254294634,
+        "H100_TF32_s": 0.48940370604395866,
+        "PPU_FP32_s": 1.851557451998815,
+        "PPU_TF32_s": 1.726812276057899,
+        "PPU_combined_TF32_s": 1.818368688924238,
+        "new_vs_old_TF32_change_pct": 5.302047833210399,
+        "PPU_TF32_vs_H100_TF32_time_ratio": 3.5284004896824284,
+        "timing_control": "serial"
+      }
+    },
+    {
+      "case": "G02",
+      "model": "protenix_mini_default_v0.5.0",
+      "input_audit": "PASS",
+      "gates": {
+        "fp32": {
+          "status": "PASS",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 6.103515625e-05,
+              "relative_difference_pct": 7.876242957285067e-05,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 1.6689300537109375e-06,
+              "relative_difference_pct": 0.00018815723574441823,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 3.5762786865234375e-07,
+              "relative_difference_pct": 4.8271882690314314e-05,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 1.7881393432617188e-07,
+              "relative_difference_pct": 2.5857858147065533e-05,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 1.7881393432617188e-07,
+              "relative_difference_pct": 2.5494096841876264e-05,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 2.849572570986364e-06,
+            "upper_A": 0.0018171920891230796,
+            "status": "PASS",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        },
+        "tf32": {
+          "status": "PASS",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 0.07440948486328125,
+              "relative_difference_pct": 0.09610815670803007,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 0.0008947253227233887,
+              "relative_difference_pct": 0.10086277958495951,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 0.0005517005920410156,
+              "relative_difference_pct": 0.0745249537419522,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 0.0013152360916137695,
+              "relative_difference_pct": 0.19057509181995327,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 0.0011624693870544434,
+              "relative_difference_pct": 0.16602662606365196,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 0.011366461420863182,
+            "upper_A": 0.03741335523615994,
+            "status": "PASS",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        }
+      },
+      "timing": {
+        "input": "G02",
+        "tokens": 245,
+        "model": "protenix_mini_default_v0.5.0",
+        "H100_FP32_s": 0.2020682767033577,
+        "H100_TF32_s": 0.19286416471004486,
+        "PPU_FP32_s": 0.7910371769685298,
+        "PPU_TF32_s": 0.7474576150998473,
+        "PPU_combined_TF32_s": 0.7840489188674837,
+        "new_vs_old_TF32_change_pct": 4.895435276654236,
+        "PPU_TF32_vs_H100_TF32_time_ratio": 3.8755650445669225,
+        "timing_control": "serial"
+      }
+    },
+    {
+      "case": "G02",
+      "model": "protenix_mini_esm_v0.5.0",
+      "input_audit": "PASS",
+      "gates": {
+        "fp32": {
+          "status": "PASS",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 3.0517578125e-05,
+              "relative_difference_pct": 4.993563920302221e-05,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 3.337860107421875e-06,
+              "relative_difference_pct": 0.00015709658578623757,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 2.5033950805664062e-06,
+              "relative_difference_pct": 0.0006936523297263136,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 6.318092346191406e-06,
+              "relative_difference_pct": 0.0008733621575802397,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 5.4836273193359375e-06,
+              "relative_difference_pct": 0.0008424457886135027,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 1.992889022088551e-05,
+            "upper_A": 0.013691193344632483,
+            "status": "PASS",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        },
+        "tf32": {
+          "status": "UNRESOLVED",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 0.12559890747070312,
+              "relative_difference_pct": 0.20598641246681695,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 0.011990785598754883,
+              "relative_difference_pct": 0.5612235617704683,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 0.0001920759677886963,
+              "relative_difference_pct": 0.05332772006331146,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 0.00039714574813842773,
+              "relative_difference_pct": 0.05504826823501769,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 0.0003560781478881836,
+              "relative_difference_pct": 0.0548490851385605,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 0.08068912362287789,
+            "upper_A": 0.16409223274505116,
+            "status": "UNRESOLVED",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        }
+      },
+      "timing": {
+        "input": "G02",
+        "tokens": 245,
+        "model": "protenix_mini_esm_v0.5.0",
+        "H100_FP32_s": 0.23828712292015553,
+        "H100_TF32_s": 0.19854278024286032,
+        "PPU_FP32_s": 0.7796865080017596,
+        "PPU_TF32_s": 0.7632918630260974,
+        "PPU_combined_TF32_s": 0.7477962099947035,
+        "new_vs_old_TF32_change_pct": -2.030108505278805,
+        "PPU_TF32_vs_H100_TF32_time_ratio": 3.8444705070233636,
+        "timing_control": "serial"
+      }
+    },
+    {
+      "case": "G02",
+      "model": "protenix_mini_ism_v0.5.0",
+      "input_audit": "PASS",
+      "gates": {
+        "fp32": {
+          "status": "PASS",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 1.9073486328125e-05,
+              "relative_difference_pct": 3.221922683650237e-05,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 2.6226043701171875e-06,
+              "relative_difference_pct": 9.477136881131115e-05,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 8.940696716308594e-08,
+              "relative_difference_pct": 2.4041769208151475e-05,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 3.5762786865234375e-07,
+              "relative_difference_pct": 5.181208000372356e-05,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 2.980232238769531e-07,
+              "relative_difference_pct": 4.756433956866945e-05,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 2.359288469255382e-05,
+            "upper_A": 0.00841530524912289,
+            "status": "PASS",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        },
+        "tf32": {
+          "status": "PASS",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 0.02240753173828125,
+              "relative_difference_pct": 0.037858019793544244,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 0.0016367435455322266,
+              "relative_difference_pct": 0.05916452961915107,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 0.000512540340423584,
+              "relative_difference_pct": 0.13757598757448367,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 0.00022351741790771484,
+              "relative_difference_pct": 0.03235887668273709,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 0.00028133392333984375,
+              "relative_difference_pct": 0.044862229234585736,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 0.04918527103851458,
+            "upper_A": 0.09509352076991612,
+            "status": "PASS",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        }
+      },
+      "timing": {
+        "input": "G02",
+        "tokens": 245,
+        "model": "protenix_mini_ism_v0.5.0",
+        "H100_FP32_s": 0.2085597524419427,
+        "H100_TF32_s": 0.19951300974935293,
+        "PPU_FP32_s": 0.7872671850491315,
+        "PPU_TF32_s": 0.7519651220645756,
+        "PPU_combined_TF32_s": 0.7590224749874324,
+        "new_vs_old_TF32_change_pct": 0.9385213111321233,
+        "PPU_TF32_vs_H100_TF32_time_ratio": 3.7690029487764485,
+        "timing_control": "serial"
+      }
+    },
+    {
+      "case": "G02",
+      "model": "protenix_tiny_default_v0.5.0",
+      "input_audit": "PASS",
+      "gates": {
+        "fp32": {
+          "status": "PASS",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 7.62939453125e-06,
+              "relative_difference_pct": 1.4968939450639922e-05,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 2.0265579223632812e-06,
+              "relative_difference_pct": 0.00011172001439742398,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 5.960464477539063e-08,
+              "relative_difference_pct": 1.179458503524281e-05,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 1.1175870895385742e-06,
+              "relative_difference_pct": 0.0006683051727355014,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 8.642673492431641e-07,
+              "relative_difference_pct": 0.00036800377241936083,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 5.044745639572277e-06,
+            "upper_A": 0.007732987191818754,
+            "status": "PASS",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        },
+        "tf32": {
+          "status": "FAIL",
+          "five_confidence": {
+            "plddt": {
+              "absolute_difference": 0.11006546020507812,
+              "relative_difference_pct": 0.21638374340351313,
+              "pass_le_5pct": true
+            },
+            "gpde": {
+              "absolute_difference": 0.0015654563903808594,
+              "relative_difference_pct": 0.08623696857748667,
+              "pass_le_5pct": true
+            },
+            "ptm": {
+              "absolute_difference": 0.002164125442504883,
+              "relative_difference_pct": 0.42995467760445094,
+              "pass_le_5pct": true
+            },
+            "iptm": {
+              "absolute_difference": 0.00016675889492034912,
+              "relative_difference_pct": 0.09992742292078455,
+              "pass_le_5pct": true
+            },
+            "ranking_score": {
+              "absolute_difference": 0.0005662143230438232,
+              "relative_difference_pct": 0.2417945869778362,
+              "pass_le_5pct": true
+            }
+          },
+          "rmsd": {
+            "lower_A": 0.2801894949470731,
+            "upper_A": 0.30400445030965445,
+            "status": "FAIL",
+            "exact_A": null,
+            "anchor_interval_count": 6,
+            "method": "Intersection of triangle-inequality intervals using measured current-to-own-anchor RMSDs, including available frozen mixed-policy anchors; native cross-device anchors are immutable."
+          }
+        }
+      },
+      "timing": {
+        "input": "G02",
+        "tokens": 245,
+        "model": "protenix_tiny_default_v0.5.0",
+        "H100_FP32_s": 0.15574490558356047,
+        "H100_TF32_s": 0.15289209503680468,
+        "PPU_FP32_s": 0.6351524170022458,
+        "PPU_TF32_s": 0.6205570520833135,
+        "PPU_combined_TF32_s": 0.6370265469886363,
+        "new_vs_old_TF32_change_pct": 2.6539856166378106,
+        "PPU_TF32_vs_H100_TF32_time_ratio": 4.058790952756132,
+        "timing_control": "serial"
+      }
+    }
+  ],
+  "training": [
+    {
+      "crop": 131,
+      "input_and_rng_audit": "PASS",
+      "timing": {
+        "tokens": 131,
+        "H100_FP32_ms": 3846.413818359375,
+        "H100_TF32_ms": 3365.512939453125,
+        "PPU_FP32_ms": 53122.99609375,
+        "PPU_TF32_ms": 25893.13671875,
+        "PPU_combined_TF32_ms": 17504.349609375,
+        "new_vs_old_TF32_change_pct": -32.39772454181045
+      },
+      "candidate_vs_local_tf32": {
+        "gradients": {
+          "global_relative_l2": 9.675158299700791e-05,
+          "global_max_abs": 0.561279296875,
+          "finite": true
+        },
+        "updates": {
+          "global_relative_l2": 0.0,
+          "global_max_abs": 0.0,
+          "finite": true
+        }
+      },
+      "H100_tf32_vs_local_fp32": {
+        "gradients": {
+          "global_relative_l2": 0.0009121192616281023,
+          "global_max_abs": 2.199951171875,
+          "finite": true
+        },
+        "updates": {
+          "global_relative_l2": 0.0,
+          "global_max_abs": 0.0,
+          "finite": true
+        }
+      },
+      "PPU_tf32_vs_local_fp32": {
+        "gradients": {
+          "global_relative_l2": 0.0010612455776510751,
+          "global_max_abs": 2.6099853515625,
+          "finite": true
+        },
+        "updates": {
+          "global_relative_l2": 0.0,
+          "global_max_abs": 0.0,
+          "finite": true
+        }
+      },
+      "cross_device_full_gradient_l2": "Not directly computed; complete gradients remain on their original servers. Scalar norm/hash audits and cross-device loss results are exported."
+    },
+    {
+      "crop": 245,
+      "input_and_rng_audit": "PASS",
+      "timing": {
+        "tokens": 245,
+        "H100_FP32_ms": 6658.1826171875,
+        "H100_TF32_ms": 4832.84130859375,
+        "PPU_FP32_ms": 62315.37890625,
+        "PPU_TF32_ms": 66404.765625,
+        "PPU_combined_TF32_ms": 30322.998046875,
+        "new_vs_old_TF32_change_pct": -54.33611163073058
+      },
+      "candidate_vs_local_tf32": {
+        "gradients": {
+          "global_relative_l2": 2.4892700874971944e-06,
+          "global_max_abs": 0.0005660057067871094,
+          "finite": true
+        },
+        "updates": {
+          "global_relative_l2": 0.0,
+          "global_max_abs": 0.0,
+          "finite": true
+        }
+      },
+      "H100_tf32_vs_local_fp32": {
+        "gradients": {
+          "global_relative_l2": 0.002957313929338533,
+          "global_max_abs": 0.49200439453125,
+          "finite": true
+        },
+        "updates": {
+          "global_relative_l2": 0.0,
+          "global_max_abs": 0.0,
+          "finite": true
+        }
+      },
+      "PPU_tf32_vs_local_fp32": {
+        "gradients": {
+          "global_relative_l2": 0.00031751680592969256,
+          "global_max_abs": 0.08764266967773438,
+          "finite": true
+        },
+        "updates": {
+          "global_relative_l2": 0.0,
+          "global_max_abs": 0.0,
+          "finite": true
+        }
+      },
+      "cross_device_full_gradient_l2": "Not directly computed; complete gradients remain on their original servers. Scalar norm/hash audits and cross-device loss results are exported."
+    }
+  ],
+  "matrix_timing_scope": "PPU serial, no concurrent training by this experiment",
+  "matrix_gate_counts": {
+    "fp32": {
+      "PASS": 18
+    },
+    "tf32": {
+      "FAIL": 11,
+      "UNRESOLVED": 4,
+      "PASS": 3
+    }
+  },
+  "matrix_candidate_effect": {
+    "case_count": 18,
+    "median_change_pct": 0.08101568746624599,
+    "range_change_pct": [
+      -2.030108505278805,
+      5.302047833210399
+    ],
+    "faster_cases": 8,
+    "accuracy_vs_current_ppu_tf32": "Exact coordinates and five confidences for all 18 cases",
+    "timing_limitation": "1 warmup and 3 paired repeats per mode; screening only, small percent differences do not establish a robust gain."
+  },
+  "training_confirmation": {
+    "scope": "Warm-cache PPU performance rerun after inference workers finished; 4 steps, no tensor audit overhead, last 3 timed. H100 matched full training baselines. Small sample performance evidence.",
+    "rows": [
+      {
+        "tokens": 245,
+        "H100_FP32_ms": 6658.1826171875,
+        "H100_TF32_ms": 4832.84130859375,
+        "PPU_FP32_ms": 33779.890625,
+        "PPU_TF32_ms": 27132.892578125,
+        "PPU_combined_TF32_ms": 26026.56640625,
+        "new_vs_old_TF32_change_pct": -4.07743541787704,
+        "PPU_final_backward_only_TF32_ms": 26325.42578125,
+        "final_vs_current_TF32_change_pct": -2.9759701976117103,
+        "final_PPU_TF32_vs_H100_TF32_time_ratio": 5.447194331508087
+      }
+    ],
+    "loss_repeat_deltas": {
+      "fp32": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tf32": [
+        0.0,
+        0.0,
+        0.0384521484375,
+        -0.00701904296875
+      ],
+      "combined_tf32": [
+        0.0,
+        0.0,
+        -0.043365478515625,
+        -0.01708984375
+      ]
+    }
+  },
+  "selected_integration": {
+    "candidate": "backward_only",
+    "scope": "Experimental real-training integration; original public forward and original IEEE backward retained.",
+    "workspace_budget_bytes": 67108864,
+    "route_identity": {
+      "status": "PASS",
+      "public_entry_function_identity_preserved": true,
+      "public_forward_function_identity_preserved": true,
+      "original_backward_retained_for_ieee_and_other_precisions": true,
+      "only_installed_change": "TF32/FP32-operand backward dispatcher",
+      "public_source_sha256": "ff37750deb641f0fb1415146f0f4a7ccdc71a942ca5ff500829e8be362fbaf8f",
+      "candidate_source_sha256": "f9eda7a017d651eed4bd633665950a2b4a348ddaa3289ded43c8c4075a44dbcd",
+      "inference_scope": "No backward executes in inference; existing forward implementation, precision and inputs are preserved. Final inference timing refers to existing public TF32; no candidate timings fabricated."
+    },
+    "controls": {
+      "status": "PASS",
+      "runs": [
+        {
+          "branch": "nonzero_update",
+          "crop": 131,
+          "rng_event_count": 1635,
+          "rng_semantic_sha256": "f29d35c2d81db73b1f320e8e37e055a4e857a6bd015e9c4f6fa169e015580244",
+          "ordered_rng_matches_reference": true,
+          "complete_input_matches_reference": true,
+          "physical_backward_calls": 480,
+          "actual_tf32_calls": 512,
+          "nonzero_all_parameter_audit": "PASS"
+        },
+        {
+          "branch": "nonzero_update",
+          "crop": 245,
+          "rng_event_count": 2091,
+          "rng_semantic_sha256": "b925708372fa97e6986c4bfa20b875e15b79e28449cab645178a8d4f10b4a877",
+          "ordered_rng_matches_reference": true,
+          "complete_input_matches_reference": true,
+          "physical_backward_calls": 928,
+          "actual_tf32_calls": 512,
+          "nonzero_all_parameter_audit": "PASS"
+        },
+        {
+          "branch": "training_confirm",
+          "crop": 245,
+          "rng_event_count": 4181,
+          "rng_semantic_sha256": "7f97987fb450f18cf11d98982f58551a1100327aa844a45e669895107b5c06b9",
+          "ordered_rng_matches_reference": true,
+          "complete_input_matches_reference": true,
+          "physical_backward_calls": 1856,
+          "actual_tf32_calls": 1024
+        }
+      ],
+      "scope": "Ordered RNG and complete augmented input comparison; scalar audit only.",
+      "completed_exit_markers": {
+        "backward_only_nonzero.exit": 0,
+        "backward_only_confirm.exit": 0,
+        "matrix_serial.exit": 0,
+        "derive_matrix_serial.exit": 0
+      }
+    },
+    "timing": {
+      "tokens": 245,
+      "H100_FP32_ms": 6658.1826171875,
+      "H100_TF32_ms": 4832.84130859375,
+      "PPU_FP32_ms": 33779.890625,
+      "PPU_TF32_ms": 27132.892578125,
+      "PPU_combined_TF32_ms": 26026.56640625,
+      "new_vs_old_TF32_change_pct": -4.07743541787704,
+      "PPU_final_backward_only_TF32_ms": 26325.42578125,
+      "final_vs_current_TF32_change_pct": -2.9759701976117103,
+      "final_PPU_TF32_vs_H100_TF32_time_ratio": 5.447194331508087
+    },
+    "inference": "Original public forward function preserved by identity; no new inference timing is fabricated.",
+    "rejected_combined_forward_reason": "Serial 18-case screening found no stable inference gain and several regressions.",
+    "measured_step_timings": [
+      {
+        "step": 0,
+        "global_step": 0,
+        "event_ms": 46808.15625,
+        "wall_ms": 46816.05100794695,
+        "peak_memory_gib": 19.293115615844727,
+        "learning_rates": [
+          0.00018
+        ]
+      },
+      {
+        "step": 1,
+        "global_step": 1,
+        "event_ms": 26325.42578125,
+        "wall_ms": 26325.637666042894,
+        "peak_memory_gib": 22.746102333068848,
+        "learning_rates": [
+          0.00036
+        ]
+      },
+      {
+        "step": 2,
+        "global_step": 2,
+        "event_ms": 25879.515625,
+        "wall_ms": 25879.734789021313,
+        "peak_memory_gib": 22.75408363342285,
+        "learning_rates": [
+          0.00054
+        ]
+      },
+      {
+        "step": 3,
+        "global_step": 3,
+        "event_ms": 31480.78515625,
+        "wall_ms": 31481.03317595087,
+        "peak_memory_gib": 22.767173767089844,
+        "learning_rates": [
+          0.00072
+        ]
+      }
+    ],
+    "training_dispatch_scope": "FlagGems TriAttention explicitly enabled and observed; global enable_flaggems=false, triangle_multiplicative=torch. No claim that all training MM/addmm/BMM dispatch to FlagGems.",
+    "training_sample_limit": "245-token Protenix-v2 only, 3 timed steps after 1 warmup; about 3% measured saving is preliminary, not a demonstrated steady-state guarantee.",
+    "nonzero_update": [
+      {
+        "crop": 131,
+        "audit": {
+          "scope": "Full model parameter gradients before clipping, and actual first optimizer update; tensors stay on original server.",
+          "audit_step": 1,
+          "optimizer_learning_rates_before_step": [
+            0.00018
+          ],
+          "nonzero_update_assertion": "PASS",
+          "precision": "tf32",
+          "candidate": "backward_only",
+          "parameter_count": 4174,
+          "gradient_parameter_count": 4170,
+          "reference": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/closure_20261003/nonzero_update/131/tf32/first_step_local_snapshot.pt",
+          "comparisons": {
+            "gradients": {
+              "global_relative_l2": 4.278725500939041e-06,
+              "global_max_abs": 0.0020236968994140625,
+              "finite": true
+            },
+            "updates": {
+              "global_relative_l2": 0.003422155343479671,
+              "global_max_abs": 0.0002899765968322754,
+              "finite": true
+            }
+          }
+        },
+        "actual_entry": {
+          "precision": "tf32",
+          "candidate": "backward_only",
+          "actual_calls": {
+            "flaggems_triangle_tf32": 512
+          },
+          "parameter_audit_enabled": true,
+          "parameter_audit_step": 1,
+          "matmul_allow_tf32": true,
+          "native_training_triangle_source": "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/tri_attention/op.py",
+          "existing_tool_sha256": "1b64bc74ba54d064814efb2e44e951492da92433abc235e8424c1ed3628062a4",
+          "candidate_source_sha256": "f9eda7a017d651eed4bd633665950a2b4a348ddaa3289ded43c8c4075a44dbcd",
+          "candidate_physical_backward_calls": 480,
+          "legacy_tool_reported_tf32": false
+        }
+      },
+      {
+        "crop": 245,
+        "audit": {
+          "scope": "Full model parameter gradients before clipping, and actual first optimizer update; tensors stay on original server.",
+          "audit_step": 1,
+          "optimizer_learning_rates_before_step": [
+            0.00018
+          ],
+          "nonzero_update_assertion": "PASS",
+          "precision": "tf32",
+          "candidate": "backward_only",
+          "parameter_count": 4174,
+          "gradient_parameter_count": 4170,
+          "reference": "/mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/closure_20261003/nonzero_update/245/tf32/first_step_local_snapshot.pt",
+          "comparisons": {
+            "gradients": {
+              "global_relative_l2": 3.904125736793801e-06,
+              "global_max_abs": 0.0020284652709960938,
+              "finite": true
+            },
+            "updates": {
+              "global_relative_l2": 0.001077462274472461,
+              "global_max_abs": 0.0002576112747192383,
+              "finite": true
+            }
+          }
+        },
+        "actual_entry": {
+          "precision": "tf32",
+          "candidate": "backward_only",
+          "actual_calls": {
+            "flaggems_triangle_tf32": 512
+          },
+          "parameter_audit_enabled": true,
+          "parameter_audit_step": 1,
+          "matmul_allow_tf32": true,
+          "native_training_triangle_source": "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/tri_attention/op.py",
+          "existing_tool_sha256": "1b64bc74ba54d064814efb2e44e951492da92433abc235e8424c1ed3628062a4",
+          "candidate_source_sha256": "f9eda7a017d651eed4bd633665950a2b4a348ddaa3289ded43c8c4075a44dbcd",
+          "candidate_physical_backward_calls": 928,
+          "legacy_tool_reported_tf32": false
+        }
+      }
+    ]
+  },
+  "nonzero_update": [
+    {
+      "crop": 131,
+      "candidate_vs_local_tf32": {
+        "gradients": {
+          "global_relative_l2": 4.629939845636763e-06,
+          "global_max_abs": 0.0028018951416015625,
+          "finite": true
+        },
+        "updates": {
+          "global_relative_l2": 0.003605816640159046,
+          "global_max_abs": 0.00024055875837802887,
+          "finite": true
+        }
+      },
+      "PPU_tf32_vs_local_fp32": {
+        "gradients": {
+          "global_relative_l2": 0.0003228908219663135,
+          "global_max_abs": 0.15234375,
+          "finite": true
+        },
+        "updates": {
+          "global_relative_l2": 0.015049429540422763,
+          "global_max_abs": 0.00029315799474716187,
+          "finite": true
+        }
+      },
+      "H100_tf32_vs_local_fp32": {
+        "gradients": {
+          "global_relative_l2": 0.0008446361022232275,
+          "global_max_abs": 0.25653076171875,
+          "finite": true
+        },
+        "updates": {
+          "global_relative_l2": 0.013226640749417769,
+          "global_max_abs": 0.00028395652770996094,
+          "finite": true
+        }
+      },
+      "input_rng_initial_parameter_audit": "PASS"
+    },
+    {
+      "crop": 245,
+      "candidate_vs_local_tf32": {
+        "gradients": {
+          "global_relative_l2": 4.022820913303315e-06,
+          "global_max_abs": 0.0029058456420898438,
+          "finite": true
+        },
+        "updates": {
+          "global_relative_l2": 0.0011680329760589577,
+          "global_max_abs": 0.0002571903169155121,
+          "finite": true
+        }
+      },
+      "PPU_tf32_vs_local_fp32": {
+        "gradients": {
+          "global_relative_l2": 0.00034260530379423803,
+          "global_max_abs": 0.21500396728515625,
+          "finite": true
+        },
+        "updates": {
+          "global_relative_l2": 0.010986164461331846,
+          "global_max_abs": 0.00031057000160217285,
+          "finite": true
+        }
+      },
+      "H100_tf32_vs_local_fp32": {
+        "gradients": {
+          "global_relative_l2": 0.0010769324637617023,
+          "global_max_abs": 0.391021728515625,
+          "finite": true
+        },
+        "updates": {
+          "global_relative_l2": 0.012885044773807013,
+          "global_max_abs": 0.0003068000078201294,
+          "finite": true
+        }
+      },
+      "input_rng_initial_parameter_audit": "PASS"
+    }
+  ],
+  "zero_learning_rate_step0_update": "DISCARDED as update-accuracy evidence. Only audit_step=1 with positive learning rate is valid."
+}

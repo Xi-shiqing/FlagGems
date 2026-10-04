@@ -1,0 +1,468 @@
+{
+  "server": "h100",
+  "records": [
+    {
+      "name": "pairformer_qk",
+      "op": "bmm",
+      "inputs": [
+        {
+          "shape": [
+            16,
+            245,
+            24
+          ],
+          "stride": [
+            24,
+            384,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "78b642cda8ad126688af7b00e0dfbf2814e6cb2ebedbe49127c7b92ad6511d1b"
+        },
+        {
+          "shape": [
+            16,
+            24,
+            245
+          ],
+          "stride": [
+            24,
+            1,
+            384
+          ],
+          "dtype": "torch.float32",
+          "sha256": "ad811eecd2ca3118a9c3ee7d112aa3104c547404e1e679d7c221a2d6ccee113d"
+        }
+      ],
+      "gold_ieee_fp64_sha256": "29bc6fc5dc2a95c88ff59f53450f67d4e737f09c63d88c92eb29abf496cc0769",
+      "gold_rne_tf32_fp64_sha256": "b33619405be3a951811a6d5e199e488d2eccc6903c8020b12b9b84a2729dd6ad",
+      "modes": {
+        "fp32": {
+          "median_ms": 0.06157206371426582,
+          "samples_ms": [
+            0.06652995944023132,
+            0.06428360939025879,
+            0.061279162764549255,
+            0.06149616092443466,
+            0.06148777902126312,
+            0.06197206676006317,
+            0.05969218909740448,
+            0.060289166867733,
+            0.062241218984127045,
+            0.061647966504096985
+          ],
+          "output_sha256": "c76dee98c0104940a58f1b96fb98af357a4a5ce6e624eafb719b82e29e0cf253",
+          "vs_ieee_fp64": {
+            "relative_l2": 8.931641838957692e-08,
+            "max_abs": 1.0707265385434539e-07,
+            "rms": 9.161779042242187e-09,
+            "finite": true
+          },
+          "vs_rne_tf32_fp64": {
+            "relative_l2": 0.00026176684638814536,
+            "max_abs": 0.00014839321374893188,
+            "rms": 2.6851144826480135e-05,
+            "finite": true
+          },
+          "kernel_trace": [
+            "sm80_xmma_gemm_f32f32_f32f32_f32_tn_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas"
+          ]
+        },
+        "tf32": {
+          "median_ms": 0.05838042125105858,
+          "samples_ms": [
+            0.05689077079296112,
+            0.05705747753381729,
+            0.05823560059070587,
+            0.05785655230283737,
+            0.058525241911411285,
+            0.05932990461587906,
+            0.05777645856142044,
+            0.05900487303733826,
+            0.058758072555065155,
+            0.05856715142726898
+          ],
+          "output_sha256": "c76dee98c0104940a58f1b96fb98af357a4a5ce6e624eafb719b82e29e0cf253",
+          "vs_ieee_fp64": {
+            "relative_l2": 8.931641838957692e-08,
+            "max_abs": 1.0707265385434539e-07,
+            "rms": 9.161779042242187e-09,
+            "finite": true
+          },
+          "vs_rne_tf32_fp64": {
+            "relative_l2": 0.00026176684638814536,
+            "max_abs": 0.00014839321374893188,
+            "rms": 2.6851144826480135e-05,
+            "finite": true
+          },
+          "kernel_trace": [
+            "sm80_xmma_gemm_f32f32_f32f32_f32_tn_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas"
+          ]
+        }
+      },
+      "tf32_vs_fp32": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "rms": 0.0,
+        "finite": true
+      }
+    },
+    {
+      "name": "pairformer_pv",
+      "op": "bmm",
+      "inputs": [
+        {
+          "shape": [
+            16,
+            245,
+            245
+          ],
+          "stride": [
+            60025,
+            245,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "67e5b092ffdc0a76b9e2e69529f168b0eed84078368a211a3fa19e47f9357026"
+        },
+        {
+          "shape": [
+            16,
+            245,
+            24
+          ],
+          "stride": [
+            24,
+            384,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "6ba57750f5210bc1e4a2e22a28569aa122694ba380c546fb5b7122ec349acad2"
+        }
+      ],
+      "gold_ieee_fp64_sha256": "d10aa4ee5b6d1baf4b560b5aa41cc91f16b61666f7ba8d68c2a66743798c10c0",
+      "gold_rne_tf32_fp64_sha256": "fb6ca9dbb8b605043244ed472985d960905054ef16ef6ea2868d200ffb1ac2d2",
+      "modes": {
+        "fp32": {
+          "median_ms": 0.06418721750378609,
+          "samples_ms": [
+            0.06965547800064087,
+            0.06576161831617355,
+            0.06440281867980957,
+            0.06275437772274017,
+            0.06408989429473877,
+            0.06443914026021957,
+            0.0626472756266594,
+            0.06406661123037338,
+            0.0637425109744072,
+            0.0642845407128334
+          ],
+          "output_sha256": "cc86b124d4f679b50987da1fba99e0959803cd35bd6b00ad3a6c606714fc0902",
+          "vs_ieee_fp64": {
+            "relative_l2": 2.8211765420800885e-07,
+            "max_abs": 1.0352780694944386e-06,
+            "rms": 9.230790813426983e-08,
+            "finite": true
+          },
+          "vs_rne_tf32_fp64": {
+            "relative_l2": 0.0002613501753823609,
+            "max_abs": 0.0003894034307450056,
+            "rms": 8.551287781967531e-05,
+            "finite": true
+          },
+          "kernel_trace": [
+            "sm80_xmma_gemm_f32f32_f32f32_f32_nn_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas"
+          ]
+        },
+        "tf32": {
+          "median_ms": 0.06396882236003876,
+          "samples_ms": [
+            0.06658211350440979,
+            0.06365776062011719,
+            0.06415415555238724,
+            0.06525404751300812,
+            0.06435997784137726,
+            0.06382446736097336,
+            0.06371084600687027,
+            0.06333552300930023,
+            0.06314925849437714,
+            0.06411317735910416
+          ],
+          "output_sha256": "3571827b495fdef89f794b6f36cba0eda2c6732f8c2a7c4da6f0ff08017d2d94",
+          "vs_ieee_fp64": {
+            "relative_l2": 0.00026135161565201255,
+            "max_abs": 0.000389750900781749,
+            "rms": 8.551333306692488e-05,
+            "finite": true
+          },
+          "vs_rne_tf32_fp64": {
+            "relative_l2": 6.169979603318633e-07,
+            "max_abs": 1.3999524526298046e-06,
+            "rms": 2.0187960891802096e-07,
+            "finite": true
+          },
+          "kernel_trace": [
+            "sm80_xmma_gemm_f32f32_tf32f32_f32_nn_n_tilesize32x32x64_stage3_warpsize2x2x1_tensor16x8x8_aligna4_alignc4_execute_kernel__5x_cublas"
+          ]
+        }
+      },
+      "tf32_vs_fp32": {
+        "relative_l2": 0.00026135254192603667,
+        "max_abs": 0.0003896355628967285,
+        "rms": 8.551363607405365e-05,
+        "finite": true
+      }
+    },
+    {
+      "name": "confidence_gemv",
+      "op": "bmm",
+      "inputs": [
+        {
+          "shape": [
+            2529,
+            1,
+            384
+          ],
+          "stride": [
+            384,
+            384,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "b21718b10fa05c07ddd666e828b6b8f8cc0ead61278f67ccb3d7c92ed11aece9"
+        },
+        {
+          "shape": [
+            2529,
+            384,
+            50
+          ],
+          "stride": [
+            19200,
+            50,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "cf3d690a3970b57885735b6dc5a5d1e7e386c366f7a4b346ba90f2b286c1bc3a"
+        }
+      ],
+      "gold_ieee_fp64_sha256": "4719c3eb6a3b2fef6767229a14e59e1cafeaa0669d98590f3cb4981849959e72",
+      "gold_rne_tf32_fp64_sha256": "1c861b6fa479ea2ac8377dab1fc8b54490db25ed39860a39bad33aa547f6cd6d",
+      "modes": {
+        "fp32": {
+          "median_ms": 0.1195250079035759,
+          "samples_ms": [
+            0.12454204261302948,
+            0.12201443314552307,
+            0.12041442096233368,
+            0.1202533021569252,
+            0.1204460859298706,
+            0.11826585978269577,
+            0.11879671365022659,
+            0.11799391359090805,
+            0.11819135397672653,
+            0.11764094233512878
+          ],
+          "output_sha256": "f74dd8f5d2fbc319d3ab920350a5c977e971b297d8c1bac89261b2c7100851de",
+          "vs_ieee_fp64": {
+            "relative_l2": 2.5042062029158184e-07,
+            "max_abs": 9.968241334590289e-07,
+            "rms": 1.0237816146524725e-07,
+            "finite": true
+          },
+          "vs_rne_tf32_fp64": {
+            "relative_l2": 0.0002605284958220251,
+            "max_abs": 0.0004533093360805651,
+            "rms": 0.00010651053822985554,
+            "finite": true
+          },
+          "kernel_trace": [
+            "std::enable_if<!(false), void>::type internal::gemvx::kernel<int, int, float, float, float, float, false, true, false, false, 6, false, cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float> >(cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float>)"
+          ]
+        },
+        "tf32": {
+          "median_ms": 0.11943280696868896,
+          "samples_ms": [
+            0.12205634266138077,
+            0.12035947293043137,
+            0.11993478983640671,
+            0.1195194199681282,
+            0.11817459017038345,
+            0.11934619396924973,
+            0.12055318802595139,
+            0.1186346635222435,
+            0.11889543384313583,
+            0.11785421520471573
+          ],
+          "output_sha256": "f74dd8f5d2fbc319d3ab920350a5c977e971b297d8c1bac89261b2c7100851de",
+          "vs_ieee_fp64": {
+            "relative_l2": 2.5042062029158184e-07,
+            "max_abs": 9.968241334590289e-07,
+            "rms": 1.0237816146524725e-07,
+            "finite": true
+          },
+          "vs_rne_tf32_fp64": {
+            "relative_l2": 0.0002605284958220251,
+            "max_abs": 0.0004533093360805651,
+            "rms": 0.00010651053822985554,
+            "finite": true
+          },
+          "kernel_trace": [
+            "std::enable_if<!(false), void>::type internal::gemvx::kernel<int, int, float, float, float, float, false, true, false, false, 6, false, cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float> >(cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float>)"
+          ]
+        }
+      },
+      "tf32_vs_fp32": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "rms": 0.0,
+        "finite": true
+      }
+    },
+    {
+      "name": "diffusion_efficient_sdpa",
+      "op": "efficient",
+      "inputs": [
+        {
+          "shape": [
+            1,
+            16,
+            245,
+            48
+          ],
+          "stride": [
+            188160,
+            48,
+            768,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "92921b701c2f5afcca25a20b4721f22025b6959d506950ef4934fa3c91da952e"
+        },
+        {
+          "shape": [
+            1,
+            16,
+            245,
+            48
+          ],
+          "stride": [
+            188160,
+            48,
+            768,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "78f86d293b8ebb05fdf04dbdaa4684d48e40a54e7f7d2272017f7882bab46e46"
+        },
+        {
+          "shape": [
+            1,
+            16,
+            245,
+            48
+          ],
+          "stride": [
+            188160,
+            48,
+            768,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "2c39b73bc085c6f42e827ddcca3642c8fc3174c2c8e02234d9d3b5de59f25f25"
+        },
+        {
+          "shape": [
+            1,
+            16,
+            245,
+            245
+          ],
+          "stride": [
+            972160,
+            60760,
+            248,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "cdc3269c042bce9de2d0a01a19466ed2c6ca4a27f6b8779736a04ff2a0cfc2a2"
+        }
+      ],
+      "gold_ieee_fp64_sha256": "978176a62cc1ad533f4fc75c72fd2f1c6d7eb731520c17ec5bfa545e3d603fad",
+      "gold_rne_tf32_fp64_sha256": "3df7ccf3a13a45c7f76da9d5c06c93e6ff55f354a3ca2c9e8bfb29720e59cacd",
+      "modes": {
+        "fp32": {
+          "median_ms": 0.05435803905129433,
+          "samples_ms": [
+            0.056889839470386505,
+            0.29537081718444824,
+            0.05784071981906891,
+            0.054459087550640106,
+            0.05425699055194855,
+            0.053219497203826904,
+            0.055802054703235626,
+            0.05321390926837921,
+            0.05328189581632614,
+            0.05335267633199692
+          ],
+          "output_sha256": "e56675356867435f33ffd53a78cfd207f0e07a30f28c4f5b2e4f3685f0509731",
+          "vs_ieee_fp64": {
+            "relative_l2": 3.040568233918451e-07,
+            "max_abs": 1.965185630545263e-08,
+            "rms": 2.975424574632326e-09,
+            "finite": true
+          },
+          "vs_rne_tf32_fp64": {
+            "relative_l2": 0.0002787273974080188,
+            "max_abs": 1.19556971185375e-05,
+            "rms": 2.727578084141909e-06,
+            "finite": true
+          },
+          "kernel_trace": [
+            "fmha_cutlassF_f32_aligned_64x64_rf_sm80(PyTorchMemEffAttention::AttentionKernel<float, cutlass::arch::Sm80, true, 64, 64, 64, true, true>::Params)"
+          ]
+        },
+        "tf32": {
+          "median_ms": 0.05424581468105316,
+          "samples_ms": [
+            0.0565825030207634,
+            0.054448843002319336,
+            0.05404278635978699,
+            0.05325302481651306,
+            0.05309656262397766,
+            0.057044439017772675,
+            0.0547533854842186,
+            0.05569402128458023,
+            0.053075142204761505,
+            0.05383230745792389
+          ],
+          "output_sha256": "e56675356867435f33ffd53a78cfd207f0e07a30f28c4f5b2e4f3685f0509731",
+          "vs_ieee_fp64": {
+            "relative_l2": 3.040568233918451e-07,
+            "max_abs": 1.965185630545263e-08,
+            "rms": 2.975424574632326e-09,
+            "finite": true
+          },
+          "vs_rne_tf32_fp64": {
+            "relative_l2": 0.0002787273974080188,
+            "max_abs": 1.19556971185375e-05,
+            "rms": 2.727578084141909e-06,
+            "finite": true
+          },
+          "kernel_trace": [
+            "fmha_cutlassF_f32_aligned_64x64_rf_sm80(PyTorchMemEffAttention::AttentionKernel<float, cutlass::arch::Sm80, true, 64, 64, 64, true, true>::Params)"
+          ]
+        }
+      },
+      "tf32_vs_fp32": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "rms": 0.0,
+        "finite": true
+      }
+    }
+  ],
+  "scope": "Deterministic synthetic operands; real-model shapes and strides. Native Efficient SDPA remains native on PPU.",
+  "protocol": "seed 101 integer mixer; float32 storage; per mode 3 warmups and 10 synchronized wall timings; separate kernel trace; full CPU FP64 gold.",
+  "status": "PASS"
+}

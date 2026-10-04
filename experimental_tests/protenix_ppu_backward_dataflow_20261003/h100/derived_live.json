@@ -1,0 +1,6071 @@
+{
+  "server": "h100",
+  "scope": "derived scalars and hashes only; prediction tensors remain on original server",
+  "cases": {
+    "G02": {
+      "summary": {
+        "fp32": {
+          "count": 1,
+          "warmup_count": 1,
+          "median_seconds": 0.4839290613308549,
+          "samples_seconds": [
+            0.4839290613308549
+          ],
+          "prediction_digest": {
+            "sha256": "1183217ca397845df93ac70f2037866e3c524810164436777605bcb2e9119833",
+            "sum_fp64": -4890.661454916,
+            "max_abs": 5452.4052734375
+          },
+          "five_confidence_metrics": {
+            "plddt": 80.26214599609375,
+            "gpde": 7.269092082977295,
+            "ptm": 0.21105259656906128,
+            "iptm": 0.20743019878864288,
+            "ranking_score": 0.20815467834472656
+          },
+          "prediction_and_confidence_equal_reference": true
+        },
+        "tf32": {
+          "count": 1,
+          "warmup_count": 1,
+          "median_seconds": 0.47391971945762634,
+          "samples_seconds": [
+            0.47391971945762634
+          ],
+          "prediction_digest": {
+            "sha256": "604d3c95f6cd8d8d1f85c5757ce094408f0b9012d82d6c26969f21f9a41e81ff",
+            "sum_fp64": -4836.543895959854,
+            "max_abs": 5452.337890625
+          },
+          "five_confidence_metrics": {
+            "plddt": 80.51933288574219,
+            "gpde": 7.270471096038818,
+            "ptm": 0.21090394258499146,
+            "iptm": 0.207359179854393,
+            "ranking_score": 0.2080681324005127
+          },
+          "prediction_and_confidence_equal_reference": true
+        }
+      },
+      "same_device_rmsd_A": {
+        "fp32_vs_tf32": 0.1459315101505598
+      },
+      "drift_vs_frozen": {
+        "fp32": {
+          "rmsd_vs_frozen_same_precision_A": 0.00677659776703124,
+          "frozen_prediction_sha256": "fd5519918f3b8da61602e1409c0f72f3888ff65c360412f5c9ec08fec29f7dd3"
+        },
+        "tf32": {
+          "rmsd_vs_frozen_same_precision_A": 6.629637805399906e-13,
+          "frozen_prediction_sha256": "604d3c95f6cd8d8d1f85c5757ce094408f0b9012d82d6c26969f21f9a41e81ff"
+        }
+      },
+      "rng_audit": {
+        "status": "PASS",
+        "initialization_events": 488,
+        "events_per_prediction": 8,
+        "initialization_semantic_sha256": "23b7d34a9317924185e824e3146ba53b91b7fcbbc9cc8881059a6024a74bfd70",
+        "prediction_semantic_sha256": "1b9707b2394f3dd80c1caa095ee8ad20dc3a1f03ebf07867f69bb3b6997f6290",
+        "prediction_count": 4,
+        "rule": "only index counters removed; ordered events identical"
+      },
+      "input_audit": {
+        "status": "PASS",
+        "features_atoms_assets_equal_frozen": true,
+        "N_token": 245,
+        "features": {
+          "data.input_feature_dict.token_index": {
+            "shape": [
+              245
+            ],
+            "dtype": "torch.int64",
+            "sha256": "d39c102a93cba4faa51cd69f1fa89f08962f667bebb1c4664441450165884b18"
+          },
+          "data.input_feature_dict.residue_index": {
+            "shape": [
+              245
+            ],
+            "dtype": "torch.int64",
+            "sha256": "7ef4b00c5c5ee89bac280fda9b22ac29a3599d7cb8746ff9c1c09ec36cf16069"
+          },
+          "data.input_feature_dict.asym_id": {
+            "shape": [
+              245
+            ],
+            "dtype": "torch.int64",
+            "sha256": "24bb64c7952155e5652a41ed30b15695f606576f8d7edb2efd76b9128694a930"
+          },
+          "data.input_feature_dict.entity_id": {
+            "shape": [
+              245
+            ],
+            "dtype": "torch.int64",
+            "sha256": "24bb64c7952155e5652a41ed30b15695f606576f8d7edb2efd76b9128694a930"
+          },
+          "data.input_feature_dict.sym_id": {
+            "shape": [
+              245
+            ],
+            "dtype": "torch.int64",
+            "sha256": "255c3a22d46b57e3f291eac23e404ce7b331400041930a0b43eb777bf8ed06fb"
+          },
+          "data.input_feature_dict.restype": {
+            "shape": [
+              245,
+              32
+            ],
+            "dtype": "torch.float32",
+            "sha256": "f7eca85431e7d92e28e4864f49b6536d1a821a9e4c908f0ad0e701d2a6509309"
+          },
+          "data.input_feature_dict.token_bonds": {
+            "shape": [
+              245,
+              245
+            ],
+            "dtype": "torch.float32",
+            "sha256": "88d6078608699461bed74c4b22281d547cffda20e2e1f613258bd5ca5f4ffd53"
+          },
+          "data.input_feature_dict.ref_pos": {
+            "shape": [
+              2529,
+              3
+            ],
+            "dtype": "torch.float32",
+            "sha256": "054bad04f25a2a9cfb25d6ea286911c42268d78096f9281db88bfc839b48bd83"
+          },
+          "data.input_feature_dict.ref_mask": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "82290a22ae35f60c36c9ae44b81453d210f0c320a978d116f87dc4482b65efa3"
+          },
+          "data.input_feature_dict.ref_element": {
+            "shape": [
+              2529,
+              128
+            ],
+            "dtype": "torch.int64",
+            "sha256": "d4c3db8f4dd1512d99eca1b5e79e94ea7efa6d1222f7702a0f681246f10d177d"
+          },
+          "data.input_feature_dict.ref_charge": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "fe77080de159463c0768f86213b8ff8febfee30949d756b4f1ab5db0d8a67468"
+          },
+          "data.input_feature_dict.ref_atom_name_chars": {
+            "shape": [
+              2529,
+              4,
+              64
+            ],
+            "dtype": "torch.int64",
+            "sha256": "2133e1703c0c9e0d2a852e0afe69d294fb1199b2a3467bfe3875dc63dd1d1c01"
+          },
+          "data.input_feature_dict.ref_space_uid": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "bd3d6a78b44d45b6bc945fe6317a320b3cfdcc84ff6d3a16a204a822595d9a77"
+          },
+          "data.input_feature_dict.has_frame": {
+            "shape": [
+              245
+            ],
+            "dtype": "torch.int64",
+            "sha256": "ea93ec17b0a19a35ae8f82ae318248b436c191cb807db8c42bc2e6939331f6a4"
+          },
+          "data.input_feature_dict.frame_atom_index": {
+            "shape": [
+              245,
+              3
+            ],
+            "dtype": "torch.int64",
+            "sha256": "531b7bbf8cbd46aac94f94c0b995e5ff75daa99ae68658cc5c2cfd25b3537ca9"
+          },
+          "data.input_feature_dict.atom_to_token_idx": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "bd3d6a78b44d45b6bc945fe6317a320b3cfdcc84ff6d3a16a204a822595d9a77"
+          },
+          "data.input_feature_dict.atom_to_tokatom_idx": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "3480ac00304d5c94436d45a1ebbd7aa6ec52cd1e83632df4d61e1f024154ed19"
+          },
+          "data.input_feature_dict.is_protein": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "206d3b6019c7145d3da22c027b919fa3ad980d87fca155900e3ded7021e7dc80"
+          },
+          "data.input_feature_dict.is_ligand": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "e99b6e346494156a04d7b20a1944d3af29d856cbfd27aeb120a93d736084915c"
+          },
+          "data.input_feature_dict.is_dna": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "2f4e3fa8f2ba939ce529bbbf92893bd425c758b40212d254f166ea9f2e6eaac7"
+          },
+          "data.input_feature_dict.is_rna": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "e99b6e346494156a04d7b20a1944d3af29d856cbfd27aeb120a93d736084915c"
+          },
+          "data.input_feature_dict.resolution": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.float32",
+            "sha256": "c68830a25204a09f8e77aada6bc5807f607cccaaa0ebb2a7122d317584478a8b"
+          },
+          "data.input_feature_dict.mol_id": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "308eea30bab3555fb0b1097bc7e088710e3737a648ad4daeda6bc41a76562d9a"
+          },
+          "data.input_feature_dict.mol_atom_index": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "52322403abf6124a30c1391a231877f098c8102685bccdef8012cae018751d55"
+          },
+          "data.input_feature_dict.entity_mol_id": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "308eea30bab3555fb0b1097bc7e088710e3737a648ad4daeda6bc41a76562d9a"
+          },
+          "data.input_feature_dict.pae_rep_atom_mask": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "44c962e834af61aefa39a7c69676723f3e86559ad302a7fe3a8e79160f47d51c"
+          },
+          "data.input_feature_dict.plddt_m_rep_atom_mask": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "44c962e834af61aefa39a7c69676723f3e86559ad302a7fe3a8e79160f47d51c"
+          },
+          "data.input_feature_dict.distogram_rep_atom_mask": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "34af89dc0c8059b75d47fa717cfd16af1892d1cf83b5aa8a641a959330ab03b0"
+          },
+          "data.input_feature_dict.modified_res_mask": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "e99b6e346494156a04d7b20a1944d3af29d856cbfd27aeb120a93d736084915c"
+          },
+          "data.input_feature_dict.bond_mask": {
+            "shape": [
+              2529,
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "60d004a9282ae2da55dbd7e40e78b871af390270b25fae43dc95ea6fd928f77a"
+          },
+          "data.input_feature_dict.constraint_feature.contact_atom": {
+            "shape": [
+              245,
+              245,
+              2
+            ],
+            "dtype": "torch.float32",
+            "sha256": "22aa709e9e4d9f14534420d991ae2f51b743956a629276dabeb8a3b73ba7c631"
+          },
+          "data.input_feature_dict.constraint_feature.contact": {
+            "shape": [
+              245,
+              245,
+              2
+            ],
+            "dtype": "torch.float32",
+            "sha256": "22aa709e9e4d9f14534420d991ae2f51b743956a629276dabeb8a3b73ba7c631"
+          },
+          "data.input_feature_dict.constraint_feature.pocket": {
+            "shape": [
+              245,
+              245,
+              1
+            ],
+            "dtype": "torch.float32",
+            "sha256": "88d6078608699461bed74c4b22281d547cffda20e2e1f613258bd5ca5f4ffd53"
+          },
+          "data.input_feature_dict.constraint_feature.substructure": {
+            "shape": [
+              245,
+              245,
+              4
+            ],
+            "dtype": "torch.float32",
+            "sha256": "174a9a7e95633ca9024606e6681fc11993e436f7862136ba72f131ad7b4b5ccc"
+          },
+          "data.input_feature_dict.template_aatype": {
+            "shape": [
+              4,
+              245
+            ],
+            "dtype": "torch.int64",
+            "sha256": "2a40ecf015314a5bc87ca5ac1fc42b288d49ee75981d29f7a2775f9a3702f949"
+          },
+          "data.input_feature_dict.template_atom_positions": {
+            "shape": [
+              4,
+              245,
+              24,
+              3
+            ],
+            "dtype": "torch.float32",
+            "sha256": "39aae763b0cb272253dbce5bae2d88305407acfa8f729b31072ea4c11bbad5a2"
+          },
+          "data.input_feature_dict.template_atom_mask": {
+            "shape": [
+              4,
+              245,
+              24
+            ],
+            "dtype": "torch.bool",
+            "sha256": "4c3b636836c85a4b7e00a397ec03e4789fb64e812a8313d3a051e8173afa3300"
+          },
+          "data.input_feature_dict.template_pseudo_beta_mask": {
+            "shape": [
+              4,
+              245,
+              245
+            ],
+            "dtype": "torch.float32",
+            "sha256": "174a9a7e95633ca9024606e6681fc11993e436f7862136ba72f131ad7b4b5ccc"
+          },
+          "data.input_feature_dict.template_distogram": {
+            "shape": [
+              4,
+              245,
+              245,
+              39
+            ],
+            "dtype": "torch.float32",
+            "sha256": "9252b49f92657b5c42ce7a9827a3ebd6dd33a24b7c42beeaa4a7b09e73a6cb74"
+          },
+          "data.input_feature_dict.template_unit_vector": {
+            "shape": [
+              4,
+              245,
+              245,
+              3
+            ],
+            "dtype": "torch.float32",
+            "sha256": "3d1b004e0cea7cae7f01c168ea8332b3099f0a31c48839ee1494b4b0f6baba27"
+          },
+          "data.input_feature_dict.template_backbone_frame_mask": {
+            "shape": [
+              4,
+              245,
+              245
+            ],
+            "dtype": "torch.float32",
+            "sha256": "174a9a7e95633ca9024606e6681fc11993e436f7862136ba72f131ad7b4b5ccc"
+          },
+          "data.input_feature_dict.msa": {
+            "shape": [
+              703,
+              245
+            ],
+            "dtype": "torch.int64",
+            "sha256": "26cb1a1b83ccf81b3edc03475006339549528eac01df5a0fe3c402adc43bd326"
+          },
+          "data.input_feature_dict.msa_mask": {
+            "shape": [
+              703,
+              245
+            ],
+            "dtype": "torch.bool",
+            "sha256": "4905f0c3ee6bf7bd3c308a08093dfd2dc7ae742f44e1ac9e4c5bb3942c3bf1c9"
+          },
+          "data.input_feature_dict.deletion_matrix": {
+            "shape": [
+              703,
+              245
+            ],
+            "dtype": "torch.int8",
+            "sha256": "176a3ed047cd3a0629206fa7856d3898e0f0975d729ca86a62bdf37730e0b19e"
+          },
+          "data.input_feature_dict.deletion_value": {
+            "shape": [
+              703,
+              245
+            ],
+            "dtype": "torch.float32",
+            "sha256": "302093e0c43cc90b166ebfc9d5f1e97d71a1f47cdd240e998acb83f01f8115d4"
+          },
+          "data.input_feature_dict.has_deletion": {
+            "shape": [
+              703,
+              245
+            ],
+            "dtype": "torch.float32",
+            "sha256": "5e488a395323cac7099d1ea992e7e3792c80975263b8a1870fe6f18560cd4f00"
+          },
+          "data.input_feature_dict.profile": {
+            "shape": [
+              245,
+              32
+            ],
+            "dtype": "torch.float32",
+            "sha256": "6f6cadcad8c844f10e416a6597bb95b2712b0477318eb6ca441f14ee6c4d13af"
+          },
+          "data.input_feature_dict.deletion_mean": {
+            "shape": [
+              245
+            ],
+            "dtype": "torch.float32",
+            "sha256": "8099f5849aef6c180e13bb2858aab2d542ff780cac0e7543418f0cee6773e2de"
+          },
+          "data.input_feature_dict.prot_unpaired_num_alignments": {
+            "shape": [],
+            "dtype": "torch.int64",
+            "sha256": "2c8b6c85669dca98a8fbad3de5dcab1d8cd3e163f92e3fbdb79d363678a79db8"
+          },
+          "data.input_feature_dict.prot_paired_num_alignments": {
+            "shape": [],
+            "dtype": "torch.int64",
+            "sha256": "7c9fa136d4413fa6173637e883b6998d32e1d675f88cddff9dcbcf331820f4b8"
+          },
+          "data.input_feature_dict.rna_unpaired_num_alignments": {
+            "shape": [],
+            "dtype": "torch.int64",
+            "sha256": "7c9fa136d4413fa6173637e883b6998d32e1d675f88cddff9dcbcf331820f4b8"
+          },
+          "data.input_feature_dict.rna_pair_num_alignments": {
+            "shape": [],
+            "dtype": "torch.int64",
+            "sha256": "7c9fa136d4413fa6173637e883b6998d32e1d675f88cddff9dcbcf331820f4b8"
+          },
+          "data.input_feature_dict.prot_pair_num_alignments": {
+            "shape": [],
+            "dtype": "torch.int64",
+            "sha256": "7c9fa136d4413fa6173637e883b6998d32e1d675f88cddff9dcbcf331820f4b8"
+          },
+          "data.input_feature_dict.prot_unpair_num_alignments": {
+            "shape": [],
+            "dtype": "torch.int64",
+            "sha256": "2c8b6c85669dca98a8fbad3de5dcab1d8cd3e163f92e3fbdb79d363678a79db8"
+          },
+          "data.input_feature_dict.rna_unpair_num_alignments": {
+            "shape": [],
+            "dtype": "torch.int64",
+            "sha256": "7c9fa136d4413fa6173637e883b6998d32e1d675f88cddff9dcbcf331820f4b8"
+          },
+          "data.N_asym": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "35be322d094f9d154a8aba4733b8497f180353bd7ae7b0a15f90b586b549f28b"
+          },
+          "data.N_token": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "af4a771589c936f814c6c607dc4de66720fb393b1f191660920d1ae64c2241b9"
+          },
+          "data.N_atom": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "7f26929358334ada29c62964bee5e0f66a8fa1573f6162e8bc9affb8f11e7710"
+          },
+          "data.N_msa": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "a05f960e01145a07b628229638d4b178f9b13c2033bc51bbb3cdecd898864264"
+          },
+          "data.N_prot_atom": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "d3fddc8760cc506e467eda8c72a9ff8285b74811c9ef35395cb28d59a216a58d"
+          },
+          "data.N_lig_atom": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+          },
+          "data.N_dna_atom": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "80cef02125474947c7d969a7c45a00e4622ddf8aea47369a84cc2436216a490e"
+          },
+          "data.N_rna_atom": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+          },
+          "data.N_prot_token": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "7329312aa4e09e06b3f3287cef7c83a22456e01d98c37021bddf8c7460775c26"
+          },
+          "data.N_lig_token": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+          },
+          "data.N_dna_token": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "ed049108bc18f2c64369e8d0ea42850bdd1a7d1dd340cfde716315579702a76c"
+          },
+          "data.N_rna_token": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+          }
+        },
+        "atom_count": 2529,
+        "atom_identity_sha256": "b5b151945aeaaf3eb4dc6fd8ff4f5bb88d0cc9287a4e0a854f2a52bd08fc618a",
+        "canonical_input_sha256": "5bd6824e45a8907f91c5bb4c83e10eb6c226561209d68b3496dadf93b40d37bb",
+        "asset_hashes": [
+          "105e7c949a533f488248476e0b13307a2c94fbf138b3859ea8b1ccbdb8e27223",
+          "15388d7ed4fa8dac77770d2887d7234847b5aee1252651917efc5c1dba149066"
+        ]
+      },
+      "environment": {
+        "repo_root": "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS",
+        "git_revision": "ff0bb7518ad5dee46e0ec57ef0a41528203aa7b5",
+        "torch_version": "2.7.1+cu126",
+        "torch_cuda_version": "12.6",
+        "device_name": "NVIDIA H100 80GB HBM3",
+        "device_capability": [
+          9,
+          0
+        ],
+        "cuda_visible_devices": "7",
+        "layernorm_type": "fast_layernorm",
+        "python": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/bin/python",
+        "use_flag_gems": false,
+        "flag_gems_exclude": null,
+        "flag_gems_source": null,
+        "flag_gems_version": null
+      },
+      "runtime_precision": {
+        "fp32": {
+          "scope": "first warmup for this policy; measured repeats uninstrumented",
+          "packages": {
+            "torch": "2.7.1",
+            "triton": "3.3.1",
+            "cuequivariance-torch": "0.8.0",
+            "cuequivariance-ops-torch-cu12": "0.8.0"
+          },
+          "matmul_allow_tf32": false,
+          "cudnn_allow_tf32": false,
+          "deterministic_algorithms": true,
+          "env": {
+            "CUBLAS_WORKSPACE_CONFIG": ":4096:8"
+          },
+          "aten_calls": [
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    2529,
+                    3
+                  ],
+                  "stride": [
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    3,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    3
+                  ]
+                }
+              ],
+              "count": 3
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    2529,
+                    1
+                  ],
+                  "stride": [
+                    1,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    1,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    1
+                  ]
+                }
+              ],
+              "count": 2
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    2529,
+                    385
+                  ],
+                  "stride": [
+                    385,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    385,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    385
+                  ]
+                }
+              ],
+              "count": 2
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    327680,
+                    3
+                  ],
+                  "stride": [
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    3,
+                    16
+                  ],
+                  "stride": [
+                    1,
+                    3
+                  ]
+                }
+              ],
+              "count": 2
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    327680,
+                    1
+                  ],
+                  "stride": [
+                    1,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    1,
+                    16
+                  ],
+                  "stride": [
+                    1,
+                    1
+                  ]
+                }
+              ],
+              "count": 4
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    2560,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    16
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 2
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    10240,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    16
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 2
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    327680,
+                    16
+                  ],
+                  "stride": [
+                    16,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    16,
+                    16
+                  ],
+                  "stride": [
+                    1,
+                    16
+                  ]
+                }
+              ],
+              "count": 6
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.addmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128
+                  ],
+                  "stride": [
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    2529,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 54
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    2529,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 63
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    327680,
+                    16
+                  ],
+                  "stride": [
+                    16,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    16,
+                    4
+                  ],
+                  "stride": [
+                    1,
+                    16
+                  ]
+                }
+              ],
+              "count": 9
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    320,
+                    32,
+                    32
+                  ],
+                  "stride": [
+                    1024,
+                    32,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    320,
+                    32,
+                    128
+                  ],
+                  "stride": [
+                    4096,
+                    1,
+                    32
+                  ]
+                }
+              ],
+              "count": 3
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    320,
+                    32,
+                    128
+                  ],
+                  "stride": [
+                    4096,
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    320,
+                    128,
+                    32
+                  ],
+                  "stride": [
+                    4096,
+                    32,
+                    1
+                  ]
+                }
+              ],
+              "count": 3
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    2529,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    256
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 18
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    2529,
+                    256
+                  ],
+                  "stride": [
+                    256,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    256,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    256
+                  ]
+                }
+              ],
+              "count": 9
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    2529,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    384
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 1
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    449
+                  ],
+                  "stride": [
+                    449,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    449,
+                    384
+                  ],
+                  "stride": [
+                    1,
+                    449
+                  ]
+                }
+              ],
+              "count": 1
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    384
+                  ],
+                  "stride": [
+                    384,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    384,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    384
+                  ]
+                }
+              ],
+              "count": 3
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    139
+                  ],
+                  "stride": [
+                    139,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    139,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    139
+                  ]
+                }
+              ],
+              "count": 2
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    1
+                  ],
+                  "stride": [
+                    1,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    1,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    1
+                  ]
+                }
+              ],
+              "count": 2
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 785
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    64
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 30
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    108
+                  ],
+                  "stride": [
+                    108,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    108,
+                    64
+                  ],
+                  "stride": [
+                    1,
+                    108
+                  ]
+                }
+              ],
+              "count": 4
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    64
+                  ],
+                  "stride": [
+                    64,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    64,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    64
+                  ]
+                }
+              ],
+              "count": 113
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    30135,
+                    64
+                  ],
+                  "stride": [
+                    64,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    64,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    64
+                  ]
+                }
+              ],
+              "count": 32
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    245,
+                    245
+                  ],
+                  "stride": [
+                    60025,
+                    245,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    245,
+                    123
+                  ],
+                  "stride": [
+                    1,
+                    128,
+                    31360
+                  ]
+                }
+              ],
+              "count": 64
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    30135,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    64
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 16
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    30135,
+                    64
+                  ],
+                  "stride": [
+                    64,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    64,
+                    64
+                  ],
+                  "stride": [
+                    1,
+                    64
+                  ]
+                }
+              ],
+              "count": 16
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    29890,
+                    64
+                  ],
+                  "stride": [
+                    64,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    64,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    64
+                  ]
+                }
+              ],
+              "count": 32
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    245,
+                    245
+                  ],
+                  "stride": [
+                    60025,
+                    245,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    245,
+                    122
+                  ],
+                  "stride": [
+                    1,
+                    128,
+                    31360
+                  ]
+                }
+              ],
+              "count": 64
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    29890,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    64
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 16
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    29890,
+                    64
+                  ],
+                  "stride": [
+                    64,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    64,
+                    64
+                  ],
+                  "stride": [
+                    1,
+                    64
+                  ]
+                }
+              ],
+              "count": 16
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    245,
+                    245
+                  ],
+                  "stride": [
+                    60025,
+                    245,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    245,
+                    123
+                  ],
+                  "stride": [
+                    1,
+                    15744,
+                    128
+                  ]
+                }
+              ],
+              "count": 64
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    245,
+                    245
+                  ],
+                  "stride": [
+                    60025,
+                    245,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    245,
+                    122
+                  ],
+                  "stride": [
+                    1,
+                    15616,
+                    128
+                  ]
+                }
+              ],
+              "count": 64
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    64
+                  ],
+                  "stride": [
+                    64,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    64,
+                    4
+                  ],
+                  "stride": [
+                    1,
+                    64
+                  ]
+                }
+              ],
+              "count": 16
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    35525,
+                    34
+                  ],
+                  "stride": [
+                    34,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    34,
+                    64
+                  ],
+                  "stride": [
+                    1,
+                    34
+                  ]
+                }
+              ],
+              "count": 1
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    449
+                  ],
+                  "stride": [
+                    449,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    449,
+                    64
+                  ],
+                  "stride": [
+                    1,
+                    449
+                  ]
+                }
+              ],
+              "count": 1
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    35525,
+                    64
+                  ],
+                  "stride": [
+                    64,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    64,
+                    32
+                  ],
+                  "stride": [
+                    1,
+                    64
+                  ]
+                }
+              ],
+              "count": 8
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    1,
+                    7840,
+                    145
+                  ],
+                  "stride": [
+                    7840,
+                    1,
+                    7840
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    1,
+                    145,
+                    7840
+                  ],
+                  "stride": [
+                    1136800,
+                    7840,
+                    1
+                  ]
+                }
+              ],
+              "count": 4
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.addmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128
+                  ],
+                  "stride": [
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    1024
+                  ],
+                  "stride": [
+                    1024,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    1024,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    1024
+                  ]
+                }
+              ],
+              "count": 4
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    1,
+                    245,
+                    145
+                  ],
+                  "stride": [
+                    245,
+                    1,
+                    245
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    1,
+                    145,
+                    245
+                  ],
+                  "stride": [
+                    35525,
+                    245,
+                    1
+                  ]
+                }
+              ],
+              "count": 4
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    35525,
+                    64
+                  ],
+                  "stride": [
+                    64,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    64,
+                    64
+                  ],
+                  "stride": [
+                    1,
+                    64
+                  ]
+                }
+              ],
+              "count": 9
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    8
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 3
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    8,
+                    245,
+                    245
+                  ],
+                  "stride": [
+                    1,
+                    1960,
+                    8
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    8,
+                    245,
+                    1160
+                  ],
+                  "stride": [
+                    284200,
+                    1160,
+                    1
+                  ]
+                }
+              ],
+              "count": 3
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    35525,
+                    64
+                  ],
+                  "stride": [
+                    64,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    64,
+                    256
+                  ],
+                  "stride": [
+                    1,
+                    64
+                  ]
+                }
+              ],
+              "count": 6
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    35525,
+                    256
+                  ],
+                  "stride": [
+                    256,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    256,
+                    64
+                  ],
+                  "stride": [
+                    1,
+                    256
+                  ]
+                }
+              ],
+              "count": 3
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    30135,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 448
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    29890,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 448
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    4
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 112
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    512
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 112
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    512
+                  ],
+                  "stride": [
+                    512,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    512,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    512
+                  ]
+                }
+              ],
+              "count": 56
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    384
+                  ],
+                  "stride": [
+                    384,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    384,
+                    384
+                  ],
+                  "stride": [
+                    1,
+                    384
+                  ]
+                }
+              ],
+              "count": 209
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    16
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 53
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.addmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    384
+                  ],
+                  "stride": [
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    384
+                  ],
+                  "stride": [
+                    384,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    384,
+                    384
+                  ],
+                  "stride": [
+                    1,
+                    384
+                  ]
+                }
+              ],
+              "count": 52
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    16,
+                    245,
+                    24
+                  ],
+                  "stride": [
+                    24,
+                    384,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    16,
+                    24,
+                    245
+                  ],
+                  "stride": [
+                    24,
+                    1,
+                    384
+                  ]
+                }
+              ],
+              "count": 52
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    16,
+                    245,
+                    245
+                  ],
+                  "stride": [
+                    60025,
+                    245,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    16,
+                    245,
+                    24
+                  ],
+                  "stride": [
+                    24,
+                    384,
+                    1
+                  ]
+                }
+              ],
+              "count": 52
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    384
+                  ],
+                  "stride": [
+                    384,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    384,
+                    1536
+                  ],
+                  "stride": [
+                    1,
+                    384
+                  ]
+                }
+              ],
+              "count": 104
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    1536
+                  ],
+                  "stride": [
+                    1536,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    1536,
+                    384
+                  ],
+                  "stride": [
+                    1,
+                    1536
+                  ]
+                }
+              ],
+              "count": 52
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    256
+                  ],
+                  "stride": [
+                    256,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    256,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    256
+                  ]
+                }
+              ],
+              "count": 3
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    256
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 4
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    833
+                  ],
+                  "stride": [
+                    833,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    833,
+                    384
+                  ],
+                  "stride": [
+                    1,
+                    833
+                  ]
+                }
+              ],
+              "count": 1
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    1,
+                    256
+                  ],
+                  "stride": [
+                    256,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    256,
+                    384
+                  ],
+                  "stride": [
+                    1,
+                    256
+                  ]
+                }
+              ],
+              "count": 1
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    384
+                  ],
+                  "stride": [
+                    384,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    384,
+                    768
+                  ],
+                  "stride": [
+                    1,
+                    384
+                  ]
+                }
+              ],
+              "count": 53
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    768
+                  ],
+                  "stride": [
+                    768,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    768,
+                    384
+                  ],
+                  "stride": [
+                    1,
+                    768
+                  ]
+                }
+              ],
+              "count": 2
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    256,
+                    32,
+                    32
+                  ],
+                  "stride": [
+                    1024,
+                    32,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    256,
+                    32,
+                    128
+                  ],
+                  "stride": [
+                    4096,
+                    1,
+                    32
+                  ]
+                }
+              ],
+              "count": 6
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    256,
+                    32,
+                    128
+                  ],
+                  "stride": [
+                    4096,
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    256,
+                    128,
+                    32
+                  ],
+                  "stride": [
+                    4096,
+                    32,
+                    1
+                  ]
+                }
+              ],
+              "count": 6
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    64,
+                    32,
+                    32
+                  ],
+                  "stride": [
+                    1024,
+                    32,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    64,
+                    32,
+                    128
+                  ],
+                  "stride": [
+                    4096,
+                    1,
+                    32
+                  ]
+                }
+              ],
+              "count": 6
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    64,
+                    32,
+                    128
+                  ],
+                  "stride": [
+                    4096,
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    64,
+                    128,
+                    32
+                  ],
+                  "stride": [
+                    4096,
+                    32,
+                    1
+                  ]
+                }
+              ],
+              "count": 6
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    2529,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    768
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 1
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.addmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    768
+                  ],
+                  "stride": [
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    384
+                  ],
+                  "stride": [
+                    384,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    384,
+                    768
+                  ],
+                  "stride": [
+                    1,
+                    384
+                  ]
+                }
+              ],
+              "count": 96
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.addmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    768
+                  ],
+                  "stride": [
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    768
+                  ],
+                  "stride": [
+                    768,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    768,
+                    768
+                  ],
+                  "stride": [
+                    1,
+                    768
+                  ]
+                }
+              ],
+              "count": 24
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    768
+                  ],
+                  "stride": [
+                    768,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    768,
+                    768
+                  ],
+                  "stride": [
+                    1,
+                    768
+                  ]
+                }
+              ],
+              "count": 96
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    768
+                  ],
+                  "stride": [
+                    768,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    768,
+                    1536
+                  ],
+                  "stride": [
+                    1,
+                    768
+                  ]
+                }
+              ],
+              "count": 48
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    1536
+                  ],
+                  "stride": [
+                    1536,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    1536,
+                    768
+                  ],
+                  "stride": [
+                    1,
+                    1536
+                  ]
+                }
+              ],
+              "count": 24
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    768
+                  ],
+                  "stride": [
+                    768,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    768,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    768
+                  ]
+                }
+              ],
+              "count": 1
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    2529,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    3
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 1
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.addmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    64
+                  ],
+                  "stride": [
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    64
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 1
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    449
+                  ],
+                  "stride": [
+                    449,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    449,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    449
+                  ]
+                }
+              ],
+              "count": 2
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    39
+                  ],
+                  "stride": [
+                    39,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    39,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    39
+                  ]
+                }
+              ],
+              "count": 1
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    2529,
+                    1,
+                    384
+                  ],
+                  "stride": [
+                    384,
+                    384,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    2529,
+                    384,
+                    50
+                  ],
+                  "stride": [
+                    19200,
+                    50,
+                    1
+                  ]
+                }
+              ],
+              "count": 1
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    2529,
+                    1,
+                    384
+                  ],
+                  "stride": [
+                    384,
+                    384,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    2529,
+                    384,
+                    2
+                  ],
+                  "stride": [
+                    768,
+                    2,
+                    1
+                  ]
+                }
+              ],
+              "count": 1
+            }
+          ],
+          "python_entries": [
+            {
+              "arguments": {
+                "scale": 0.17677669529663687
+              },
+              "file": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py",
+              "function": "triangle_attention",
+              "matmul_allow_tf32": false,
+              "count": 128
+            },
+            {
+              "arguments": {
+                "scale": 0.17677669529663687
+              },
+              "file": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py",
+              "function": "triangle_attention",
+              "matmul_allow_tf32": false,
+              "count": 128
+            },
+            {
+              "arguments": {},
+              "file": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py",
+              "function": "ensure_dims",
+              "matmul_allow_tf32": false,
+              "count": 640
+            },
+            {
+              "arguments": {
+                "scale": 0.17677669529663687
+              },
+              "file": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py",
+              "function": "_",
+              "matmul_allow_tf32": false,
+              "count": 128
+            },
+            {
+              "arguments": {},
+              "file": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py",
+              "function": "_can_run_sm100f",
+              "matmul_allow_tf32": false,
+              "count": 128
+            },
+            {
+              "arguments": {},
+              "file": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py",
+              "function": "_get_device_cc",
+              "matmul_allow_tf32": false,
+              "count": 128
+            },
+            {
+              "arguments": {},
+              "file": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py",
+              "function": "_allocate_s_kv",
+              "matmul_allow_tf32": false,
+              "count": 128
+            },
+            {
+              "arguments": {},
+              "file": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py",
+              "function": "_convert_bias",
+              "matmul_allow_tf32": false,
+              "count": 128
+            },
+            {
+              "arguments": {},
+              "file": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py",
+              "function": "_should_use_tf32",
+              "matmul_allow_tf32": false,
+              "count": 128
+            }
+          ],
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        },
+        "tf32": {
+          "scope": "first warmup for this policy; measured repeats uninstrumented",
+          "packages": {
+            "torch": "2.7.1",
+            "triton": "3.3.1",
+            "cuequivariance-torch": "0.8.0",
+            "cuequivariance-ops-torch-cu12": "0.8.0"
+          },
+          "matmul_allow_tf32": true,
+          "cudnn_allow_tf32": true,
+          "deterministic_algorithms": true,
+          "env": {
+            "CUBLAS_WORKSPACE_CONFIG": ":4096:8"
+          },
+          "aten_calls": [
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    2529,
+                    3
+                  ],
+                  "stride": [
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    3,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    3
+                  ]
+                }
+              ],
+              "count": 3
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    2529,
+                    1
+                  ],
+                  "stride": [
+                    1,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    1,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    1
+                  ]
+                }
+              ],
+              "count": 2
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    2529,
+                    385
+                  ],
+                  "stride": [
+                    385,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    385,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    385
+                  ]
+                }
+              ],
+              "count": 2
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    327680,
+                    3
+                  ],
+                  "stride": [
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    3,
+                    16
+                  ],
+                  "stride": [
+                    1,
+                    3
+                  ]
+                }
+              ],
+              "count": 2
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    327680,
+                    1
+                  ],
+                  "stride": [
+                    1,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    1,
+                    16
+                  ],
+                  "stride": [
+                    1,
+                    1
+                  ]
+                }
+              ],
+              "count": 4
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    2560,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    16
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 2
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    10240,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    16
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 2
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    327680,
+                    16
+                  ],
+                  "stride": [
+                    16,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    16,
+                    16
+                  ],
+                  "stride": [
+                    1,
+                    16
+                  ]
+                }
+              ],
+              "count": 6
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.addmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128
+                  ],
+                  "stride": [
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    2529,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 54
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    2529,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 63
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    327680,
+                    16
+                  ],
+                  "stride": [
+                    16,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    16,
+                    4
+                  ],
+                  "stride": [
+                    1,
+                    16
+                  ]
+                }
+              ],
+              "count": 9
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    320,
+                    32,
+                    32
+                  ],
+                  "stride": [
+                    1024,
+                    32,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    320,
+                    32,
+                    128
+                  ],
+                  "stride": [
+                    4096,
+                    1,
+                    32
+                  ]
+                }
+              ],
+              "count": 3
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    320,
+                    32,
+                    128
+                  ],
+                  "stride": [
+                    4096,
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    320,
+                    128,
+                    32
+                  ],
+                  "stride": [
+                    4096,
+                    32,
+                    1
+                  ]
+                }
+              ],
+              "count": 3
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    2529,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    256
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 18
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    2529,
+                    256
+                  ],
+                  "stride": [
+                    256,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    256,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    256
+                  ]
+                }
+              ],
+              "count": 9
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    2529,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    384
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 1
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    449
+                  ],
+                  "stride": [
+                    449,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    449,
+                    384
+                  ],
+                  "stride": [
+                    1,
+                    449
+                  ]
+                }
+              ],
+              "count": 1
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    384
+                  ],
+                  "stride": [
+                    384,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    384,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    384
+                  ]
+                }
+              ],
+              "count": 3
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    139
+                  ],
+                  "stride": [
+                    139,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    139,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    139
+                  ]
+                }
+              ],
+              "count": 2
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    1
+                  ],
+                  "stride": [
+                    1,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    1,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    1
+                  ]
+                }
+              ],
+              "count": 2
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 785
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    64
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 30
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    108
+                  ],
+                  "stride": [
+                    108,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    108,
+                    64
+                  ],
+                  "stride": [
+                    1,
+                    108
+                  ]
+                }
+              ],
+              "count": 4
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    64
+                  ],
+                  "stride": [
+                    64,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    64,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    64
+                  ]
+                }
+              ],
+              "count": 113
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    30135,
+                    64
+                  ],
+                  "stride": [
+                    64,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    64,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    64
+                  ]
+                }
+              ],
+              "count": 32
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    245,
+                    245
+                  ],
+                  "stride": [
+                    60025,
+                    245,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    245,
+                    123
+                  ],
+                  "stride": [
+                    1,
+                    128,
+                    31360
+                  ]
+                }
+              ],
+              "count": 64
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    30135,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    64
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 16
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    30135,
+                    64
+                  ],
+                  "stride": [
+                    64,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    64,
+                    64
+                  ],
+                  "stride": [
+                    1,
+                    64
+                  ]
+                }
+              ],
+              "count": 16
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    29890,
+                    64
+                  ],
+                  "stride": [
+                    64,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    64,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    64
+                  ]
+                }
+              ],
+              "count": 32
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    245,
+                    245
+                  ],
+                  "stride": [
+                    60025,
+                    245,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    245,
+                    122
+                  ],
+                  "stride": [
+                    1,
+                    128,
+                    31360
+                  ]
+                }
+              ],
+              "count": 64
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    29890,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    64
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 16
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    29890,
+                    64
+                  ],
+                  "stride": [
+                    64,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    64,
+                    64
+                  ],
+                  "stride": [
+                    1,
+                    64
+                  ]
+                }
+              ],
+              "count": 16
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    245,
+                    245
+                  ],
+                  "stride": [
+                    60025,
+                    245,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    245,
+                    123
+                  ],
+                  "stride": [
+                    1,
+                    15744,
+                    128
+                  ]
+                }
+              ],
+              "count": 64
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    245,
+                    245
+                  ],
+                  "stride": [
+                    60025,
+                    245,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    245,
+                    122
+                  ],
+                  "stride": [
+                    1,
+                    15616,
+                    128
+                  ]
+                }
+              ],
+              "count": 64
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    64
+                  ],
+                  "stride": [
+                    64,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    64,
+                    4
+                  ],
+                  "stride": [
+                    1,
+                    64
+                  ]
+                }
+              ],
+              "count": 16
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float64",
+                  "shape": [
+                    8,
+                    3,
+                    32
+                  ],
+                  "stride": [
+                    96,
+                    32,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float64",
+                  "shape": [
+                    8,
+                    32,
+                    245
+                  ],
+                  "stride": [
+                    7840,
+                    245,
+                    1
+                  ]
+                }
+              ],
+              "count": 4
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float64",
+                  "shape": [
+                    8,
+                    3,
+                    245
+                  ],
+                  "stride": [
+                    735,
+                    245,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float64",
+                  "shape": [
+                    8,
+                    245,
+                    32
+                  ],
+                  "stride": [
+                    7840,
+                    32,
+                    1
+                  ]
+                }
+              ],
+              "count": 4
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float64",
+                  "shape": [
+                    8,
+                    245,
+                    32
+                  ],
+                  "stride": [
+                    7840,
+                    32,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float64",
+                  "shape": [
+                    8,
+                    32,
+                    245
+                  ],
+                  "stride": [
+                    7840,
+                    245,
+                    1
+                  ]
+                }
+              ],
+              "count": 4
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float64",
+                  "shape": [
+                    8,
+                    245,
+                    245
+                  ],
+                  "stride": [
+                    60025,
+                    245,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float64",
+                  "shape": [
+                    8,
+                    245,
+                    32
+                  ],
+                  "stride": [
+                    7840,
+                    32,
+                    1
+                  ]
+                }
+              ],
+              "count": 4
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float64",
+                  "shape": [
+                    8,
+                    245,
+                    245
+                  ],
+                  "stride": [
+                    60025,
+                    1,
+                    245
+                  ]
+                },
+                {
+                  "dtype": "torch.float64",
+                  "shape": [
+                    8,
+                    245,
+                    32
+                  ],
+                  "stride": [
+                    7840,
+                    32,
+                    1
+                  ]
+                }
+              ],
+              "count": 4
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float64",
+                  "shape": [
+                    8,
+                    245,
+                    32
+                  ],
+                  "stride": [
+                    7840,
+                    32,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float64",
+                  "shape": [
+                    8,
+                    32,
+                    245
+                  ],
+                  "stride": [
+                    7840,
+                    1,
+                    32
+                  ]
+                }
+              ],
+              "count": 4
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float64",
+                  "shape": [
+                    8,
+                    32,
+                    245
+                  ],
+                  "stride": [
+                    7840,
+                    1,
+                    32
+                  ]
+                },
+                {
+                  "dtype": "torch.float64",
+                  "shape": [
+                    8,
+                    245,
+                    245
+                  ],
+                  "stride": [
+                    60025,
+                    245,
+                    1
+                  ]
+                }
+              ],
+              "count": 4
+            },
+            {
+              "allow_tf32": false,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float64",
+                  "shape": [
+                    8,
+                    245,
+                    245
+                  ],
+                  "stride": [
+                    60025,
+                    245,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float64",
+                  "shape": [
+                    8,
+                    245,
+                    32
+                  ],
+                  "stride": [
+                    7840,
+                    1,
+                    245
+                  ]
+                }
+              ],
+              "count": 4
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    35525,
+                    34
+                  ],
+                  "stride": [
+                    34,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    34,
+                    64
+                  ],
+                  "stride": [
+                    1,
+                    34
+                  ]
+                }
+              ],
+              "count": 1
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    449
+                  ],
+                  "stride": [
+                    449,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    449,
+                    64
+                  ],
+                  "stride": [
+                    1,
+                    449
+                  ]
+                }
+              ],
+              "count": 1
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    35525,
+                    64
+                  ],
+                  "stride": [
+                    64,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    64,
+                    32
+                  ],
+                  "stride": [
+                    1,
+                    64
+                  ]
+                }
+              ],
+              "count": 8
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    1,
+                    7840,
+                    145
+                  ],
+                  "stride": [
+                    7840,
+                    1,
+                    7840
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    1,
+                    145,
+                    7840
+                  ],
+                  "stride": [
+                    1136800,
+                    7840,
+                    1
+                  ]
+                }
+              ],
+              "count": 4
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.addmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128
+                  ],
+                  "stride": [
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    1024
+                  ],
+                  "stride": [
+                    1024,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    1024,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    1024
+                  ]
+                }
+              ],
+              "count": 4
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    1,
+                    245,
+                    145
+                  ],
+                  "stride": [
+                    245,
+                    1,
+                    245
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    1,
+                    145,
+                    245
+                  ],
+                  "stride": [
+                    35525,
+                    245,
+                    1
+                  ]
+                }
+              ],
+              "count": 4
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    35525,
+                    64
+                  ],
+                  "stride": [
+                    64,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    64,
+                    64
+                  ],
+                  "stride": [
+                    1,
+                    64
+                  ]
+                }
+              ],
+              "count": 9
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    8
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 3
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    8,
+                    245,
+                    245
+                  ],
+                  "stride": [
+                    1,
+                    1960,
+                    8
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    8,
+                    245,
+                    1160
+                  ],
+                  "stride": [
+                    284200,
+                    1160,
+                    1
+                  ]
+                }
+              ],
+              "count": 3
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    35525,
+                    64
+                  ],
+                  "stride": [
+                    64,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    64,
+                    256
+                  ],
+                  "stride": [
+                    1,
+                    64
+                  ]
+                }
+              ],
+              "count": 6
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    35525,
+                    256
+                  ],
+                  "stride": [
+                    256,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    256,
+                    64
+                  ],
+                  "stride": [
+                    1,
+                    256
+                  ]
+                }
+              ],
+              "count": 3
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    30135,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 448
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    29890,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 448
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    4
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 112
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    512
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 112
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    512
+                  ],
+                  "stride": [
+                    512,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    512,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    512
+                  ]
+                }
+              ],
+              "count": 56
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    384
+                  ],
+                  "stride": [
+                    384,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    384,
+                    384
+                  ],
+                  "stride": [
+                    1,
+                    384
+                  ]
+                }
+              ],
+              "count": 209
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    16
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 53
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.addmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    384
+                  ],
+                  "stride": [
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    384
+                  ],
+                  "stride": [
+                    384,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    384,
+                    384
+                  ],
+                  "stride": [
+                    1,
+                    384
+                  ]
+                }
+              ],
+              "count": 52
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    16,
+                    245,
+                    24
+                  ],
+                  "stride": [
+                    24,
+                    384,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    16,
+                    24,
+                    245
+                  ],
+                  "stride": [
+                    24,
+                    1,
+                    384
+                  ]
+                }
+              ],
+              "count": 52
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    16,
+                    245,
+                    245
+                  ],
+                  "stride": [
+                    60025,
+                    245,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    16,
+                    245,
+                    24
+                  ],
+                  "stride": [
+                    24,
+                    384,
+                    1
+                  ]
+                }
+              ],
+              "count": 52
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    384
+                  ],
+                  "stride": [
+                    384,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    384,
+                    1536
+                  ],
+                  "stride": [
+                    1,
+                    384
+                  ]
+                }
+              ],
+              "count": 104
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    1536
+                  ],
+                  "stride": [
+                    1536,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    1536,
+                    384
+                  ],
+                  "stride": [
+                    1,
+                    1536
+                  ]
+                }
+              ],
+              "count": 52
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    256
+                  ],
+                  "stride": [
+                    256,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    256,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    256
+                  ]
+                }
+              ],
+              "count": 3
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    256
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 4
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    833
+                  ],
+                  "stride": [
+                    833,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    833,
+                    384
+                  ],
+                  "stride": [
+                    1,
+                    833
+                  ]
+                }
+              ],
+              "count": 1
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    1,
+                    256
+                  ],
+                  "stride": [
+                    256,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    256,
+                    384
+                  ],
+                  "stride": [
+                    1,
+                    256
+                  ]
+                }
+              ],
+              "count": 1
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    384
+                  ],
+                  "stride": [
+                    384,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    384,
+                    768
+                  ],
+                  "stride": [
+                    1,
+                    384
+                  ]
+                }
+              ],
+              "count": 53
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    768
+                  ],
+                  "stride": [
+                    768,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    768,
+                    384
+                  ],
+                  "stride": [
+                    1,
+                    768
+                  ]
+                }
+              ],
+              "count": 2
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    256,
+                    32,
+                    32
+                  ],
+                  "stride": [
+                    1024,
+                    32,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    256,
+                    32,
+                    128
+                  ],
+                  "stride": [
+                    4096,
+                    1,
+                    32
+                  ]
+                }
+              ],
+              "count": 6
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    256,
+                    32,
+                    128
+                  ],
+                  "stride": [
+                    4096,
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    256,
+                    128,
+                    32
+                  ],
+                  "stride": [
+                    4096,
+                    32,
+                    1
+                  ]
+                }
+              ],
+              "count": 6
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    64,
+                    32,
+                    32
+                  ],
+                  "stride": [
+                    1024,
+                    32,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    64,
+                    32,
+                    128
+                  ],
+                  "stride": [
+                    4096,
+                    1,
+                    32
+                  ]
+                }
+              ],
+              "count": 6
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    64,
+                    32,
+                    128
+                  ],
+                  "stride": [
+                    4096,
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    64,
+                    128,
+                    32
+                  ],
+                  "stride": [
+                    4096,
+                    32,
+                    1
+                  ]
+                }
+              ],
+              "count": 6
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    2529,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    768
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 1
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.addmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    768
+                  ],
+                  "stride": [
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    384
+                  ],
+                  "stride": [
+                    384,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    384,
+                    768
+                  ],
+                  "stride": [
+                    1,
+                    384
+                  ]
+                }
+              ],
+              "count": 96
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.addmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    768
+                  ],
+                  "stride": [
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    768
+                  ],
+                  "stride": [
+                    768,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    768,
+                    768
+                  ],
+                  "stride": [
+                    1,
+                    768
+                  ]
+                }
+              ],
+              "count": 24
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    768
+                  ],
+                  "stride": [
+                    768,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    768,
+                    768
+                  ],
+                  "stride": [
+                    1,
+                    768
+                  ]
+                }
+              ],
+              "count": 96
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    768
+                  ],
+                  "stride": [
+                    768,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    768,
+                    1536
+                  ],
+                  "stride": [
+                    1,
+                    768
+                  ]
+                }
+              ],
+              "count": 48
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    1536
+                  ],
+                  "stride": [
+                    1536,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    1536,
+                    768
+                  ],
+                  "stride": [
+                    1,
+                    1536
+                  ]
+                }
+              ],
+              "count": 24
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    768
+                  ],
+                  "stride": [
+                    768,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    768,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    768
+                  ]
+                }
+              ],
+              "count": 1
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    2529,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    3
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 1
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.addmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    64
+                  ],
+                  "stride": [
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    128
+                  ],
+                  "stride": [
+                    128,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    128,
+                    64
+                  ],
+                  "stride": [
+                    1,
+                    128
+                  ]
+                }
+              ],
+              "count": 1
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    245,
+                    449
+                  ],
+                  "stride": [
+                    449,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    449,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    449
+                  ]
+                }
+              ],
+              "count": 2
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.mm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    60025,
+                    39
+                  ],
+                  "stride": [
+                    39,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    39,
+                    128
+                  ],
+                  "stride": [
+                    1,
+                    39
+                  ]
+                }
+              ],
+              "count": 1
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    2529,
+                    1,
+                    384
+                  ],
+                  "stride": [
+                    384,
+                    384,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    2529,
+                    384,
+                    50
+                  ],
+                  "stride": [
+                    19200,
+                    50,
+                    1
+                  ]
+                }
+              ],
+              "count": 1
+            },
+            {
+              "allow_tf32": true,
+              "op": "aten.bmm.default",
+              "tensors": [
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    2529,
+                    1,
+                    384
+                  ],
+                  "stride": [
+                    384,
+                    384,
+                    1
+                  ]
+                },
+                {
+                  "dtype": "torch.float32",
+                  "shape": [
+                    2529,
+                    384,
+                    2
+                  ],
+                  "stride": [
+                    768,
+                    2,
+                    1
+                  ]
+                }
+              ],
+              "count": 1
+            }
+          ],
+          "python_entries": [
+            {
+              "arguments": {
+                "scale": 0.17677669529663687
+              },
+              "file": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py",
+              "function": "triangle_attention",
+              "matmul_allow_tf32": true,
+              "count": 128
+            },
+            {
+              "arguments": {
+                "scale": 0.17677669529663687
+              },
+              "file": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py",
+              "function": "triangle_attention",
+              "matmul_allow_tf32": true,
+              "count": 236
+            },
+            {
+              "arguments": {},
+              "file": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py",
+              "function": "ensure_dims",
+              "matmul_allow_tf32": true,
+              "count": 1180
+            },
+            {
+              "arguments": {
+                "scale": 0.17677669529663687
+              },
+              "file": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py",
+              "function": "_",
+              "matmul_allow_tf32": true,
+              "count": 236
+            },
+            {
+              "arguments": {},
+              "file": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py",
+              "function": "_can_run_sm100f",
+              "matmul_allow_tf32": true,
+              "count": 236
+            },
+            {
+              "arguments": {},
+              "file": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py",
+              "function": "_get_device_cc",
+              "matmul_allow_tf32": true,
+              "count": 236
+            },
+            {
+              "arguments": {},
+              "file": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py",
+              "function": "_allocate_s_kv",
+              "matmul_allow_tf32": true,
+              "count": 236
+            },
+            {
+              "arguments": {},
+              "file": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py",
+              "function": "_convert_bias",
+              "matmul_allow_tf32": true,
+              "count": 236
+            },
+            {
+              "arguments": {},
+              "file": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py",
+              "function": "_should_use_tf32",
+              "matmul_allow_tf32": true,
+              "count": 236
+            },
+            {
+              "arguments": {
+                "scale": 0.17677669529663687
+              },
+              "file": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py",
+              "function": "triangle_attention",
+              "matmul_allow_tf32": false,
+              "count": 60
+            },
+            {
+              "arguments": {},
+              "file": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py",
+              "function": "ensure_dims",
+              "matmul_allow_tf32": false,
+              "count": 300
+            },
+            {
+              "arguments": {
+                "scale": 0.17677669529663687
+              },
+              "file": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py",
+              "function": "_",
+              "matmul_allow_tf32": false,
+              "count": 60
+            },
+            {
+              "arguments": {},
+              "file": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py",
+              "function": "_can_run_sm100f",
+              "matmul_allow_tf32": false,
+              "count": 60
+            },
+            {
+              "arguments": {},
+              "file": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py",
+              "function": "_get_device_cc",
+              "matmul_allow_tf32": false,
+              "count": 60
+            },
+            {
+              "arguments": {},
+              "file": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py",
+              "function": "_allocate_s_kv",
+              "matmul_allow_tf32": false,
+              "count": 60
+            },
+            {
+              "arguments": {},
+              "file": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py",
+              "function": "_convert_bias",
+              "matmul_allow_tf32": false,
+              "count": 60
+            },
+            {
+              "arguments": {},
+              "file": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py",
+              "function": "_should_use_tf32",
+              "matmul_allow_tf32": false,
+              "count": 60
+            },
+            {
+              "arguments": {},
+              "file": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py",
+              "function": "_setup_context",
+              "matmul_allow_tf32": false,
+              "count": 4
+            },
+            {
+              "arguments": {},
+              "file": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py",
+              "function": "_setup_context",
+              "matmul_allow_tf32": true,
+              "count": 56
+            }
+          ],
+          "source_sha256": {
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py": "19a321e75228020c587f83caa1db9e67839ce6f9cb3c043d9f49936714cb7f51",
+            "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_torch/primitives/triangle.py": "84377e5f6bed82d4e842fc48d7a662c2b4a473722bedc3e54169f308a5b1f6b3"
+          }
+        }
+      }
+    }
+  },
+  "checkpoint": {
+    "path": "/data/xishiqing/yes-star24-home/projects/protenix-baseline/checkpoint/protenix_base_default_v1.0.0.pt",
+    "size_bytes": 1475950125,
+    "sha256": "2b7d5a8b30494514fc47fd2271a16260528cdba170ba09cc112fdecd8f85ec04",
+    "current_hash_rechecked": true
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "status": "PASS",
+  "timings": [
+    {
+      "input": "G01",
+      "tokens": 693,
+      "model": "protenix_base_default_v1.0.0",
+      "H100_native_FP32_s": 3.8345810836181045,
+      "H100_native_TF32_s": 2.457117810845375,
+      "PPU_FlagGems_FP32_s": 11.42450161697343,
+      "PPU_FlagGems_TF32_s": 8.642445852980018,
+      "PPU_tf32_fullwrite_s": 8.569168658927083,
+      "tf32_fullwrite_seconds_saved": 0.07327719405293465,
+      "tf32_fullwrite_time_reduction_pct": 0.8478756511696051,
+      "tf32_fullwrite_paired_bootstrap95_low_pct": 0.3545455811155729,
+      "tf32_fullwrite_paired_bootstrap95_high_pct": 1.0027366563491458,
+      "tf32_fullwrite_H100_TF32_performance_pct": 28.673934527891795,
+      "PPU_tf32_layout_s": 8.19186659087427,
+      "tf32_layout_seconds_saved": 0.45057926210574806,
+      "tf32_layout_time_reduction_pct": 5.21356187554688,
+      "tf32_layout_paired_bootstrap95_low_pct": 4.9258495966702736,
+      "tf32_layout_paired_bootstrap95_high_pct": 5.314439159904294,
+      "tf32_layout_H100_TF32_performance_pct": 29.994602372829185,
+      "PPU_timing_source": "screen",
+      "H100_timing_source": "screen"
+    },
+    {
+      "input": "G02",
+      "tokens": 245,
+      "model": "protenix_base_default_v1.0.0",
+      "H100_native_FP32_s": 0.48474326357245445,
+      "H100_native_TF32_s": 0.44278292171657085,
+      "PPU_FlagGems_FP32_s": 1.7749182200059295,
+      "PPU_FlagGems_TF32_s": 1.7102655689232051,
+      "PPU_tf32_fullwrite_s": 1.6715095040854067,
+      "tf32_fullwrite_seconds_saved": 0.038756064837798476,
+      "tf32_fullwrite_time_reduction_pct": 2.2660846094328835,
+      "tf32_fullwrite_paired_bootstrap95_low_pct": -0.6972367809196411,
+      "tf32_fullwrite_paired_bootstrap95_high_pct": 6.506144848247675,
+      "tf32_fullwrite_H100_TF32_performance_pct": 26.490003235658936,
+      "PPU_tf32_layout_s": 1.700771200004965,
+      "tf32_layout_seconds_saved": 0.00949436891824007,
+      "tf32_layout_time_reduction_pct": 0.5551400373579263,
+      "tf32_layout_paired_bootstrap95_low_pct": -4.152755505426753,
+      "tf32_layout_paired_bootstrap95_high_pct": 4.483192118569468,
+      "tf32_layout_H100_TF32_performance_pct": 26.034243860389818,
+      "PPU_timing_source": "screen",
+      "H100_timing_source": "screen"
+    }
+  ],
+  "candidate_overview": {
+    "tf32_fullwrite": {
+      "case_count": 2,
+      "positive_median_count": 2,
+      "positive_paired_bootstrap95_count": 1,
+      "minimum_time_reduction_pct": 0.8478756511696051,
+      "maximum_time_reduction_pct": 2.2660846094328835,
+      "geometric_mean_time_reduction_pct": 1.5595340731080265,
+      "median_H100_native_TF32_performance_pct": 27.581968881775367
+    },
+    "tf32_layout": {
+      "case_count": 2,
+      "positive_median_count": 2,
+      "positive_paired_bootstrap95_count": 1,
+      "minimum_time_reduction_pct": 0.5551400373579263,
+      "maximum_time_reduction_pct": 5.21356187554688,
+      "geometric_mean_time_reduction_pct": 2.9122867421223164,
+      "median_H100_native_TF32_performance_pct": 28.0144231166095
+    }
+  },
+  "original_predictions_and_five_confidence_exactly_retained": true,
+  "full_cross_device_input_checkpoint_assets_and_ordered_rng_audit": "PASS",
+  "formal_gate_counts": {
+    "native_fp32": {
+      "PASS": 18
+    },
+    "native_tf32": {
+      "FAIL": 11,
+      "UNRESOLVED": 4,
+      "PASS": 3
+    }
+  },
+  "protocol": "InferenceRunner.predict, FP32 dtype; TF32 permission changes matmul; uniform RNG seed 101, cycle=1/step=1/sample=1. Compile, audit instrumentation, poisoned first warmup and output export excluded from clean repeated timings.",
+  "limits": [
+    "Small repeated sample count; paired bootstrap intervals describe this run only.",
+    "Formal RMSD intervals reused because frozen full predictions retained, not a fresh raw cross-device coordinate export.",
+    "No claim of full production diffusion sampling, full training acceptance, MFU or 80% target.",
+    "Rule has no input/model whitelist; tested coverage is limited to the audited model/input rows in this report."
+  ]
+}

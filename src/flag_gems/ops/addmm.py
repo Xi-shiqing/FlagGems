@@ -19,6 +19,7 @@ import triton
 import triton.language as tl
 
 from flag_gems import runtime
+from flag_gems.ops.rank_one import rank_one
 from flag_gems.runtime import torch_device_fn
 from flag_gems.utils import broadcastable_to, libentry, libtuner
 from flag_gems.utils import triton_lang_extension as ext
@@ -138,6 +139,16 @@ def _addmm_impl(bias, mat1, mat2, out, beta, alpha):
     ), "Incompatible input shape"
     M, K = mat1.shape
     _, N = mat2.shape
+    if (
+        K == 1
+        and runtime.device.vendor_name == "thead"
+        and torch.backends.cuda.matmul.allow_tf32
+    ):
+        result = rank_one(
+            mat1, mat2, out, bias=bias, alpha=alpha, beta=beta, enabled=True
+        )
+        if result is not None:
+            return result
 
     # Preserve row- and column-contiguous matrices; materialize general views.
     if mat1.stride(0) > 1 and mat1.stride(1) > 1:

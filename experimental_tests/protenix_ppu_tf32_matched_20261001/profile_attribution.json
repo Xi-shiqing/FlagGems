@@ -1,0 +1,29 @@
+{
+  "case": "G02",
+  "scope": "one profiled prediction per configuration; diagnostic only; nested entries must not be added",
+  "variants": {
+    "baseline_tf32": {
+      "direct_mm_host_call_count": 2133,
+      "direct_mm_gpu_event_count": 2133,
+      "direct_mm_gpu_events_ms": 363.4345559999993,
+      "fill_call_count": 15283,
+      "fill_self_cpu_ms_profiled": 516.4424929999755,
+      "sdpa_calls": {
+        "aten::_scaled_dot_product_attention_math": 67,
+        "aten::_scaled_dot_product_efficient_attention": 24
+      }
+    },
+    "candidate_tf32": {
+      "direct_mm_host_call_count": 2133,
+      "direct_mm_gpu_event_count": 1947,
+      "direct_mm_gpu_events_ms": 161.74054000000376,
+      "fill_call_count": 15283,
+      "fill_self_cpu_ms_profiled": 517.5303609999851,
+      "sdpa_calls": {
+        "aten::_scaled_dot_product_attention_math": 67,
+        "aten::_scaled_dot_product_efficient_attention": 24
+      }
+    }
+  },
+  "warning": "Candidate GPU event coverage is incomplete (host counts agree; GPU counts differ). Do not use aggregate profiler kernel totals to compute exact savings, executed FLOPs or MFU."
+}

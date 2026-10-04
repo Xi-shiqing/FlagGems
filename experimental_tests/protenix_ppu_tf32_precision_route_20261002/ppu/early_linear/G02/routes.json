@@ -1,0 +1,458 @@
+{
+  "status": "PASS",
+  "linear": [
+    {
+      "module": "input_embedder.atom_attention_encoder.linear_no_bias_ref_pos",
+      "inputs": [
+        {
+          "shape": [
+            2529,
+            3
+          ],
+          "stride": [
+            3,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "054bad04f25a2a9cfb25d6ea286911c42268d78096f9281db88bfc839b48bd83"
+        },
+        {
+          "shape": [
+            128,
+            3
+          ],
+          "stride": [
+            3,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "d2db762ef231427e573619c3e62d2fe5fc94c921beb20434bdeb06b55f358ee1"
+        }
+      ],
+      "bias": null,
+      "tf32_vs_fp32": {
+        "relative_l2": 0.0002895942598115653,
+        "max_abs": 0.00016510486602783203,
+        "rms": 1.0260339877277147e-05,
+        "finite": true
+      },
+      "tf32_replay_vs_teacher": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "rms": 0.0,
+        "finite": true
+      },
+      "modes": {
+        "fp32": {
+          "median_ms": 0.1455454621464014,
+          "samples_ms": [
+            0.15592691488564014,
+            0.1515860203653574,
+            0.1610510516911745,
+            0.16747205518186092,
+            0.1405940856784582,
+            0.13641989789903164,
+            0.13474817387759686,
+            0.1362939365208149,
+            0.1343360636383295,
+            0.1504968386143446
+          ],
+          "output_sha256": "36da0038d90bcd78f00db428ca477c3161a74d40cb030e01f9480cc3d73678e7",
+          "sample_vs_ieee_fp64": {
+            "relative_l2": 3.8602387882076075e-08,
+            "max_abs": 2.41993751426417e-09,
+            "rms": 6.741340206187573e-10,
+            "finite": true
+          },
+          "sample_vs_rne_tf32_fp64": {
+            "relative_l2": 0.00032844602325765777,
+            "max_abs": 2.0774081349372864e-05,
+            "rms": 5.735421828198599e-06,
+            "finite": true
+          },
+          "kernel_trace": [
+            "_fill_contiguous_fp32",
+            "_fill_contiguous_fp32",
+            "mm_kernel_h100_fp32_splitk",
+            "mm_kernel_h100_fp32_splitk_reduce"
+          ]
+        },
+        "tf32": {
+          "median_ms": 0.18006644677370787,
+          "samples_ms": [
+            0.22274302318692207,
+            0.19771582446992397,
+            0.17761392518877983,
+            0.17862091772258282,
+            0.17575290985405445,
+            0.21586008369922638,
+            0.18670503050088882,
+            0.17647305503487587,
+            0.17438502982258797,
+            0.18151197582483292
+          ],
+          "output_sha256": "e0592eb05107e0b8f09d2e09eac509923ed7b6f246f7b2c3a2ec29163d31d363",
+          "sample_vs_ieee_fp64": {
+            "relative_l2": 0.0003284358584789928,
+            "max_abs": 2.077456586369042e-05,
+            "rms": 5.735649993160706e-06,
+            "finite": true
+          },
+          "sample_vs_rne_tf32_fp64": {
+            "relative_l2": 2.881936377536573e-08,
+            "max_abs": 1.862645149230957e-09,
+            "rms": 5.03252273943234e-10,
+            "finite": true
+          },
+          "kernel_trace": [
+            "_fill_contiguous_fp32",
+            "_fill_contiguous_fp32",
+            "mm_kernel_h100_fp32_splitk",
+            "mm_kernel_h100_fp32_splitk_reduce"
+          ]
+        }
+      }
+    },
+    {
+      "module": "input_embedder.atom_attention_encoder.linear_no_bias_ref_charge",
+      "inputs": [
+        {
+          "shape": [
+            2529,
+            1
+          ],
+          "stride": [
+            1,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "0a325a2cc62dd7cfec03f2f742eddd367cea9dbfd03ec12b523cd3977f2c4b5c"
+        },
+        {
+          "shape": [
+            128,
+            1
+          ],
+          "stride": [
+            1,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "fcc99ac2db8f8977a57e334c72243c90133f1d1205cbb7a358e0c8d2a2be8d54"
+        }
+      ],
+      "bias": null,
+      "tf32_vs_fp32": {
+        "relative_l2": 0.00016109590069390833,
+        "max_abs": 0.0001882612705230713,
+        "rms": 4.5435231186274905e-06,
+        "finite": true
+      },
+      "tf32_replay_vs_teacher": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "rms": 0.0,
+        "finite": true
+      },
+      "modes": {
+        "fp32": {
+          "median_ms": 0.13987603597342968,
+          "samples_ms": [
+            0.15571806579828262,
+            0.14279386959969997,
+            0.13695820234715939,
+            0.13442104682326317,
+            0.13376795686781406,
+            0.14675711281597614,
+            0.1668659970164299,
+            0.14503113925457,
+            0.13487390242516994,
+            0.13067596592009068
+          ],
+          "output_sha256": "853f2b6f65669500280e5512c672595c60966e30ea46c005466989d4dff0c11d",
+          "sample_vs_ieee_fp64": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "sample_vs_rne_tf32_fp64": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "kernel_trace": [
+            "_fill_contiguous_fp32",
+            "_fill_contiguous_fp32",
+            "mm_kernel_h100_fp32_splitk",
+            "mm_kernel_h100_fp32_splitk_reduce"
+          ]
+        },
+        "tf32": {
+          "median_ms": 0.2436984796077013,
+          "samples_ms": [
+            0.27571897953748703,
+            0.36220578476786613,
+            0.20311004482209682,
+            0.24222303181886673,
+            0.24517392739653587,
+            0.21547009237110615,
+            0.28877099975943565,
+            0.241363188251853,
+            0.2570331562310457,
+            0.20761904306709766
+          ],
+          "output_sha256": "255f70bcfb289b1911de5083a22d5e6d1c990a103dadb57fd3b26917da98a7bf",
+          "sample_vs_ieee_fp64": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "sample_vs_rne_tf32_fp64": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "kernel_trace": [
+            "_fill_contiguous_fp32",
+            "_fill_contiguous_fp32",
+            "mm_kernel_h100_fp32_splitk",
+            "mm_kernel_h100_fp32_splitk_reduce"
+          ]
+        }
+      }
+    },
+    {
+      "module": "input_embedder.atom_attention_encoder.linear_no_bias_f",
+      "inputs": [
+        {
+          "shape": [
+            2529,
+            385
+          ],
+          "stride": [
+            385,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "624d1a6ef1f230bc60af1f81ab922f8f909327079f2c45d9624e4b5f64993eb2"
+        },
+        {
+          "shape": [
+            128,
+            385
+          ],
+          "stride": [
+            385,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "893dd9364f9724e8633bcbbb9b621df9da79f6626c81e67d78d91bcb9be5fb72"
+        }
+      ],
+      "bias": null,
+      "tf32_vs_fp32": {
+        "relative_l2": 0.00010782333265524358,
+        "max_abs": 0.00086212158203125,
+        "rms": 9.264727850677446e-05,
+        "finite": true
+      },
+      "tf32_replay_vs_teacher": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "rms": 0.0,
+        "finite": true
+      },
+      "modes": {
+        "fp32": {
+          "median_ms": 0.17918797675520182,
+          "samples_ms": [
+            0.18358207307755947,
+            0.17929403111338615,
+            0.19580591470003128,
+            0.18685893155634403,
+            0.17185788601636887,
+            0.17061899416148663,
+            0.16822898760437965,
+            0.17672195099294186,
+            0.19907508976757526,
+            0.17908192239701748
+          ],
+          "output_sha256": "9fc1e5f0e1a32d18c38f12a6d335c698764bc8a6c4b7353fa0eac998a465a745",
+          "sample_vs_ieee_fp64": {
+            "relative_l2": 3.5341690576306533e-08,
+            "max_abs": 5.587935447692871e-08,
+            "rms": 1.0920967582102138e-08,
+            "finite": true
+          },
+          "sample_vs_rne_tf32_fp64": {
+            "relative_l2": 0.0002032286881195342,
+            "max_abs": 0.00026988983154296875,
+            "rms": 6.279341107960706e-05,
+            "finite": true
+          },
+          "kernel_trace": [
+            "_fill_contiguous_fp32",
+            "_fill_contiguous_fp32",
+            "mm_kernel_h100_fp32_splitk",
+            "mm_kernel_h100_fp32_splitk_reduce"
+          ]
+        },
+        "tf32": {
+          "median_ms": 0.1809470122680068,
+          "samples_ms": [
+            0.23197499103844166,
+            0.19468017853796482,
+            0.18093502148985863,
+            0.17961091361939907,
+            0.17615105025470257,
+            0.25782198645174503,
+            0.19680685363709927,
+            0.18095900304615498,
+            0.17955899238586426,
+            0.18075108528137207
+          ],
+          "output_sha256": "537df3c8f74a19fe27a4bde7be413f62fc91b87ee67f90818758530bcb6bee44",
+          "sample_vs_ieee_fp64": {
+            "relative_l2": 0.00020318950712310457,
+            "max_abs": 0.0002698339521884918,
+            "rms": 6.278777229186644e-05,
+            "finite": true
+          },
+          "sample_vs_rne_tf32_fp64": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "kernel_trace": [
+            "_fill_contiguous_fp32",
+            "_fill_contiguous_fp32",
+            "mm_kernel_h100_fp32_splitk",
+            "mm_kernel_h100_fp32_splitk_reduce"
+          ]
+        }
+      }
+    },
+    {
+      "module": "input_embedder.atom_attention_encoder.linear_no_bias_d",
+      "inputs": [
+        {
+          "shape": [
+            80,
+            32,
+            128,
+            3
+          ],
+          "stride": [
+            12288,
+            384,
+            3,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "4b358cc5cb99f23cfa249200ebbcbb1e295601dc263fe124ce24da3912199fed"
+        },
+        {
+          "shape": [
+            16,
+            3
+          ],
+          "stride": [
+            3,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "0aaaa6b40adc67601918789577d3c51d1f7f07dc01132d4dcfd5a52f04578b84"
+        }
+      ],
+      "bias": null,
+      "tf32_vs_fp32": {
+        "relative_l2": 0.00030392620828934014,
+        "max_abs": 4.8294663429260254e-05,
+        "rms": 3.3827050174295437e-06,
+        "finite": true
+      },
+      "tf32_replay_vs_teacher": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "rms": 0.0,
+        "finite": true
+      },
+      "modes": {
+        "fp32": {
+          "median_ms": 0.9466080227866769,
+          "samples_ms": [
+            0.9296918287873268,
+            1.1624679900705814,
+            0.9869199711829424,
+            0.9563181083649397,
+            1.002822071313858,
+            0.96904207020998,
+            0.9368979372084141,
+            0.9201532229781151,
+            0.9243600070476532,
+            0.9149888064712286
+          ],
+          "output_sha256": "1524751aa6461038c882c5db03f6208089188a6f9f484fd590a1db2ed4afd4f0",
+          "sample_vs_ieee_fp64": {
+            "relative_l2": 2.466078047671731e-08,
+            "max_abs": 2.1995158472343235e-10,
+            "rms": 1.304934335917381e-10,
+            "finite": true
+          },
+          "sample_vs_rne_tf32_fp64": {
+            "relative_l2": 0.0001579720054315668,
+            "max_abs": 1.945067197084427e-06,
+            "rms": 8.359748820293749e-07,
+            "finite": true
+          },
+          "kernel_trace": [
+            "_fill_contiguous_fp32",
+            "_fill_contiguous_fp32",
+            "mm_kernel_h100_fp32_splitk",
+            "mm_kernel_h100_fp32_splitk_reduce"
+          ]
+        },
+        "tf32": {
+          "median_ms": 0.8225274505093694,
+          "samples_ms": [
+            0.8292410057038069,
+            0.8412040770053864,
+            0.8234449196606874,
+            0.836692051962018,
+            0.8107521571218967,
+            0.8194530382752419,
+            0.8199261501431465,
+            0.8216099813580513,
+            0.820215092971921,
+            0.8269269019365311
+          ],
+          "output_sha256": "c056dceabfe8acbea6de41414c989bd7e33442c88ec61a1a151677d48e878212",
+          "sample_vs_ieee_fp64": {
+            "relative_l2": 0.0001579653370044093,
+            "max_abs": 1.9447837180108785e-06,
+            "rms": 8.358794334852029e-07,
+            "finite": true
+          },
+          "sample_vs_rne_tf32_fp64": {
+            "relative_l2": 3.111086194941414e-08,
+            "max_abs": 4.656612873077393e-10,
+            "rms": 1.646361269956798e-10,
+            "finite": true
+          },
+          "kernel_trace": [
+            "_fill_contiguous_fp32",
+            "_fill_contiguous_fp32",
+            "mm_kernel_h100_fp32_splitk",
+            "mm_kernel_h100_fp32_splitk_reduce"
+          ]
+        }
+      }
+    }
+  ],
+  "scope": "First four executed Linear modules; original TF32 teacher outputs returned. Timings are local identical-operand replays, not E2E measurements."
+}

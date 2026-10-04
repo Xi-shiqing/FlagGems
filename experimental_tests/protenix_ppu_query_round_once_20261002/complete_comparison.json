@@ -1,0 +1,1928 @@
+{
+  "status": "OPERATOR_VALIDATION_COMPLETE_NO_PPU_SPEED_PROMOTION",
+  "production_change": false,
+  "default_native_package_change": false,
+  "commit_or_push": false,
+  "four_mode_columns": [
+    "h100_native_fp32",
+    "h100_native_tf32",
+    "ppu_flaggems_fp32",
+    "ppu_flaggems_tf32"
+  ],
+  "operator_shapes": [
+    [
+      1,
+      131,
+      131,
+      4,
+      32
+    ],
+    [
+      1,
+      245,
+      245,
+      4,
+      32
+    ],
+    [
+      1,
+      384,
+      384,
+      4,
+      32
+    ]
+  ],
+  "operator_operand_scope": "CPU NumPy PCG64 deterministic integers; N repeats the same seeded group. Matched group hashes and construction on both devices. Synthetic operands, not captured model activations.",
+  "operator_timing_contract": "CUDA-event and synchronized-wall timings are separate. Native CUE uses return_aux=True to force its fused forward entry and includes its auxiliary computation/internal packing; PPU uses public BNSHD entry. Native layout views are prepared before timing, and internal native packing is included. This is a public-operator comparison, not isolated MMA throughput or model speedup.",
+  "bit_pattern_validation": {
+    "h100": {
+      "status": "PASS",
+      "server": "h100",
+      "device": "NVIDIA H100 80GB HBM3",
+      "count": 72192,
+      "input_sha256": "2eefa9e73f136eb16dbc927033df36f15a6ff4664b4f3aeb08059d01bc93fcb0",
+      "seed": 101,
+      "rng": "NumPy PCG64 uint32; no GPU RNG",
+      "source_sha256": "7adf432392036eb00e76a930e40aff5f0dfa40bbdfe7bf4773ecf0d5018e3869",
+      "modes": {
+        "hardware_rne": {
+          "sha256": "696bd2380bc53382bb378f5043821f00812820e1ee1463eb55e9e1a6e48bd7df",
+          "mismatches": 0,
+          "mismatches_by_class": {
+            "normal": 0,
+            "subnormal_or_zero": 0,
+            "inf_or_nan": 0
+          },
+          "idempotence_mismatches": 0,
+          "examples": []
+        },
+        "bit_rne": {
+          "sha256": "696bd2380bc53382bb378f5043821f00812820e1ee1463eb55e9e1a6e48bd7df",
+          "mismatches": 0,
+          "mismatches_by_class": {
+            "normal": 0,
+            "subnormal_or_zero": 0,
+            "inf_or_nan": 0
+          },
+          "idempotence_mismatches": 0,
+          "examples": []
+        },
+        "bit_rna": {
+          "sha256": "557eb85a28d76d090c0fc8632d88e1d5b8fe12315a7f64c11f673f214c0968aa",
+          "mismatches": 0,
+          "mismatches_by_class": {
+            "normal": 0,
+            "subnormal_or_zero": 0,
+            "inf_or_nan": 0
+          },
+          "idempotence_mismatches": 0,
+          "examples": []
+        }
+      },
+      "scope": "Full exponent coverage and 65536 random bit patterns. Scalars and hashes only; no persisted operands."
+    },
+    "ppu": {
+      "status": "PASS",
+      "server": "ppu",
+      "device": "PPU-ZW810E",
+      "count": 72192,
+      "input_sha256": "2eefa9e73f136eb16dbc927033df36f15a6ff4664b4f3aeb08059d01bc93fcb0",
+      "seed": 101,
+      "rng": "NumPy PCG64 uint32; no GPU RNG",
+      "source_sha256": "7adf432392036eb00e76a930e40aff5f0dfa40bbdfe7bf4773ecf0d5018e3869",
+      "modes": {
+        "hardware_rne": {
+          "sha256": "696bd2380bc53382bb378f5043821f00812820e1ee1463eb55e9e1a6e48bd7df",
+          "mismatches": 0,
+          "mismatches_by_class": {
+            "normal": 0,
+            "subnormal_or_zero": 0,
+            "inf_or_nan": 0
+          },
+          "idempotence_mismatches": 0,
+          "examples": []
+        },
+        "bit_rne": {
+          "sha256": "696bd2380bc53382bb378f5043821f00812820e1ee1463eb55e9e1a6e48bd7df",
+          "mismatches": 0,
+          "mismatches_by_class": {
+            "normal": 0,
+            "subnormal_or_zero": 0,
+            "inf_or_nan": 0
+          },
+          "idempotence_mismatches": 0,
+          "examples": []
+        },
+        "bit_rna": {
+          "sha256": "557eb85a28d76d090c0fc8632d88e1d5b8fe12315a7f64c11f673f214c0968aa",
+          "mismatches": 0,
+          "mismatches_by_class": {
+            "normal": 0,
+            "subnormal_or_zero": 0,
+            "inf_or_nan": 0
+          },
+          "idempotence_mismatches": 0,
+          "examples": []
+        }
+      },
+      "scope": "Full exponent coverage and 65536 random bit patterns. Scalars and hashes only; no persisted operands."
+    }
+  },
+  "native_query_drift": {
+    "versions_black_box_tested": [
+      "0.8.0",
+      "0.12.0"
+    ],
+    "latest_installed_in_isolated_target_only": true,
+    "version_import_audit": {
+      "frozen": {
+        "torch": "2.7.1+cu126",
+        "torch_package": "0.8.0",
+        "ops_package": "0.8.0",
+        "import_path": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/__init__.py"
+      },
+      "isolated_latest": {
+        "torch": "2.7.1+cu126",
+        "torch_package": "0.12.0",
+        "ops_package": "0.12.0",
+        "import_path": "/data/xishiqing/ppu_mm_crossdevice_20260920/query_round_once_20261002/vendor_0120/cuequivariance_ops_torch/__init__.py"
+      }
+    },
+    "identical_16_position_drift": true,
+    "last_key_score": 1.0078125,
+    "gold_score": 1.0,
+    "custom_rne_and_rna_once_controls": "All 16 key positions pass output and natural-LSE gold on both devices"
+  },
+  "native_fp32_backward": "CUE 0.8.0 explicitly unsupported on all three shapes; N/A, no fallback substituted",
+  "candidate_decision": {
+    "q_rne_once": "PPU outputs and gradients unchanged; clean timing gives no material speed gain. Retain isolated candidate only.",
+    "bit_rne_once": "Exact rounding checks pass, but slower on PPU; reject promotion.",
+    "rna_once": "No consistent PPU forward gain and not RNE-equivalent; reject promotion.",
+    "custom_h100": "Accuracy improves, but these kernels are diagnostic references. Original native FP32/TF32 baselines remain unchanged."
+  },
+  "four_mode_timing": [
+    {
+      "B": 1,
+      "N": 131,
+      "S": 131,
+      "H": 4,
+      "D": 32,
+      "phase": "inference",
+      "clock": "event_ms",
+      "warmups": 3,
+      "repeats": 10,
+      "h100_native_fp32": 0.21563199907541275,
+      "h100_native_tf32": 0.17374400049448013,
+      "ppu_flaggems_fp32": 0.303399994969368,
+      "ppu_flaggems_tf32": 0.26160000264644623
+    },
+    {
+      "B": 1,
+      "N": 131,
+      "S": 131,
+      "H": 4,
+      "D": 32,
+      "phase": "inference",
+      "clock": "wall_ms",
+      "warmups": 3,
+      "repeats": 10,
+      "h100_native_fp32": 0.239688903093338,
+      "h100_native_tf32": 0.20378641784191132,
+      "ppu_flaggems_fp32": 0.3173975273966789,
+      "ppu_flaggems_tf32": 0.2755408640950918
+    },
+    {
+      "B": 1,
+      "N": 131,
+      "S": 131,
+      "H": 4,
+      "D": 32,
+      "phase": "training",
+      "clock": "event_ms",
+      "warmups": 3,
+      "repeats": 10,
+      "h100_native_fp32": "UNSUPPORTED_NATIVE_FP32_BACKWARD",
+      "h100_native_tf32": 0.4188160002231598,
+      "ppu_flaggems_fp32": 3.289359927177429,
+      "ppu_flaggems_tf32": 1.8787000179290771
+    },
+    {
+      "B": 1,
+      "N": 131,
+      "S": 131,
+      "H": 4,
+      "D": 32,
+      "phase": "training",
+      "clock": "wall_ms",
+      "warmups": 3,
+      "repeats": 10,
+      "h100_native_fp32": "UNSUPPORTED_NATIVE_FP32_BACKWARD",
+      "h100_native_tf32": 2.8347396291792393,
+      "ppu_flaggems_fp32": 3.307088394649327,
+      "ppu_flaggems_tf32": 1.8953975522890687
+    },
+    {
+      "B": 1,
+      "N": 245,
+      "S": 245,
+      "H": 4,
+      "D": 32,
+      "phase": "inference",
+      "clock": "event_ms",
+      "warmups": 3,
+      "repeats": 10,
+      "h100_native_fp32": 0.47814400494098663,
+      "h100_native_tf32": 0.26473599672317505,
+      "ppu_flaggems_fp32": 0.9383400082588196,
+      "ppu_flaggems_tf32": 0.8154599964618683
+    },
+    {
+      "B": 1,
+      "N": 245,
+      "S": 245,
+      "H": 4,
+      "D": 32,
+      "phase": "inference",
+      "clock": "wall_ms",
+      "warmups": 3,
+      "repeats": 10,
+      "h100_native_fp32": 2.900829538702965,
+      "h100_native_tf32": 2.666478045284748,
+      "ppu_flaggems_fp32": 0.9538524318486452,
+      "ppu_flaggems_tf32": 0.8306470699608326
+    },
+    {
+      "B": 1,
+      "N": 245,
+      "S": 245,
+      "H": 4,
+      "D": 32,
+      "phase": "training",
+      "clock": "event_ms",
+      "warmups": 3,
+      "repeats": 10,
+      "h100_native_fp32": "UNSUPPORTED_NATIVE_FP32_BACKWARD",
+      "h100_native_tf32": 1.352560043334961,
+      "ppu_flaggems_fp32": 9.188859939575195,
+      "ppu_flaggems_tf32": 6.242980003356934
+    },
+    {
+      "B": 1,
+      "N": 245,
+      "S": 245,
+      "H": 4,
+      "D": 32,
+      "phase": "training",
+      "clock": "wall_ms",
+      "warmups": 3,
+      "repeats": 10,
+      "h100_native_fp32": "UNSUPPORTED_NATIVE_FP32_BACKWARD",
+      "h100_native_tf32": 3.754840698093176,
+      "ppu_flaggems_fp32": 9.205866022966802,
+      "ppu_flaggems_tf32": 6.259657326154411
+    },
+    {
+      "B": 1,
+      "N": 384,
+      "S": 384,
+      "H": 4,
+      "D": 32,
+      "phase": "inference",
+      "clock": "event_ms",
+      "warmups": 3,
+      "repeats": 10,
+      "h100_native_fp32": 1.6015520095825195,
+      "h100_native_tf32": 0.8453279733657837,
+      "ppu_flaggems_fp32": 2.5826799869537354,
+      "ppu_flaggems_tf32": 2.15585994720459
+    },
+    {
+      "B": 1,
+      "N": 384,
+      "S": 384,
+      "H": 4,
+      "D": 32,
+      "phase": "inference",
+      "clock": "wall_ms",
+      "warmups": 3,
+      "repeats": 10,
+      "h100_native_fp32": 3.97745193913579,
+      "h100_native_tf32": 3.2640150748193264,
+      "ppu_flaggems_fp32": 2.599878003820777,
+      "ppu_flaggems_tf32": 2.1731643937528133
+    },
+    {
+      "B": 1,
+      "N": 384,
+      "S": 384,
+      "H": 4,
+      "D": 32,
+      "phase": "training",
+      "clock": "event_ms",
+      "warmups": 3,
+      "repeats": 10,
+      "h100_native_fp32": "UNSUPPORTED_NATIVE_FP32_BACKWARD",
+      "h100_native_tf32": 6.569119930267334,
+      "ppu_flaggems_fp32": 18.66554069519043,
+      "ppu_flaggems_tf32": 19.030479431152344
+    },
+    {
+      "B": 1,
+      "N": 384,
+      "S": 384,
+      "H": 4,
+      "D": 32,
+      "phase": "training",
+      "clock": "wall_ms",
+      "warmups": 3,
+      "repeats": 10,
+      "h100_native_fp32": "UNSUPPORTED_NATIVE_FP32_BACKWARD",
+      "h100_native_tf32": 8.973033633083105,
+      "ppu_flaggems_fp32": 18.683210131712258,
+      "ppu_flaggems_tf32": 19.048256566748023
+    }
+  ],
+  "four_mode_accuracy": [
+    {
+      "S": 131,
+      "metric": "output",
+      "unit": "relative_L2_percent",
+      "gold": "CPU FP64; updated_parameter rounded once to FP32",
+      "aggregation": "full output or maximum across Q/K/V/bias2",
+      "h100_native_fp32": 2.2761470957985583e-05,
+      "h100_native_tf32": 0.08243610547287564,
+      "ppu_flaggems_fp32": 2.3158616283258777e-05,
+      "ppu_flaggems_tf32": 0.028339962413744663
+    },
+    {
+      "S": 131,
+      "metric": "gradient",
+      "unit": "relative_L2_percent",
+      "gold": "CPU FP64; updated_parameter rounded once to FP32",
+      "aggregation": "full output or maximum across Q/K/V/bias2",
+      "h100_native_fp32": "UNSUPPORTED_NATIVE_FP32_BACKWARD",
+      "h100_native_tf32": 0.1836829611281443,
+      "ppu_flaggems_fp32": 9.663028837919219e-05,
+      "ppu_flaggems_tf32": 0.04146687707191949
+    },
+    {
+      "S": 131,
+      "metric": "updated_parameter",
+      "unit": "relative_L2_percent",
+      "gold": "CPU FP64; updated_parameter rounded once to FP32",
+      "aggregation": "full output or maximum across Q/K/V/bias2",
+      "h100_native_fp32": "UNSUPPORTED_NATIVE_FP32_BACKWARD",
+      "h100_native_tf32": 0.0034943030643315963,
+      "ppu_flaggems_fp32": 3.818525228112195e-06,
+      "ppu_flaggems_tf32": 0.0008634181667232793
+    },
+    {
+      "S": 131,
+      "metric": "realized_fp32_update",
+      "unit": "relative_L2_percent",
+      "gold": "CPU FP64; updated_parameter rounded once to FP32",
+      "aggregation": "full output or maximum across Q/K/V/bias2",
+      "h100_native_fp32": "UNSUPPORTED_NATIVE_FP32_BACKWARD",
+      "h100_native_tf32": 0.18380930726550093,
+      "ppu_flaggems_fp32": 0.0005178918417516153,
+      "ppu_flaggems_tf32": 0.041629659229525925
+    },
+    {
+      "S": 245,
+      "metric": "output",
+      "unit": "relative_L2_percent",
+      "gold": "CPU FP64; updated_parameter rounded once to FP32",
+      "aggregation": "full output or maximum across Q/K/V/bias2",
+      "h100_native_fp32": 3.103043771036106e-05,
+      "h100_native_tf32": 0.15789712680055182,
+      "ppu_flaggems_fp32": 3.1428761199030665e-05,
+      "ppu_flaggems_tf32": 0.030908569415325937
+    },
+    {
+      "S": 245,
+      "metric": "gradient",
+      "unit": "relative_L2_percent",
+      "gold": "CPU FP64; updated_parameter rounded once to FP32",
+      "aggregation": "full output or maximum across Q/K/V/bias2",
+      "h100_native_fp32": "UNSUPPORTED_NATIVE_FP32_BACKWARD",
+      "h100_native_tf32": 0.20889772661192518,
+      "ppu_flaggems_fp32": 0.0001801168538222178,
+      "ppu_flaggems_tf32": 0.04090970308033651
+    },
+    {
+      "S": 245,
+      "metric": "updated_parameter",
+      "unit": "relative_L2_percent",
+      "gold": "CPU FP64; updated_parameter rounded once to FP32",
+      "aggregation": "full output or maximum across Q/K/V/bias2",
+      "h100_native_fp32": "UNSUPPORTED_NATIVE_FP32_BACKWARD",
+      "h100_native_tf32": 0.004292893742481106,
+      "ppu_flaggems_fp32": 6.115872654461877e-06,
+      "ppu_flaggems_tf32": 0.0008737853003439486
+    },
+    {
+      "S": 245,
+      "metric": "realized_fp32_update",
+      "unit": "relative_L2_percent",
+      "gold": "CPU FP64; updated_parameter rounded once to FP32",
+      "aggregation": "full output or maximum across Q/K/V/bias2",
+      "h100_native_fp32": "UNSUPPORTED_NATIVE_FP32_BACKWARD",
+      "h100_native_tf32": 0.20903468443495024,
+      "ppu_flaggems_fp32": 0.0006876974040884009,
+      "ppu_flaggems_tf32": 0.04129570242694997
+    },
+    {
+      "S": 384,
+      "metric": "output",
+      "unit": "relative_L2_percent",
+      "gold": "CPU FP64; updated_parameter rounded once to FP32",
+      "aggregation": "full output or maximum across Q/K/V/bias2",
+      "h100_native_fp32": 3.941429657783468e-05,
+      "h100_native_tf32": 0.2580445402350682,
+      "ppu_flaggems_fp32": 4.0033096175580894e-05,
+      "ppu_flaggems_tf32": 0.03236571444992621
+    },
+    {
+      "S": 384,
+      "metric": "gradient",
+      "unit": "relative_L2_percent",
+      "gold": "CPU FP64; updated_parameter rounded once to FP32",
+      "aggregation": "full output or maximum across Q/K/V/bias2",
+      "h100_native_fp32": "UNSUPPORTED_NATIVE_FP32_BACKWARD",
+      "h100_native_tf32": 0.24212173430253608,
+      "ppu_flaggems_fp32": 0.0002816750154131627,
+      "ppu_flaggems_tf32": 0.04065982751852653
+    },
+    {
+      "S": 384,
+      "metric": "updated_parameter",
+      "unit": "relative_L2_percent",
+      "gold": "CPU FP64; updated_parameter rounded once to FP32",
+      "aggregation": "full output or maximum across Q/K/V/bias2",
+      "h100_native_fp32": "UNSUPPORTED_NATIVE_FP32_BACKWARD",
+      "h100_native_tf32": 0.005221878180431433,
+      "ppu_flaggems_fp32": 8.991188757850471e-06,
+      "ppu_flaggems_tf32": 0.0008754420414043378
+    },
+    {
+      "S": 384,
+      "metric": "realized_fp32_update",
+      "unit": "relative_L2_percent",
+      "gold": "CPU FP64; updated_parameter rounded once to FP32",
+      "aggregation": "full output or maximum across Q/K/V/bias2",
+      "h100_native_fp32": "UNSUPPORTED_NATIVE_FP32_BACKWARD",
+      "h100_native_tf32": 0.24221059201795106,
+      "ppu_flaggems_fp32": 0.0007854187967703933,
+      "ppu_flaggems_tf32": 0.04131434431492141
+    }
+  ],
+  "candidate_comparisons": [
+    {
+      "server": "h100",
+      "S": 131,
+      "candidate": "fixed_rne_once",
+      "classification": "custom kernel, not native",
+      "forward_relative_L2_percent": 0.028333547422689544,
+      "max_gradient_relative_L2_percent": 0.04146353717358003,
+      "max_realized_update_relative_L2_percent": 0.04162103319899838,
+      "output_hash_equal_original_tf32": false,
+      "all_gradient_hashes_equal_original_tf32": false,
+      "inference_event_ms": 0.16099200397729874,
+      "training_event_ms": 0.8871519863605499,
+      "inference_time_vs_original_tf32": 0.9266046799838333,
+      "training_time_vs_original_tf32": 2.1182380469892372
+    },
+    {
+      "server": "h100",
+      "S": 131,
+      "candidate": "fixed_rne_bits_once",
+      "classification": "custom kernel, not native",
+      "forward_relative_L2_percent": 0.028333547422689544,
+      "max_gradient_relative_L2_percent": 0.04146353717358003,
+      "max_realized_update_relative_L2_percent": 0.04162103319899838,
+      "output_hash_equal_original_tf32": false,
+      "all_gradient_hashes_equal_original_tf32": false,
+      "inference_event_ms": 0.1650560051202774,
+      "training_event_ms": 0.9987359941005707,
+      "inference_time_vs_original_tf32": 0.9499954222909772,
+      "training_time_vs_original_tf32": 2.384665326941686
+    },
+    {
+      "server": "h100",
+      "S": 131,
+      "candidate": "fixed_rna_bits_once",
+      "classification": "custom kernel, not native",
+      "forward_relative_L2_percent": 0.028862055958528046,
+      "max_gradient_relative_L2_percent": 0.042042134066926494,
+      "max_realized_update_relative_L2_percent": 0.04224890390080834,
+      "output_hash_equal_original_tf32": false,
+      "all_gradient_hashes_equal_original_tf32": false,
+      "inference_event_ms": 0.15758400410413742,
+      "training_event_ms": 0.9729120135307312,
+      "inference_time_vs_original_tf32": 0.90698961492569,
+      "training_time_vs_original_tf32": 2.323005837915289
+    },
+    {
+      "server": "ppu",
+      "S": 131,
+      "candidate": "fixed_rne_once",
+      "classification": "custom kernel, not native",
+      "forward_relative_L2_percent": 0.028339962413744663,
+      "max_gradient_relative_L2_percent": 0.04146687707191949,
+      "max_realized_update_relative_L2_percent": 0.041629659229525925,
+      "output_hash_equal_original_tf32": true,
+      "all_gradient_hashes_equal_original_tf32": true,
+      "inference_event_ms": 0.2597599923610687,
+      "training_event_ms": 1.881160020828247,
+      "inference_time_vs_original_tf32": 0.9929663216102322,
+      "training_time_vs_original_tf32": 1.0013094176162736
+    },
+    {
+      "server": "ppu",
+      "S": 131,
+      "candidate": "fixed_rne_bits_once",
+      "classification": "custom kernel, not native",
+      "forward_relative_L2_percent": 0.028339962413744663,
+      "max_gradient_relative_L2_percent": 0.04146687707191949,
+      "max_realized_update_relative_L2_percent": 0.041629659229525925,
+      "output_hash_equal_original_tf32": true,
+      "all_gradient_hashes_equal_original_tf32": true,
+      "inference_event_ms": 0.2812200039625168,
+      "training_event_ms": 1.945080041885376,
+      "inference_time_vs_original_tf32": 1.075000004272122,
+      "training_time_vs_original_tf32": 1.03533295540683
+    },
+    {
+      "server": "ppu",
+      "S": 131,
+      "candidate": "fixed_rna_bits_once",
+      "classification": "custom kernel, not native",
+      "forward_relative_L2_percent": 0.02885869514214701,
+      "max_gradient_relative_L2_percent": 0.04203844812450211,
+      "max_realized_update_relative_L2_percent": 0.04224804920271684,
+      "output_hash_equal_original_tf32": false,
+      "all_gradient_hashes_equal_original_tf32": false,
+      "inference_event_ms": 0.2663799971342087,
+      "training_event_ms": 1.8195000290870667,
+      "inference_time_vs_original_tf32": 1.01827214999773,
+      "training_time_vs_original_tf32": 0.9684888549118833
+    },
+    {
+      "server": "h100",
+      "S": 245,
+      "candidate": "fixed_rne_once",
+      "classification": "custom kernel, not native",
+      "forward_relative_L2_percent": 0.030908271466055137,
+      "max_gradient_relative_L2_percent": 0.04090895052101888,
+      "max_realized_update_relative_L2_percent": 0.04128991272821131,
+      "output_hash_equal_original_tf32": false,
+      "all_gradient_hashes_equal_original_tf32": false,
+      "inference_event_ms": 0.3118880093097687,
+      "training_event_ms": 4.9035680294036865,
+      "inference_time_vs_original_tf32": 1.1781095626217344,
+      "training_time_vs_original_tf32": 3.625397669824052
+    },
+    {
+      "server": "h100",
+      "S": 245,
+      "candidate": "fixed_rne_bits_once",
+      "classification": "custom kernel, not native",
+      "forward_relative_L2_percent": 0.030908271466055137,
+      "max_gradient_relative_L2_percent": 0.04090895052101888,
+      "max_realized_update_relative_L2_percent": 0.04128991272821131,
+      "output_hash_equal_original_tf32": false,
+      "all_gradient_hashes_equal_original_tf32": false,
+      "inference_event_ms": 0.36033599078655243,
+      "training_event_ms": 5.1519999504089355,
+      "inference_time_vs_original_tf32": 1.361114450798857,
+      "training_time_vs_original_tf32": 3.8090730062569538
+    },
+    {
+      "server": "h100",
+      "S": 245,
+      "candidate": "fixed_rna_bits_once",
+      "classification": "custom kernel, not native",
+      "forward_relative_L2_percent": 0.031349395102164924,
+      "max_gradient_relative_L2_percent": 0.041424523269473296,
+      "max_realized_update_relative_L2_percent": 0.04187336950430408,
+      "output_hash_equal_original_tf32": false,
+      "all_gradient_hashes_equal_original_tf32": false,
+      "inference_event_ms": 0.3458719998598099,
+      "training_event_ms": 5.090703964233398,
+      "inference_time_vs_original_tf32": 1.3064789229304385,
+      "training_time_vs_original_tf32": 3.7637545108026584
+    },
+    {
+      "server": "ppu",
+      "S": 245,
+      "candidate": "fixed_rne_once",
+      "classification": "custom kernel, not native",
+      "forward_relative_L2_percent": 0.030908569415325937,
+      "max_gradient_relative_L2_percent": 0.04090970308033651,
+      "max_realized_update_relative_L2_percent": 0.04129570242694997,
+      "output_hash_equal_original_tf32": true,
+      "all_gradient_hashes_equal_original_tf32": true,
+      "inference_event_ms": 0.8135199844837189,
+      "training_event_ms": 6.236479997634888,
+      "inference_time_vs_original_tf32": 0.9976209599654591,
+      "training_time_vs_original_tf32": 0.9989588296424863
+    },
+    {
+      "server": "ppu",
+      "S": 245,
+      "candidate": "fixed_rne_bits_once",
+      "classification": "custom kernel, not native",
+      "forward_relative_L2_percent": 0.030908569415325937,
+      "max_gradient_relative_L2_percent": 0.04090970308033651,
+      "max_realized_update_relative_L2_percent": 0.04129570242694997,
+      "output_hash_equal_original_tf32": true,
+      "all_gradient_hashes_equal_original_tf32": true,
+      "inference_event_ms": 0.8739999830722809,
+      "training_event_ms": 6.358519792556763,
+      "inference_time_vs_original_tf32": 1.0717876865381586,
+      "training_time_vs_original_tf32": 1.01850715349684
+    },
+    {
+      "server": "ppu",
+      "S": 245,
+      "candidate": "fixed_rna_bits_once",
+      "classification": "custom kernel, not native",
+      "forward_relative_L2_percent": 0.03134613224934874,
+      "max_gradient_relative_L2_percent": 0.04141597684861464,
+      "max_realized_update_relative_L2_percent": 0.04185917443964456,
+      "output_hash_equal_original_tf32": false,
+      "all_gradient_hashes_equal_original_tf32": false,
+      "inference_event_ms": 0.8331199884414673,
+      "training_event_ms": 5.907040119171143,
+      "inference_time_vs_original_tf32": 1.0216564786209286,
+      "training_time_vs_original_tf32": 0.9461891782441796
+    },
+    {
+      "server": "h100",
+      "S": 384,
+      "candidate": "fixed_rne_once",
+      "classification": "custom kernel, not native",
+      "forward_relative_L2_percent": 0.0323674308531475,
+      "max_gradient_relative_L2_percent": 0.040661251975928854,
+      "max_realized_update_relative_L2_percent": 0.041300685682640226,
+      "output_hash_equal_original_tf32": false,
+      "all_gradient_hashes_equal_original_tf32": false,
+      "inference_event_ms": 0.9045279920101166,
+      "training_event_ms": 10.668208122253418,
+      "inference_time_vs_original_tf32": 1.070032011845793,
+      "training_time_vs_original_tf32": 1.6239935083388362
+    },
+    {
+      "server": "h100",
+      "S": 384,
+      "candidate": "fixed_rne_bits_once",
+      "classification": "custom kernel, not native",
+      "forward_relative_L2_percent": 0.0323674308531475,
+      "max_gradient_relative_L2_percent": 0.040661251975928854,
+      "max_realized_update_relative_L2_percent": 0.041300685682640226,
+      "output_hash_equal_original_tf32": false,
+      "all_gradient_hashes_equal_original_tf32": false,
+      "inference_event_ms": 0.9975199997425079,
+      "training_event_ms": 13.804959774017334,
+      "inference_time_vs_original_tf32": 1.1800390276578117,
+      "training_time_vs_original_tf32": 2.1014930341598337
+    },
+    {
+      "server": "h100",
+      "S": 384,
+      "candidate": "fixed_rna_bits_once",
+      "classification": "custom kernel, not native",
+      "forward_relative_L2_percent": 0.03255626916697674,
+      "max_gradient_relative_L2_percent": 0.041265806701219085,
+      "max_realized_update_relative_L2_percent": 0.041907449103331926,
+      "output_hash_equal_original_tf32": false,
+      "all_gradient_hashes_equal_original_tf32": false,
+      "inference_event_ms": 1.0475199818611145,
+      "training_event_ms": 13.767183780670166,
+      "inference_time_vs_original_tf32": 1.2391876465299936,
+      "training_time_vs_original_tf32": 2.095742493182021
+    },
+    {
+      "server": "ppu",
+      "S": 384,
+      "candidate": "fixed_rne_once",
+      "classification": "custom kernel, not native",
+      "forward_relative_L2_percent": 0.03236571444992621,
+      "max_gradient_relative_L2_percent": 0.04065982751852653,
+      "max_realized_update_relative_L2_percent": 0.04131434431492141,
+      "output_hash_equal_original_tf32": true,
+      "all_gradient_hashes_equal_original_tf32": true,
+      "inference_event_ms": 2.1672600507736206,
+      "training_event_ms": 19.03085994720459,
+      "inference_time_vs_original_tf32": 1.0052879611144558,
+      "training_time_vs_original_tf32": 1.0000199950849176
+    },
+    {
+      "server": "ppu",
+      "S": 384,
+      "candidate": "fixed_rne_bits_once",
+      "classification": "custom kernel, not native",
+      "forward_relative_L2_percent": 0.03236571444992621,
+      "max_gradient_relative_L2_percent": 0.04065982751852653,
+      "max_realized_update_relative_L2_percent": 0.04131434431492141,
+      "output_hash_equal_original_tf32": true,
+      "all_gradient_hashes_equal_original_tf32": true,
+      "inference_event_ms": 2.4321999549865723,
+      "training_event_ms": 19.18105983734131,
+      "inference_time_vs_original_tf32": 1.1281808719255166,
+      "training_time_vs_original_tf32": 1.0079125913108877
+    },
+    {
+      "server": "ppu",
+      "S": 384,
+      "candidate": "fixed_rna_bits_once",
+      "classification": "custom kernel, not native",
+      "forward_relative_L2_percent": 0.032553590490382235,
+      "max_gradient_relative_L2_percent": 0.04126028952832792,
+      "max_realized_update_relative_L2_percent": 0.041889730912116604,
+      "output_hash_equal_original_tf32": false,
+      "all_gradient_hashes_equal_original_tf32": false,
+      "inference_event_ms": 2.2222399711608887,
+      "training_event_ms": 18.29669952392578,
+      "inference_time_vs_original_tf32": 1.0307905084661788,
+      "training_time_vs_original_tf32": 0.9614418591039074
+    }
+  ],
+  "live_activation_accuracy": [
+    {
+      "family": "template_embedder",
+      "metric": "sample_relative_L2_percent_vs_CPU_FP64",
+      "scope": "Own TF32 teacher activations, all keys/full D for 2 groups and 3 queries; activations differ across devices",
+      "zero_operand_control": false,
+      "h100_native_fp32": 3.503581006076011e-05,
+      "h100_native_tf32": 0.10581238134557862,
+      "ppu_flaggems_fp32": 3.53941633938667e-05,
+      "ppu_flaggems_tf32": 0.019192554450943096,
+      "h100_custom_fixed_rne_once": 0.018968250389052626,
+      "h100_custom_fixed_rne_bits_once": 0.018968250389052626,
+      "h100_custom_fixed_rna_bits_once": 0.01896819963565264,
+      "ppu_custom_fixed_rne_once": 0.019192554450943096,
+      "ppu_custom_fixed_rne_bits_once": 0.019192554450943096,
+      "ppu_custom_fixed_rna_bits_once": 0.01919216126885998
+    },
+    {
+      "family": "msa_module",
+      "metric": "sample_relative_L2_percent_vs_CPU_FP64",
+      "scope": "Own TF32 teacher activations, all keys/full D for 2 groups and 3 queries; activations differ across devices",
+      "zero_operand_control": false,
+      "h100_native_fp32": 2.0370573933073108e-05,
+      "h100_native_tf32": 0.23965248043987292,
+      "ppu_flaggems_fp32": 2.309430935170094e-05,
+      "ppu_flaggems_tf32": 0.01568268665529617,
+      "h100_custom_fixed_rne_once": 0.014936783226639043,
+      "h100_custom_fixed_rne_bits_once": 0.014936783226639043,
+      "h100_custom_fixed_rna_bits_once": 0.014938203022895398,
+      "ppu_custom_fixed_rne_once": 0.01568268665529617,
+      "ppu_custom_fixed_rne_bits_once": 0.01568268665529617,
+      "ppu_custom_fixed_rna_bits_once": 0.015682739660894746
+    },
+    {
+      "family": "pairformer_stack",
+      "metric": "sample_relative_L2_percent_vs_CPU_FP64",
+      "scope": "Own TF32 teacher activations, all keys/full D for 2 groups and 3 queries; activations differ across devices",
+      "zero_operand_control": false,
+      "h100_native_fp32": 2.410052044831231e-05,
+      "h100_native_tf32": 0.1909417262703946,
+      "ppu_flaggems_fp32": 3.044332828784646e-05,
+      "ppu_flaggems_tf32": 0.012066305392953896,
+      "h100_custom_fixed_rne_once": 0.011828153069678769,
+      "h100_custom_fixed_rne_bits_once": 0.011828153069678769,
+      "h100_custom_fixed_rna_bits_once": 0.011828599442806712,
+      "ppu_custom_fixed_rne_once": 0.012066305392953896,
+      "ppu_custom_fixed_rne_bits_once": 0.012066305392953896,
+      "ppu_custom_fixed_rna_bits_once": 0.01207159223453796
+    },
+    {
+      "family": "confidence_head",
+      "metric": "sample_relative_L2_percent_vs_CPU_FP64",
+      "scope": "Own TF32 teacher activations, all keys/full D for 2 groups and 3 queries; activations differ across devices",
+      "zero_operand_control": true,
+      "h100_native_fp32": 0.0,
+      "h100_native_tf32": 0.0,
+      "ppu_flaggems_fp32": 0.0,
+      "ppu_flaggems_tf32": 0.0,
+      "h100_custom_fixed_rne_once": 0.0,
+      "h100_custom_fixed_rne_bits_once": 0.0,
+      "h100_custom_fixed_rna_bits_once": 0.0,
+      "ppu_custom_fixed_rne_once": 0.0,
+      "ppu_custom_fixed_rne_bits_once": 0.0,
+      "ppu_custom_fixed_rna_bits_once": 0.0
+    }
+  ],
+  "model_input": {
+    "model": "protenix_base_default_v1.0.0",
+    "case": "G02",
+    "cycle": 1,
+    "step": 1,
+    "sample": 1,
+    "tokens": 245,
+    "atoms": 2529,
+    "seed": 101,
+    "candidate_applied_to_predictions": false
+  },
+  "audits": {
+    "h100": {
+      "checkpoint": {
+        "path": "/data/xishiqing/yes-star24-home/projects/protenix-baseline/checkpoint/protenix_base_default_v1.0.0.pt",
+        "size_bytes": 1475950125,
+        "sha256": "2b7d5a8b30494514fc47fd2271a16260528cdba170ba09cc112fdecd8f85ec04",
+        "current_hash_rechecked": true
+      },
+      "rng_audit": {
+        "status": "PASS",
+        "initialization_events": 488,
+        "events_per_prediction": 8,
+        "initialization_semantic_sha256": "23b7d34a9317924185e824e3146ba53b91b7fcbbc9cc8881059a6024a74bfd70",
+        "prediction_semantic_sha256": "1b9707b2394f3dd80c1caa095ee8ad20dc3a1f03ebf07867f69bb3b6997f6290",
+        "prediction_count": 4,
+        "rule": "only index counters removed; ordered events identical"
+      },
+      "input_audit": {
+        "status": "PASS",
+        "features_atoms_assets_equal_frozen": true,
+        "N_token": 245,
+        "features": {
+          "data.input_feature_dict.token_index": {
+            "shape": [
+              245
+            ],
+            "dtype": "torch.int64",
+            "sha256": "d39c102a93cba4faa51cd69f1fa89f08962f667bebb1c4664441450165884b18"
+          },
+          "data.input_feature_dict.residue_index": {
+            "shape": [
+              245
+            ],
+            "dtype": "torch.int64",
+            "sha256": "7ef4b00c5c5ee89bac280fda9b22ac29a3599d7cb8746ff9c1c09ec36cf16069"
+          },
+          "data.input_feature_dict.asym_id": {
+            "shape": [
+              245
+            ],
+            "dtype": "torch.int64",
+            "sha256": "24bb64c7952155e5652a41ed30b15695f606576f8d7edb2efd76b9128694a930"
+          },
+          "data.input_feature_dict.entity_id": {
+            "shape": [
+              245
+            ],
+            "dtype": "torch.int64",
+            "sha256": "24bb64c7952155e5652a41ed30b15695f606576f8d7edb2efd76b9128694a930"
+          },
+          "data.input_feature_dict.sym_id": {
+            "shape": [
+              245
+            ],
+            "dtype": "torch.int64",
+            "sha256": "255c3a22d46b57e3f291eac23e404ce7b331400041930a0b43eb777bf8ed06fb"
+          },
+          "data.input_feature_dict.restype": {
+            "shape": [
+              245,
+              32
+            ],
+            "dtype": "torch.float32",
+            "sha256": "f7eca85431e7d92e28e4864f49b6536d1a821a9e4c908f0ad0e701d2a6509309"
+          },
+          "data.input_feature_dict.token_bonds": {
+            "shape": [
+              245,
+              245
+            ],
+            "dtype": "torch.float32",
+            "sha256": "88d6078608699461bed74c4b22281d547cffda20e2e1f613258bd5ca5f4ffd53"
+          },
+          "data.input_feature_dict.ref_pos": {
+            "shape": [
+              2529,
+              3
+            ],
+            "dtype": "torch.float32",
+            "sha256": "054bad04f25a2a9cfb25d6ea286911c42268d78096f9281db88bfc839b48bd83"
+          },
+          "data.input_feature_dict.ref_mask": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "82290a22ae35f60c36c9ae44b81453d210f0c320a978d116f87dc4482b65efa3"
+          },
+          "data.input_feature_dict.ref_element": {
+            "shape": [
+              2529,
+              128
+            ],
+            "dtype": "torch.int64",
+            "sha256": "d4c3db8f4dd1512d99eca1b5e79e94ea7efa6d1222f7702a0f681246f10d177d"
+          },
+          "data.input_feature_dict.ref_charge": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "fe77080de159463c0768f86213b8ff8febfee30949d756b4f1ab5db0d8a67468"
+          },
+          "data.input_feature_dict.ref_atom_name_chars": {
+            "shape": [
+              2529,
+              4,
+              64
+            ],
+            "dtype": "torch.int64",
+            "sha256": "2133e1703c0c9e0d2a852e0afe69d294fb1199b2a3467bfe3875dc63dd1d1c01"
+          },
+          "data.input_feature_dict.ref_space_uid": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "bd3d6a78b44d45b6bc945fe6317a320b3cfdcc84ff6d3a16a204a822595d9a77"
+          },
+          "data.input_feature_dict.has_frame": {
+            "shape": [
+              245
+            ],
+            "dtype": "torch.int64",
+            "sha256": "ea93ec17b0a19a35ae8f82ae318248b436c191cb807db8c42bc2e6939331f6a4"
+          },
+          "data.input_feature_dict.frame_atom_index": {
+            "shape": [
+              245,
+              3
+            ],
+            "dtype": "torch.int64",
+            "sha256": "531b7bbf8cbd46aac94f94c0b995e5ff75daa99ae68658cc5c2cfd25b3537ca9"
+          },
+          "data.input_feature_dict.atom_to_token_idx": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "bd3d6a78b44d45b6bc945fe6317a320b3cfdcc84ff6d3a16a204a822595d9a77"
+          },
+          "data.input_feature_dict.atom_to_tokatom_idx": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "3480ac00304d5c94436d45a1ebbd7aa6ec52cd1e83632df4d61e1f024154ed19"
+          },
+          "data.input_feature_dict.is_protein": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "206d3b6019c7145d3da22c027b919fa3ad980d87fca155900e3ded7021e7dc80"
+          },
+          "data.input_feature_dict.is_ligand": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "e99b6e346494156a04d7b20a1944d3af29d856cbfd27aeb120a93d736084915c"
+          },
+          "data.input_feature_dict.is_dna": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "2f4e3fa8f2ba939ce529bbbf92893bd425c758b40212d254f166ea9f2e6eaac7"
+          },
+          "data.input_feature_dict.is_rna": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "e99b6e346494156a04d7b20a1944d3af29d856cbfd27aeb120a93d736084915c"
+          },
+          "data.input_feature_dict.resolution": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.float32",
+            "sha256": "c68830a25204a09f8e77aada6bc5807f607cccaaa0ebb2a7122d317584478a8b"
+          },
+          "data.input_feature_dict.mol_id": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "308eea30bab3555fb0b1097bc7e088710e3737a648ad4daeda6bc41a76562d9a"
+          },
+          "data.input_feature_dict.mol_atom_index": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "52322403abf6124a30c1391a231877f098c8102685bccdef8012cae018751d55"
+          },
+          "data.input_feature_dict.entity_mol_id": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "308eea30bab3555fb0b1097bc7e088710e3737a648ad4daeda6bc41a76562d9a"
+          },
+          "data.input_feature_dict.pae_rep_atom_mask": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "44c962e834af61aefa39a7c69676723f3e86559ad302a7fe3a8e79160f47d51c"
+          },
+          "data.input_feature_dict.plddt_m_rep_atom_mask": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "44c962e834af61aefa39a7c69676723f3e86559ad302a7fe3a8e79160f47d51c"
+          },
+          "data.input_feature_dict.distogram_rep_atom_mask": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "34af89dc0c8059b75d47fa717cfd16af1892d1cf83b5aa8a641a959330ab03b0"
+          },
+          "data.input_feature_dict.modified_res_mask": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "e99b6e346494156a04d7b20a1944d3af29d856cbfd27aeb120a93d736084915c"
+          },
+          "data.input_feature_dict.bond_mask": {
+            "shape": [
+              2529,
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "60d004a9282ae2da55dbd7e40e78b871af390270b25fae43dc95ea6fd928f77a"
+          },
+          "data.input_feature_dict.constraint_feature.contact_atom": {
+            "shape": [
+              245,
+              245,
+              2
+            ],
+            "dtype": "torch.float32",
+            "sha256": "22aa709e9e4d9f14534420d991ae2f51b743956a629276dabeb8a3b73ba7c631"
+          },
+          "data.input_feature_dict.constraint_feature.contact": {
+            "shape": [
+              245,
+              245,
+              2
+            ],
+            "dtype": "torch.float32",
+            "sha256": "22aa709e9e4d9f14534420d991ae2f51b743956a629276dabeb8a3b73ba7c631"
+          },
+          "data.input_feature_dict.constraint_feature.pocket": {
+            "shape": [
+              245,
+              245,
+              1
+            ],
+            "dtype": "torch.float32",
+            "sha256": "88d6078608699461bed74c4b22281d547cffda20e2e1f613258bd5ca5f4ffd53"
+          },
+          "data.input_feature_dict.constraint_feature.substructure": {
+            "shape": [
+              245,
+              245,
+              4
+            ],
+            "dtype": "torch.float32",
+            "sha256": "174a9a7e95633ca9024606e6681fc11993e436f7862136ba72f131ad7b4b5ccc"
+          },
+          "data.input_feature_dict.template_aatype": {
+            "shape": [
+              4,
+              245
+            ],
+            "dtype": "torch.int64",
+            "sha256": "2a40ecf015314a5bc87ca5ac1fc42b288d49ee75981d29f7a2775f9a3702f949"
+          },
+          "data.input_feature_dict.template_atom_positions": {
+            "shape": [
+              4,
+              245,
+              24,
+              3
+            ],
+            "dtype": "torch.float32",
+            "sha256": "39aae763b0cb272253dbce5bae2d88305407acfa8f729b31072ea4c11bbad5a2"
+          },
+          "data.input_feature_dict.template_atom_mask": {
+            "shape": [
+              4,
+              245,
+              24
+            ],
+            "dtype": "torch.bool",
+            "sha256": "4c3b636836c85a4b7e00a397ec03e4789fb64e812a8313d3a051e8173afa3300"
+          },
+          "data.input_feature_dict.template_pseudo_beta_mask": {
+            "shape": [
+              4,
+              245,
+              245
+            ],
+            "dtype": "torch.float32",
+            "sha256": "174a9a7e95633ca9024606e6681fc11993e436f7862136ba72f131ad7b4b5ccc"
+          },
+          "data.input_feature_dict.template_distogram": {
+            "shape": [
+              4,
+              245,
+              245,
+              39
+            ],
+            "dtype": "torch.float32",
+            "sha256": "9252b49f92657b5c42ce7a9827a3ebd6dd33a24b7c42beeaa4a7b09e73a6cb74"
+          },
+          "data.input_feature_dict.template_unit_vector": {
+            "shape": [
+              4,
+              245,
+              245,
+              3
+            ],
+            "dtype": "torch.float32",
+            "sha256": "3d1b004e0cea7cae7f01c168ea8332b3099f0a31c48839ee1494b4b0f6baba27"
+          },
+          "data.input_feature_dict.template_backbone_frame_mask": {
+            "shape": [
+              4,
+              245,
+              245
+            ],
+            "dtype": "torch.float32",
+            "sha256": "174a9a7e95633ca9024606e6681fc11993e436f7862136ba72f131ad7b4b5ccc"
+          },
+          "data.input_feature_dict.msa": {
+            "shape": [
+              703,
+              245
+            ],
+            "dtype": "torch.int64",
+            "sha256": "26cb1a1b83ccf81b3edc03475006339549528eac01df5a0fe3c402adc43bd326"
+          },
+          "data.input_feature_dict.msa_mask": {
+            "shape": [
+              703,
+              245
+            ],
+            "dtype": "torch.bool",
+            "sha256": "4905f0c3ee6bf7bd3c308a08093dfd2dc7ae742f44e1ac9e4c5bb3942c3bf1c9"
+          },
+          "data.input_feature_dict.deletion_matrix": {
+            "shape": [
+              703,
+              245
+            ],
+            "dtype": "torch.int8",
+            "sha256": "176a3ed047cd3a0629206fa7856d3898e0f0975d729ca86a62bdf37730e0b19e"
+          },
+          "data.input_feature_dict.deletion_value": {
+            "shape": [
+              703,
+              245
+            ],
+            "dtype": "torch.float32",
+            "sha256": "302093e0c43cc90b166ebfc9d5f1e97d71a1f47cdd240e998acb83f01f8115d4"
+          },
+          "data.input_feature_dict.has_deletion": {
+            "shape": [
+              703,
+              245
+            ],
+            "dtype": "torch.float32",
+            "sha256": "5e488a395323cac7099d1ea992e7e3792c80975263b8a1870fe6f18560cd4f00"
+          },
+          "data.input_feature_dict.profile": {
+            "shape": [
+              245,
+              32
+            ],
+            "dtype": "torch.float32",
+            "sha256": "6f6cadcad8c844f10e416a6597bb95b2712b0477318eb6ca441f14ee6c4d13af"
+          },
+          "data.input_feature_dict.deletion_mean": {
+            "shape": [
+              245
+            ],
+            "dtype": "torch.float32",
+            "sha256": "8099f5849aef6c180e13bb2858aab2d542ff780cac0e7543418f0cee6773e2de"
+          },
+          "data.input_feature_dict.prot_unpaired_num_alignments": {
+            "shape": [],
+            "dtype": "torch.int64",
+            "sha256": "2c8b6c85669dca98a8fbad3de5dcab1d8cd3e163f92e3fbdb79d363678a79db8"
+          },
+          "data.input_feature_dict.prot_paired_num_alignments": {
+            "shape": [],
+            "dtype": "torch.int64",
+            "sha256": "7c9fa136d4413fa6173637e883b6998d32e1d675f88cddff9dcbcf331820f4b8"
+          },
+          "data.input_feature_dict.rna_unpaired_num_alignments": {
+            "shape": [],
+            "dtype": "torch.int64",
+            "sha256": "7c9fa136d4413fa6173637e883b6998d32e1d675f88cddff9dcbcf331820f4b8"
+          },
+          "data.input_feature_dict.rna_pair_num_alignments": {
+            "shape": [],
+            "dtype": "torch.int64",
+            "sha256": "7c9fa136d4413fa6173637e883b6998d32e1d675f88cddff9dcbcf331820f4b8"
+          },
+          "data.input_feature_dict.prot_pair_num_alignments": {
+            "shape": [],
+            "dtype": "torch.int64",
+            "sha256": "7c9fa136d4413fa6173637e883b6998d32e1d675f88cddff9dcbcf331820f4b8"
+          },
+          "data.input_feature_dict.prot_unpair_num_alignments": {
+            "shape": [],
+            "dtype": "torch.int64",
+            "sha256": "2c8b6c85669dca98a8fbad3de5dcab1d8cd3e163f92e3fbdb79d363678a79db8"
+          },
+          "data.input_feature_dict.rna_unpair_num_alignments": {
+            "shape": [],
+            "dtype": "torch.int64",
+            "sha256": "7c9fa136d4413fa6173637e883b6998d32e1d675f88cddff9dcbcf331820f4b8"
+          },
+          "data.N_asym": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "35be322d094f9d154a8aba4733b8497f180353bd7ae7b0a15f90b586b549f28b"
+          },
+          "data.N_token": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "af4a771589c936f814c6c607dc4de66720fb393b1f191660920d1ae64c2241b9"
+          },
+          "data.N_atom": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "7f26929358334ada29c62964bee5e0f66a8fa1573f6162e8bc9affb8f11e7710"
+          },
+          "data.N_msa": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "a05f960e01145a07b628229638d4b178f9b13c2033bc51bbb3cdecd898864264"
+          },
+          "data.N_prot_atom": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "d3fddc8760cc506e467eda8c72a9ff8285b74811c9ef35395cb28d59a216a58d"
+          },
+          "data.N_lig_atom": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+          },
+          "data.N_dna_atom": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "80cef02125474947c7d969a7c45a00e4622ddf8aea47369a84cc2436216a490e"
+          },
+          "data.N_rna_atom": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+          },
+          "data.N_prot_token": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "7329312aa4e09e06b3f3287cef7c83a22456e01d98c37021bddf8c7460775c26"
+          },
+          "data.N_lig_token": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+          },
+          "data.N_dna_token": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "ed049108bc18f2c64369e8d0ea42850bdd1a7d1dd340cfde716315579702a76c"
+          },
+          "data.N_rna_token": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+          }
+        },
+        "atom_count": 2529,
+        "atom_identity_sha256": "b5b151945aeaaf3eb4dc6fd8ff4f5bb88d0cc9287a4e0a854f2a52bd08fc618a",
+        "canonical_input_sha256": "5bd6824e45a8907f91c5bb4c83e10eb6c226561209d68b3496dadf93b40d37bb",
+        "asset_hashes": [
+          "105e7c949a533f488248476e0b13307a2c94fbf138b3859ea8b1ccbdb8e27223",
+          "15388d7ed4fa8dac77770d2887d7234847b5aee1252651917efc5c1dba149066"
+        ]
+      },
+      "drift_vs_frozen": {
+        "fp32": {
+          "rmsd_vs_frozen_same_precision_A": 0.00677659776703124,
+          "frozen_prediction_sha256": "fd5519918f3b8da61602e1409c0f72f3888ff65c360412f5c9ec08fec29f7dd3"
+        },
+        "tf32": {
+          "rmsd_vs_frozen_same_precision_A": 6.629637805399906e-13,
+          "frozen_prediction_sha256": "604d3c95f6cd8d8d1f85c5757ce094408f0b9012d82d6c26969f21f9a41e81ff"
+        }
+      }
+    },
+    "ppu": {
+      "checkpoint": {
+        "path": "/mnt/cpfs/xishiqing/root_migrated/checkpoint/protenix_base_default_v1.0.0.pt",
+        "size_bytes": 1475950125,
+        "sha256": "2b7d5a8b30494514fc47fd2271a16260528cdba170ba09cc112fdecd8f85ec04",
+        "current_hash_rechecked": true
+      },
+      "rng_audit": {
+        "status": "PASS",
+        "initialization_events": 488,
+        "events_per_prediction": 8,
+        "initialization_semantic_sha256": "23b7d34a9317924185e824e3146ba53b91b7fcbbc9cc8881059a6024a74bfd70",
+        "prediction_semantic_sha256": "1b9707b2394f3dd80c1caa095ee8ad20dc3a1f03ebf07867f69bb3b6997f6290",
+        "prediction_count": 4,
+        "rule": "only index counters removed; ordered events identical"
+      },
+      "input_audit": {
+        "status": "PASS",
+        "features_atoms_assets_equal_frozen": true,
+        "N_token": 245,
+        "features": {
+          "data.input_feature_dict.token_index": {
+            "shape": [
+              245
+            ],
+            "dtype": "torch.int64",
+            "sha256": "d39c102a93cba4faa51cd69f1fa89f08962f667bebb1c4664441450165884b18"
+          },
+          "data.input_feature_dict.residue_index": {
+            "shape": [
+              245
+            ],
+            "dtype": "torch.int64",
+            "sha256": "7ef4b00c5c5ee89bac280fda9b22ac29a3599d7cb8746ff9c1c09ec36cf16069"
+          },
+          "data.input_feature_dict.asym_id": {
+            "shape": [
+              245
+            ],
+            "dtype": "torch.int64",
+            "sha256": "24bb64c7952155e5652a41ed30b15695f606576f8d7edb2efd76b9128694a930"
+          },
+          "data.input_feature_dict.entity_id": {
+            "shape": [
+              245
+            ],
+            "dtype": "torch.int64",
+            "sha256": "24bb64c7952155e5652a41ed30b15695f606576f8d7edb2efd76b9128694a930"
+          },
+          "data.input_feature_dict.sym_id": {
+            "shape": [
+              245
+            ],
+            "dtype": "torch.int64",
+            "sha256": "255c3a22d46b57e3f291eac23e404ce7b331400041930a0b43eb777bf8ed06fb"
+          },
+          "data.input_feature_dict.restype": {
+            "shape": [
+              245,
+              32
+            ],
+            "dtype": "torch.float32",
+            "sha256": "f7eca85431e7d92e28e4864f49b6536d1a821a9e4c908f0ad0e701d2a6509309"
+          },
+          "data.input_feature_dict.token_bonds": {
+            "shape": [
+              245,
+              245
+            ],
+            "dtype": "torch.float32",
+            "sha256": "88d6078608699461bed74c4b22281d547cffda20e2e1f613258bd5ca5f4ffd53"
+          },
+          "data.input_feature_dict.ref_pos": {
+            "shape": [
+              2529,
+              3
+            ],
+            "dtype": "torch.float32",
+            "sha256": "054bad04f25a2a9cfb25d6ea286911c42268d78096f9281db88bfc839b48bd83"
+          },
+          "data.input_feature_dict.ref_mask": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "82290a22ae35f60c36c9ae44b81453d210f0c320a978d116f87dc4482b65efa3"
+          },
+          "data.input_feature_dict.ref_element": {
+            "shape": [
+              2529,
+              128
+            ],
+            "dtype": "torch.int64",
+            "sha256": "d4c3db8f4dd1512d99eca1b5e79e94ea7efa6d1222f7702a0f681246f10d177d"
+          },
+          "data.input_feature_dict.ref_charge": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "fe77080de159463c0768f86213b8ff8febfee30949d756b4f1ab5db0d8a67468"
+          },
+          "data.input_feature_dict.ref_atom_name_chars": {
+            "shape": [
+              2529,
+              4,
+              64
+            ],
+            "dtype": "torch.int64",
+            "sha256": "2133e1703c0c9e0d2a852e0afe69d294fb1199b2a3467bfe3875dc63dd1d1c01"
+          },
+          "data.input_feature_dict.ref_space_uid": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "bd3d6a78b44d45b6bc945fe6317a320b3cfdcc84ff6d3a16a204a822595d9a77"
+          },
+          "data.input_feature_dict.has_frame": {
+            "shape": [
+              245
+            ],
+            "dtype": "torch.int64",
+            "sha256": "ea93ec17b0a19a35ae8f82ae318248b436c191cb807db8c42bc2e6939331f6a4"
+          },
+          "data.input_feature_dict.frame_atom_index": {
+            "shape": [
+              245,
+              3
+            ],
+            "dtype": "torch.int64",
+            "sha256": "531b7bbf8cbd46aac94f94c0b995e5ff75daa99ae68658cc5c2cfd25b3537ca9"
+          },
+          "data.input_feature_dict.atom_to_token_idx": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "bd3d6a78b44d45b6bc945fe6317a320b3cfdcc84ff6d3a16a204a822595d9a77"
+          },
+          "data.input_feature_dict.atom_to_tokatom_idx": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "3480ac00304d5c94436d45a1ebbd7aa6ec52cd1e83632df4d61e1f024154ed19"
+          },
+          "data.input_feature_dict.is_protein": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "206d3b6019c7145d3da22c027b919fa3ad980d87fca155900e3ded7021e7dc80"
+          },
+          "data.input_feature_dict.is_ligand": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "e99b6e346494156a04d7b20a1944d3af29d856cbfd27aeb120a93d736084915c"
+          },
+          "data.input_feature_dict.is_dna": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "2f4e3fa8f2ba939ce529bbbf92893bd425c758b40212d254f166ea9f2e6eaac7"
+          },
+          "data.input_feature_dict.is_rna": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "e99b6e346494156a04d7b20a1944d3af29d856cbfd27aeb120a93d736084915c"
+          },
+          "data.input_feature_dict.resolution": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.float32",
+            "sha256": "c68830a25204a09f8e77aada6bc5807f607cccaaa0ebb2a7122d317584478a8b"
+          },
+          "data.input_feature_dict.mol_id": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "308eea30bab3555fb0b1097bc7e088710e3737a648ad4daeda6bc41a76562d9a"
+          },
+          "data.input_feature_dict.mol_atom_index": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "52322403abf6124a30c1391a231877f098c8102685bccdef8012cae018751d55"
+          },
+          "data.input_feature_dict.entity_mol_id": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "308eea30bab3555fb0b1097bc7e088710e3737a648ad4daeda6bc41a76562d9a"
+          },
+          "data.input_feature_dict.pae_rep_atom_mask": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "44c962e834af61aefa39a7c69676723f3e86559ad302a7fe3a8e79160f47d51c"
+          },
+          "data.input_feature_dict.plddt_m_rep_atom_mask": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "44c962e834af61aefa39a7c69676723f3e86559ad302a7fe3a8e79160f47d51c"
+          },
+          "data.input_feature_dict.distogram_rep_atom_mask": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "34af89dc0c8059b75d47fa717cfd16af1892d1cf83b5aa8a641a959330ab03b0"
+          },
+          "data.input_feature_dict.modified_res_mask": {
+            "shape": [
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "e99b6e346494156a04d7b20a1944d3af29d856cbfd27aeb120a93d736084915c"
+          },
+          "data.input_feature_dict.bond_mask": {
+            "shape": [
+              2529,
+              2529
+            ],
+            "dtype": "torch.int64",
+            "sha256": "60d004a9282ae2da55dbd7e40e78b871af390270b25fae43dc95ea6fd928f77a"
+          },
+          "data.input_feature_dict.constraint_feature.contact_atom": {
+            "shape": [
+              245,
+              245,
+              2
+            ],
+            "dtype": "torch.float32",
+            "sha256": "22aa709e9e4d9f14534420d991ae2f51b743956a629276dabeb8a3b73ba7c631"
+          },
+          "data.input_feature_dict.constraint_feature.contact": {
+            "shape": [
+              245,
+              245,
+              2
+            ],
+            "dtype": "torch.float32",
+            "sha256": "22aa709e9e4d9f14534420d991ae2f51b743956a629276dabeb8a3b73ba7c631"
+          },
+          "data.input_feature_dict.constraint_feature.pocket": {
+            "shape": [
+              245,
+              245,
+              1
+            ],
+            "dtype": "torch.float32",
+            "sha256": "88d6078608699461bed74c4b22281d547cffda20e2e1f613258bd5ca5f4ffd53"
+          },
+          "data.input_feature_dict.constraint_feature.substructure": {
+            "shape": [
+              245,
+              245,
+              4
+            ],
+            "dtype": "torch.float32",
+            "sha256": "174a9a7e95633ca9024606e6681fc11993e436f7862136ba72f131ad7b4b5ccc"
+          },
+          "data.input_feature_dict.template_aatype": {
+            "shape": [
+              4,
+              245
+            ],
+            "dtype": "torch.int64",
+            "sha256": "2a40ecf015314a5bc87ca5ac1fc42b288d49ee75981d29f7a2775f9a3702f949"
+          },
+          "data.input_feature_dict.template_atom_positions": {
+            "shape": [
+              4,
+              245,
+              24,
+              3
+            ],
+            "dtype": "torch.float32",
+            "sha256": "39aae763b0cb272253dbce5bae2d88305407acfa8f729b31072ea4c11bbad5a2"
+          },
+          "data.input_feature_dict.template_atom_mask": {
+            "shape": [
+              4,
+              245,
+              24
+            ],
+            "dtype": "torch.bool",
+            "sha256": "4c3b636836c85a4b7e00a397ec03e4789fb64e812a8313d3a051e8173afa3300"
+          },
+          "data.input_feature_dict.template_pseudo_beta_mask": {
+            "shape": [
+              4,
+              245,
+              245
+            ],
+            "dtype": "torch.float32",
+            "sha256": "174a9a7e95633ca9024606e6681fc11993e436f7862136ba72f131ad7b4b5ccc"
+          },
+          "data.input_feature_dict.template_distogram": {
+            "shape": [
+              4,
+              245,
+              245,
+              39
+            ],
+            "dtype": "torch.float32",
+            "sha256": "9252b49f92657b5c42ce7a9827a3ebd6dd33a24b7c42beeaa4a7b09e73a6cb74"
+          },
+          "data.input_feature_dict.template_unit_vector": {
+            "shape": [
+              4,
+              245,
+              245,
+              3
+            ],
+            "dtype": "torch.float32",
+            "sha256": "3d1b004e0cea7cae7f01c168ea8332b3099f0a31c48839ee1494b4b0f6baba27"
+          },
+          "data.input_feature_dict.template_backbone_frame_mask": {
+            "shape": [
+              4,
+              245,
+              245
+            ],
+            "dtype": "torch.float32",
+            "sha256": "174a9a7e95633ca9024606e6681fc11993e436f7862136ba72f131ad7b4b5ccc"
+          },
+          "data.input_feature_dict.msa": {
+            "shape": [
+              703,
+              245
+            ],
+            "dtype": "torch.int64",
+            "sha256": "26cb1a1b83ccf81b3edc03475006339549528eac01df5a0fe3c402adc43bd326"
+          },
+          "data.input_feature_dict.msa_mask": {
+            "shape": [
+              703,
+              245
+            ],
+            "dtype": "torch.bool",
+            "sha256": "4905f0c3ee6bf7bd3c308a08093dfd2dc7ae742f44e1ac9e4c5bb3942c3bf1c9"
+          },
+          "data.input_feature_dict.deletion_matrix": {
+            "shape": [
+              703,
+              245
+            ],
+            "dtype": "torch.int8",
+            "sha256": "176a3ed047cd3a0629206fa7856d3898e0f0975d729ca86a62bdf37730e0b19e"
+          },
+          "data.input_feature_dict.deletion_value": {
+            "shape": [
+              703,
+              245
+            ],
+            "dtype": "torch.float32",
+            "sha256": "302093e0c43cc90b166ebfc9d5f1e97d71a1f47cdd240e998acb83f01f8115d4"
+          },
+          "data.input_feature_dict.has_deletion": {
+            "shape": [
+              703,
+              245
+            ],
+            "dtype": "torch.float32",
+            "sha256": "5e488a395323cac7099d1ea992e7e3792c80975263b8a1870fe6f18560cd4f00"
+          },
+          "data.input_feature_dict.profile": {
+            "shape": [
+              245,
+              32
+            ],
+            "dtype": "torch.float32",
+            "sha256": "6f6cadcad8c844f10e416a6597bb95b2712b0477318eb6ca441f14ee6c4d13af"
+          },
+          "data.input_feature_dict.deletion_mean": {
+            "shape": [
+              245
+            ],
+            "dtype": "torch.float32",
+            "sha256": "8099f5849aef6c180e13bb2858aab2d542ff780cac0e7543418f0cee6773e2de"
+          },
+          "data.input_feature_dict.prot_unpaired_num_alignments": {
+            "shape": [],
+            "dtype": "torch.int64",
+            "sha256": "2c8b6c85669dca98a8fbad3de5dcab1d8cd3e163f92e3fbdb79d363678a79db8"
+          },
+          "data.input_feature_dict.prot_paired_num_alignments": {
+            "shape": [],
+            "dtype": "torch.int64",
+            "sha256": "7c9fa136d4413fa6173637e883b6998d32e1d675f88cddff9dcbcf331820f4b8"
+          },
+          "data.input_feature_dict.rna_unpaired_num_alignments": {
+            "shape": [],
+            "dtype": "torch.int64",
+            "sha256": "7c9fa136d4413fa6173637e883b6998d32e1d675f88cddff9dcbcf331820f4b8"
+          },
+          "data.input_feature_dict.rna_pair_num_alignments": {
+            "shape": [],
+            "dtype": "torch.int64",
+            "sha256": "7c9fa136d4413fa6173637e883b6998d32e1d675f88cddff9dcbcf331820f4b8"
+          },
+          "data.input_feature_dict.prot_pair_num_alignments": {
+            "shape": [],
+            "dtype": "torch.int64",
+            "sha256": "7c9fa136d4413fa6173637e883b6998d32e1d675f88cddff9dcbcf331820f4b8"
+          },
+          "data.input_feature_dict.prot_unpair_num_alignments": {
+            "shape": [],
+            "dtype": "torch.int64",
+            "sha256": "2c8b6c85669dca98a8fbad3de5dcab1d8cd3e163f92e3fbdb79d363678a79db8"
+          },
+          "data.input_feature_dict.rna_unpair_num_alignments": {
+            "shape": [],
+            "dtype": "torch.int64",
+            "sha256": "7c9fa136d4413fa6173637e883b6998d32e1d675f88cddff9dcbcf331820f4b8"
+          },
+          "data.N_asym": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "35be322d094f9d154a8aba4733b8497f180353bd7ae7b0a15f90b586b549f28b"
+          },
+          "data.N_token": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "af4a771589c936f814c6c607dc4de66720fb393b1f191660920d1ae64c2241b9"
+          },
+          "data.N_atom": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "7f26929358334ada29c62964bee5e0f66a8fa1573f6162e8bc9affb8f11e7710"
+          },
+          "data.N_msa": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "a05f960e01145a07b628229638d4b178f9b13c2033bc51bbb3cdecd898864264"
+          },
+          "data.N_prot_atom": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "d3fddc8760cc506e467eda8c72a9ff8285b74811c9ef35395cb28d59a216a58d"
+          },
+          "data.N_lig_atom": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+          },
+          "data.N_dna_atom": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "80cef02125474947c7d969a7c45a00e4622ddf8aea47369a84cc2436216a490e"
+          },
+          "data.N_rna_atom": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+          },
+          "data.N_prot_token": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "7329312aa4e09e06b3f3287cef7c83a22456e01d98c37021bddf8c7460775c26"
+          },
+          "data.N_lig_token": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+          },
+          "data.N_dna_token": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "ed049108bc18f2c64369e8d0ea42850bdd1a7d1dd340cfde716315579702a76c"
+          },
+          "data.N_rna_token": {
+            "shape": [
+              1
+            ],
+            "dtype": "torch.int64",
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+          }
+        },
+        "atom_count": 2529,
+        "atom_identity_sha256": "b5b151945aeaaf3eb4dc6fd8ff4f5bb88d0cc9287a4e0a854f2a52bd08fc618a",
+        "canonical_input_sha256": "5bd6824e45a8907f91c5bb4c83e10eb6c226561209d68b3496dadf93b40d37bb",
+        "asset_hashes": [
+          "105e7c949a533f488248476e0b13307a2c94fbf138b3859ea8b1ccbdb8e27223",
+          "15388d7ed4fa8dac77770d2887d7234847b5aee1252651917efc5c1dba149066"
+        ]
+      },
+      "drift_vs_frozen": {
+        "fp32": {
+          "rmsd_vs_frozen_same_precision_A": 1.0741029287348821e-12,
+          "frozen_prediction_sha256": "2c719da9be15ef6ae1ac5f13cc79da93554833fdc34c7ee5fcffde22c016148d"
+        },
+        "tf32": {
+          "rmsd_vs_frozen_same_precision_A": 0.10135059153398082,
+          "frozen_prediction_sha256": "0581e24383903421899aa125da0e4f11f289b72281420ffe59f69c362db0b7ee"
+        }
+      }
+    }
+  },
+  "retained_end_to_end_scope": "Previous 3-warmup/10-repeat timings retained explicitly. This round teacher predictions and confidence exactly equal frozen four-mode baselines. Instrumented 1-repeat model timings are not used as performance evidence.",
+  "retained_structure_scope": "No new candidate end-to-end RMSD measured. Original PPU TF32 vs native H100 TF32 interval remains [0.086655040494,0.218147146445] Angstrom, unresolved at 0.1 Angstrom threshold.",
+  "remaining": [
+    "Do not mistake native Q drift for PPU rounding error or imitate the drift.",
+    "Optimize actual backward dataflow and conversion/packing cost in dQ and dK/dV; use generic algorithms and measure whole operator.",
+    "No corrected H100 reference substituted for native project acceptance.",
+    "Nine-model multi-input candidate acceptance and full-model training remain outstanding."
+  ],
+  "source_evidence_sha256": {
+    "h100/key_positions_fixed_rna_bits_once.json": "7f3aaf03e8c82c75ed7aaa50ef4795f9b8c24f9eef4c58fd82b2ec8584356147",
+    "h100/key_positions_fixed_rne_once.json": "b94ad34c71268f6b840ed9b19c3747c1437c5e320d8f4be0393097f5b242315e",
+    "h100/key_positions_vendor0120.json": "4b0cdb119511978600331d92f9a9bbe1774a62ab543906e18c1be35bc1d9e38a",
+    "h100/triangle_training.json": "581ff37ede3cf3ea2bc07f63d61646ea496c4c004ab3a6c61e7a6309e392f499",
+    "h100/key_positions_fixed_rne_bits_once.json": "78ef90e8339861e64884e7f3412eb2f83bbf1c1b7a2cf78b584cd7c136d0e625",
+    "h100/native_versions.json": "e3a6de93540fc728476dd885641bf214cdf17bdd7dec2f83e3e7cc61e116c1c3",
+    "h100/rounding_bits.json": "f3f25f5b6db539bff179b684bbb0658f5534e495a1d08fa5ce44bcb188eba17c",
+    "h100/derived_live.json": "d82d344fc7930203dbbc140d7095a28d4ac572c2f38d1ec2336ce8723f17c1f5",
+    "h100/rounding/G02/triangle_rounding.json": "3b14c15e57cf4cccf6ba2acbf7b368502c3b353889beacc5fdf0ff323bed521e",
+    "h100/rounding/G02/paired.json": "2fbe923c6bab7ceca543bd73801b0e73291a86691c71e3decd5342c410adf4f1",
+    "h100/rounding/G02/runtime_precision.json": "a430260b8b9cc48f02239433c1ee15993a0a67bac369c7cb242c40a8e54773ba",
+    "ppu/key_positions_fixed_rna_bits_once.json": "20143c94b0f184bd269c81e43181e243b75ee5511c28ddd3c0b1753e877eb771",
+    "ppu/key_positions_fixed_rne_once.json": "5f0416d64b333d97e35dc97244785861463b1f7c3aa76afa3774e30796eb8bba",
+    "ppu/triangle_training.json": "77bb7b4faf9d2a0fb86e06746b43d713a9f0b6ec6c291dfa7410f555efaa5aac",
+    "ppu/key_positions_fixed_rne_bits_once.json": "28cc4b0e624b7dc72fcb45d025e7e96a8002a2e8233a8d93472d46b39ae84c8b",
+    "ppu/rounding_bits.json": "ff2705a243a64bc60f0bf8d7bfdc4b63f2719542a1454e42b2e955a22d2e3da0",
+    "ppu/derived_live.json": "284e3394b4e051ccb6064aafd2860c67f16232589b684fce7b2f02c85a112539",
+    "ppu/rounding/G02/triangle_rounding.json": "ba7b27e793b0f72763d3625a990df1c31796bcf66ba53d2213d45737551e6338",
+    "ppu/rounding/G02/paired.json": "0ec2e4dc5b0c6c797a1adc0e7d18f95efe468adc63fdf02653399b394139eac3",
+    "ppu/rounding/G02/runtime_precision.json": "ae0723e14350b83d6038dd9cfae7b998124492342bd857aef04859da72fb1c38"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "models": 9,
+  "inputs": {
+    "G01_tokens": 693,
+    "G02_tokens": 245
+  },
+  "protocol": {
+    "cycle": 1,
+    "step": 1,
+    "sample": 1,
+    "warmup_per_mode": 1,
+    "repeats_per_mode": 3
+  },
+  "policies": {
+    "outputs": "Only ConfidenceHead final PAE/PDE linear projections and pLDDT/resolved einsums IEEE.",
+    "distance": "Only ConfidenceHead cdist IEEE.",
+    "all": "All ConfidenceHead matmul IEEE, explicit triangle remains TF32.",
+    "geometry_fast": "Experimental vectorized direct Euclidean distance with approximate sqrt; recorded separately.",
+    "geometry_RNE": "Final vectorized direct Euclidean distance with backend sqrt_rn, preserving existing PPU square-root rounding."
+  },
+  "baseline": "Both native H100 modes and both PPU+FlagGems modes preserved by exact coordinate hash and metric checks; H100 custom triangle separately labeled.",
+  "data": "Raw tensors/coordinates remain on original servers. Scalar/hash statistics only.",
+  "gpu_allocation": {
+    "ppu": [
+      0,
+      7,
+      2,
+      6
+    ],
+    "h100": [
+      0,
+      7
+    ]
+  },
+  "production_packages_modified": false,
+  "kernel_generality": "Any point counts and feature dimensions; broadcast and noncontiguous inputs normalized; block work bounded by feature dimension. No model/input/shape whitelist.",
+  "H100_preprocessing_repair": "One mini_ism G01 first pass failed in ESM preprocessing. Failed originals retained remotely; first CPU feature batch serialized for rerun and later model stages. All accepted inputs checked against frozen full manifests.",
+  "training": "No new full-model training claim. Gradient-enabled distance operands fall back to native direct distance; tiny exact forward/gradient control only."
+}

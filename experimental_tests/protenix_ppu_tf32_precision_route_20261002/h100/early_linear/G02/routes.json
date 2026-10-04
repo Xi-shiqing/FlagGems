@@ -1,0 +1,437 @@
+{
+  "status": "PASS",
+  "linear": [
+    {
+      "module": "input_embedder.atom_attention_encoder.linear_no_bias_ref_pos",
+      "inputs": [
+        {
+          "shape": [
+            2529,
+            3
+          ],
+          "stride": [
+            3,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "054bad04f25a2a9cfb25d6ea286911c42268d78096f9281db88bfc839b48bd83"
+        },
+        {
+          "shape": [
+            128,
+            3
+          ],
+          "stride": [
+            3,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "d2db762ef231427e573619c3e62d2fe5fc94c921beb20434bdeb06b55f358ee1"
+        }
+      ],
+      "bias": null,
+      "tf32_vs_fp32": {
+        "relative_l2": 0.00028959650080651045,
+        "max_abs": 0.00016510486602783203,
+        "rms": 1.02604180938215e-05,
+        "finite": true
+      },
+      "tf32_replay_vs_teacher": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "rms": 0.0,
+        "finite": true
+      },
+      "modes": {
+        "fp32": {
+          "median_ms": 0.05253497511148453,
+          "samples_ms": [
+            0.058710575103759766,
+            0.0562816858291626,
+            0.052844174206256866,
+            0.05264207720756531,
+            0.05317945033311844,
+            0.05097128450870514,
+            0.051952898502349854,
+            0.051536597311496735,
+            0.05242787301540375,
+            0.05095731467008591
+          ],
+          "output_sha256": "63dd5fda02d0f4f18ec8dbdb85fd17135c2e41cf62a3c07611677f678c28f254",
+          "sample_vs_ieee_fp64": {
+            "relative_l2": 2.943442539521444e-08,
+            "max_abs": 1.786240454160204e-09,
+            "rms": 5.140290180207267e-10,
+            "finite": true
+          },
+          "sample_vs_rne_tf32_fp64": {
+            "relative_l2": 0.00032845265987335097,
+            "max_abs": 2.077384851872921e-05,
+            "rms": 5.735537718749303e-06,
+            "finite": true
+          },
+          "kernel_trace": [
+            "sm80_xmma_gemm_f32f32_f32f32_f32_tn_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas"
+          ]
+        },
+        "tf32": {
+          "median_ms": 0.06498396396636963,
+          "samples_ms": [
+            0.06691180169582367,
+            0.0670161098241806,
+            0.06522238254547119,
+            0.06552599370479584,
+            0.06341096013784409,
+            0.0639716163277626,
+            0.06354972720146179,
+            0.06474554538726807,
+            0.06346870213747025,
+            0.0745970755815506
+          ],
+          "output_sha256": "44984f605c97228eb23c33b31d3af856fa69db937ffc0a189cc67078f3ec17a8",
+          "sample_vs_ieee_fp64": {
+            "relative_l2": 0.00032844882510275306,
+            "max_abs": 2.077456586369042e-05,
+            "rms": 5.735876436204491e-06,
+            "finite": true
+          },
+          "sample_vs_rne_tf32_fp64": {
+            "relative_l2": 4.146618866387191e-08,
+            "max_abs": 2.7939677238464355e-09,
+            "rms": 7.24094879384195e-10,
+            "finite": true
+          },
+          "kernel_trace": [
+            "void cutlass::Kernel2<cutlass_80_tensorop_s1688gemm_128x256_32x3_tn_align1>(cutlass_80_tensorop_s1688gemm_128x256_32x3_tn_align1::Params)",
+            "void cublasLt::splitKreduce_kernel<32, 16, int, float, float, float, false, float, float, float, true, false, false>(cublasLt::cublasSplitKParams<float>, float const*, float const*, float*, float*, float const*, float const*, float const*, float const*, float*, void*, long, float*, int*, float*, float const*, float const*, float const*, float const*)"
+          ]
+        }
+      }
+    },
+    {
+      "module": "input_embedder.atom_attention_encoder.linear_no_bias_ref_charge",
+      "inputs": [
+        {
+          "shape": [
+            2529,
+            1
+          ],
+          "stride": [
+            1,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "0a325a2cc62dd7cfec03f2f742eddd367cea9dbfd03ec12b523cd3977f2c4b5c"
+        },
+        {
+          "shape": [
+            128,
+            1
+          ],
+          "stride": [
+            1,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "fcc99ac2db8f8977a57e334c72243c90133f1d1205cbb7a358e0c8d2a2be8d54"
+        }
+      ],
+      "bias": null,
+      "tf32_vs_fp32": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "rms": 0.0,
+        "finite": true
+      },
+      "tf32_replay_vs_teacher": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "rms": 0.0,
+        "finite": true
+      },
+      "modes": {
+        "fp32": {
+          "median_ms": 0.05224999040365219,
+          "samples_ms": [
+            0.057190656661987305,
+            0.05670823156833649,
+            0.053551048040390015,
+            0.05168933421373367,
+            0.05189608782529831,
+            0.052517279982566833,
+            0.051441602408885956,
+            0.05238782614469528,
+            0.0521121546626091,
+            0.051458366215229034
+          ],
+          "output_sha256": "853f2b6f65669500280e5512c672595c60966e30ea46c005466989d4dff0c11d",
+          "sample_vs_ieee_fp64": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "sample_vs_rne_tf32_fp64": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "kernel_trace": [
+            "void cutlass::Kernel2<cutlass_80_simt_sgemm_128x32_8x5_nn_align1>(cutlass_80_simt_sgemm_128x32_8x5_nn_align1::Params)"
+          ]
+        },
+        "tf32": {
+          "median_ms": 0.06236834451556206,
+          "samples_ms": [
+            0.06394181400537491,
+            0.06287544965744019,
+            0.06007496267557144,
+            0.06129499524831772,
+            0.060535967350006104,
+            0.07535144686698914,
+            0.06287544965744019,
+            0.06234738975763321,
+            0.062389299273490906,
+            0.06067939102649689
+          ],
+          "output_sha256": "853f2b6f65669500280e5512c672595c60966e30ea46c005466989d4dff0c11d",
+          "sample_vs_ieee_fp64": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "sample_vs_rne_tf32_fp64": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "kernel_trace": [
+            "void cutlass::Kernel2<cutlass_80_simt_sgemm_128x32_8x5_nn_align1>(cutlass_80_simt_sgemm_128x32_8x5_nn_align1::Params)"
+          ]
+        }
+      }
+    },
+    {
+      "module": "input_embedder.atom_attention_encoder.linear_no_bias_f",
+      "inputs": [
+        {
+          "shape": [
+            2529,
+            385
+          ],
+          "stride": [
+            385,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "624d1a6ef1f230bc60af1f81ab922f8f909327079f2c45d9624e4b5f64993eb2"
+        },
+        {
+          "shape": [
+            128,
+            385
+          ],
+          "stride": [
+            385,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "893dd9364f9724e8633bcbbb9b621df9da79f6626c81e67d78d91bcb9be5fb72"
+        }
+      ],
+      "bias": null,
+      "tf32_vs_fp32": {
+        "relative_l2": 0.00010783249308587983,
+        "max_abs": 0.00086212158203125,
+        "rms": 9.265516564482823e-05,
+        "finite": true
+      },
+      "tf32_replay_vs_teacher": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "rms": 0.0,
+        "finite": true
+      },
+      "modes": {
+        "fp32": {
+          "median_ms": 0.0664563849568367,
+          "samples_ms": [
+            0.06900541484355927,
+            0.06742030382156372,
+            0.0670822337269783,
+            0.06664171814918518,
+            0.06612483412027359,
+            0.0654151663184166,
+            0.06554927676916122,
+            0.06627105176448822,
+            0.0667870044708252,
+            0.06622541695833206
+          ],
+          "output_sha256": "f4ceb213a429c6bbea5f4bcb24c9a3b929437a60e61a8871bba9448fe7ef2b8a",
+          "sample_vs_ieee_fp64": {
+            "relative_l2": 8.049926018489857e-08,
+            "max_abs": 1.825392246246338e-07,
+            "rms": 2.4875148769817513e-08,
+            "finite": true
+          },
+          "sample_vs_rne_tf32_fp64": {
+            "relative_l2": 0.00020316831764512534,
+            "max_abs": 0.0002696514129638672,
+            "rms": 6.277475786656069e-05,
+            "finite": true
+          },
+          "kernel_trace": [
+            "sm80_xmma_gemm_f32f32_f32f32_f32_tn_n_tilesize64x64x8_stage3_warpsize1x4x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+            "sm80_xmma_gemm_f32f32_f32f32_f32_tn_n_tilesize64x64x8_stage3_warpsize1x4x1_ffma_aligna4_alignc4_execute_split_k_kernel__5x_cublas"
+          ]
+        },
+        "tf32": {
+          "median_ms": 0.07072743028402328,
+          "samples_ms": [
+            0.0719437375664711,
+            0.07255654782056808,
+            0.06966851651668549,
+            0.06993487477302551,
+            0.0723889097571373,
+            0.07195025682449341,
+            0.0689532607793808,
+            0.06943941116333008,
+            0.07151998579502106,
+            0.06943382322788239
+          ],
+          "output_sha256": "537df3c8f74a19fe27a4bde7be413f62fc91b87ee67f90818758530bcb6bee44",
+          "sample_vs_ieee_fp64": {
+            "relative_l2": 0.00020318950712310457,
+            "max_abs": 0.0002698339521884918,
+            "rms": 6.278777229186644e-05,
+            "finite": true
+          },
+          "sample_vs_rne_tf32_fp64": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "kernel_trace": [
+            "void cutlass::Kernel2<cutlass_80_tensorop_s1688gemm_128x64_32x3_tn_align1>(cutlass_80_tensorop_s1688gemm_128x64_32x3_tn_align1::Params)",
+            "void cublasLt::splitKreduce_kernel<32, 16, int, float, float, float, false, float, float, float, true, false, false>(cublasLt::cublasSplitKParams<float>, float const*, float const*, float*, float*, float const*, float const*, float const*, float const*, float*, void*, long, float*, int*, float*, float const*, float const*, float const*, float const*)"
+          ]
+        }
+      }
+    },
+    {
+      "module": "input_embedder.atom_attention_encoder.linear_no_bias_d",
+      "inputs": [
+        {
+          "shape": [
+            80,
+            32,
+            128,
+            3
+          ],
+          "stride": [
+            12288,
+            384,
+            3,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "4b358cc5cb99f23cfa249200ebbcbb1e295601dc263fe124ce24da3912199fed"
+        },
+        {
+          "shape": [
+            16,
+            3
+          ],
+          "stride": [
+            3,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "0aaaa6b40adc67601918789577d3c51d1f7f07dc01132d4dcfd5a52f04578b84"
+        }
+      ],
+      "bias": null,
+      "tf32_vs_fp32": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "rms": 0.0,
+        "finite": true
+      },
+      "tf32_replay_vs_teacher": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "rms": 0.0,
+        "finite": true
+      },
+      "modes": {
+        "fp32": {
+          "median_ms": 0.07841130718588829,
+          "samples_ms": [
+            0.07982645183801651,
+            0.07828976958990097,
+            0.07854308933019638,
+            0.07806532084941864,
+            0.07907021790742874,
+            0.07869675755500793,
+            0.07650908082723618,
+            0.07787160575389862,
+            0.07853284478187561,
+            0.07718335837125778
+          ],
+          "output_sha256": "d2bde52c73a49c11f69c50b0402fbb970a6b60b19d4d1eaf13921f9cfd4cc8f5",
+          "sample_vs_ieee_fp64": {
+            "relative_l2": 2.988692378250373e-08,
+            "max_abs": 2.9388350607228997e-10,
+            "rms": 1.5814776452657663e-10,
+            "finite": true
+          },
+          "sample_vs_rne_tf32_fp64": {
+            "relative_l2": 0.00015797012717680273,
+            "max_abs": 1.945067197084427e-06,
+            "rms": 8.359649424593825e-07,
+            "finite": true
+          },
+          "kernel_trace": [
+            "sm80_xmma_gemm_f32f32_f32f32_f32_tn_n_tilesize128x32x8_stage3_warpsize2x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas"
+          ]
+        },
+        "tf32": {
+          "median_ms": 0.06998144090175629,
+          "samples_ms": [
+            0.07132254540920258,
+            0.07475167512893677,
+            0.06982404738664627,
+            0.07033254951238632,
+            0.0701388344168663,
+            0.0738091766834259,
+            0.06890576332807541,
+            0.06968621164560318,
+            0.06922706961631775,
+            0.06959494203329086
+          ],
+          "output_sha256": "d2bde52c73a49c11f69c50b0402fbb970a6b60b19d4d1eaf13921f9cfd4cc8f5",
+          "sample_vs_ieee_fp64": {
+            "relative_l2": 2.988692378250373e-08,
+            "max_abs": 2.9388350607228997e-10,
+            "rms": 1.5814776452657663e-10,
+            "finite": true
+          },
+          "sample_vs_rne_tf32_fp64": {
+            "relative_l2": 0.00015797012717680273,
+            "max_abs": 1.945067197084427e-06,
+            "rms": 8.359649424593825e-07,
+            "finite": true
+          },
+          "kernel_trace": [
+            "sm80_xmma_gemm_f32f32_f32f32_f32_tn_n_tilesize64x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas"
+          ]
+        }
+      }
+    }
+  ],
+  "scope": "First four executed Linear modules; original TF32 teacher outputs returned. Timings are local identical-operand replays, not E2E measurements."
+}

@@ -1,0 +1,22 @@
+{
+  "priority": [
+    "Implement a generic IEEE outer-product path for reduction K=1, applicable to arbitrary matrix sizes/layouts. Benchmark MM/addmm/BMM actual entries, output poison coverage, gradients and updates before considering retention.",
+    "Audit remaining small-reduction MM/addmm and real TriAttention QK/PV against native arithmetic, using operand hashes and local FP64 gold; avoid input/model/exact-shape dispatch rules.",
+    "Revalidate any retained precision/scheduling policy with H100 native TF32 as primary reference, keeping FP32 separate. Recheck three inputs before expanding to nine models."
+  ],
+  "evidence": {
+    "real_early_linear_inputs_and_weights_hash_match": true,
+    "earliest_observed_arithmetic_policy_disagreement": "input_embedder.atom_attention_encoder.linear_no_bias_ref_charge, K=1: H100 TF-enabled output equals IEEE, PPU rounds before MMA. Earlier ref_pos uses TF32 on both.",
+    "attention_policy_disagreement": "Pairformer head-width24 QK: H100 IEEE/PPU TF32; PV: H100 TF32/PPU IEEE. Installed Efficient SDPA in diffusion is native and IEEE-like on both in this audited case.",
+    "bmm_sdpa_ieee_equal_prediction": true
+  },
+  "acceptance": "No intervention accepted: SDPA-only is provably over RMSD threshold; BMM-family controls remain unresolved by cross-server bounds; no statistically demonstrated E2E speed gain.",
+  "limits": [
+    "Synthetic operands use real shapes/strides but are not real activations.",
+    "Local BMM replays use identical local operands; most real activations differ across platforms.",
+    "New cross-server intervention RMSD is bounded rather than directly measured.",
+    "Native Efficient SDPA remains native PPU Torch; it is not a FlagGems implementation.",
+    "No new full-model training, nine-model acceptance, full-default inference, or MFU measurement.",
+    "No production default changed; operator-family IEEE interventions are diagnostics."
+  ]
+}

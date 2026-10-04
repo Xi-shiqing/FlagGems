@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "order": [
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32",
+    "fp32",
+    "tf32"
+  ],
+  "summary": {
+    "fp32": {
+      "count": 10,
+      "warmup_count": 3,
+      "median_seconds": 1.7755057094618678,
+      "samples_seconds": [
+        1.979146010009572,
+        1.7922055500093848,
+        1.777396587189287,
+        1.770257833879441,
+        1.7748721148818731,
+        1.7734060129150748,
+        1.7653571520932019,
+        1.7761393040418625,
+        1.819954760139808,
+        1.7615166530013084
+      ],
+      "prediction_digest": {
+        "sha256": "2c719da9be15ef6ae1ac5f13cc79da93554833fdc34c7ee5fcffde22c016148d",
+        "sum_fp64": -4890.661724328995,
+        "max_abs": 5452.4052734375
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.26124572753906,
+        "gpde": 7.2690887451171875,
+        "ptm": 0.21105340123176575,
+        "iptm": 0.20743012428283691,
+        "ranking_score": 0.20815478265285492
+      }
+    },
+    "tf32": {
+      "count": 10,
+      "warmup_count": 3,
+      "median_seconds": 1.7018469420727342,
+      "samples_seconds": [
+        1.7216845389921218,
+        1.686010962817818,
+        1.7152559300884604,
+        1.6954229131806642,
+        1.7263085909653455,
+        1.6771667150314897,
+        1.7642983810510486,
+        1.6955457720905542,
+        1.7081481120549142,
+        1.6938040661625564
+      ],
+      "prediction_digest": {
+        "sha256": "34c8155a2386f39f777c37d28ae07518abdc4605804678cc33d2811fd1f6dee1",
+        "sum_fp64": -4891.486643075943,
+        "max_abs": 5452.3779296875
+      },
+      "five_confidence_metrics": {
+        "plddt": 80.2438735961914,
+        "gpde": 7.270274639129639,
+        "ptm": 0.21088191866874695,
+        "iptm": 0.2072671800851822,
+        "ranking_score": 0.2079901248216629
+      }
+    }
+  },
+  "roles": {
+    "geometry": [
+      "input_embedder.atom_attention_encoder.linear_no_bias_d",
+      "diffusion_module.atom_attention_encoder.linear_no_bias_d"
+    ],
+    "noise": [
+      "diffusion_module.diffusion_conditioning.linear_no_bias_n"
+    ]
+  },
+  "restored_calls_first_warmup": {},
+  "scope": "Semantic module roles, no input or exact-shape whitelist. Complete 2x2x2 factorial or named follow-up variants. BMM policy is previous isolated experiment, not a production rule."
+}

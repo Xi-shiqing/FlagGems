@@ -1,0 +1,46 @@
+{
+  "status": "ISOLATED_CANDIDATES_GENERATED",
+  "candidates": {
+    "fixed_rne_once": {
+      "sha256": "6224a198f16658df1754db37e7119a536a447ea0cbb7eac94ba2ef274bddd4d5",
+      "rounding_helper": "round_tf32_rne",
+      "scope": "Same kernels and schedules; immutable Q converted before KV loop. Backward uses the same selected rounding helper."
+    },
+    "fixed_rne_bits_once": {
+      "sha256": "5ba244b31cc62567b867d281da02d0078c3cf1cabe62c084b6bb544f2d3e40f9",
+      "rounding_helper": "round_tf32_rne_bits",
+      "scope": "Same kernels and schedules; immutable Q converted before KV loop. Backward uses the same selected rounding helper."
+    },
+    "fixed_rna_bits_once": {
+      "sha256": "1524cb30c92bc309ca72733b06c50a8413bd153b5b31630ce374e10ae4348062",
+      "rounding_helper": "round_tf32_rna_bits",
+      "scope": "Same kernels and schedules; immutable Q converted before KV loop. Backward uses the same selected rounding helper."
+    },
+    "cuda_fixed_rne_once": {
+      "sha256": "526fc64cfad39f5d7f76b1f44f8efffe12bb94e2de1afe14ab835e2acf0ad82a",
+      "rounding_helper": "round_tf32_rne",
+      "scope": "H100 compiler adaptation only: TF32 conversion uses a b32 destination register. Same Q-once algorithms."
+    },
+    "cuda_fixed_rne_bits_once": {
+      "sha256": "adabea34555db6a6cdf07803e4c93c60bcfd35304cccadd465616e06927efc88",
+      "rounding_helper": "round_tf32_rne_bits",
+      "scope": "H100 compiler adaptation only: TF32 conversion uses a b32 destination register. Same Q-once algorithms."
+    },
+    "cuda_fixed_rna_bits_once": {
+      "sha256": "06aa4b093caf40c79de02f7508453abacb6703d974a01c6e59ed1338e1de054b",
+      "rounding_helper": "round_tf32_rna_bits",
+      "scope": "H100 compiler adaptation only: TF32 conversion uses a b32 destination register. Same Q-once algorithms."
+    }
+  },
+  "snapshot_sha256": {
+    "triangle_attention.py": "ff37750deb641f0fb1415146f0f4a7ccdc71a942ca5ff500829e8be362fbaf8f",
+    "tf32_precision.py": "f2451a1959372a46f9e39dacb7149e05f7dbd39563bfc832da072060dde1e022"
+  },
+  "helper_sha256": "e338beae0afe4841b874c41b11ffa907a39bd8d0fb3aaab6190aa7200544358d",
+  "cuda_helper_sha256": "9b026b125c36deb015921fce378353861a578252dd2b4ae17086f0a5e2403456",
+  "limits": [
+    "H100 candidates are custom FlagGems-derived kernels, not native CUE.",
+    "No production source or default server package modified.",
+    "RNE bit conversion must pass full bit-pattern checks before considering promotion."
+  ]
+}

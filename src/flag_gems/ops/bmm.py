@@ -20,6 +20,7 @@ import triton
 import triton.language as tl
 
 from flag_gems import runtime
+from flag_gems.ops.rank_one import rank_one
 from flag_gems.runtime import torch_device_fn
 from flag_gems.utils import libentry, libtuner
 from flag_gems.utils import triton_lang_extension as ext
@@ -301,6 +302,14 @@ def bmm(A, B):
     assert A.shape[2] == B.shape[1], "K dim mismatch"
     batch, M, K = A.shape
     _, _, N = B.shape
+    if (
+        K == 1
+        and runtime.device.vendor_name == "thead"
+        and torch.backends.cuda.matmul.allow_tf32
+    ):
+        result = rank_one(A, B, enabled=True)
+        if result is not None:
+            return result
     if _use_packed_thead_rhs(A, B):
         B = B.contiguous()
     out = torch.empty((batch, M, N), dtype=A.dtype, device=A.device)
@@ -338,6 +347,14 @@ def bmm_out(A, B, out):
     assert A.shape[2] == B.shape[1], "K dim mismatch"
     batch, M, K = A.shape
     _, _, N = B.shape
+    if (
+        K == 1
+        and runtime.device.vendor_name == "thead"
+        and torch.backends.cuda.matmul.allow_tf32
+    ):
+        result = rank_one(A, B, out, enabled=True)
+        if result is not None:
+            return result
     if _use_packed_thead_rhs(A, B):
         B = B.contiguous()
 

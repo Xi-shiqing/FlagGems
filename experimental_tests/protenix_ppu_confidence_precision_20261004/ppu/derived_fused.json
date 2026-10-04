@@ -1,0 +1,854 @@
+{
+  "status": "PASS",
+  "server": "ppu",
+  "cases": [
+    {
+      "case": "G01",
+      "model": "protenix-v2",
+      "N_token": 693,
+      "summary": {
+        "count": 3,
+        "warmup_count": 1,
+        "median_seconds": 17.334245501784608,
+        "samples_seconds": [
+          17.28005143790506,
+          17.334245501784608,
+          17.38739732792601
+        ],
+        "prediction_digest": {
+          "sha256": "280be73675ce3316b9b5641e2d6f9712a00df982252ac7f7a19d627f8fcf8976",
+          "sum_fp64": -6168.853024721146,
+          "max_abs": 5072.1689453125
+        },
+        "five_confidence_metrics": {
+          "plddt": 84.95468139648438,
+          "gpde": 1.0509192943572998,
+          "ptm": 0.45675602555274963,
+          "iptm": 0.0,
+          "ranking_score": 0.09135120362043381
+        }
+      },
+      "physical_gpu": "7",
+      "input_and_rng_audit": "PASS",
+      "coordinate_hash_unchanged": true,
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "tf32_confidence_fused",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32.",
+        "fused_distance_calls": {
+          "confidence_head": 4
+        }
+      },
+      "triangle_calls_first_warmup": {}
+    },
+    {
+      "case": "G01",
+      "model": "protenix_base_20250630_v1.0.0",
+      "N_token": 693,
+      "summary": {
+        "count": 3,
+        "warmup_count": 1,
+        "median_seconds": 8.65532215195708,
+        "samples_seconds": [
+          8.95601639803499,
+          8.636114976136014,
+          8.65532215195708
+        ],
+        "prediction_digest": {
+          "sha256": "fd41f49425374c8c3dc677a040890b412030a4095d2f4354b08da132dde644e0",
+          "sum_fp64": 96952.02667409182,
+          "max_abs": 5084.91796875
+        },
+        "five_confidence_metrics": {
+          "plddt": 84.08832550048828,
+          "gpde": 5.623182773590088,
+          "ptm": 0.16643981635570526,
+          "iptm": 0.0,
+          "ranking_score": 0.03328796476125717
+        }
+      },
+      "physical_gpu": "0",
+      "input_and_rng_audit": "PASS",
+      "coordinate_hash_unchanged": true,
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "tf32_confidence_fused",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32.",
+        "fused_distance_calls": {
+          "confidence_head": 4
+        }
+      },
+      "triangle_calls_first_warmup": {}
+    },
+    {
+      "case": "G01",
+      "model": "protenix_base_constraint_v0.5.0",
+      "N_token": 693,
+      "summary": {
+        "count": 3,
+        "warmup_count": 1,
+        "median_seconds": 7.946394138038158,
+        "samples_seconds": [
+          8.003618549089879,
+          7.946394138038158,
+          7.892058481927961
+        ],
+        "prediction_digest": {
+          "sha256": "a00e0668435f4e3d65b2d36c7790a23b3441a69cbfb6a8dbec85c6134258aee2",
+          "sum_fp64": 12353.146100282669,
+          "max_abs": 5071.251953125
+        },
+        "five_confidence_metrics": {
+          "plddt": 85.32844543457031,
+          "gpde": 0.2562074363231659,
+          "ptm": 0.9624478816986084,
+          "iptm": 0.0,
+          "ranking_score": 0.19248957931995392
+        }
+      },
+      "physical_gpu": "7",
+      "input_and_rng_audit": "PASS",
+      "coordinate_hash_unchanged": true,
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "tf32_confidence_fused",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32.",
+        "fused_distance_calls": {
+          "confidence_head": 4
+        }
+      },
+      "triangle_calls_first_warmup": {}
+    },
+    {
+      "case": "G01",
+      "model": "protenix_base_default_v0.5.0",
+      "N_token": 693,
+      "summary": {
+        "count": 3,
+        "warmup_count": 1,
+        "median_seconds": 7.869580054888502,
+        "samples_seconds": [
+          7.845672457013279,
+          7.869580054888502,
+          7.904582638991997
+        ],
+        "prediction_digest": {
+          "sha256": "0f6d3ef955fd49d518081854daf0d17df6c9c6de702151852a76181f9fc69d35",
+          "sum_fp64": 114199.3293890953,
+          "max_abs": 5083.275390625
+        },
+        "five_confidence_metrics": {
+          "plddt": 10.955066680908203,
+          "gpde": 0.25732913613319397,
+          "ptm": 0.8859704732894897,
+          "iptm": 0.0,
+          "ranking_score": 0.17719410359859467
+        }
+      },
+      "physical_gpu": "0",
+      "input_and_rng_audit": "PASS",
+      "coordinate_hash_unchanged": true,
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "tf32_confidence_fused",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32.",
+        "fused_distance_calls": {
+          "confidence_head": 4
+        }
+      },
+      "triangle_calls_first_warmup": {}
+    },
+    {
+      "case": "G01",
+      "model": "protenix_base_default_v1.0.0",
+      "N_token": 693,
+      "summary": {
+        "count": 3,
+        "warmup_count": 1,
+        "median_seconds": 8.677682298002765,
+        "samples_seconds": [
+          8.872428963892162,
+          8.674557768041268,
+          8.677682298002765
+        ],
+        "prediction_digest": {
+          "sha256": "5a1c50fc33f100568f4939a24ad5aa736431529a45e1691517bdeb776e1ece89",
+          "sum_fp64": 73869.17313206196,
+          "max_abs": 5082.314453125
+        },
+        "five_confidence_metrics": {
+          "plddt": 80.01997375488281,
+          "gpde": 7.312513828277588,
+          "ptm": 0.2723623514175415,
+          "iptm": 0.0,
+          "ranking_score": 0.05447247251868248
+        }
+      },
+      "physical_gpu": "6",
+      "input_and_rng_audit": "PASS",
+      "coordinate_hash_unchanged": true,
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "tf32_confidence_fused",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32.",
+        "fused_distance_calls": {
+          "confidence_head": 4
+        }
+      },
+      "triangle_calls_first_warmup": {}
+    },
+    {
+      "case": "G01",
+      "model": "protenix_mini_default_v0.5.0",
+      "N_token": 693,
+      "summary": {
+        "count": 3,
+        "warmup_count": 1,
+        "median_seconds": 3.092282798839733,
+        "samples_seconds": [
+          3.092282798839733,
+          3.096355003071949,
+          3.0666140208486468
+        ],
+        "prediction_digest": {
+          "sha256": "47d77a8008f76a5e251ed633dc97683617e031840cf48b4340daf217a3c567aa",
+          "sum_fp64": 89242.37543392181,
+          "max_abs": 52.449249267578125
+        },
+        "five_confidence_metrics": {
+          "plddt": 60.583831787109375,
+          "gpde": 2.9068286418914795,
+          "ptm": 0.1689949482679367,
+          "iptm": 0.0,
+          "ranking_score": 0.03379898890852928
+        }
+      },
+      "physical_gpu": "2",
+      "input_and_rng_audit": "PASS",
+      "coordinate_hash_unchanged": true,
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "tf32_confidence_fused",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32.",
+        "fused_distance_calls": {
+          "confidence_head": 4
+        }
+      },
+      "triangle_calls_first_warmup": {}
+    },
+    {
+      "case": "G01",
+      "model": "protenix_mini_esm_v0.5.0",
+      "N_token": 693,
+      "summary": {
+        "count": 3,
+        "warmup_count": 1,
+        "median_seconds": 3.1740909279324114,
+        "samples_seconds": [
+          3.086232490139082,
+          3.1943929470144212,
+          3.1740909279324114
+        ],
+        "prediction_digest": {
+          "sha256": "9e04d0ccdd5ceefe230663e7c3c70fe461155ffe033bd5bf5deae8f6f5c7492d",
+          "sum_fp64": 44512.869368195534,
+          "max_abs": 32.010498046875
+        },
+        "five_confidence_metrics": {
+          "plddt": 38.1513557434082,
+          "gpde": 8.777894973754883,
+          "ptm": 0.20063167810440063,
+          "iptm": 0.0,
+          "ranking_score": 0.04012633487582207
+        }
+      },
+      "physical_gpu": "2",
+      "input_and_rng_audit": "PASS",
+      "coordinate_hash_unchanged": true,
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "tf32_confidence_fused",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32.",
+        "fused_distance_calls": {
+          "confidence_head": 4
+        }
+      },
+      "triangle_calls_first_warmup": {}
+    },
+    {
+      "case": "G01",
+      "model": "protenix_mini_ism_v0.5.0",
+      "N_token": 693,
+      "summary": {
+        "count": 3,
+        "warmup_count": 1,
+        "median_seconds": 3.0824697981588542,
+        "samples_seconds": [
+          3.063228009035811,
+          3.0824697981588542,
+          3.1142841051332653
+        ],
+        "prediction_digest": {
+          "sha256": "bc2230ea02f15a9481d85648f97d9650b15f23e2516de00ccffda98182f9d790",
+          "sum_fp64": 20848.4534239769,
+          "max_abs": 50.69189453125
+        },
+        "five_confidence_metrics": {
+          "plddt": 44.9111213684082,
+          "gpde": 8.323935508728027,
+          "ptm": 0.1694663166999817,
+          "iptm": 0.0,
+          "ranking_score": 0.03389326483011246
+        }
+      },
+      "physical_gpu": "0",
+      "input_and_rng_audit": "PASS",
+      "coordinate_hash_unchanged": true,
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "tf32_confidence_fused",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32.",
+        "fused_distance_calls": {
+          "confidence_head": 4
+        }
+      },
+      "triangle_calls_first_warmup": {}
+    },
+    {
+      "case": "G01",
+      "model": "protenix_tiny_default_v0.5.0",
+      "N_token": 693,
+      "summary": {
+        "count": 3,
+        "warmup_count": 1,
+        "median_seconds": 2.0837498081382364,
+        "samples_seconds": [
+          2.0837498081382364,
+          2.085973907960579,
+          2.078083945903927
+        ],
+        "prediction_digest": {
+          "sha256": "b6f576c8fcbb50cd470078b64d4c475360ca6dd267c506a13f96778b963962d4",
+          "sum_fp64": -2018.9075102806091,
+          "max_abs": 40.6842041015625
+        },
+        "five_confidence_metrics": {
+          "plddt": 32.4687385559082,
+          "gpde": 9.057167053222656,
+          "ptm": 0.16864757239818573,
+          "iptm": 0.0,
+          "ranking_score": 0.033729515969753265
+        }
+      },
+      "physical_gpu": "6",
+      "input_and_rng_audit": "PASS",
+      "coordinate_hash_unchanged": true,
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "tf32_confidence_fused",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32.",
+        "fused_distance_calls": {
+          "confidence_head": 4
+        }
+      },
+      "triangle_calls_first_warmup": {}
+    },
+    {
+      "case": "G02",
+      "model": "protenix-v2",
+      "N_token": 245,
+      "summary": {
+        "count": 3,
+        "warmup_count": 1,
+        "median_seconds": 2.3997832080349326,
+        "samples_seconds": [
+          2.3997832080349326,
+          2.406106027076021,
+          2.3740500630810857
+        ],
+        "prediction_digest": {
+          "sha256": "134416ae6c733933f53e4c4cc5a0441e21018d28c5f1e5fa37a74b928f01d948",
+          "sum_fp64": -38728.81369674206,
+          "max_abs": 5460.6640625
+        },
+        "five_confidence_metrics": {
+          "plddt": 87.37300872802734,
+          "gpde": 1.0833652019500732,
+          "ptm": 0.34440144896507263,
+          "iptm": 0.34268733859062195,
+          "ranking_score": 0.3430301547050476
+        }
+      },
+      "physical_gpu": "7",
+      "input_and_rng_audit": "PASS",
+      "coordinate_hash_unchanged": true,
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "tf32_confidence_fused",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32.",
+        "fused_distance_calls": {
+          "confidence_head": 4
+        }
+      },
+      "triangle_calls_first_warmup": {}
+    },
+    {
+      "case": "G02",
+      "model": "protenix_base_20250630_v1.0.0",
+      "N_token": 245,
+      "summary": {
+        "count": 3,
+        "warmup_count": 1,
+        "median_seconds": 1.92218509898521,
+        "samples_seconds": [
+          1.9435803149826825,
+          1.914021227043122,
+          1.92218509898521
+        ],
+        "prediction_digest": {
+          "sha256": "6e90145a594408d90d10beacc82f03f71a0163792e94c96e649cce7da8cfd9fc",
+          "sum_fp64": 2182.5938853025436,
+          "max_abs": 5442.701171875
+        },
+        "five_confidence_metrics": {
+          "plddt": 77.08052825927734,
+          "gpde": 5.664405822753906,
+          "ptm": 0.11815158277750015,
+          "iptm": 0.1147414818406105,
+          "ranking_score": 0.11542350053787231
+        }
+      },
+      "physical_gpu": "0",
+      "input_and_rng_audit": "PASS",
+      "coordinate_hash_unchanged": true,
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "tf32_confidence_fused",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32.",
+        "fused_distance_calls": {
+          "confidence_head": 4
+        }
+      },
+      "triangle_calls_first_warmup": {}
+    },
+    {
+      "case": "G02",
+      "model": "protenix_base_constraint_v0.5.0",
+      "N_token": 245,
+      "summary": {
+        "count": 3,
+        "warmup_count": 1,
+        "median_seconds": 1.803509818855673,
+        "samples_seconds": [
+          1.8162847238127142,
+          1.803509818855673,
+          1.7541842691134661
+        ],
+        "prediction_digest": {
+          "sha256": "c58b4864f368d9f73777f79d107404107d369875bbc9869c1d785603d5bf37cd",
+          "sum_fp64": 2850.847885608673,
+          "max_abs": 5437.8740234375
+        },
+        "five_confidence_metrics": {
+          "plddt": 85.74525451660156,
+          "gpde": 0.2567925751209259,
+          "ptm": 0.9315391778945923,
+          "iptm": 0.9310444593429565,
+          "ranking_score": 0.9311434030532837
+        }
+      },
+      "physical_gpu": "7",
+      "input_and_rng_audit": "PASS",
+      "coordinate_hash_unchanged": true,
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "tf32_confidence_fused",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32.",
+        "fused_distance_calls": {
+          "confidence_head": 4
+        }
+      },
+      "triangle_calls_first_warmup": {}
+    },
+    {
+      "case": "G02",
+      "model": "protenix_base_default_v0.5.0",
+      "N_token": 245,
+      "summary": {
+        "count": 3,
+        "warmup_count": 1,
+        "median_seconds": 1.8662185908760875,
+        "samples_seconds": [
+          1.8391982500907034,
+          1.8662185908760875,
+          2.0697754898574203
+        ],
+        "prediction_digest": {
+          "sha256": "89e3ec19222cfa1f6e19307ffd398f4787cd3c9e41d522255418e03786eab780",
+          "sum_fp64": 9709.824363231659,
+          "max_abs": 5456.23046875
+        },
+        "five_confidence_metrics": {
+          "plddt": 8.501616477966309,
+          "gpde": 0.25804007053375244,
+          "ptm": 0.8444926142692566,
+          "iptm": 0.8435249328613281,
+          "ranking_score": 0.8437184691429138
+        }
+      },
+      "physical_gpu": "0",
+      "input_and_rng_audit": "PASS",
+      "coordinate_hash_unchanged": true,
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "tf32_confidence_fused",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32.",
+        "fused_distance_calls": {
+          "confidence_head": 4
+        }
+      },
+      "triangle_calls_first_warmup": {}
+    },
+    {
+      "case": "G02",
+      "model": "protenix_base_default_v1.0.0",
+      "N_token": 245,
+      "summary": {
+        "count": 3,
+        "warmup_count": 1,
+        "median_seconds": 1.9347459580749273,
+        "samples_seconds": [
+          2.449754106113687,
+          1.905199377099052,
+          1.9347459580749273
+        ],
+        "prediction_digest": {
+          "sha256": "34c8155a2386f39f777c37d28ae07518abdc4605804678cc33d2811fd1f6dee1",
+          "sum_fp64": -4891.486643075943,
+          "max_abs": 5452.3779296875
+        },
+        "five_confidence_metrics": {
+          "plddt": 80.24388885498047,
+          "gpde": 7.270274639129639,
+          "ptm": 0.21088191866874695,
+          "iptm": 0.2072671800851822,
+          "ranking_score": 0.2079901248216629
+        }
+      },
+      "physical_gpu": "6",
+      "input_and_rng_audit": "PASS",
+      "coordinate_hash_unchanged": true,
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "tf32_confidence_fused",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32.",
+        "fused_distance_calls": {
+          "confidence_head": 4
+        }
+      },
+      "triangle_calls_first_warmup": {}
+    },
+    {
+      "case": "G02",
+      "model": "protenix_mini_default_v0.5.0",
+      "N_token": 245,
+      "summary": {
+        "count": 3,
+        "warmup_count": 1,
+        "median_seconds": 0.857843745034188,
+        "samples_seconds": [
+          0.8824753290973604,
+          0.8431163420900702,
+          0.857843745034188
+        ],
+        "prediction_digest": {
+          "sha256": "1c91392aaf65b97cd2a5e5ec99379202c5dcc577e445377bd48f3b3f32099ee1",
+          "sum_fp64": -17582.704854011536,
+          "max_abs": 36.077880859375
+        },
+        "five_confidence_metrics": {
+          "plddt": 77.4969253540039,
+          "gpde": 0.8861801028251648,
+          "ptm": 0.7408415675163269,
+          "iptm": 0.6914556622505188,
+          "ranking_score": 0.7013328671455383
+        }
+      },
+      "physical_gpu": "2",
+      "input_and_rng_audit": "PASS",
+      "coordinate_hash_unchanged": true,
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "tf32_confidence_fused",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32.",
+        "fused_distance_calls": {
+          "confidence_head": 4
+        }
+      },
+      "triangle_calls_first_warmup": {}
+    },
+    {
+      "case": "G02",
+      "model": "protenix_mini_esm_v0.5.0",
+      "N_token": 245,
+      "summary": {
+        "count": 3,
+        "warmup_count": 1,
+        "median_seconds": 1.092934399144724,
+        "samples_seconds": [
+          1.1126792901195586,
+          1.0126296151429415,
+          1.092934399144724
+        ],
+        "prediction_digest": {
+          "sha256": "b29b760d581496b40e5062d5c528efa7fdd7f4367b3989bfa68436e5de60620b",
+          "sum_fp64": -8768.500785112381,
+          "max_abs": 38.177001953125
+        },
+        "five_confidence_metrics": {
+          "plddt": 61.100006103515625,
+          "gpde": 2.124560832977295,
+          "ptm": 0.36037179827690125,
+          "iptm": 0.7218475937843323,
+          "ranking_score": 0.6495524644851685
+        }
+      },
+      "physical_gpu": "2",
+      "input_and_rng_audit": "PASS",
+      "coordinate_hash_unchanged": true,
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "tf32_confidence_fused",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32.",
+        "fused_distance_calls": {
+          "confidence_head": 4
+        }
+      },
+      "triangle_calls_first_warmup": {}
+    },
+    {
+      "case": "G02",
+      "model": "protenix_mini_ism_v0.5.0",
+      "N_token": 245,
+      "summary": {
+        "count": 3,
+        "warmup_count": 1,
+        "median_seconds": 0.8210939830169082,
+        "samples_seconds": [
+          0.7679010520223528,
+          0.8633181629702449,
+          0.8210939830169082
+        ],
+        "prediction_digest": {
+          "sha256": "66cb482bd9308d23e68950e13c8cec4f60b0f733a300d2385ea76d962e94b56c",
+          "sum_fp64": 5694.681815028191,
+          "max_abs": 28.7314453125
+        },
+        "five_confidence_metrics": {
+          "plddt": 59.21050262451172,
+          "gpde": 2.768059253692627,
+          "ptm": 0.37203899025917053,
+          "iptm": 0.6905170679092407,
+          "ranking_score": 0.6268214583396912
+        }
+      },
+      "physical_gpu": "0",
+      "input_and_rng_audit": "PASS",
+      "coordinate_hash_unchanged": true,
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "tf32_confidence_fused",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32.",
+        "fused_distance_calls": {
+          "confidence_head": 4
+        }
+      },
+      "triangle_calls_first_warmup": {}
+    },
+    {
+      "case": "G02",
+      "model": "protenix_tiny_default_v0.5.0",
+      "N_token": 245,
+      "summary": {
+        "count": 3,
+        "warmup_count": 1,
+        "median_seconds": 0.6635460241232067,
+        "samples_seconds": [
+          0.6652767071500421,
+          0.6635460241232067,
+          0.6338502338621765
+        ],
+        "prediction_digest": {
+          "sha256": "aebadebdb241a3f00b39714055978e9368ace2da12477c3e959cfe5e8873b16a",
+          "sum_fp64": -15668.817210674286,
+          "max_abs": 34.103515625
+        },
+        "five_confidence_metrics": {
+          "plddt": 50.975860595703125,
+          "gpde": 1.813732624053955,
+          "ptm": 0.5055025219917297,
+          "iptm": 0.16704390943050385,
+          "ranking_score": 0.2347356379032135
+        }
+      },
+      "physical_gpu": "6",
+      "input_and_rng_audit": "PASS",
+      "coordinate_hash_unchanged": true,
+      "confidence_precision_audit": {
+        "matched_source_files": {
+          "confidence_head": "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/modules/confidence.py"
+        },
+        "actual_calls": [
+          {
+            "mode": "tf32_confidence_fused",
+            "operation": "head",
+            "count": 4
+          }
+        ],
+        "scope": "Inference-only synchronous experiment wrappers; global flags/functions always restored. Distance changes only ConfidenceHead cdist; outputs changes its two pair projections and two atom einsums. Triangle precision remains explicit TF32.",
+        "fused_distance_calls": {
+          "confidence_head": 4
+        }
+      },
+      "triangle_calls_first_warmup": {}
+    }
+  ],
+  "scope": "Generic fused geometric distance in ConfidenceHead only. All other model matmuls remain TF32; H100 triangle is custom RNE diagnostic. No native reference changed.",
+  "worker_exit_markers": "0 0 0 0"
+}

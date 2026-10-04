@@ -1,0 +1,67 @@
+{
+  "status": "PLANNED; this plan does not claim new GPU experiments have run",
+  "objective": "Improve PPU+FlagGems ordinary TF32 performance and cross-input consistency against H100 native TF32, while preserving and separately validating strict FP32.",
+  "reporting": "Every experiment report includes H100 native FP32/TF32 and PPU+FlagGems FP32/TF32, raw values, input/model/protocol, same-precision errors, source batch, confidence/RMSD, training scope and missing measurements.",
+  "constraints": [
+    "Use original servers, installed environments, unified RNG and complete input/checkpoint audit.",
+    "No rules keyed by input identity, model identity or isolated exact shapes; configuration selection may use general dimensions, layout and measured hardware resource constraints.",
+    "Do not equate a TF32-enabled flag with actual kernel precision; inspect installed runtime entrypoints.",
+    "Same-precision comparison is primary. FP32 drift is separate diagnostic evidence; cross-platform bitwise equality is not required.",
+    "Mixed precision is a separate policy and must be applied symmetrically on both platforms for a matched comparison.",
+    "Native PPU acBLAS is a diagnostic reference, not a replacement mislabeled as a full FlagGems improvement.",
+    "Include allocation, RNE conversion, layout copies and launch overhead in operator timing; label kernel-only measurements separately."
+  ],
+  "phases": [
+    {
+      "order": 1,
+      "task": "Freeze comparable baselines and audit actual TF32 semantics",
+      "models": ["protenix_base_default_v1.0.0"],
+      "inputs": ["G01", "G02", "G03"],
+      "timing": "For each configuration, 3 warmup predictions and 10 measured predictions on an idle device; alternate same-device controls; exclude compilation/preprocessing and profiling from timed predictions.",
+      "audit": ["Exact checkpoints/features/assets/atom ordering and ordered RNG draws", "Actual MM/addmm/BMM compute path", "H100 cuEquivariance and PPU Triangle Attention QK/PV precision, rounding, accumulation, scale/mask/bias and probability handling", "Native fallback counts, hidden FP32 restoration, installed package versions and override variables"],
+      "deliverable": "Full four-mode baseline tables and a per-operator/per-module precision map; identify whether observed differences arise from semantic mismatch or legitimate numerical differences."
+    },
+    {
+      "order": 2,
+      "task": "Localize the first material divergence using identical real activations",
+      "method": "Reuse existing capture/replay and module audits; extend the previous FP32-teacher Linear-only probe to TF32 comparisons and QK/PV. Check trunk, Triangle Attention, diffusion conditioning and diffusion outputs. Confirm suspected causes through controlled interventions.",
+      "metrics": ["Relative L2, max absolute error and signed error", "Final five confidence metrics and aligned RMSD", "Standalone forward/backward/SGD-update errors against the same-precision H100 reference"],
+      "gate": "Use existing 0.1 A RMSD and 5% confidence limits for same-precision end-to-end comparisons. Report training tolerances explicitly; do not invent a PASS threshold. Local operator error alone cannot establish model acceptance.",
+      "deliverable": "A reproducible failing location and a controlled model-level test that distinguishes an implementation error from propagated floating-point variation."
+    },
+    {
+      "order": 3,
+      "task": "Test a small number of generic TF32 optimizations",
+      "first_candidate": "Reevaluate TF32 unsplit accumulation with staged prefetch in ordinary-TF32 inference, rather than relying only on the previous mixed-precision runs. Retain the strict FP32 accumulation route.",
+      "alternative_if_needed": "Reduce simultaneous lifetime of result/partial accumulators and RNE temporaries; restructure loading/prefetch while preserving validated accumulation grouping. Merely increasing stages with the old nested loops has already been rejected.",
+      "other_targets": "Prioritize MM/addmm/BMM, then Triangle Attention QK/PV and measured layout/launch hotspots. Distinguish matrix compute, RNE conversion, allocation, copies and launch costs. Previously negligible BMM preparation experiments require a new causal mechanism before repetition.",
+      "reference": "PPU native TF32 GEMM provides a same-input implementation diagnostic; compare total operator cost and clearly label prepared-kernel timings.",
+      "gate": "Accept only statistically supported whole-model latency improvements under matched precision that survive held-out input/layout/size tests and numerical validation. Do not roll out a local shape gain or a candidate with unresolved model errors.",
+      "deliverable": "At most two new implementation hypotheses per round, each with source diff, predicted mechanism, measured costs and an explicit keep/reject/pending decision."
+    },
+    {
+      "order": 4,
+      "task": "Expand accepted candidates to nine-model multi-input and full-protocol validation",
+      "coverage": "All nine models on existing G01/G02 inputs; G03 and short/medium/long held-out inputs as applicable. Move from diagnostic cycle/step/sample settings to the agreed full inference protocol.",
+      "validation": "Full four-mode timings, five confidence metrics, RMSD, entrypoint/input/RNG audits and standalone training gradient/update checks. Full-model training is a separate measured scope and must not be inferred from operator probes.",
+      "MFU": "Calculate only after verified executed FLOPs and applicable FP32/TF32 device peaks are established; never substitute a wall-time ratio for MFU.",
+      "gate": "Publish model/input failures and regressions explicitly. Production adoption requires completed numerical and performance checks; retain the existing FP32 results."
+    }
+  ],
+  "first_round_deliverables": [
+    "Matched four-mode baselines on G01/G02/G03 with per-configuration warmup/repeat counts",
+    "Actual H100-vs-PPU MM/BMM and Triangle Attention QK/PV precision map",
+    "Identical-activation TF32 error localization and causal confirmation",
+    "Ordinary-TF32 model evaluation of the existing unsplit/stages candidate, with G02 gain attribution"
+  ],
+  "existing_evidence": {
+    "large_mm_unsplit_stages": "Three real activation captures improved approximately 25-40%; this is not a universal model gain.",
+    "existing_unsplit_model_scope": "PPU mixed precision only: G01 latency improved about 8.2%; G02 approximately unchanged. H100 matching mixed policy and ordinary-TF32 unsplit model comparison remain unmeasured.",
+    "old_stage_increase": "Increasing stages without changing the nested split accumulation slowed two captures; do not blindly repeat.",
+    "precision_localization": "Previous 2621 Linear probes used a strict-FP32 teacher and did not cover QK/PV or establish causal coordinate attribution."
+  },
+  "primary_references": [
+    "https://docs.pytorch.org/docs/2.10/notes/numerical_accuracy.html",
+    "https://docs.nvidia.com/cuda/cuequivariance/api/generated/cuequivariance_torch.triangle_attention.html"
+  ]
+}

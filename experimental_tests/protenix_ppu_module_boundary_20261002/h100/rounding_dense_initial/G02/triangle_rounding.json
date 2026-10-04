@@ -1,0 +1,1651 @@
+{
+  "status": "PASS",
+  "server": "h100",
+  "records": [
+    {
+      "family": "template_embedder",
+      "module": "template_embedder.pairformer_stack.blocks.0.tri_att_start",
+      "inputs": [
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            32,
+            128,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "ebf3b6a16841c11771df7f7e36cfe8bb60cee104b8714c74469e518e3334e8e2"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            32,
+            128,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "5e0e9b0139a6f7c220d8b17efe2a06f9d82c2b5636a99198da2833bee50682f6"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            32,
+            128,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "4ebb3c3c6c3642e0ee4628e80a6bb1add7080aa2ce64d42a2b9c01773a2f329e"
+        }
+      ],
+      "teacher_output": {
+        "shape": [
+          1,
+          245,
+          4,
+          245,
+          32
+        ],
+        "stride": [
+          7683200,
+          31360,
+          7840,
+          32,
+          1
+        ],
+        "dtype": "torch.float32",
+        "sha256": "51cb2a95587e986aa20edf45880c9aca1bbce0ac70d6d4ebee0f77b97731d759"
+      },
+      "replays": {
+        "fp32": {
+          "output_sha256": "fa70fe928141936314597452c453dfbee83984702193d80c183b1ea22da6e9b4",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.001163586904642053,
+            "max_abs": 0.020127534866333008,
+            "rms": 0.001158300553852024,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "tf32": {
+          "output_sha256": "51cb2a95587e986aa20edf45880c9aca1bbce0ac70d6d4ebee0f77b97731d759",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0011636010512654975,
+            "max_abs": 0.020127534866333008,
+            "rms": 0.001158300553852024,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "q_rne": {
+          "output_sha256": "8819ab71ed95fddcd27a421cc21f873c030d9b9d6e071396ec2956db0d101961",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.00011761410191815886,
+            "max_abs": 0.003395676612854004,
+            "rms": 0.00011707976331560485,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0012105371273308364,
+            "max_abs": 0.020481228828430176,
+            "rms": 0.0012050228242065978,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "k_rne": {
+          "output_sha256": "594e2c81f52be7f9bf722d62554e7c63329705279e4c1a06a64da57ef62a4eb7",
+          "vs_unmodified_tf32": {
+            "relative_l2": 1.016943669071891e-06,
+            "max_abs": 0.0004985332489013672,
+            "rms": 1.0123235406160668e-06,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0011635988783115787,
+            "max_abs": 0.020127534866333008,
+            "rms": 0.0011582983907964584,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "v_rne": {
+          "output_sha256": "ef13d4b1aaf4846bb44b6f2fd3d7f28a2593029bb8e652239e5495930348c6a0",
+          "vs_unmodified_tf32": {
+            "relative_l2": 4.957578858984185e-07,
+            "max_abs": 0.0001424551010131836,
+            "rms": 4.935055830565817e-07,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0011636059716541576,
+            "max_abs": 0.020127534866333008,
+            "rms": 0.0011583054518270676,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "kv_rne": {
+          "output_sha256": "c748b532200864811e95abe375c9e810e7163a1b791bb4c9b5780ec239e7ed68",
+          "vs_unmodified_tf32": {
+            "relative_l2": 1.1325498791918919e-06,
+            "max_abs": 0.0004985332489013672,
+            "rms": 1.1274045342886995e-06,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0011636038000738082,
+            "max_abs": 0.020127534866333008,
+            "rms": 0.001158303290138815,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "q_rtz": {
+          "output_sha256": "3c1a40bb717d4e25a3357c83e083c9781e239da3c6d33ce3a3c2d4d65dc29863",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.00011671262188813747,
+            "max_abs": 0.003510713577270508,
+            "rms": 0.00011618237884530683,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.00112988882334969,
+            "max_abs": 0.018781065940856934,
+            "rms": 0.001124741893670345,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "k_rtz": {
+          "output_sha256": "25fdd961de448fe25ed867c8800d8906cf96f1baa4c5d6339dcfd6908b83a2ff",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.00012514650525366844,
+            "max_abs": 0.00307387113571167,
+            "rms": 0.00012457794580679474,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.001088479368139936,
+            "max_abs": 0.01768505573272705,
+            "rms": 0.0010835210690139949,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "v_rtz": {
+          "output_sha256": "c43d5c44bc4298f44913321558574f6fed8509a1e462d4e3dc7198738b1b8040",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.000453945705627974,
+            "max_abs": 0.00390625,
+            "rms": 0.00045188336182730047,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0012105863757071325,
+            "max_abs": 0.019166111946105957,
+            "rms": 0.0012050718482440785,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "kv_rtz": {
+          "output_sha256": "15b44b848c536dec28ad8992dc5e8bc96636c3ce42f957985edde0551ba04ced",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.00047945438821034146,
+            "max_abs": 0.0048999786376953125,
+            "rms": 0.00047727615461767414,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0011421704450979388,
+            "max_abs": 0.01672506332397461,
+            "rms": 0.0011369675695218197,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "q_rna": {
+          "output_sha256": "6b227dd16da392bde5559ba83b1827eb80768200874a60a39d9352abf85334a5",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.00011761584424128478,
+            "max_abs": 0.003395676612854004,
+            "rms": 0.00011708149772309406,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0012105443193306648,
+            "max_abs": 0.020481228828430176,
+            "rms": 0.0012050299834450466,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "k_rna": {
+          "output_sha256": "51cb2a95587e986aa20edf45880c9aca1bbce0ac70d6d4ebee0f77b97731d759",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0011636010512654975,
+            "max_abs": 0.020127534866333008,
+            "rms": 0.001158300553852024,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "v_rna": {
+          "output_sha256": "51cb2a95587e986aa20edf45880c9aca1bbce0ac70d6d4ebee0f77b97731d759",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0011636010512654975,
+            "max_abs": 0.020127534866333008,
+            "rms": 0.001158300553852024,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "kv_rna": {
+          "output_sha256": "51cb2a95587e986aa20edf45880c9aca1bbce0ac70d6d4ebee0f77b97731d759",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0011636010512654975,
+            "max_abs": 0.020127534866333008,
+            "rms": 0.001158300553852024,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "dense_fp32_qscaled_p_fp32": {
+          "output_sha256": "ddac4328e1de0cb9eeac2b5da0d5d05c49d91b5328346e076ded2dbc89f034dc",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0011635899213264741,
+            "max_abs": 0.02012813091278076,
+            "rms": 0.001158303556831192,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 2.4890381088323976e-07,
+            "max_abs": 1.5974044799804688e-05,
+            "rms": 2.477699910018559e-07,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "dense_rne_qscaled_p_rne": {
+          "output_sha256": "23787a66019514aaded754eb708c76cf90756c36af51ded1365a482aae04a599",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0011564837597069688,
+            "max_abs": 0.01889348030090332,
+            "rms": 0.0011512296795756001,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.00021206387311652777,
+            "max_abs": 0.0028977394104003906,
+            "rms": 0.00021109786847975387,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "dense_rne_qscaled_p_rtz": {
+          "output_sha256": "d77d424a559c0e329f86a3981928b6fd54b5c0fe5f06a4cd5b786c063f679e3d",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.001193068007990238,
+            "max_abs": 0.01985490322113037,
+            "rms": 0.0011876477201015797,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.00036182994564615007,
+            "max_abs": 0.004367828369140625,
+            "rms": 0.0003601817186282793,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "dense_rna_qscaled_p_rna": {
+          "output_sha256": "f815b2a9f4530ae188527c31b61e1f5a6d6d50893467b51d733cc7748f3a5b6c",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0011564815831977375,
+            "max_abs": 0.01889348030090332,
+            "rms": 0.0011512275129545797,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.00021206969596567382,
+            "max_abs": 0.0028977394104003906,
+            "rms": 0.00021110366480434794,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "dense_rna_qscaled_p_rtz": {
+          "output_sha256": "09a1937e9a35a5a2180da885083e9a6d2b5709c7dc8fdffb7a37d6e61736749c",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0011930589330256737,
+            "max_abs": 0.01985490322113037,
+            "rms": 0.0011876386863659463,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0003618144140423114,
+            "max_abs": 0.004367828369140625,
+            "rms": 0.000360166257774828,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "dense_rna_qraw_p_rna": {
+          "output_sha256": "ec645258de112bdf7b279452839f8649d6f3d41fb45676a0860bba7bf924f44d",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0011560713360421646,
+            "max_abs": 0.019118428230285645,
+            "rms": 0.0011508191296137036,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.00021214429798095905,
+            "max_abs": 0.0029878616333007812,
+            "rms": 0.00021117792698856563,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "dense_rna_qraw_p_rtz": {
+          "output_sha256": "5d47dfebcb7a36841eda731d3c7bd3dac34c0ea05c2e177b5d506b24c7dfa0c1",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0011925726379585675,
+            "max_abs": 0.019850611686706543,
+            "rms": 0.0011871546006106525,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0003618871140948039,
+            "max_abs": 0.004367828369140625,
+            "rms": 0.0003602386266601713,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        }
+      },
+      "entry_source": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py"
+    },
+    {
+      "family": "msa_module",
+      "module": "msa_module.blocks.0.pair_stack.tri_att_start",
+      "inputs": [
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            32,
+            128,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "941686708daa75f169a7748894cc4ed4d99511cc98ef7dbc7960f9109e38f423"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            32,
+            128,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "a76b5185f4acb20f50490d4d0c4f67c5c9523d90c43081448eff19dd4c155934"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            32,
+            128,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "b7201911618904660583c61dc7b75e8d465757933d1549031e5a048c12ee8c8a"
+        }
+      ],
+      "teacher_output": {
+        "shape": [
+          1,
+          245,
+          4,
+          245,
+          32
+        ],
+        "stride": [
+          7683200,
+          31360,
+          7840,
+          32,
+          1
+        ],
+        "dtype": "torch.float32",
+        "sha256": "3d25f6659ca06f7ae4d46319ba83af33168b0ecaade3a101e101c0fed7dc531b"
+      },
+      "replays": {
+        "fp32": {
+          "output_sha256": "268a2d70d8653f5ce32a1e6ee7de6f718fa4afb08028021bf1fd93a429e74717",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.002928042529368679,
+            "max_abs": 0.03596603870391846,
+            "rms": 0.0024533607687579574,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "tf32": {
+          "output_sha256": "3d25f6659ca06f7ae4d46319ba83af33168b0ecaade3a101e101c0fed7dc531b",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.002927889737980456,
+            "max_abs": 0.03596603870391846,
+            "rms": 0.0024533607687579574,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "q_rne": {
+          "output_sha256": "b6fa59baa815e5082429b50174027e8a1f466aa316382da32a7019b15a1b67a6",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0004353987888734319,
+            "max_abs": 0.009049475193023682,
+            "rms": 0.00036481379511181023,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0030767432600087175,
+            "max_abs": 0.03914082050323486,
+            "rms": 0.002578089301563896,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "k_rne": {
+          "output_sha256": "499b23540b40904e400f779f553338c85f0d53e4a5381c4edde346b048a50d1d",
+          "vs_unmodified_tf32": {
+            "relative_l2": 8.263190479352227e-06,
+            "max_abs": 0.0009723901748657227,
+            "rms": 6.9235972986975446e-06,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0029277606402910677,
+            "max_abs": 0.03596603870391846,
+            "rms": 0.0024532525941903167,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "v_rne": {
+          "output_sha256": "2d07f81f090dbe8fa95e5a906e8cc322b03681f46b5255bd032131a94cc66be0",
+          "vs_unmodified_tf32": {
+            "relative_l2": 4.1124765836416457e-07,
+            "max_abs": 0.0001348257064819336,
+            "rms": 3.445779428249325e-07,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0029278939242732174,
+            "max_abs": 0.03596603870391846,
+            "rms": 0.0024533642765698434,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "kv_rne": {
+          "output_sha256": "c16a921814e6391135169261cb4968e77615355477c4090418a3777194f61dce",
+          "vs_unmodified_tf32": {
+            "relative_l2": 8.273444648997378e-06,
+            "max_abs": 0.0009723901748657227,
+            "rms": 6.932189106115435e-06,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0029277648263552067,
+            "max_abs": 0.03596603870391846,
+            "rms": 0.0024532561018106324,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "q_rtz": {
+          "output_sha256": "54d52b2f8395926dac26b1a85aed69f34ff7fda07e52f32dabf3d9f2c6fe061b",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0004224489600768162,
+            "max_abs": 0.007838338613510132,
+            "rms": 0.0003539633373015072,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0028124651466057728,
+            "max_abs": 0.036161959171295166,
+            "rms": 0.0023566432726871665,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "k_rtz": {
+          "output_sha256": "c7e67997c350786f31ee72f3975cd9f092b16802eaed9711b7f1a571d45aa285",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0006821441887657372,
+            "max_abs": 0.011294782161712646,
+            "rms": 0.0005715578836609556,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0026825754308070207,
+            "max_abs": 0.03908121585845947,
+            "rms": 0.002247805043954536,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "v_rtz": {
+          "output_sha256": "d6a206a651638e2cd31b45cfc775d3e9a0f7d0fcc94e0f38540c3cc6c590094b",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.000402146058675544,
+            "max_abs": 0.0024518966674804688,
+            "rms": 0.00033695185564080234,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.002954759843686803,
+            "max_abs": 0.036182403564453125,
+            "rms": 0.002475875982475586,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "kv_rtz": {
+          "output_sha256": "d86a4650a935f8e65520396ccaa498cf87f1a067f8e51bab0f1d062c8ee507fc",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0008089853562231339,
+            "max_abs": 0.010839641094207764,
+            "rms": 0.0006778361022941138,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.002717047822183163,
+            "max_abs": 0.03929734230041504,
+            "rms": 0.002276690425637605,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "q_rna": {
+          "output_sha256": "b0d0785b7fdc5ef233efbc5276a46da648e7f63aea92e95ae921826535377e61",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.00043543006985543876,
+            "max_abs": 0.009049475193023682,
+            "rms": 0.0003648400049544932,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0030767708197639897,
+            "max_abs": 0.03914082050323486,
+            "rms": 0.0025781123946542893,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "k_rna": {
+          "output_sha256": "3d25f6659ca06f7ae4d46319ba83af33168b0ecaade3a101e101c0fed7dc531b",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.002927889737980456,
+            "max_abs": 0.03596603870391846,
+            "rms": 0.0024533607687579574,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "v_rna": {
+          "output_sha256": "3d25f6659ca06f7ae4d46319ba83af33168b0ecaade3a101e101c0fed7dc531b",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.002927889737980456,
+            "max_abs": 0.03596603870391846,
+            "rms": 0.0024533607687579574,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "kv_rna": {
+          "output_sha256": "3d25f6659ca06f7ae4d46319ba83af33168b0ecaade3a101e101c0fed7dc531b",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.002927889737980456,
+            "max_abs": 0.03596603870391846,
+            "rms": 0.0024533607687579574,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "dense_fp32_qscaled_p_fp32": {
+          "output_sha256": "321647af8d2c0c45a8ec47db45f1bbcfe808119d401608a21ac9ae3b9d751cd6",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0029280439520559245,
+            "max_abs": 0.035967350006103516,
+            "rms": 0.0024533619608052,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 3.343383279239002e-07,
+            "max_abs": 6.4373016357421875e-06,
+            "rms": 2.801514437446159e-07,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "dense_rne_qscaled_p_rne": {
+          "output_sha256": "bae82eb692bdaada4d4990c76b503a6137eb2e0f7d6d097c476b2a0c28bdd36c",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0029357029844363502,
+            "max_abs": 0.03870248794555664,
+            "rms": 0.002459779343538002,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.00042587922272905676,
+            "max_abs": 0.00840708613395691,
+            "rms": 0.00035685612190925365,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "dense_rne_qscaled_p_rtz": {
+          "output_sha256": "9bbee512131f814e6cff7961f1d8e280ac4c3b49dc0b1d5b8175d3d75a571d9b",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0029412707034928405,
+            "max_abs": 0.039505600929260254,
+            "rms": 0.0024644444477390968,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.000541657406104759,
+            "max_abs": 0.0086439847946167,
+            "rms": 0.0004538699026151886,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "dense_rna_qscaled_p_rna": {
+          "output_sha256": "3518ce129356c116ff85f3f72ea95479bd3d73579da790eaae3b7f9f911e757b",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0029355542946423157,
+            "max_abs": 0.03870248794555664,
+            "rms": 0.0024596547586988983,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.00042605103639176985,
+            "max_abs": 0.00840708613395691,
+            "rms": 0.00035700008938663845,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "dense_rna_qscaled_p_rtz": {
+          "output_sha256": "1fee3f8abfa5f7bc2d49e47d658a0748e554220d12c0c2b73bceee7c37a9e449",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.002941142543282338,
+            "max_abs": 0.039505600929260254,
+            "rms": 0.0024643370643150507,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0005417605019597632,
+            "max_abs": 0.0086439847946167,
+            "rms": 0.0004539562895179502,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "dense_rna_qraw_p_rna": {
+          "output_sha256": "237c3739843d427b9ec57572fd5b9b10f8e3925d75a1da98d6a04e1385220a28",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0029331922153279107,
+            "max_abs": 0.04024708271026611,
+            "rms": 0.0024576756096037116,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.00041547252457854424,
+            "max_abs": 0.008034035563468933,
+            "rms": 0.00034813605822531484,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "dense_rna_qraw_p_rtz": {
+          "output_sha256": "ccf3a6532ad8e8f9be67cc1bdf9ab6168631f6aabdfe6004f45bc9f0709e2822",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.002938736056671907,
+            "max_abs": 0.039972901344299316,
+            "rms": 0.002462320707045134,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.000533525089174972,
+            "max_abs": 0.007906913757324219,
+            "rms": 0.0004470556066204278,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        }
+      },
+      "entry_source": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py"
+    },
+    {
+      "family": "pairformer_stack",
+      "module": "pairformer_stack.blocks.0.tri_att_start",
+      "inputs": [
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            32,
+            128,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "08349863ae5fac786c6baa7d5dc24c02a480c5b52ab1a325629e178d76e1f7f1"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            32,
+            128,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "6360570dc472a4b85fc73b4df4efa9a320a55de32c996e25bc32c7431ea23352"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            32,
+            128,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "f355c200dd0074c1f8328dbb5aaf256e67c5fe9c744223fb26ea821636c33150"
+        }
+      ],
+      "teacher_output": {
+        "shape": [
+          1,
+          245,
+          4,
+          245,
+          32
+        ],
+        "stride": [
+          7683200,
+          31360,
+          7840,
+          32,
+          1
+        ],
+        "dtype": "torch.float32",
+        "sha256": "654233fff6eccb19bd04e7c255bd135ff3047d6a3e0adb787c45d22888ec8da8"
+      },
+      "replays": {
+        "fp32": {
+          "output_sha256": "07abc52de2378fcd43614e31f58aa4b07f4ba9d739853b469aa261199a72b43d",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.002162752743308168,
+            "max_abs": 0.05388200283050537,
+            "rms": 0.0018141035610334522,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "tf32": {
+          "output_sha256": "654233fff6eccb19bd04e7c255bd135ff3047d6a3e0adb787c45d22888ec8da8",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0021635590063470897,
+            "max_abs": 0.05388200283050537,
+            "rms": 0.0018141035610334522,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "q_rne": {
+          "output_sha256": "dd3efeb0d5dc568cf78fadadc5a4dbc2d72244a1184a3730383b45b3a45781fc",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.00028609399040956264,
+            "max_abs": 0.009636640548706055,
+            "rms": 0.00023997386127369262,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0022796537756942827,
+            "max_abs": 0.054361701011657715,
+            "rms": 0.0019114468430390646,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "k_rne": {
+          "output_sha256": "d07d0493c8c3c3d3758d024fbf6e1a410d283ed9e85f30da0d1c87548d00560b",
+          "vs_unmodified_tf32": {
+            "relative_l2": 3.2039564887955925e-06,
+            "max_abs": 0.0009722709655761719,
+            "rms": 2.687458792365216e-06,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0021635432081643434,
+            "max_abs": 0.05388200283050537,
+            "rms": 0.001814090314554158,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "v_rne": {
+          "output_sha256": "b59d776d29ed909eaee3fc7b0124db9ced3be6f97086e494afcd3be8aa1f4228",
+          "vs_unmodified_tf32": {
+            "relative_l2": 2.3675862058382025e-06,
+            "max_abs": 0.0015027523040771484,
+            "rms": 1.985916596499826e-06,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0021635514645801,
+            "max_abs": 0.05388200283050537,
+            "rms": 0.0018140972374035857,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "kv_rne": {
+          "output_sha256": "72062987c2b7a3280b71d8e88156657333bac3ae1de797aea6eafbc228be4b07",
+          "vs_unmodified_tf32": {
+            "relative_l2": 3.983742513103058e-06,
+            "max_abs": 0.0015027523040771484,
+            "rms": 3.341538463708191e-06,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.002163535665607864,
+            "max_abs": 0.05388200283050537,
+            "rms": 0.0018140839902623202,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "q_rtz": {
+          "output_sha256": "aab33c5b25a361f3e4a0c82e1b93cfb5b63d64b6f7fb8361072300639e260363",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.00029858825000617675,
+            "max_abs": 0.011042356491088867,
+            "rms": 0.00025045396857992095,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.002060029469144655,
+            "max_abs": 0.04692268371582031,
+            "rms": 0.0017272959900081558,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "k_rtz": {
+          "output_sha256": "a408de09c8a2a7c36fc72f1644e27ffab5a0681e7d939f5f6ac0dd09bdb7cea7",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0003613581145394436,
+            "max_abs": 0.008311152458190918,
+            "rms": 0.00030310494087799395,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.001971530691978076,
+            "max_abs": 0.04921400547027588,
+            "rms": 0.0016530914287579911,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "v_rtz": {
+          "output_sha256": "ac12a06d9ba7ec6eb89a4178f0b588d270df2b514194908494b02358d0ff7101",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0003951980823163238,
+            "max_abs": 0.007313251495361328,
+            "rms": 0.0003314896955565824,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.002134454529051569,
+            "max_abs": 0.05101001262664795,
+            "rms": 0.00178970000386268,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "kv_rtz": {
+          "output_sha256": "8408aff64cf043919bca3ccb752e714f20cfc6851af9c877d83f3edd20e55164",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0005852957705833863,
+            "max_abs": 0.011631488800048828,
+            "rms": 0.0004909424551456679,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0019539765873102244,
+            "max_abs": 0.046346068382263184,
+            "rms": 0.001638372641937204,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "q_rna": {
+          "output_sha256": "2bd5b0d9d570564177b1ef8ed7d84e8600ab4527f4b7038fc97c481b1ef13ff9",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.00028609302799847454,
+            "max_abs": 0.009636640548706055,
+            "rms": 0.00023997305400925276,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.002279664419663887,
+            "max_abs": 0.054361701011657715,
+            "rms": 0.001911455767807517,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "k_rna": {
+          "output_sha256": "654233fff6eccb19bd04e7c255bd135ff3047d6a3e0adb787c45d22888ec8da8",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0021635590063470897,
+            "max_abs": 0.05388200283050537,
+            "rms": 0.0018141035610334522,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "v_rna": {
+          "output_sha256": "654233fff6eccb19bd04e7c255bd135ff3047d6a3e0adb787c45d22888ec8da8",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0021635590063470897,
+            "max_abs": 0.05388200283050537,
+            "rms": 0.0018141035610334522,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "kv_rna": {
+          "output_sha256": "654233fff6eccb19bd04e7c255bd135ff3047d6a3e0adb787c45d22888ec8da8",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0021635590063470897,
+            "max_abs": 0.05388200283050537,
+            "rms": 0.0018141035610334522,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "dense_fp32_qscaled_p_fp32": {
+          "output_sha256": "630dd615fb619c2b5a529989ec02b80399bef789061f4293ae196a3cb1935b1a",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.002162757187894403,
+            "max_abs": 0.05387914180755615,
+            "rms": 0.0018141072891247512,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 4.2334426543938086e-07,
+            "max_abs": 1.049041748046875e-05,
+            "rms": 3.549662094830953e-07,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "dense_rne_qscaled_p_rne": {
+          "output_sha256": "42d26f4085cd4e10cebab7868c6dea7dd0ae270abfee813d3a221720223ecd46",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0021663172646885997,
+            "max_abs": 0.05070805549621582,
+            "rms": 0.0018170934594162428,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.00024817694739005526,
+            "max_abs": 0.006452083587646484,
+            "rms": 0.00020809170570604396,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "dense_rne_qscaled_p_rtz": {
+          "output_sha256": "68e1795f57c5fe051369aa5962276d964c8179893aceb0968b18190e8d8a2232",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0022542625981908843,
+            "max_abs": 0.05308866500854492,
+            "rms": 0.0018908614586369541,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0004355230145266213,
+            "max_abs": 0.00829458236694336,
+            "rms": 0.00036517786168377056,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "dense_rna_qscaled_p_rna": {
+          "output_sha256": "621d6461c8c029b6d089835d67412dd651e9525f7f4bffee661a67f3d52b58f4",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0021662396713421645,
+            "max_abs": 0.05070805549621582,
+            "rms": 0.0018170283745994463,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.00024818106806256095,
+            "max_abs": 0.006452083587646484,
+            "rms": 0.00020809516081248862,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "dense_rna_qscaled_p_rtz": {
+          "output_sha256": "3d2d82c59551532cc5b3d67b4771d161c6645cb536458a9c2d0b1f6be597af52",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0022541955647653175,
+            "max_abs": 0.05308866500854492,
+            "rms": 0.0018908052314161581,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0004354839963666082,
+            "max_abs": 0.00829458236694336,
+            "rms": 0.00036514514568997613,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "dense_rna_qraw_p_rna": {
+          "output_sha256": "d28764453c6b5ef534484b150dd78a76510e305050a27c0d835239933d861d51",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.002162558169917645,
+            "max_abs": 0.04856276512145996,
+            "rms": 0.0018139403540826345,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.000252607474536395,
+            "max_abs": 0.007439136505126953,
+            "rms": 0.00021180661944301453,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        },
+        "dense_rna_qraw_p_rtz": {
+          "output_sha256": "f8d12ae127dd68ade9f11dac7a8cd514f93e8ed0c3f09ecd6c25611f4be30584",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.002251639681026604,
+            "max_abs": 0.05093526840209961,
+            "rms": 0.0018886613720192214,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.00043834053474708603,
+            "max_abs": 0.009145736694335938,
+            "rms": 0.00036754029943112613,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": false
+        }
+      },
+      "entry_source": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py"
+    },
+    {
+      "family": "confidence_head",
+      "module": "confidence_head.pairformer_stack.blocks.0.tri_att_start",
+      "inputs": [
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            32,
+            128,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            32,
+            128,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4"
+        },
+        {
+          "shape": [
+            245,
+            4,
+            245,
+            32
+          ],
+          "stride": [
+            31360,
+            32,
+            128,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4"
+        }
+      ],
+      "teacher_output": {
+        "shape": [
+          1,
+          245,
+          4,
+          245,
+          32
+        ],
+        "stride": [
+          7683200,
+          31360,
+          7840,
+          32,
+          1
+        ],
+        "dtype": "torch.float32",
+        "sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4"
+      },
+      "replays": {
+        "fp32": {
+          "output_sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "tf32": {
+          "output_sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "q_rne": {
+          "output_sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "k_rne": {
+          "output_sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "v_rne": {
+          "output_sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "kv_rne": {
+          "output_sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "q_rtz": {
+          "output_sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "k_rtz": {
+          "output_sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "v_rtz": {
+          "output_sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "kv_rtz": {
+          "output_sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "q_rna": {
+          "output_sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "k_rna": {
+          "output_sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "v_rna": {
+          "output_sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "kv_rna": {
+          "output_sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "dense_fp32_qscaled_p_fp32": {
+          "output_sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "dense_rne_qscaled_p_rne": {
+          "output_sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "dense_rne_qscaled_p_rtz": {
+          "output_sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "dense_rna_qscaled_p_rna": {
+          "output_sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "dense_rna_qscaled_p_rtz": {
+          "output_sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "dense_rna_qraw_p_rna": {
+          "output_sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        },
+        "dense_rna_qraw_p_rtz": {
+          "output_sha256": "1af40d2f7a88a98435dd4832b4c8d8785a382cd14cfd5e849d73e034c4d428e4",
+          "vs_unmodified_tf32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "vs_unmodified_fp32": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "rms": 0.0,
+            "finite": true
+          },
+          "output_hash_equal_unmodified_tf32": true
+        }
+      },
+      "entry_source": "/data/xishiqing/yes-star24-home/envs/protenix-baseline/lib/python3.10/site-packages/cuequivariance_ops_torch/triangle_attention.py"
+    }
+  ],
+  "scope": "First actual triangle call per top-level semantic family. Quantization replays stay in server memory; only error/hash scalars persisted. Q probes also involve internal scaling. Hash idempotence is input-specific evidence, not proof for all inputs or ties."
+}

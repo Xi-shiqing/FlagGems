@@ -1,0 +1,1286 @@
+{
+  "status": "PASS",
+  "server": "h100",
+  "cases": [
+    {
+      "shape": [
+        2,
+        5,
+        67,
+        2,
+        16
+      ],
+      "seed": 401,
+      "rng": "NumPy PCG64",
+      "input_sha256": {
+        "q": "e1d4f8a522c541d5bb16741e76008f028348e45cdb18a45c8cd0c327e06d7f8a",
+        "k": "3178f5fdc874fec9a3e65494031af94ded019d739ee17f59f05294408c5f8ed4",
+        "v": "6ebcf2fccd23e4df37799edab5f64c69cf1c3e0fb4705b7553761692deabb922",
+        "bias2": "a56b530e426dc954bb158f26c8430696d99dd0a84aeea0cc9bcebffd33ca9767",
+        "upstream": "b571521f2cc0af76030d385d1f52a4b3c63356a9a84cfbb1c2fa3a38bc81dd89",
+        "bias1": "c2d6a5371ddb7cb325430c1c33a5344ce351646d0fe5336b6baa5e267f9a05ee"
+      },
+      "budget_test": "default",
+      "modes": {
+        "ieee:fixed_rne_once": {
+          "output_vs_fp64": {
+            "relative_l2": 1.5187590097303112e-07,
+            "max_abs": 5.453202939209589e-08,
+            "finite": true
+          },
+          "output_vs_parent": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "finite": true
+          },
+          "gradients": {
+            "q": {
+              "vs_fp64": {
+                "relative_l2": 2.328941713074896e-07,
+                "max_abs": 3.9383577421503446e-07,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "bbc53238470fd9c9a6bc4176e3e72d2d4319ced405faa84db27ab8698af3c8ca"
+            },
+            "k": {
+              "vs_fp64": {
+                "relative_l2": 2.5077997361578473e-07,
+                "max_abs": 4.6438222400801976e-07,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "b21b01d67e1bf9405cda0e70507729aeea6425f173f4139d632323ce445d4532"
+            },
+            "v": {
+              "vs_fp64": {
+                "relative_l2": 2.3553949779497746e-07,
+                "max_abs": 1.4621398736203162e-06,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "d3c721412bfba1fc6b0e3c5675969bfcc6dc7f7ff606b0854b9a54972ea8e51c"
+            },
+            "bias2": {
+              "vs_fp64": {
+                "relative_l2": 1.9704079436248295e-07,
+                "max_abs": 3.6964729899224835e-07,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "2a7eea3f47ee406816a6e6641c7b1d42cbc662cfaf8f44c6b63d013602265ab7"
+            }
+          },
+          "allocations": [
+            {
+              "shape": [
+                2,
+                5,
+                67,
+                2
+              ],
+              "dtype": "torch.float32",
+              "bytes": 5360
+            }
+          ],
+          "private_budget_bytes": null
+        },
+        "ieee:forward_kv_prequant": {
+          "output_vs_fp64": {
+            "relative_l2": 1.5187590097303112e-07,
+            "max_abs": 5.453202939209589e-08,
+            "finite": true
+          },
+          "output_vs_parent": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "finite": true
+          },
+          "gradients": {
+            "q": {
+              "vs_fp64": {
+                "relative_l2": 2.328941713074896e-07,
+                "max_abs": 3.9383577421503446e-07,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "bbc53238470fd9c9a6bc4176e3e72d2d4319ced405faa84db27ab8698af3c8ca"
+            },
+            "k": {
+              "vs_fp64": {
+                "relative_l2": 2.5077997361578473e-07,
+                "max_abs": 4.6438222400801976e-07,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "b21b01d67e1bf9405cda0e70507729aeea6425f173f4139d632323ce445d4532"
+            },
+            "v": {
+              "vs_fp64": {
+                "relative_l2": 2.3553949779497746e-07,
+                "max_abs": 1.4621398736203162e-06,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "d3c721412bfba1fc6b0e3c5675969bfcc6dc7f7ff606b0854b9a54972ea8e51c"
+            },
+            "bias2": {
+              "vs_fp64": {
+                "relative_l2": 1.9704079436248295e-07,
+                "max_abs": 3.6964729899224835e-07,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "2a7eea3f47ee406816a6e6641c7b1d42cbc662cfaf8f44c6b63d013602265ab7"
+            }
+          },
+          "allocations": [
+            {
+              "shape": [
+                2,
+                5,
+                67,
+                2
+              ],
+              "dtype": "torch.float32",
+              "bytes": 5360
+            }
+          ],
+          "private_budget_bytes": null
+        },
+        "tf32:fixed_rne_once": {
+          "output_vs_fp64": {
+            "relative_l2": 0.0002999876774217718,
+            "max_abs": 5.803345929914633e-05,
+            "finite": true
+          },
+          "output_vs_parent": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "finite": true
+          },
+          "gradients": {
+            "q": {
+              "vs_fp64": {
+                "relative_l2": 0.0003991169747673534,
+                "max_abs": 0.0005238193230770113,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "b8db427e95d10c59a12b1649cbde6b898bad633903187f47aaa13b46c8edd698"
+            },
+            "k": {
+              "vs_fp64": {
+                "relative_l2": 0.0004017526005553965,
+                "max_abs": 0.0005582582338925501,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "301e292c22de2b23720d555f02a9de70220cf7b3dd1cdc03c817025fdb13c597"
+            },
+            "v": {
+              "vs_fp64": {
+                "relative_l2": 0.00029054987955628845,
+                "max_abs": 0.001160484895905145,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "0e5fb8c323c0b1ce7d708eceb76acb1003e1d6ec9591d7c50c1e0a276155201a"
+            },
+            "bias2": {
+              "vs_fp64": {
+                "relative_l2": 0.0002764006949708023,
+                "max_abs": 0.0005755916263332495,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "43d908311ce89e6618220c0392189353675c2da98aa23a1f78a25232ed0a78ca"
+            }
+          },
+          "allocations": [
+            {
+              "shape": [
+                2,
+                5,
+                67,
+                2
+              ],
+              "dtype": "torch.float32",
+              "bytes": 5360
+            }
+          ],
+          "private_budget_bytes": null
+        },
+        "tf32:forward_kv_prequant": {
+          "output_vs_fp64": {
+            "relative_l2": 0.0002999876774217718,
+            "max_abs": 5.803345929914633e-05,
+            "finite": true
+          },
+          "output_vs_parent": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "finite": true
+          },
+          "gradients": {
+            "q": {
+              "vs_fp64": {
+                "relative_l2": 0.0003991169747673534,
+                "max_abs": 0.0005238193230770113,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "b8db427e95d10c59a12b1649cbde6b898bad633903187f47aaa13b46c8edd698"
+            },
+            "k": {
+              "vs_fp64": {
+                "relative_l2": 0.0004017526005553965,
+                "max_abs": 0.0005582582338925501,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "301e292c22de2b23720d555f02a9de70220cf7b3dd1cdc03c817025fdb13c597"
+            },
+            "v": {
+              "vs_fp64": {
+                "relative_l2": 0.00029054987955628845,
+                "max_abs": 0.001160484895905145,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "0e5fb8c323c0b1ce7d708eceb76acb1003e1d6ec9591d7c50c1e0a276155201a"
+            },
+            "bias2": {
+              "vs_fp64": {
+                "relative_l2": 0.0002764006949708023,
+                "max_abs": 0.0005755916263332495,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "43d908311ce89e6618220c0392189353675c2da98aa23a1f78a25232ed0a78ca"
+            }
+          },
+          "allocations": [
+            {
+              "shape": [
+                2,
+                5,
+                67,
+                2
+              ],
+              "dtype": "torch.float32",
+              "bytes": 5360
+            },
+            {
+              "shape": [
+                2,
+                21440
+              ],
+              "dtype": "torch.float32",
+              "bytes": 171520
+            }
+          ],
+          "private_budget_bytes": null
+        }
+      }
+    },
+    {
+      "shape": [
+        1,
+        9,
+        129,
+        4,
+        64
+      ],
+      "seed": 402,
+      "rng": "NumPy PCG64",
+      "input_sha256": {
+        "q": "8b71fb90cebf7a0efb72b187cae5f13a83c58c601f312c1dda5aef7da0b71ca3",
+        "k": "62bcaef809757a5e33d0ff5664845da6388eff140fd807d9c24de1cd3a50a48c",
+        "v": "f101ac04e1c368fd69937d404711809ccfbf9bf8c72a64ebaaae9732459a7056",
+        "bias2": "fe299b5767fcab09aadcc7be5d702630c28ac5278d0cdc9d04b722d0ce37e12d",
+        "upstream": "e92ba06b0801d47803040e451df3ea33923791de528318e1255c84372b6d0987",
+        "bias1": "48f976ae1203410c895256449c2f70969ddbd45e1489fbe7efdc2006a1fe4489"
+      },
+      "budget_test": "default",
+      "modes": {
+        "ieee:fixed_rne_once": {
+          "output_vs_fp64": {
+            "relative_l2": 2.4466328312804583e-07,
+            "max_abs": 9.394718852862027e-08,
+            "finite": true
+          },
+          "output_vs_parent": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "finite": true
+          },
+          "gradients": {
+            "q": {
+              "vs_fp64": {
+                "relative_l2": 3.2904740887747634e-07,
+                "max_abs": 1.545556458815156e-06,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "ae4d0ef89ece632939e919ae5fd8317b09cd2bf140b7deb51451ee72c434d8a9"
+            },
+            "k": {
+              "vs_fp64": {
+                "relative_l2": 3.4908516930533405e-07,
+                "max_abs": 1.8751024599694688e-06,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "7a696ebadea854d708c0a48f5fd475401b564e4403d57f6e03b9dad9d5051736"
+            },
+            "v": {
+              "vs_fp64": {
+                "relative_l2": 3.2363470013659036e-07,
+                "max_abs": 2.3051581248267894e-06,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "a3cf4b8c9279c5d015b55c2237e1ce678143f76efbc2bebdb1af04dcecb7f7d2"
+            },
+            "bias2": {
+              "vs_fp64": {
+                "relative_l2": 2.8905566663303507e-07,
+                "max_abs": 2.4155919506885226e-06,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "2dfa64560626114ff4b2a67b218a5b47ba9ffb194ba8c97024cc47a05e638136"
+            }
+          },
+          "allocations": [
+            {
+              "shape": [
+                1,
+                9,
+                129,
+                4
+              ],
+              "dtype": "torch.float32",
+              "bytes": 18576
+            }
+          ],
+          "private_budget_bytes": null
+        },
+        "ieee:forward_kv_prequant": {
+          "output_vs_fp64": {
+            "relative_l2": 2.4466328312804583e-07,
+            "max_abs": 9.394718852862027e-08,
+            "finite": true
+          },
+          "output_vs_parent": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "finite": true
+          },
+          "gradients": {
+            "q": {
+              "vs_fp64": {
+                "relative_l2": 3.2904740887747634e-07,
+                "max_abs": 1.545556458815156e-06,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "ae4d0ef89ece632939e919ae5fd8317b09cd2bf140b7deb51451ee72c434d8a9"
+            },
+            "k": {
+              "vs_fp64": {
+                "relative_l2": 3.4908516930533405e-07,
+                "max_abs": 1.8751024599694688e-06,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "7a696ebadea854d708c0a48f5fd475401b564e4403d57f6e03b9dad9d5051736"
+            },
+            "v": {
+              "vs_fp64": {
+                "relative_l2": 3.2363470013659036e-07,
+                "max_abs": 2.3051581248267894e-06,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "a3cf4b8c9279c5d015b55c2237e1ce678143f76efbc2bebdb1af04dcecb7f7d2"
+            },
+            "bias2": {
+              "vs_fp64": {
+                "relative_l2": 2.8905566663303507e-07,
+                "max_abs": 2.4155919506885226e-06,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "2dfa64560626114ff4b2a67b218a5b47ba9ffb194ba8c97024cc47a05e638136"
+            }
+          },
+          "allocations": [
+            {
+              "shape": [
+                1,
+                9,
+                129,
+                4
+              ],
+              "dtype": "torch.float32",
+              "bytes": 18576
+            }
+          ],
+          "private_budget_bytes": null
+        },
+        "tf32:fixed_rne_once": {
+          "output_vs_fp64": {
+            "relative_l2": 0.000304610231110306,
+            "max_abs": 6.78134957294782e-05,
+            "finite": true
+          },
+          "output_vs_parent": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "finite": true
+          },
+          "gradients": {
+            "q": {
+              "vs_fp64": {
+                "relative_l2": 0.0004232852224936024,
+                "max_abs": 0.0012698781941351545,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "db13d98f2a61b1c931afc8976b75bbf27aa726422857859aa79968cf8e871026"
+            },
+            "k": {
+              "vs_fp64": {
+                "relative_l2": 0.0004214576046099677,
+                "max_abs": 0.0015270069680397569,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "0e6a8e9830d42d463c25621834bb384d9ec0971d1cda9c3fb1eb2208d56121e4"
+            },
+            "v": {
+              "vs_fp64": {
+                "relative_l2": 0.0003350971137736509,
+                "max_abs": 0.0015047059944395258,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "c8330266b2200eaca4d415c82660f113dbf2fdce85558a6e7760a82a179aed50"
+            },
+            "bias2": {
+              "vs_fp64": {
+                "relative_l2": 0.0003142781593001249,
+                "max_abs": 0.0010885027563592997,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "8cceb4db91675216c82da920f5c39c98f3a01c76e5e162ec76bfd4ae163cc5d4"
+            }
+          },
+          "allocations": [
+            {
+              "shape": [
+                1,
+                9,
+                129,
+                4
+              ],
+              "dtype": "torch.float32",
+              "bytes": 18576
+            }
+          ],
+          "private_budget_bytes": null
+        },
+        "tf32:forward_kv_prequant": {
+          "output_vs_fp64": {
+            "relative_l2": 0.000304610231110306,
+            "max_abs": 6.78134957294782e-05,
+            "finite": true
+          },
+          "output_vs_parent": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "finite": true
+          },
+          "gradients": {
+            "q": {
+              "vs_fp64": {
+                "relative_l2": 0.0004232852224936024,
+                "max_abs": 0.0012698781941351545,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "db13d98f2a61b1c931afc8976b75bbf27aa726422857859aa79968cf8e871026"
+            },
+            "k": {
+              "vs_fp64": {
+                "relative_l2": 0.0004214576046099677,
+                "max_abs": 0.0015270069680397569,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "0e6a8e9830d42d463c25621834bb384d9ec0971d1cda9c3fb1eb2208d56121e4"
+            },
+            "v": {
+              "vs_fp64": {
+                "relative_l2": 0.0003350971137736509,
+                "max_abs": 0.0015047059944395258,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "c8330266b2200eaca4d415c82660f113dbf2fdce85558a6e7760a82a179aed50"
+            },
+            "bias2": {
+              "vs_fp64": {
+                "relative_l2": 0.0003142781593001249,
+                "max_abs": 0.0010885027563592997,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "8cceb4db91675216c82da920f5c39c98f3a01c76e5e162ec76bfd4ae163cc5d4"
+            }
+          },
+          "allocations": [
+            {
+              "shape": [
+                1,
+                9,
+                129,
+                4
+              ],
+              "dtype": "torch.float32",
+              "bytes": 18576
+            },
+            {
+              "shape": [
+                2,
+                297216
+              ],
+              "dtype": "torch.float32",
+              "bytes": 2377728
+            }
+          ],
+          "private_budget_bytes": null
+        }
+      }
+    },
+    {
+      "shape": [
+        1,
+        7,
+        145,
+        8,
+        32
+      ],
+      "seed": 403,
+      "rng": "NumPy PCG64",
+      "input_sha256": {
+        "q": "04585b0fd5f9788ac794fd417acf265a5af47e8e06fe21e34821557aa0c1dac9",
+        "k": "fd35c538456381a1e1e9422692a36d244fd3b065785d1bcc56de013f7d7e4912",
+        "v": "9966152d5bb7095859f6cae05ed4ef4c52634b9f47f8212e632f789b4e4c66bf",
+        "bias2": "0a54445494f14ca4211ccb6e1c18de7fd3416ea06d0db8ca4ed17c573870a091",
+        "upstream": "438d282df11a5d45d855bbb5dbf922adf29cf632b50060aafedfce086c10e0e9",
+        "bias1": "3dcb52244f88a6039720b7a937c376715432315f24313c09321ea20fcea68e00"
+      },
+      "budget_test": "default",
+      "modes": {
+        "ieee:fixed_rne_once": {
+          "output_vs_fp64": {
+            "relative_l2": 2.1142239228547161e-07,
+            "max_abs": 7.155242598422262e-08,
+            "finite": true
+          },
+          "output_vs_parent": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "finite": true
+          },
+          "gradients": {
+            "q": {
+              "vs_fp64": {
+                "relative_l2": 2.9185524155708924e-07,
+                "max_abs": 6.290581291423791e-07,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "81230bfb29919da17dd33ebc9b5767d6fa3c272bbce025286ba5762d103ad19d"
+            },
+            "k": {
+              "vs_fp64": {
+                "relative_l2": 3.1541043276398504e-07,
+                "max_abs": 7.652706706107182e-07,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "b4550c5e09310f2d5f6b058407ef6870785a9126432746bfcf8bd1514d82cbf6"
+            },
+            "v": {
+              "vs_fp64": {
+                "relative_l2": 2.924769323526047e-07,
+                "max_abs": 1.405265504850206e-06,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "b99b5b6f4e3f4ddf8dd1f8f41993b971600981adfb6d79826943dbe2115d4e6a"
+            },
+            "bias2": {
+              "vs_fp64": {
+                "relative_l2": 2.3218060400856035e-07,
+                "max_abs": 6.007657419315748e-07,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "51ea3eeb603083100987ea0ddab4a82062b17e1d9ae2b22155d35df3aad0f7d2"
+            }
+          },
+          "allocations": [
+            {
+              "shape": [
+                1,
+                7,
+                145,
+                8
+              ],
+              "dtype": "torch.float32",
+              "bytes": 32480
+            }
+          ],
+          "private_budget_bytes": null
+        },
+        "ieee:forward_kv_prequant": {
+          "output_vs_fp64": {
+            "relative_l2": 2.1142239228547161e-07,
+            "max_abs": 7.155242598422262e-08,
+            "finite": true
+          },
+          "output_vs_parent": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "finite": true
+          },
+          "gradients": {
+            "q": {
+              "vs_fp64": {
+                "relative_l2": 2.9185524155708924e-07,
+                "max_abs": 6.290581291423791e-07,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "81230bfb29919da17dd33ebc9b5767d6fa3c272bbce025286ba5762d103ad19d"
+            },
+            "k": {
+              "vs_fp64": {
+                "relative_l2": 3.1541043276398504e-07,
+                "max_abs": 7.652706706107182e-07,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "b4550c5e09310f2d5f6b058407ef6870785a9126432746bfcf8bd1514d82cbf6"
+            },
+            "v": {
+              "vs_fp64": {
+                "relative_l2": 2.924769323526047e-07,
+                "max_abs": 1.405265504850206e-06,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "b99b5b6f4e3f4ddf8dd1f8f41993b971600981adfb6d79826943dbe2115d4e6a"
+            },
+            "bias2": {
+              "vs_fp64": {
+                "relative_l2": 2.3218060400856035e-07,
+                "max_abs": 6.007657419315748e-07,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "51ea3eeb603083100987ea0ddab4a82062b17e1d9ae2b22155d35df3aad0f7d2"
+            }
+          },
+          "allocations": [
+            {
+              "shape": [
+                1,
+                7,
+                145,
+                8
+              ],
+              "dtype": "torch.float32",
+              "bytes": 32480
+            }
+          ],
+          "private_budget_bytes": null
+        },
+        "tf32:fixed_rne_once": {
+          "output_vs_fp64": {
+            "relative_l2": 0.00028950145216190027,
+            "max_abs": 5.2084214873026474e-05,
+            "finite": true
+          },
+          "output_vs_parent": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "finite": true
+          },
+          "gradients": {
+            "q": {
+              "vs_fp64": {
+                "relative_l2": 0.0004076984899511841,
+                "max_abs": 0.0005468349379421644,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "63d59c990e2830e2760f7eea6fa9d8a425ac6529957401f1bd5a6d270f02419f"
+            },
+            "k": {
+              "vs_fp64": {
+                "relative_l2": 0.0004050291025706885,
+                "max_abs": 0.0006952147015172327,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "dcfd3a92c589d6c8aa33ecfcbb1fa164f297dad0e69018302cb89ddaf1d25649"
+            },
+            "v": {
+              "vs_fp64": {
+                "relative_l2": 0.00030645544548904547,
+                "max_abs": 0.0012237025109810284,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "e2f6047acdbfa4d619045b9290edacc9786f78daf6f4bb222a589afb6b335ebb"
+            },
+            "bias2": {
+              "vs_fp64": {
+                "relative_l2": 0.0002908946154547287,
+                "max_abs": 0.0005231976691204565,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "7cb639f8c49e17c9abd23f02b49cd30e306b58b2e0cc900878ea535e7d529998"
+            }
+          },
+          "allocations": [
+            {
+              "shape": [
+                1,
+                7,
+                145,
+                8
+              ],
+              "dtype": "torch.float32",
+              "bytes": 32480
+            }
+          ],
+          "private_budget_bytes": null
+        },
+        "tf32:forward_kv_prequant": {
+          "output_vs_fp64": {
+            "relative_l2": 0.00028950145216190027,
+            "max_abs": 5.2084214873026474e-05,
+            "finite": true
+          },
+          "output_vs_parent": {
+            "relative_l2": 0.0,
+            "max_abs": 0.0,
+            "finite": true
+          },
+          "gradients": {
+            "q": {
+              "vs_fp64": {
+                "relative_l2": 0.0004076984899511841,
+                "max_abs": 0.0005468349379421644,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "63d59c990e2830e2760f7eea6fa9d8a425ac6529957401f1bd5a6d270f02419f"
+            },
+            "k": {
+              "vs_fp64": {
+                "relative_l2": 0.0004050291025706885,
+                "max_abs": 0.0006952147015172327,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "dcfd3a92c589d6c8aa33ecfcbb1fa164f297dad0e69018302cb89ddaf1d25649"
+            },
+            "v": {
+              "vs_fp64": {
+                "relative_l2": 0.00030645544548904547,
+                "max_abs": 0.0012237025109810284,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "e2f6047acdbfa4d619045b9290edacc9786f78daf6f4bb222a589afb6b335ebb"
+            },
+            "bias2": {
+              "vs_fp64": {
+                "relative_l2": 0.0002908946154547287,
+                "max_abs": 0.0005231976691204565,
+                "finite": true
+              },
+              "vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "realized_update_vs_parent": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "sha256": "7cb639f8c49e17c9abd23f02b49cd30e306b58b2e0cc900878ea535e7d529998"
+            }
+          },
+          "allocations": [
+            {
+              "shape": [
+                1,
+                7,
+                145,
+                8
+              ],
+              "dtype": "torch.float32",
+              "bytes": 32480
+            },
+            {
+              "shape": [
+                2,
+                259840
+              ],
+              "dtype": "torch.float32",
+              "bytes": 2078720
+            }
+          ],
+          "private_budget_bytes": null
+        }
+      }
+    }
+  ],
+  "scope": "Independent CPU-PCG64 groups (not replicated), masked keys, B>1, H2/4/8, D16/32/64, layout permutation and masked/strided forward equivalence; no forced cache budget test in this forward driver. Original CUE is not a training reference here; parent is the already tested custom RNE kernel.",
+  "source_sha256": "8af4d461c4d9848a1800d7564485109b7a3f4d2b679e4da62f86f40a18b2bf71"
+}

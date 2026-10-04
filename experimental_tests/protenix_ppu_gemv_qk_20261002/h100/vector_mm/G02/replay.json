@@ -1,0 +1,130 @@
+{
+  "status": "PASS",
+  "records": [
+    {
+      "role": "vector_mm",
+      "inputs": [
+        {
+          "shape": [
+            1,
+            256
+          ],
+          "stride": [
+            256,
+            1
+          ],
+          "dtype": "torch.float32",
+          "sha256": "1d648ee0d55086e5d688369bc2cfd148fcb6b60fcbfc94e84d0c04f272873c98"
+        },
+        {
+          "shape": [
+            256,
+            384
+          ],
+          "stride": [
+            1,
+            256
+          ],
+          "dtype": "torch.float32",
+          "sha256": "524295742e3edf4f424aee6246d76ab7301cfb1ba426425300034cfae0526a13"
+        }
+      ],
+      "stack": [
+        "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/protenix.py:904:forward",
+        "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/protenix.py:432:main_inference_loop",
+        "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/protenix.py:562:_main_inference_loop",
+        "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/protenix.py:341:sample_diffusion",
+        "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/utils/torch_utils.py:219:new_func",
+        "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/generator.py:281:sample_diffusion",
+        "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/generator.py:245:_chunk_sample_diffusion",
+        "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/diffusion.py:565:forward",
+        "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/diffusion.py:395:f_forward",
+        "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/diffusion.py:166:forward",
+        "/data/xishiqing/protenix-flagos-port/workspace/Protenix-FlagOS/protenix/model/modules/primitives.py:92:forward"
+      ],
+      "teacher_output": {
+        "shape": [
+          1,
+          384
+        ],
+        "stride": [
+          384,
+          1
+        ],
+        "dtype": "torch.float32",
+        "sha256": "a896bac19f5758ea9b65835163467817f3d1537883b13105b5720be92aba2d1d"
+      },
+      "teacher_flags": [
+        true,
+        true
+      ],
+      "modes": {
+        "fp32": {
+          "median_ms": 0.06520794704556465,
+          "samples_ms": [
+            0.0704098492860794,
+            0.06684288382530212,
+            0.06619002670049667,
+            0.06472039967775345,
+            0.0645667314529419,
+            0.06510689854621887,
+            0.06552040576934814,
+            0.06530899554491043,
+            0.06486475467681885,
+            0.06412249058485031
+          ],
+          "output_sha256": "a896bac19f5758ea9b65835163467817f3d1537883b13105b5720be92aba2d1d",
+          "vs_ieee_fp64": {
+            "relative_l2": 6.892896471624694e-08,
+            "max_abs": 6.77242155688873e-07,
+            "rms": 3.923697198427759e-08,
+            "finite": true
+          },
+          "vs_rne_fp64": {
+            "relative_l2": 0.00013506394810193585,
+            "max_abs": 0.001025932594401091,
+            "rms": 7.688615233275837e-05,
+            "finite": true
+          },
+          "kernel_trace": [
+            "std::enable_if<!(false), void>::type internal::gemvx::kernel<int, int, float, float, float, float, false, true, true, false, 7, false, cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float> >(cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float>)"
+          ]
+        },
+        "tf32": {
+          "median_ms": 0.060295220464468,
+          "samples_ms": [
+            0.06869714707136154,
+            0.06411410868167877,
+            0.0635199248790741,
+            0.060090795159339905,
+            0.06035342812538147,
+            0.06034038960933685,
+            0.05948171019554138,
+            0.06025005131959915,
+            0.06016623228788376,
+            0.058420002460479736
+          ],
+          "output_sha256": "a896bac19f5758ea9b65835163467817f3d1537883b13105b5720be92aba2d1d",
+          "vs_ieee_fp64": {
+            "relative_l2": 6.892896471624694e-08,
+            "max_abs": 6.77242155688873e-07,
+            "rms": 3.923697198427759e-08,
+            "finite": true
+          },
+          "vs_rne_fp64": {
+            "relative_l2": 0.00013506394810193585,
+            "max_abs": 0.001025932594401091,
+            "rms": 7.688615233275837e-05,
+            "finite": true
+          },
+          "kernel_trace": [
+            "std::enable_if<!(false), void>::type internal::gemvx::kernel<int, int, float, float, float, float, false, true, true, false, 7, false, cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float> >(cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float>)"
+          ]
+        }
+      },
+      "gold_ieee_fp64_sha256": "27771b1ec7fd790a1a4caf59d7f9668a705fa20f10660a4115c25d3272cfb42a",
+      "gold_rne_fp64_sha256": "33f522527f99b740b275686671dc952c933ce5d50a438e77ed7c713b8e4d1c30"
+    }
+  ],
+  "scope": "Full actual QK/PV operands replayed only in original-server memory. Only error/timing/hash JSON persisted; original teacher outputs returned."
+}

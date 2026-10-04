@@ -1,0 +1,74 @@
+{
+  "status": "PASS",
+  "environment_script_sha256": "344a78c02f6040d0b83650bb72ff5a2590cc24b449e05c7bcec6631995d1e8e3",
+  "cuda_assignment_lines": [
+    "export CUDA_VISIBLE_DEVICES=7 PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1"
+  ],
+  "original_worker_log_evidence": {
+    "matrix_0.log": [
+      "CLOSURE_MATRIX G01 protenix-v2 gpu=7 exit=0",
+      "CLOSURE_MATRIX G02 protenix-v2 gpu=7 exit=0"
+    ],
+    "matrix_1.log": [
+      "CLOSURE_MATRIX G01 protenix_base_20250630_v1.0.0 gpu=7 exit=0",
+      "CLOSURE_MATRIX G02 protenix_base_20250630_v1.0.0 gpu=7 exit=0"
+    ]
+  },
+  "confirmation": {
+    "fp32": {
+      "rng_semantic_sha256": "7f97987fb450f18cf11d98982f58551a1100327aa844a45e669895107b5c06b9",
+      "runtime": {
+        "precision": "fp32",
+        "candidate": "public",
+        "actual_calls": {
+          "flaggems_triangle_ieee": 1024
+        },
+        "parameter_audit_enabled": false,
+        "matmul_allow_tf32": false,
+        "native_training_triangle_source": "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/tri_attention/op.py",
+        "existing_tool_sha256": "1b64bc74ba54d064814efb2e44e951492da92433abc235e8424c1ed3628062a4",
+        "candidate_source_sha256": null,
+        "candidate_physical_backward_calls": 0,
+        "legacy_tool_reported_tf32": false
+      },
+      "ordered_rng_matches_numerical_run": true
+    },
+    "tf32": {
+      "rng_semantic_sha256": "7f97987fb450f18cf11d98982f58551a1100327aa844a45e669895107b5c06b9",
+      "runtime": {
+        "precision": "tf32",
+        "candidate": "public",
+        "actual_calls": {
+          "flaggems_triangle_tf32": 1024
+        },
+        "parameter_audit_enabled": false,
+        "matmul_allow_tf32": true,
+        "native_training_triangle_source": "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/tri_attention/op.py",
+        "existing_tool_sha256": "1b64bc74ba54d064814efb2e44e951492da92433abc235e8424c1ed3628062a4",
+        "candidate_source_sha256": null,
+        "candidate_physical_backward_calls": 0,
+        "legacy_tool_reported_tf32": false
+      },
+      "ordered_rng_matches_numerical_run": true
+    },
+    "combined_tf32": {
+      "rng_semantic_sha256": "7f97987fb450f18cf11d98982f58551a1100327aa844a45e669895107b5c06b9",
+      "runtime": {
+        "precision": "tf32",
+        "candidate": "combined_64m",
+        "actual_calls": {
+          "flaggems_triangle_tf32": 1024
+        },
+        "parameter_audit_enabled": false,
+        "matmul_allow_tf32": true,
+        "native_training_triangle_source": "/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/protenix/model/tri_attention/op.py",
+        "existing_tool_sha256": "1b64bc74ba54d064814efb2e44e951492da92433abc235e8424c1ed3628062a4",
+        "candidate_source_sha256": "b8d4ac8d584f3132593e51446e6526396144d7496e7ff3cdfbd5e8390b5e51b6",
+        "candidate_physical_backward_calls": 1856,
+        "legacy_tool_reported_tf32": false
+      },
+      "ordered_rng_matches_numerical_run": true
+    }
+  },
+  "serial_policy": "All experiment training completed before one serial inference worker starts; physical GPU 7."
+}

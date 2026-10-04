@@ -1,0 +1,109 @@
+--- a/flag_gems/utils/pointwise_dynamic.py
++++ b/flag_gems/utils/pointwise_dynamic.py
+@@ -1,3 +1,4 @@
++from flag_gems.utils import full_write_allocation as _full_write
+ import importlib
+ import os
+ from dataclasses import dataclass
+@@ -1520,7 +1521,7 @@
+             self.config.prefer_block_pointer = False
+         if self.use_fast_path(tensors):  # dimension collapse & use physical ordering
+             allocated_outputs = [
+-                torch.empty_like(tensors[0], dtype=dtype)
++                _full_write.empty_like(tensors[0], dtype=dtype)
+                 for dtype in outputs_dtypes_for_allocation
+             ]
+             task_shape = (tensors[0].numel(),)
+@@ -1566,14 +1567,14 @@
+             for item in tensors:
+                 if item.shape == task_shape:
+                     allocated_outputs = [
+-                        torch.empty_like(item, dtype=dtype)
++                        _full_write.empty_like(item, dtype=dtype)
+                         for dtype in outputs_dtypes_for_allocation
+                     ]
+                     break
+             else:  # nobreak
+                 device = tensors[0].device
+                 allocated_outputs = [
+-                    torch.empty(task_shape, dtype=dtype, device=device)
++                    _full_write.empty(task_shape, dtype=dtype, device=device)
+                     for dtype in outputs_dtypes_for_allocation
+                 ]
+             args = tuple(
+--- a/flag_gems/ops/softmax.py
++++ b/flag_gems/ops/softmax.py
+@@ -1,3 +1,4 @@
++from flag_gems.utils import full_write_allocation as _full_write
+ import logging
+ import os
+ 
+@@ -324,7 +325,7 @@
+     if self.numel() == 0:
+         # empty tensor, return the same shape with 1's
+         out_shape = list(self.shape)
+-        out = torch.empty(out_shape, dtype=self.dtype, device=self.device)
++        out = _full_write.empty(out_shape, dtype=self.dtype, device=self.device)
+         zero_(out)
+         return out
+ 
+@@ -338,7 +339,7 @@
+         dtype = torch.float32
+     else:
+         dtype = self.dtype
+-    out = torch.empty_like(self, dtype=dtype)
++    out = _full_write.empty_like(self, dtype=dtype)
+     K = self.numel() // M // N
+ 
+     if (
+--- a/flag_gems/ops/sigmoid.py
++++ b/flag_gems/ops/sigmoid.py
+@@ -1,3 +1,4 @@
++from flag_gems.utils import full_write_allocation as _full_write
+ import logging
+ import os
+ 
+@@ -54,7 +55,7 @@
+ 
+ def _sigmoid_measured_ppu(x, out=None):
+     if out is None:
+-        out = torch.empty_like(x)
++        out = _full_write.empty_like(x)
+     n_elements = x.numel()
+     # The sweep on the Protenix trace shape (693, 768) selects 512x4.  Keep a
+     # larger tile for very large tensors to avoid excessive CTA count.
+--- a/flag_gems/ops/triangle_attention.py
++++ b/flag_gems/ops/triangle_attention.py
+@@ -14,6 +14,7 @@
+ """
+ 
+ from __future__ import annotations
++from flag_gems.utils import full_write_allocation as _full_write
+ 
+ import atexit
+ import json
+@@ -795,7 +796,7 @@
+     bias1 = bias1.contiguous()
+     bias2 = bias2.contiguous()
+     b, n, s, h, d = q.shape
+-    out = torch.empty_like(q)
++    out = _full_write.empty_like(q)
+     lse = (
+         torch.empty((b, n, s, h), device=q.device, dtype=torch.float32)
+         if save_lse
+--- a/flag_gems/ops/cat.py
++++ b/flag_gems/ops/cat.py
+@@ -1,3 +1,4 @@
++from flag_gems.utils import full_write_allocation as _full_write
+ import logging
+ from typing import List, Tuple, Union
+ 
+@@ -129,7 +130,7 @@
+     cat_dim_sizes = [s[dim] for s in shapes]
+     out_shape = list(shapes[0])
+     out_shape[dim] = sum(cat_dim_sizes)
+-    out = torch.empty(out_shape, dtype=dtype, device=device)
++    out = _full_write.empty(out_shape, dtype=dtype, device=device)
+ 
+     BLOCK = 1024
+     dim_offset = 0

@@ -1,0 +1,2246 @@
+{
+  "status": "EXECUTION_PASS",
+  "server": "h100",
+  "device": "NVIDIA H100 80GB HBM3",
+  "native_version": "0.8.0",
+  "source_sha256": "aa26fc58222dc6430865f86adc1e3382585bad88aa6aa6ec8fbc42bce9b95615",
+  "candidate_manifest": {
+    "status": "ISOLATED_CANDIDATES_GENERATED",
+    "ds_cache_budget_bytes": 268435456,
+    "scope": "No default package or production implementation modified. Generic N streaming by explicit byte budget, no new shape/model whitelist. No FP16 dS cache.",
+    "candidates": {
+      "round_off_diagnostic": {
+        "sha256": "25b3dc3dea4c985e7e1c16e88c12b1ef5d048392ac811383c6a457c03ae1f33c",
+        "parent_sha256": "6224a198f16658df1754db37e7119a536a447ea0cbb7eac94ba2ef274bddd4d5",
+        "kind": "precision-changing cost ablation; never a promotion candidate"
+      },
+      "prequant_inputs": {
+        "sha256": "3be745ba2155e929b04e7b6dbd3527b7bae271bc9b52aecd020600fbdb8e6cab",
+        "parent_sha256": "6224a198f16658df1754db37e7119a536a447ea0cbb7eac94ba2ef274bddd4d5",
+        "kind": "semantics-preserving dataflow candidate; requires empirical accuracy validation"
+      },
+      "cached_ds": {
+        "sha256": "e086b70a3c8e36ce29e5ad1fb6bb28deb8962af2249bce6c1c0ad67e48564490",
+        "parent_sha256": "6224a198f16658df1754db37e7119a536a447ea0cbb7eac94ba2ef274bddd4d5",
+        "kind": "semantics-preserving dataflow candidate; requires empirical accuracy validation"
+      },
+      "bounded_prequant": {
+        "sha256": "f3cbcf5f9312bbfc5db47728994c56a0084e6cac4901c2fc5c43f61aba7a229f",
+        "parent_sha256": "6224a198f16658df1754db37e7119a536a447ea0cbb7eac94ba2ef274bddd4d5",
+        "kind": "semantics-preserving dataflow candidate; requires empirical accuracy validation"
+      },
+      "prequant_cached_ds": {
+        "sha256": "1a6272b32cd6a47eea71e8ff9e59ff05eadc4904a2cf0f1633ade8582e68bef2",
+        "parent_sha256": "6224a198f16658df1754db37e7119a536a447ea0cbb7eac94ba2ef274bddd4d5",
+        "kind": "semantics-preserving dataflow candidate; requires empirical accuracy validation"
+      },
+      "cuda_round_off_diagnostic": {
+        "sha256": "b35e29a57131825908cda6c6e6c3459e5cc22f27a36e4f94ff7b710543adc021",
+        "parent_sha256": "526fc64cfad39f5d7f76b1f44f8efffe12bb94e2de1afe14ab835e2acf0ad82a",
+        "kind": "precision-changing cost ablation; never a promotion candidate"
+      },
+      "cuda_prequant_inputs": {
+        "sha256": "7e862b9b8ca951814d7d71a11d566b74bf19788f29cd421fb8b0cd02e81e25c6",
+        "parent_sha256": "526fc64cfad39f5d7f76b1f44f8efffe12bb94e2de1afe14ab835e2acf0ad82a",
+        "kind": "semantics-preserving dataflow candidate; requires empirical accuracy validation"
+      },
+      "cuda_cached_ds": {
+        "sha256": "e9e0f0b620a3ecc1067673194f18e9c90e4931772819867ef336ad11c3a5413d",
+        "parent_sha256": "526fc64cfad39f5d7f76b1f44f8efffe12bb94e2de1afe14ab835e2acf0ad82a",
+        "kind": "semantics-preserving dataflow candidate; requires empirical accuracy validation"
+      },
+      "cuda_bounded_prequant": {
+        "sha256": "de50f2608a68aaa0b85646877c4d941e68df52b469ef18631e320b430202abff",
+        "parent_sha256": "526fc64cfad39f5d7f76b1f44f8efffe12bb94e2de1afe14ab835e2acf0ad82a",
+        "kind": "semantics-preserving dataflow candidate; requires empirical accuracy validation"
+      },
+      "cuda_prequant_cached_ds": {
+        "sha256": "db1e517e774da1139e23588b701c840c66100f938b9766b0c52954b2cd1c31f2",
+        "parent_sha256": "526fc64cfad39f5d7f76b1f44f8efffe12bb94e2de1afe14ab835e2acf0ad82a",
+        "kind": "semantics-preserving dataflow candidate; requires empirical accuracy validation"
+      }
+    }
+  },
+  "scope": "Operator-level inference and first-order Q/K/V/bias2 gradients plus one SGD update. Synthetic operands repeat one seeded group N times; dimensions match model shapes, activations are not model captures. Scale=1, all keys valid. H100 fixed_* are custom kernels, not native. No raw tensors persisted.",
+  "training": {
+    "learning_rate": 0.001,
+    "gold": "CPU FP64 forward/backward; one-round FP32 updated parameters",
+    "reset_before_each_timing": true
+  },
+  "timing": {
+    "warmup": 3,
+    "repeats": 10,
+    "includes": "Public entry, CUDA events and synchronized wall; full forward/backward/SGD for training",
+    "order": "Alternating forward and reversed mode order across repetitions"
+  },
+  "cases": [
+    {
+      "shape": [
+        1,
+        131,
+        131,
+        4,
+        32
+      ],
+      "seed": 232,
+      "rng": "NumPy PCG64 integer generation on CPU; no GPU RNG",
+      "group_input_sha256": {
+        "q": "ad24d1bdc8f8cc8a0760ddc274f3ffc0b0a8ee609ad410f256bafca34455103c",
+        "k": "6830822083f107b526bbbba21392a4d7045f00390452d0ac5577b2a2dd1036b6",
+        "v": "9bec5d8debfb6c09effcb4f413929496f72be7265f1a054b4c849f265d22377c",
+        "bias2": "57835ad92a367a78b901ea9f7a160a14f5c8338179e318e660c201ce484068ee",
+        "upstream": "956d834e8bb40003d34344bfc202330525fe9abb5508630361b3290c02a862ea"
+      },
+      "full_input_sha256": {
+        "q": "3d089d632438a61bc5aa42a4886a95f7aa7acfa19d443e3caf96a2c1de32a0ad",
+        "k": "b2b89a8f7656ee408817710b0a1fde8b8533739271173931cfc0c3ddc76ecd31",
+        "v": "4c51ec748b9382ec4d3255f8c834b9bd2de4822cf85b88a1b5cd975bac1b679c",
+        "bias2": "57835ad92a367a78b901ea9f7a160a14f5c8338179e318e660c201ce484068ee",
+        "upstream": "30622106f79ebc113b4e190c7800fa4aed8e1df722a84d72a4cbc2615cba5a1d"
+      },
+      "modes": {
+        "fp32": {
+          "label": "H100 native fp32",
+          "output": {
+            "relative_l2": 2.2761470957985583e-07,
+            "max_abs": 4.333691362712333e-08,
+            "finite": true
+          },
+          "output_sha256": "4d90988114b95fc79d6f183373805d4de41a5a402a74d70160d5a06c24e1b6f3",
+          "parameters": {},
+          "timing_samples": {
+            "inference": [
+              {
+                "wall_ms": 0.31280890107154846,
+                "event_ms": 0.2791360020637512
+              },
+              {
+                "wall_ms": 0.23101363331079483,
+                "event_ms": 0.21580800414085388
+              },
+              {
+                "wall_ms": 0.2372581511735916,
+                "event_ms": 0.22249600291252136
+              },
+              {
+                "wall_ms": 0.25162287056446075,
+                "event_ms": 0.23503999412059784
+              },
+              {
+                "wall_ms": 0.296054407954216,
+                "event_ms": 0.27980801463127136
+              },
+              {
+                "wall_ms": 0.2475222572684288,
+                "event_ms": 0.23132799565792084
+              },
+              {
+                "wall_ms": 0.23662019520998,
+                "event_ms": 0.22089600563049316
+              },
+              {
+                "wall_ms": 0.23474730551242828,
+                "event_ms": 0.2192319929599762
+              },
+              {
+                "wall_ms": 0.24686846882104874,
+                "event_ms": 0.23100799322128296
+              },
+              {
+                "wall_ms": 0.23962650448083878,
+                "event_ms": 0.22364799678325653
+              }
+            ],
+            "training": []
+          },
+          "training_status": "NATIVE_FP32_BACKWARD_UNSUPPORTED",
+          "training_error": "ERROR: Full precision FP32 backward pass for triangle attention is not implemented yet! Please set torch.backends.cuda.matmul.allow_tf32=True.\n",
+          "accuracy_call_peak_extra_bytes": 71666176,
+          "timing_median": {
+            "inference": {
+              "wall_ms": 0.24324748665094376,
+              "event_ms": 0.22732799500226974
+            },
+            "training": null
+          }
+        },
+        "tf32": {
+          "label": "H100 native tf32",
+          "output": {
+            "relative_l2": 0.0008243610547287564,
+            "max_abs": 0.00010992851017499385,
+            "finite": true
+          },
+          "output_sha256": "831336e9a28e7dbf49060994a205834ee87241a817950173bab1e717ca46ba7d",
+          "parameters": {
+            "q": {
+              "gradient": {
+                "relative_l2": 0.001830771096411251,
+                "max_abs": 0.0017610470824805935,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 1.3789886054424774e-06,
+                "max_abs": 1.7583370208740234e-06,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.0018312232648306937,
+                "max_abs": 1.7583370208740234e-06,
+                "finite": true
+              },
+              "gradient_sha256": "e8cd73e2592f125a87a298e2cec1aa8112d8af9072b4e9081c09b0b78dfa6186"
+            },
+            "k": {
+              "gradient": {
+                "relative_l2": 0.001836829611281443,
+                "max_abs": 0.001911878880571205,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 1.3539024296708294e-06,
+                "max_abs": 1.9073486328125e-06,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.0018380930726550095,
+                "max_abs": 1.9073486328125e-06,
+                "finite": true
+              },
+              "gradient_sha256": "dd8df93b05cb927eedcfd866c3c0f60710f10ec3a1066e9812e8c1460af6e757"
+            },
+            "v": {
+              "gradient": {
+                "relative_l2": 0.0012249243335144832,
+                "max_abs": 0.00219775947332268,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 1.9950549586656112e-06,
+                "max_abs": 2.1979212760925293e-06,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.0012251021721632275,
+                "max_abs": 2.1979212760925293e-06,
+                "finite": true
+              },
+              "gradient_sha256": "a9238c40c09181227ec77b01d31c0d251d90e44f5345810a24d8c031e4f0e614"
+            },
+            "bias2": {
+              "gradient": {
+                "relative_l2": 0.0011790823604309866,
+                "max_abs": 0.17961555300011867,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 3.494303064331596e-05,
+                "max_abs": 0.00017961859703063965,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.0011790451126126417,
+                "max_abs": 0.00017961859703063965,
+                "finite": true
+              },
+              "gradient_sha256": "789494a53d78e87d87f020fee8b07310e3b048cddd84a1a0987872074d7e8317"
+            }
+          },
+          "timing_samples": {
+            "inference": [
+              {
+                "wall_ms": 0.19706040620803833,
+                "event_ms": 0.18003199994564056
+              },
+              {
+                "wall_ms": 0.21422188729047775,
+                "event_ms": 0.1979839950799942
+              },
+              {
+                "wall_ms": 0.173814594745636,
+                "event_ms": 0.15878400206565857
+              },
+              {
+                "wall_ms": 0.20120013505220413,
+                "event_ms": 0.18611200153827667
+              },
+              {
+                "wall_ms": 0.19520148634910583,
+                "event_ms": 0.17919999361038208
+              },
+              {
+                "wall_ms": 0.20883511751890182,
+                "event_ms": 0.1924159973859787
+              },
+              {
+                "wall_ms": 0.18164701759815216,
+                "event_ms": 0.16649599373340607
+              },
+              {
+                "wall_ms": 0.2062758430838585,
+                "event_ms": 0.19094400107860565
+              },
+              {
+                "wall_ms": 0.1874910667538643,
+                "event_ms": 0.17177599668502808
+              },
+              {
+                "wall_ms": 0.21510757505893707,
+                "event_ms": 0.19817599654197693
+              }
+            ],
+            "training": [
+              {
+                "wall_ms": 0.8564572781324387,
+                "event_ms": 0.8335360288619995
+              },
+              {
+                "wall_ms": 0.7964801043272018,
+                "event_ms": 0.7803199887275696
+              },
+              {
+                "wall_ms": 0.7615024223923683,
+                "event_ms": 0.7453759908676147
+              },
+              {
+                "wall_ms": 0.8137049153447151,
+                "event_ms": 0.7976319789886475
+              },
+              {
+                "wall_ms": 0.7557887583971024,
+                "event_ms": 0.7395520210266113
+              },
+              {
+                "wall_ms": 0.8212123066186905,
+                "event_ms": 0.8047999739646912
+              },
+              {
+                "wall_ms": 0.7592570036649704,
+                "event_ms": 0.7431039810180664
+              },
+              {
+                "wall_ms": 0.7910160347819328,
+                "event_ms": 0.7748159766197205
+              },
+              {
+                "wall_ms": 0.7699215784668922,
+                "event_ms": 0.7537599802017212
+              },
+              {
+                "wall_ms": 0.7922826334834099,
+                "event_ms": 0.7769920229911804
+              }
+            ]
+          },
+          "training_status": "SUPPORTED",
+          "accuracy_call_peak_extra_bytes": 71666176,
+          "timing_median": {
+            "inference": {
+              "wall_ms": 0.19913027063012123,
+              "event_ms": 0.18307200074195862
+            },
+            "training": {
+              "wall_ms": 0.7916493341326714,
+              "event_ms": 0.7759039998054504
+            }
+          },
+          "training_gpu_profile": [
+            {
+              "name": "cudnn_sm80_bprop_fmha_tf32_64x64x32",
+              "count": 1,
+              "total_us": 199.2610000000002
+            },
+            {
+              "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1})",
+              "count": 10,
+              "total_us": 93.0880000000003
+            },
+            {
+              "name": "native_sm80_fprop_fmha_tf32_64x32x32",
+              "count": 1,
+              "total_us": 45.791000000000054
+            },
+            {
+              "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+              "count": 4,
+              "total_us": 27.646999999999935
+            },
+            {
+              "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)",
+              "count": 7,
+              "total_us": 15.199999999999818
+            },
+            {
+              "name": "compute_dot_do_o",
+              "count": 1,
+              "total_us": 6.879999999999882
+            }
+          ]
+        },
+        "fixed_rne_once": {
+          "label": "h100 custom fixed_rne_once",
+          "output": {
+            "relative_l2": 0.00028333547422689545,
+            "max_abs": 3.1972340048310594e-05,
+            "finite": true
+          },
+          "output_sha256": "f5dd8489acd876f001b3188f2668f654974069bf9e95bfb1806774f13960045b",
+          "parameters": {
+            "q": {
+              "gradient": {
+                "relative_l2": 0.00040450203310219866,
+                "max_abs": 0.0003930124949151903,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 3.0583470771845875e-07,
+                "max_abs": 4.172325134277344e-07,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.00040613215659634924,
+                "max_abs": 4.172325134277344e-07,
+                "finite": true
+              },
+              "gradient_sha256": "ddaaefed05fb13d0d2bcd746af70d9c31e731133c13cd802e7f9e46dc2844053"
+            },
+            "k": {
+              "gradient": {
+                "relative_l2": 0.00041463537173580024,
+                "max_abs": 0.0004122938478682697,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 3.065721649072526e-07,
+                "max_abs": 4.172325134277344e-07,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.0004162103319899838,
+                "max_abs": 4.172325134277344e-07,
+                "finite": true
+              },
+              "gradient_sha256": "8f339d213ae59155f4ac444a319e2ae51e7df6151bfc9fab2e27465ee731333e"
+            },
+            "v": {
+              "gradient": {
+                "relative_l2": 0.00030317572364710885,
+                "max_abs": 0.0007268707615477599,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 4.945018912468876e-07,
+                "max_abs": 7.301568984985352e-07,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.00030365848566092,
+                "max_abs": 7.301568984985352e-07,
+                "finite": true
+              },
+              "gradient_sha256": "cf29e3fa39905187192bc2927af0f4186c008eefe71c83b0a0809ca355163da2"
+            },
+            "bias2": {
+              "gradient": {
+                "relative_l2": 0.0002913329875851678,
+                "max_abs": 0.027073282540676757,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 8.634137944420137e-06,
+                "max_abs": 2.709031105041504e-05,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.00029133242341423016,
+                "max_abs": 2.709031105041504e-05,
+                "finite": true
+              },
+              "gradient_sha256": "be53b666f9fec5ab97bb205a2793c8ac21d8581450bf7bdc621bd3ca0a572810"
+            }
+          },
+          "timing_samples": {
+            "inference": [
+              {
+                "wall_ms": 0.19491557031869888,
+                "event_ms": 0.1780479997396469
+              },
+              {
+                "wall_ms": 0.17256103456020355,
+                "event_ms": 0.1566080003976822
+              },
+              {
+                "wall_ms": 0.18466543406248093,
+                "event_ms": 0.16979199647903442
+              },
+              {
+                "wall_ms": 0.16592815518379211,
+                "event_ms": 0.15123200416564941
+              },
+              {
+                "wall_ms": 0.21059252321720123,
+                "event_ms": 0.19439999759197235
+              },
+              {
+                "wall_ms": 0.17176195979118347,
+                "event_ms": 0.15641599893569946
+              },
+              {
+                "wall_ms": 0.1933043822646141,
+                "event_ms": 0.1772480010986328
+              },
+              {
+                "wall_ms": 0.17348583787679672,
+                "event_ms": 0.15699200332164764
+              },
+              {
+                "wall_ms": 0.18982402980327606,
+                "event_ms": 0.1738239973783493
+              },
+              {
+                "wall_ms": 0.17298199236392975,
+                "event_ms": 0.15699200332164764
+              }
+            ],
+            "training": [
+              {
+                "wall_ms": 1.0919887572526932,
+                "event_ms": 1.0759680271148682
+              },
+              {
+                "wall_ms": 1.026628538966179,
+                "event_ms": 1.0109440088272095
+              },
+              {
+                "wall_ms": 1.0929899290204048,
+                "event_ms": 1.0773119926452637
+              },
+              {
+                "wall_ms": 1.053609885275364,
+                "event_ms": 1.0375679731369019
+              },
+              {
+                "wall_ms": 1.0971827432513237,
+                "event_ms": 1.0810240507125854
+              },
+              {
+                "wall_ms": 1.0481467470526695,
+                "event_ms": 1.033120036125183
+              },
+              {
+                "wall_ms": 1.0877996683120728,
+                "event_ms": 1.0722880363464355
+              },
+              {
+                "wall_ms": 1.0478347539901733,
+                "event_ms": 1.0326720476150513
+              },
+              {
+                "wall_ms": 1.0956069454550743,
+                "event_ms": 1.0794240236282349
+              },
+              {
+                "wall_ms": 1.050683669745922,
+                "event_ms": 1.0350719690322876
+              }
+            ]
+          },
+          "training_status": "SUPPORTED",
+          "accuracy_call_peak_extra_bytes": 35970560,
+          "timing_median": {
+            "inference": {
+              "wall_ms": 0.17907563596963882,
+              "event_ms": 0.16339199990034103
+            },
+            "training": {
+              "wall_ms": 1.0707047767937183,
+              "event_ms": 1.0549280047416687
+            }
+          },
+          "training_gpu_profile": [
+            {
+              "name": "_streaming_triangle_attention_bwd_dbias2_v1",
+              "count": 1,
+              "total_us": 534.518
+            },
+            {
+              "name": "_streaming_triangle_attention_bwd_dkdv_v1",
+              "count": 1,
+              "total_us": 142.269
+            },
+            {
+              "name": "_streaming_triangle_attention_bwd_dq_v1",
+              "count": 1,
+              "total_us": 93.59899999999993
+            },
+            {
+              "name": "_streaming_triangle_attention_fwd_ieee_v1",
+              "count": 1,
+              "total_us": 75.61399999999992
+            },
+            {
+              "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+              "count": 4,
+              "total_us": 25.215999999999894
+            }
+          ]
+        },
+        "forward_kv_prequant": {
+          "label": "h100 custom forward_kv_prequant",
+          "output": {
+            "relative_l2": 0.00028333547422689545,
+            "max_abs": 3.1972340048310594e-05,
+            "finite": true
+          },
+          "output_sha256": "f5dd8489acd876f001b3188f2668f654974069bf9e95bfb1806774f13960045b",
+          "parameters": {
+            "q": {
+              "gradient": {
+                "relative_l2": 0.00040450203310219866,
+                "max_abs": 0.0003930124949151903,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 3.0583470771845875e-07,
+                "max_abs": 4.172325134277344e-07,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.00040613215659634924,
+                "max_abs": 4.172325134277344e-07,
+                "finite": true
+              },
+              "gradient_sha256": "ddaaefed05fb13d0d2bcd746af70d9c31e731133c13cd802e7f9e46dc2844053"
+            },
+            "k": {
+              "gradient": {
+                "relative_l2": 0.00041463537173580024,
+                "max_abs": 0.0004122938478682697,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 3.065721649072526e-07,
+                "max_abs": 4.172325134277344e-07,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.0004162103319899838,
+                "max_abs": 4.172325134277344e-07,
+                "finite": true
+              },
+              "gradient_sha256": "8f339d213ae59155f4ac444a319e2ae51e7df6151bfc9fab2e27465ee731333e"
+            },
+            "v": {
+              "gradient": {
+                "relative_l2": 0.00030317572364710885,
+                "max_abs": 0.0007268707615477599,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 4.945018912468876e-07,
+                "max_abs": 7.301568984985352e-07,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.00030365848566092,
+                "max_abs": 7.301568984985352e-07,
+                "finite": true
+              },
+              "gradient_sha256": "cf29e3fa39905187192bc2927af0f4186c008eefe71c83b0a0809ca355163da2"
+            },
+            "bias2": {
+              "gradient": {
+                "relative_l2": 0.0002913329875851678,
+                "max_abs": 0.027073282540676757,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 8.634137944420137e-06,
+                "max_abs": 2.709031105041504e-05,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.00029133242341423016,
+                "max_abs": 2.709031105041504e-05,
+                "finite": true
+              },
+              "gradient_sha256": "be53b666f9fec5ab97bb205a2793c8ac21d8581450bf7bdc621bd3ca0a572810"
+            }
+          },
+          "timing_samples": {
+            "inference": [
+              {
+                "wall_ms": 0.21141953766345978,
+                "event_ms": 0.1947840005159378
+              },
+              {
+                "wall_ms": 0.20397361367940903,
+                "event_ms": 0.18803200125694275
+              },
+              {
+                "wall_ms": 0.20801369100809097,
+                "event_ms": 0.19251200556755066
+              },
+              {
+                "wall_ms": 0.20890682935714722,
+                "event_ms": 0.19324800372123718
+              },
+              {
+                "wall_ms": 0.2250373363494873,
+                "event_ms": 0.20867200195789337
+              },
+              {
+                "wall_ms": 0.2060364931821823,
+                "event_ms": 0.19049599766731262
+              },
+              {
+                "wall_ms": 0.21728221327066422,
+                "event_ms": 0.2009280025959015
+              },
+              {
+                "wall_ms": 0.20689982920885086,
+                "event_ms": 0.19113600254058838
+              },
+              {
+                "wall_ms": 0.21853484213352203,
+                "event_ms": 0.2024960070848465
+              },
+              {
+                "wall_ms": 0.20198989659547806,
+                "event_ms": 0.18595199286937714
+              }
+            ],
+            "training": [
+              {
+                "wall_ms": 1.0790666565299034,
+                "event_ms": 1.0633599758148193
+              },
+              {
+                "wall_ms": 1.0841740295290947,
+                "event_ms": 1.0683519840240479
+              },
+              {
+                "wall_ms": 1.1098766699433327,
+                "event_ms": 1.094688057899475
+              },
+              {
+                "wall_ms": 1.0797837749123573,
+                "event_ms": 1.0633599758148193
+              },
+              {
+                "wall_ms": 1.1071329936385155,
+                "event_ms": 1.090783953666687
+              },
+              {
+                "wall_ms": 1.079983077943325,
+                "event_ms": 1.0644479990005493
+              },
+              {
+                "wall_ms": 1.1043939739465714,
+                "event_ms": 1.08896005153656
+              },
+              {
+                "wall_ms": 1.0925056412816048,
+                "event_ms": 1.0768640041351318
+              },
+              {
+                "wall_ms": 1.112121157348156,
+                "event_ms": 1.0963200330734253
+              },
+              {
+                "wall_ms": 1.0802028700709343,
+                "event_ms": 1.0649919509887695
+              }
+            ]
+          },
+          "training_status": "SUPPORTED",
+          "accuracy_call_peak_extra_bytes": 35970560,
+          "timing_median": {
+            "inference": {
+              "wall_ms": 0.2084602601826191,
+              "event_ms": 0.19288000464439392
+            },
+            "training": {
+              "wall_ms": 1.0883398354053497,
+              "event_ms": 1.0726079940795898
+            }
+          },
+          "training_gpu_profile": [
+            {
+              "name": "_streaming_triangle_attention_bwd_dbias2_v1",
+              "count": 1,
+              "total_us": 533.8799999999999
+            },
+            {
+              "name": "_streaming_triangle_attention_bwd_dkdv_v1",
+              "count": 1,
+              "total_us": 141.98299999999995
+            },
+            {
+              "name": "_streaming_triangle_attention_bwd_dq_v1",
+              "count": 1,
+              "total_us": 93.63099999999986
+            },
+            {
+              "name": "_streaming_triangle_attention_fwd_ieee_v1",
+              "count": 1,
+              "total_us": 61.72700000000009
+            },
+            {
+              "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+              "count": 4,
+              "total_us": 26.27099999999973
+            },
+            {
+              "name": "_round_four_inputs",
+              "count": 1,
+              "total_us": 11.520000000000095
+            }
+          ]
+        }
+      }
+    },
+    {
+      "shape": [
+        1,
+        245,
+        245,
+        4,
+        32
+      ],
+      "seed": 346,
+      "rng": "NumPy PCG64 integer generation on CPU; no GPU RNG",
+      "group_input_sha256": {
+        "q": "19914f146e08cdb27c0cf9b364212c57a80987755f684eb0a4b57b1c7fcfc3bf",
+        "k": "6f7fce7969bcc5d69d9b0ceab755bbe113035453ecd4ca957efe03164528e80b",
+        "v": "3014baa4d6e6ea29e0395003ba476e2603697e2ebbac84953198f2e00ba80f48",
+        "bias2": "51994d9edee44d8710f3eb9d4cbab682fab57ed96d627dafea9349dc62933572",
+        "upstream": "85535e810c5e931d3676fbf1eec62b2988fe6fa10371e77eec50d2adb5a84638"
+      },
+      "full_input_sha256": {
+        "q": "ab2a08f41e5ff324fb3faaa63b209d1c5ea2c05b37ad9b15ec510a03f4509aa3",
+        "k": "f8f53805065f1100bf38d6f07416f5c18dd3b12f39272c063e434a5c8a2c67c6",
+        "v": "403effefc592f4de59760c921f4ccb1bbcc5167a643343ea1e27fb2e9d92e45f",
+        "bias2": "51994d9edee44d8710f3eb9d4cbab682fab57ed96d627dafea9349dc62933572",
+        "upstream": "4f6a75c13e73a73f19fec1f7651de52f8dfb15a1cb6c3387a351fc52d27f7cc5"
+      },
+      "modes": {
+        "fp32": {
+          "label": "H100 native fp32",
+          "output": {
+            "relative_l2": 3.1030437710361057e-07,
+            "max_abs": 4.289908960702915e-08,
+            "finite": true
+          },
+          "output_sha256": "7ceeaf8cceed7636d3052888b60393b78b9d3edb57c4108df74e196e5abee8fc",
+          "parameters": {},
+          "timing_samples": {
+            "inference": [
+              {
+                "wall_ms": 0.6321985274553299,
+                "event_ms": 0.597823977470398
+              },
+              {
+                "wall_ms": 0.5635451525449753,
+                "event_ms": 0.5457280278205872
+              },
+              {
+                "wall_ms": 0.5546705797314644,
+                "event_ms": 0.5370240211486816
+              },
+              {
+                "wall_ms": 0.5580158904194832,
+                "event_ms": 0.5405120253562927
+              },
+              {
+                "wall_ms": 0.5558161064982414,
+                "event_ms": 0.5390080213546753
+              },
+              {
+                "wall_ms": 0.569341704249382,
+                "event_ms": 0.5508800148963928
+              },
+              {
+                "wall_ms": 0.5562128499150276,
+                "event_ms": 0.5392320156097412
+              },
+              {
+                "wall_ms": 0.5572158843278885,
+                "event_ms": 0.5380160212516785
+              },
+              {
+                "wall_ms": 0.5536042153835297,
+                "event_ms": 0.5362880229949951
+              },
+              {
+                "wall_ms": 0.5438700318336487,
+                "event_ms": 0.5265600085258484
+              }
+            ],
+            "training": []
+          },
+          "training_status": "NATIVE_FP32_BACKWARD_UNSUPPORTED",
+          "training_error": "ERROR: Full precision FP32 backward pass for triangle attention is not implemented yet! Please set torch.backends.cuda.matmul.allow_tf32=True.\n",
+          "accuracy_call_peak_extra_bytes": 256460800,
+          "timing_median": {
+            "inference": {
+              "wall_ms": 0.556714367121458,
+              "event_ms": 0.5391200184822083
+            },
+            "training": null
+          }
+        },
+        "tf32": {
+          "label": "H100 native tf32",
+          "output": {
+            "relative_l2": 0.0015789712680055181,
+            "max_abs": 0.00019240368481519832,
+            "finite": true
+          },
+          "output_sha256": "5e1c584869dd11b1cd8771581be0597220f7c42e2f156a48dce7ad97894b419b",
+          "parameters": {
+            "q": {
+              "gradient": {
+                "relative_l2": 0.002088977286140916,
+                "max_abs": 0.001734496037149702,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 1.1546406204021118e-06,
+                "max_abs": 1.7285346984863281e-06,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.0020903469272216257,
+                "max_abs": 1.7285346984863281e-06,
+                "finite": true
+              },
+              "gradient_sha256": "4c501bbc0750fa88aae884f8465af8634b99a31e67348423669656df3e8abfa3"
+            },
+            "k": {
+              "gradient": {
+                "relative_l2": 0.0020855044780646423,
+                "max_abs": 0.0016784678951714538,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 1.1424882425123518e-06,
+                "max_abs": 1.6987323760986328e-06,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.002085840676501553,
+                "max_abs": 1.6987323760986328e-06,
+                "finite": true
+              },
+              "gradient_sha256": "8a731c02be9c54f96ad880757a90406b3899120be9def8483a8ddc2365eaab0c"
+            },
+            "v": {
+              "gradient": {
+                "relative_l2": 0.0014810937514425637,
+                "max_abs": 0.0023980268876533373,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 1.7379723631779093e-06,
+                "max_abs": 2.384185791015625e-06,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.0014814907796716322,
+                "max_abs": 2.384185791015625e-06,
+                "finite": true
+              },
+              "gradient_sha256": "527dc5f652a75b2f4c791512727101bc3a08e5ff16794e4e996ef920ad26d147"
+            },
+            "bias2": {
+              "gradient": {
+                "relative_l2": 0.0014288381939014884,
+                "max_abs": 0.2924854040521154,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 4.292893742481106e-05,
+                "max_abs": 0.0002924799919128418,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.0014287946514714219,
+                "max_abs": 0.0002924799919128418,
+                "finite": true
+              },
+              "gradient_sha256": "93504e4f72d5df59f3ad0080c4477d2ee16f2e7cff675c1e6d347bac8fc96fee"
+            }
+          },
+          "timing_samples": {
+            "inference": [
+              {
+                "wall_ms": 0.3579501062631607,
+                "event_ms": 0.3384320139884949
+              },
+              {
+                "wall_ms": 0.37224870175123215,
+                "event_ms": 0.3546240031719208
+              },
+              {
+                "wall_ms": 0.3454359248280525,
+                "event_ms": 0.32812801003456116
+              },
+              {
+                "wall_ms": 0.3819996491074562,
+                "event_ms": 0.362527996301651
+              },
+              {
+                "wall_ms": 0.3425711765885353,
+                "event_ms": 0.3256959915161133
+              },
+              {
+                "wall_ms": 0.6246697157621384,
+                "event_ms": 0.5912960171699524
+              },
+              {
+                "wall_ms": 0.34049246460199356,
+                "event_ms": 0.3235839903354645
+              },
+              {
+                "wall_ms": 0.3776364028453827,
+                "event_ms": 0.3601279854774475
+              },
+              {
+                "wall_ms": 0.33641792833805084,
+                "event_ms": 0.3192000091075897
+              },
+              {
+                "wall_ms": 0.3601396456360817,
+                "event_ms": 0.3436799943447113
+              }
+            ],
+            "training": [
+              {
+                "wall_ms": 1.62405613809824,
+                "event_ms": 1.5964479446411133
+              },
+              {
+                "wall_ms": 1.653081737458706,
+                "event_ms": 1.6344319581985474
+              },
+              {
+                "wall_ms": 1.5484141185879707,
+                "event_ms": 1.5297280550003052
+              },
+              {
+                "wall_ms": 1.5273913741111755,
+                "event_ms": 1.5097919702529907
+              },
+              {
+                "wall_ms": 1.5188734978437424,
+                "event_ms": 1.5000319480895996
+              },
+              {
+                "wall_ms": 1.599322073161602,
+                "event_ms": 1.5805439949035645
+              },
+              {
+                "wall_ms": 1.5321159735321999,
+                "event_ms": 1.512992024421692
+              },
+              {
+                "wall_ms": 1.58768892288208,
+                "event_ms": 1.5690879821777344
+              },
+              {
+                "wall_ms": 1.528007909655571,
+                "event_ms": 1.5092799663543701
+              },
+              {
+                "wall_ms": 1.5573864802718163,
+                "event_ms": 1.5389759540557861
+              }
+            ]
+          },
+          "training_status": "SUPPORTED",
+          "accuracy_call_peak_extra_bytes": 256460800,
+          "timing_median": {
+            "inference": {
+              "wall_ms": 0.3590448759496212,
+              "event_ms": 0.3410560041666031
+            },
+            "training": {
+              "wall_ms": 1.5529002994298935,
+              "event_ms": 1.5343520045280457
+            }
+          },
+          "training_gpu_profile": [
+            {
+              "name": "cudnn_sm80_bprop_fmha_tf32_64x64x32",
+              "count": 1,
+              "total_us": 708.7849999999999
+            },
+            {
+              "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1})",
+              "count": 10,
+              "total_us": 288.6999999999998
+            },
+            {
+              "name": "native_sm80_fprop_fmha_tf32_64x32x32",
+              "count": 1,
+              "total_us": 171.70799999999986
+            },
+            {
+              "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+              "count": 4,
+              "total_us": 96.57500000000073
+            },
+            {
+              "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)",
+              "count": 7,
+              "total_us": 39.423
+            },
+            {
+              "name": "compute_dot_do_o",
+              "count": 1,
+              "total_us": 24.798999999999978
+            }
+          ]
+        },
+        "fixed_rne_once": {
+          "label": "h100 custom fixed_rne_once",
+          "output": {
+            "relative_l2": 0.00030908271466055135,
+            "max_abs": 2.8448635788049306e-05,
+            "finite": true
+          },
+          "output_sha256": "03b6dd3162acf55f53220c2cf390fda55014fcbb6925213968f1a6b8493970da",
+          "parameters": {
+            "q": {
+              "gradient": {
+                "relative_l2": 0.0004090895052101888,
+                "max_abs": 0.00029054321235673364,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 2.2807224046203286e-07,
+                "max_abs": 2.980232238769531e-07,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.0004128991272821131,
+                "max_abs": 2.980232238769531e-07,
+                "finite": true
+              },
+              "gradient_sha256": "07c9334ca7d865ae3ff0f4e7e11366e64b8edf05b6ab32017809039dc46c8c7b"
+            },
+            "k": {
+              "gradient": {
+                "relative_l2": 0.00040656608705455565,
+                "max_abs": 0.00032628564022353646,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 2.249919984132075e-07,
+                "max_abs": 3.2782554626464844e-07,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.00041076787716099106,
+                "max_abs": 3.2782554626464844e-07,
+                "finite": true
+              },
+              "gradient_sha256": "bc1d3eaf6a287b621b5e59168ea87192ca051e58bf6ca0140cf9d03c1ed2c9de"
+            },
+            "v": {
+              "gradient": {
+                "relative_l2": 0.0002993630979385073,
+                "max_abs": 0.0004432810398476983,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 3.527135853771388e-07,
+                "max_abs": 4.470348358154297e-07,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.0003006618093080223,
+                "max_abs": 4.470348358154297e-07,
+                "finite": true
+              },
+              "gradient_sha256": "d827aa7e5e683b9d98041d7e5e5570a4a82b07688ec73d3342370fbf19b01978"
+            },
+            "bias2": {
+              "gradient": {
+                "relative_l2": 0.0002908276849378666,
+                "max_abs": 0.04173548217835332,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 8.738129836059945e-06,
+                "max_abs": 4.178285598754883e-05,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.00029082927633636855,
+                "max_abs": 4.178285598754883e-05,
+                "finite": true
+              },
+              "gradient_sha256": "9b198bee46c40844dddf8793fbfff60a5344f7e7694d1e3d2bc62fc682c757af"
+            }
+          },
+          "timing_samples": {
+            "inference": [
+              {
+                "wall_ms": 0.43498724699020386,
+                "event_ms": 0.4169920086860657
+              },
+              {
+                "wall_ms": 0.41760317981243134,
+                "event_ms": 0.39955198764801025
+              },
+              {
+                "wall_ms": 0.4317769780755043,
+                "event_ms": 0.4143359959125519
+              },
+              {
+                "wall_ms": 0.41987746953964233,
+                "event_ms": 0.40163201093673706
+              },
+              {
+                "wall_ms": 0.43420493602752686,
+                "event_ms": 0.41600000858306885
+              },
+              {
+                "wall_ms": 1.13739725202322,
+                "event_ms": 0.39529600739479065
+              },
+              {
+                "wall_ms": 0.5337856709957123,
+                "event_ms": 0.5162559747695923
+              },
+              {
+                "wall_ms": 0.41877850890159607,
+                "event_ms": 0.40137600898742676
+              },
+              {
+                "wall_ms": 0.42153801769018173,
+                "event_ms": 0.4047679901123047
+              },
+              {
+                "wall_ms": 0.40664058178663254,
+                "event_ms": 0.38998401165008545
+              }
+            ],
+            "training": [
+              {
+                "wall_ms": 2.5915559381246567,
+                "event_ms": 2.5688319206237793
+              },
+              {
+                "wall_ms": 2.5212178006768227,
+                "event_ms": 2.5034561157226562
+              },
+              {
+                "wall_ms": 2.545233815908432,
+                "event_ms": 2.526655912399292
+              },
+              {
+                "wall_ms": 2.5171181187033653,
+                "event_ms": 2.499648094177246
+              },
+              {
+                "wall_ms": 2.547798678278923,
+                "event_ms": 2.5291519165039062
+              },
+              {
+                "wall_ms": 2.52493005245924,
+                "event_ms": 2.5070719718933105
+              },
+              {
+                "wall_ms": 2.538498491048813,
+                "event_ms": 2.5199038982391357
+              },
+              {
+                "wall_ms": 2.5319280102849007,
+                "event_ms": 2.5123519897460938
+              },
+              {
+                "wall_ms": 2.5343308225274086,
+                "event_ms": 2.516160011291504
+              },
+              {
+                "wall_ms": 2.5222469121217728,
+                "event_ms": 2.5040318965911865
+              }
+            ]
+          },
+          "training_status": "SUPPORTED",
+          "accuracy_call_peak_extra_bytes": 128710656,
+          "timing_median": {
+            "inference": {
+              "wall_ms": 0.426657497882843,
+              "event_ms": 0.4032000005245209
+            },
+            "training": {
+              "wall_ms": 2.5331294164061546,
+              "event_ms": 2.514256000518799
+            }
+          },
+          "training_gpu_profile": [
+            {
+              "name": "_streaming_triangle_attention_bwd_dbias2_v1",
+              "count": 1,
+              "total_us": 1040.176
+            },
+            {
+              "name": "_streaming_triangle_attention_bwd_dkdv_v1",
+              "count": 1,
+              "total_us": 573.56
+            },
+            {
+              "name": "_streaming_triangle_attention_bwd_dq_v1",
+              "count": 1,
+              "total_us": 350.5229999999999
+            },
+            {
+              "name": "_streaming_triangle_attention_fwd_ieee_v1",
+              "count": 1,
+              "total_us": 301.5319999999999
+            },
+            {
+              "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+              "count": 4,
+              "total_us": 91.58199999999988
+            }
+          ]
+        },
+        "forward_kv_prequant": {
+          "label": "h100 custom forward_kv_prequant",
+          "output": {
+            "relative_l2": 0.00030908271466055135,
+            "max_abs": 2.8448635788049306e-05,
+            "finite": true
+          },
+          "output_sha256": "03b6dd3162acf55f53220c2cf390fda55014fcbb6925213968f1a6b8493970da",
+          "parameters": {
+            "q": {
+              "gradient": {
+                "relative_l2": 0.0004090895052101888,
+                "max_abs": 0.00029054321235673364,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 2.2807224046203286e-07,
+                "max_abs": 2.980232238769531e-07,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.0004128991272821131,
+                "max_abs": 2.980232238769531e-07,
+                "finite": true
+              },
+              "gradient_sha256": "07c9334ca7d865ae3ff0f4e7e11366e64b8edf05b6ab32017809039dc46c8c7b"
+            },
+            "k": {
+              "gradient": {
+                "relative_l2": 0.00040656608705455565,
+                "max_abs": 0.00032628564022353646,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 2.249919984132075e-07,
+                "max_abs": 3.2782554626464844e-07,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.00041076787716099106,
+                "max_abs": 3.2782554626464844e-07,
+                "finite": true
+              },
+              "gradient_sha256": "bc1d3eaf6a287b621b5e59168ea87192ca051e58bf6ca0140cf9d03c1ed2c9de"
+            },
+            "v": {
+              "gradient": {
+                "relative_l2": 0.0002993630979385073,
+                "max_abs": 0.0004432810398476983,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 3.527135853771388e-07,
+                "max_abs": 4.470348358154297e-07,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.0003006618093080223,
+                "max_abs": 4.470348358154297e-07,
+                "finite": true
+              },
+              "gradient_sha256": "d827aa7e5e683b9d98041d7e5e5570a4a82b07688ec73d3342370fbf19b01978"
+            },
+            "bias2": {
+              "gradient": {
+                "relative_l2": 0.0002908276849378666,
+                "max_abs": 0.04173548217835332,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 8.738129836059945e-06,
+                "max_abs": 4.178285598754883e-05,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.00029082927633636855,
+                "max_abs": 4.178285598754883e-05,
+                "finite": true
+              },
+              "gradient_sha256": "9b198bee46c40844dddf8793fbfff60a5344f7e7694d1e3d2bc62fc682c757af"
+            }
+          },
+          "timing_samples": {
+            "inference": [
+              {
+                "wall_ms": 0.39732642471790314,
+                "event_ms": 0.37916800379753113
+              },
+              {
+                "wall_ms": 0.38540177047252655,
+                "event_ms": 0.36745598912239075
+              },
+              {
+                "wall_ms": 0.4044296219944954,
+                "event_ms": 0.3873920142650604
+              },
+              {
+                "wall_ms": 0.38939062505960464,
+                "event_ms": 0.3715519905090332
+              },
+              {
+                "wall_ms": 0.4087015986442566,
+                "event_ms": 0.3909119963645935
+              },
+              {
+                "wall_ms": 0.3929967060685158,
+                "event_ms": 0.37513598799705505
+              },
+              {
+                "wall_ms": 0.4333341494202614,
+                "event_ms": 0.4156799912452698
+              },
+              {
+                "wall_ms": 0.4009222611784935,
+                "event_ms": 0.38307198882102966
+              },
+              {
+                "wall_ms": 0.39488542824983597,
+                "event_ms": 0.3784320056438446
+              },
+              {
+                "wall_ms": 0.3744186833500862,
+                "event_ms": 0.3577600121498108
+              }
+            ],
+            "training": [
+              {
+                "wall_ms": 2.5411751121282578,
+                "event_ms": 2.521984100341797
+              },
+              {
+                "wall_ms": 2.504287287592888,
+                "event_ms": 2.485663890838623
+              },
+              {
+                "wall_ms": 2.5103315711021423,
+                "event_ms": 2.492543935775757
+              },
+              {
+                "wall_ms": 2.50149704515934,
+                "event_ms": 2.483520030975342
+              },
+              {
+                "wall_ms": 2.5279326364398003,
+                "event_ms": 2.509216070175171
+              },
+              {
+                "wall_ms": 2.506321296095848,
+                "event_ms": 2.4880640506744385
+              },
+              {
+                "wall_ms": 2.5149695575237274,
+                "event_ms": 2.497407913208008
+              },
+              {
+                "wall_ms": 2.494504675269127,
+                "event_ms": 2.4747519493103027
+              },
+              {
+                "wall_ms": 2.5098947808146477,
+                "event_ms": 2.492543935775757
+              },
+              {
+                "wall_ms": 2.483222633600235,
+                "event_ms": 2.4654080867767334
+              }
+            ]
+          },
+          "training_status": "SUPPORTED",
+          "accuracy_call_peak_extra_bytes": 128710656,
+          "timing_median": {
+            "inference": {
+              "wall_ms": 0.39610592648386955,
+              "event_ms": 0.37880000472068787
+            },
+            "training": {
+              "wall_ms": 2.508108038455248,
+              "event_ms": 2.4903039932250977
+            }
+          },
+          "training_gpu_profile": [
+            {
+              "name": "_streaming_triangle_attention_bwd_dbias2_v1",
+              "count": 1,
+              "total_us": 1034.8320000000003
+            },
+            {
+              "name": "_streaming_triangle_attention_bwd_dkdv_v1",
+              "count": 1,
+              "total_us": 571.127
+            },
+            {
+              "name": "_streaming_triangle_attention_bwd_dq_v1",
+              "count": 1,
+              "total_us": 349.914
+            },
+            {
+              "name": "_streaming_triangle_attention_fwd_ieee_v1",
+              "count": 1,
+              "total_us": 229.75599999999997
+            },
+            {
+              "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+              "count": 4,
+              "total_us": 91.39000000000033
+            },
+            {
+              "name": "_round_four_inputs",
+              "count": 1,
+              "total_us": 43.807000000000016
+            }
+          ]
+        }
+      }
+    },
+    {
+      "shape": [
+        1,
+        384,
+        384,
+        4,
+        32
+      ],
+      "seed": 485,
+      "rng": "NumPy PCG64 integer generation on CPU; no GPU RNG",
+      "group_input_sha256": {
+        "q": "54af0a675e2b0a55011051adafa7b79fbfcac9e81e4f5d04f3f4110fd35ef430",
+        "k": "c22f27f649bb9e23ba7742a45e9e80d804818dc451402fbabc5aea2beac5c0dc",
+        "v": "0f9041de52bef84d9921b95a45d9aa7cedf695cc675e9dd53d961ecc5c3f7eda",
+        "bias2": "2115614a9133e6e807414c739f4c09d19c0093bb80efd67f8c2de60bcb43034b",
+        "upstream": "f304addb56488e79c99c75975b1f6d50ba2f864916fda2d28b5a31c4497a7c89"
+      },
+      "full_input_sha256": {
+        "q": "57704778a4ff04c425ef0663dab982c943f07af72f9975711e130dc2e43a31d5",
+        "k": "6b37dea6cbd6348d6a6a0d7c9f4e47eca2caa0dd74656600d65e740b083a89e0",
+        "v": "580c0138221d48fe71c56ca9f0560beba8dbacb51ed3954f688026afb57453e7",
+        "bias2": "2115614a9133e6e807414c739f4c09d19c0093bb80efd67f8c2de60bcb43034b",
+        "upstream": "e48dfd23fea719f98c0b4d7dbc752a08ddee1475814196e67dd40d96fc6479e4"
+      },
+      "modes": {
+        "fp32": {
+          "label": "H100 native fp32",
+          "output": {
+            "relative_l2": 3.941429657783468e-07,
+            "max_abs": 5.455265677384302e-08,
+            "finite": true
+          },
+          "output_sha256": "41268762c17240a20c691fc9e9cde5044a87a46f84e1dbde8d8d3e2868b7c1a0",
+          "parameters": {},
+          "timing_samples": {
+            "inference": [
+              {
+                "wall_ms": 1.7295563593506813,
+                "event_ms": 1.698240041732788
+              },
+              {
+                "wall_ms": 1.6784658655524254,
+                "event_ms": 1.6624000072479248
+              },
+              {
+                "wall_ms": 1.668112352490425,
+                "event_ms": 1.6522239446640015
+              },
+              {
+                "wall_ms": 1.6774917021393776,
+                "event_ms": 1.6599359512329102
+              },
+              {
+                "wall_ms": 1.6705188900232315,
+                "event_ms": 1.6539839506149292
+              },
+              {
+                "wall_ms": 1.6766367480158806,
+                "event_ms": 1.6600960493087769
+              },
+              {
+                "wall_ms": 1.6764448955655098,
+                "event_ms": 1.656383991241455
+              },
+              {
+                "wall_ms": 1.6761859878897667,
+                "event_ms": 1.6604479551315308
+              },
+              {
+                "wall_ms": 1.6659274697303772,
+                "event_ms": 1.6501760482788086
+              },
+              {
+                "wall_ms": 1.6776276752352715,
+                "event_ms": 1.661728024482727
+              }
+            ],
+            "training": []
+          },
+          "training_status": "NATIVE_FP32_BACKWARD_UNSUPPORTED",
+          "training_error": "ERROR: Full precision FP32 backward pass for triangle attention is not implemented yet! Please set torch.backends.cuda.matmul.allow_tf32=True.\n",
+          "accuracy_call_peak_extra_bytes": 615776256,
+          "timing_median": {
+            "inference": {
+              "wall_ms": 1.6765408217906952,
+              "event_ms": 1.6600160002708435
+            },
+            "training": null
+          }
+        },
+        "tf32": {
+          "label": "H100 native tf32",
+          "output": {
+            "relative_l2": 0.0025804454023506816,
+            "max_abs": 0.00023901962009830954,
+            "finite": true
+          },
+          "output_sha256": "a44d2eb3b56b200519bcbd2934ff136bc73e92ee03f714bc6da8659e8a321d48",
+          "parameters": {
+            "q": {
+              "gradient": {
+                "relative_l2": 0.002421217337208941,
+                "max_abs": 0.0015408995211165788,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 1.0703841414817222e-06,
+                "max_abs": 1.5497207641601562e-06,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.0024221065605298667,
+                "max_abs": 1.5497207641601562e-06,
+                "finite": true
+              },
+              "gradient_sha256": "3ca7d95b67a7ac667fdf95a97d5e6a52659970711f6913fe1a6df36902983732"
+            },
+            "k": {
+              "gradient": {
+                "relative_l2": 0.0024003123826893073,
+                "max_abs": 0.0015176020160195813,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 1.077002611071924e-06,
+                "max_abs": 1.51805579662323e-06,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.002401556088341516,
+                "max_abs": 1.51805579662323e-06,
+                "finite": true
+              },
+              "gradient_sha256": "69b0d3f331bcea91cc99c5035ed9167d92eaf1a9cba21100fcbaf68c9655f3a1"
+            },
+            "v": {
+              "gradient": {
+                "relative_l2": 0.00181204811565761,
+                "max_abs": 0.002102408441502557,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 1.6480657206417195e-06,
+                "max_abs": 2.1010637283325195e-06,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.001812271319160381,
+                "max_abs": 2.1010637283325195e-06,
+                "finite": true
+              },
+              "gradient_sha256": "1a1e9713ce0437f58eab523f01e1cc35671fe0243b24ca25cb141363506ca4d2"
+            },
+            "bias2": {
+              "gradient": {
+                "relative_l2": 0.0017358699821699722,
+                "max_abs": 0.42890695290992653,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 5.221878180431433e-05,
+                "max_abs": 0.00042891502380371094,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.001735824327805246,
+                "max_abs": 0.00042891502380371094,
+                "finite": true
+              },
+              "gradient_sha256": "4715b7f9c81b096afda2396e0c452414d74a869324a96f92924e6a4895e1e32a"
+            }
+          },
+          "timing_samples": {
+            "inference": [
+              {
+                "wall_ms": 0.9232265874743462,
+                "event_ms": 0.9064000248908997
+              },
+              {
+                "wall_ms": 0.9403377771377563,
+                "event_ms": 0.9239040017127991
+              },
+              {
+                "wall_ms": 0.9144796058535576,
+                "event_ms": 0.8988159894943237
+              },
+              {
+                "wall_ms": 0.9353077039122581,
+                "event_ms": 0.9183679819107056
+              },
+              {
+                "wall_ms": 0.9220391511917114,
+                "event_ms": 0.9047999978065491
+              },
+              {
+                "wall_ms": 0.9383345022797585,
+                "event_ms": 0.9221439957618713
+              },
+              {
+                "wall_ms": 0.912410207092762,
+                "event_ms": 0.8967679738998413
+              },
+              {
+                "wall_ms": 0.9372998028993607,
+                "event_ms": 0.921280026435852
+              },
+              {
+                "wall_ms": 0.9142570197582245,
+                "event_ms": 0.8986560106277466
+              },
+              {
+                "wall_ms": 0.9373584762215614,
+                "event_ms": 0.9211840033531189
+              }
+            ],
+            "training": [
+              {
+                "wall_ms": 4.224847070872784,
+                "event_ms": 4.194752216339111
+              },
+              {
+                "wall_ms": 4.218657501041889,
+                "event_ms": 4.199135780334473
+              },
+              {
+                "wall_ms": 4.174346104264259,
+                "event_ms": 4.154880046844482
+              },
+              {
+                "wall_ms": 4.175102338194847,
+                "event_ms": 4.157599925994873
+              },
+              {
+                "wall_ms": 4.150993190705776,
+                "event_ms": 4.133088111877441
+              },
+              {
+                "wall_ms": 4.114238545298576,
+                "event_ms": 4.096767902374268
+              },
+              {
+                "wall_ms": 4.0842220187187195,
+                "event_ms": 4.065663814544678
+              },
+              {
+                "wall_ms": 4.101206548511982,
+                "event_ms": 4.084256172180176
+              },
+              {
+                "wall_ms": 4.095951095223427,
+                "event_ms": 4.078048229217529
+              },
+              {
+                "wall_ms": 4.120268858969212,
+                "event_ms": 4.101952075958252
+              }
+            ]
+          },
+          "training_status": "SUPPORTED",
+          "accuracy_call_peak_extra_bytes": 615776256,
+          "timing_median": {
+            "inference": {
+              "wall_ms": 0.9292671456933022,
+              "event_ms": 0.9123840034008026
+            },
+            "training": {
+              "wall_ms": 4.135631024837494,
+              "event_ms": 4.117520093917847
+            }
+          },
+          "training_gpu_profile": [
+            {
+              "name": "cudnn_sm80_bprop_fmha_tf32_64x64x32",
+              "count": 1,
+              "total_us": 2272.5750000000003
+            },
+            {
+              "name": "native_sm80_fprop_fmha_tf32_64x32x32",
+              "count": 1,
+              "total_us": 617.6550000000002
+            },
+            {
+              "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int)#1})",
+              "count": 9,
+              "total_us": 600.5039999999995
+            },
+            {
+              "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+              "count": 4,
+              "total_us": 227.35599999999977
+            },
+            {
+              "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)",
+              "count": 7,
+              "total_us": 94.6239999999998
+            },
+            {
+              "name": "compute_dot_do_o",
+              "count": 1,
+              "total_us": 56.38299999999981
+            }
+          ]
+        },
+        "fixed_rne_once": {
+          "label": "h100 custom fixed_rne_once",
+          "output": {
+            "relative_l2": 0.000323674308531475,
+            "max_abs": 2.1782149176656843e-05,
+            "finite": true
+          },
+          "output_sha256": "be0918861f4fcfd71874570ef433e3c9ff64883f80fcfc5ad90881bd4accfbe7",
+          "parameters": {
+            "q": {
+              "gradient": {
+                "relative_l2": 0.00040661251975928855,
+                "max_abs": 0.00024114358681201487,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 1.825171508896221e-07,
+                "max_abs": 2.682209014892578e-07,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.00041300685682640225,
+                "max_abs": 2.682209014892578e-07,
+                "finite": true
+              },
+              "gradient_sha256": "dfe342ae0007dbb83e3aec909d25c7679ac39071aeba1959a24e27fa7be002f9"
+            },
+            "k": {
+              "gradient": {
+                "relative_l2": 0.000403610141084315,
+                "max_abs": 0.00023630596059873166,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 1.8382036236337221e-07,
+                "max_abs": 2.3096799850463867e-07,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.0004098921419410706,
+                "max_abs": 2.3096799850463867e-07,
+                "finite": true
+              },
+              "gradient_sha256": "8f7935ac1d3baa479d502cd51129267e5586dc306dd7b4f8dd791be51e12d959"
+            },
+            "v": {
+              "gradient": {
+                "relative_l2": 0.00031591003871852196,
+                "max_abs": 0.00036014878786578153,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 2.890949690543362e-07,
+                "max_abs": 3.5762786865234375e-07,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.00031789904213251787,
+                "max_abs": 3.5762786865234375e-07,
+                "finite": true
+              },
+              "gradient_sha256": "e9fa51bbaafe21acc0063cb779f8eecfd24d2897b1d7a4b37923e71455d32a45"
+            },
+            "bias2": {
+              "gradient": {
+                "relative_l2": 0.0002910079075482928,
+                "max_abs": 0.05805176465545259,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 8.754370149971249e-06,
+                "max_abs": 5.805492401123047e-05,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.00029100732986365655,
+                "max_abs": 5.805492401123047e-05,
+                "finite": true
+              },
+              "gradient_sha256": "a383992c0ccafc97154d5fc3a730944a593121a66229a1ac2eb537c3fd011501"
+            }
+          },
+          "timing_samples": {
+            "inference": [
+              {
+                "wall_ms": 1.0226685553789139,
+                "event_ms": 1.005344033241272
+              },
+              {
+                "wall_ms": 1.002986915409565,
+                "event_ms": 0.9869760274887085
+              },
+              {
+                "wall_ms": 1.012604683637619,
+                "event_ms": 0.9965760111808777
+              },
+              {
+                "wall_ms": 0.9974120184779167,
+                "event_ms": 0.9807999730110168
+              },
+              {
+                "wall_ms": 1.0241195559501648,
+                "event_ms": 1.0071680545806885
+              },
+              {
+                "wall_ms": 1.0021412745118141,
+                "event_ms": 0.9850239753723145
+              },
+              {
+                "wall_ms": 1.014113426208496,
+                "event_ms": 0.9983680248260498
+              },
+              {
+                "wall_ms": 0.992841087281704,
+                "event_ms": 0.9770879745483398
+              },
+              {
+                "wall_ms": 1.0134167969226837,
+                "event_ms": 0.9979519844055176
+              },
+              {
+                "wall_ms": 0.9975545108318329,
+                "event_ms": 0.9821439981460571
+              }
+            ],
+            "training": [
+              {
+                "wall_ms": 5.761794745922089,
+                "event_ms": 5.739552021026611
+              },
+              {
+                "wall_ms": 5.69231528788805,
+                "event_ms": 5.673439979553223
+              },
+              {
+                "wall_ms": 5.7198647409677505,
+                "event_ms": 5.699999809265137
+              },
+              {
+                "wall_ms": 5.66642452031374,
+                "event_ms": 5.649119853973389
+              },
+              {
+                "wall_ms": 5.708983168005943,
+                "event_ms": 5.6910719871521
+              },
+              {
+                "wall_ms": 5.5718617513775826,
+                "event_ms": 5.554431915283203
+              },
+              {
+                "wall_ms": 5.592514760792255,
+                "event_ms": 5.575647830963135
+              },
+              {
+                "wall_ms": 5.584081634879112,
+                "event_ms": 5.567200183868408
+              },
+              {
+                "wall_ms": 5.5888257920742035,
+                "event_ms": 5.571904182434082
+              },
+              {
+                "wall_ms": 5.5814944207668304,
+                "event_ms": 5.564223766326904
+              }
+            ]
+          },
+          "training_status": "SUPPORTED",
+          "accuracy_call_peak_extra_bytes": 309067776,
+          "timing_median": {
+            "inference": {
+              "wall_ms": 1.007795799523592,
+              "event_ms": 0.9917760193347931
+            },
+            "training": {
+              "wall_ms": 5.629469640552998,
+              "event_ms": 5.612383842468262
+            }
+          },
+          "training_gpu_profile": [
+            {
+              "name": "_streaming_triangle_attention_bwd_dbias2_v1",
+              "count": 1,
+              "total_us": 1732.5190000000002
+            },
+            {
+              "name": "_streaming_triangle_attention_bwd_dkdv_v1",
+              "count": 1,
+              "total_us": 1626.6970000000006
+            },
+            {
+              "name": "_streaming_triangle_attention_bwd_dq_v1",
+              "count": 1,
+              "total_us": 995.1860000000001
+            },
+            {
+              "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+              "count": 4,
+              "total_us": 222.4290000000001
+            }
+          ]
+        },
+        "forward_kv_prequant": {
+          "label": "h100 custom forward_kv_prequant",
+          "output": {
+            "relative_l2": 0.000323674308531475,
+            "max_abs": 2.1782149176656843e-05,
+            "finite": true
+          },
+          "output_sha256": "be0918861f4fcfd71874570ef433e3c9ff64883f80fcfc5ad90881bd4accfbe7",
+          "parameters": {
+            "q": {
+              "gradient": {
+                "relative_l2": 0.00040661251975928855,
+                "max_abs": 0.00024114358681201487,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 1.825171508896221e-07,
+                "max_abs": 2.682209014892578e-07,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.00041300685682640225,
+                "max_abs": 2.682209014892578e-07,
+                "finite": true
+              },
+              "gradient_sha256": "dfe342ae0007dbb83e3aec909d25c7679ac39071aeba1959a24e27fa7be002f9"
+            },
+            "k": {
+              "gradient": {
+                "relative_l2": 0.000403610141084315,
+                "max_abs": 0.00023630596059873166,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 1.8382036236337221e-07,
+                "max_abs": 2.3096799850463867e-07,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.0004098921419410706,
+                "max_abs": 2.3096799850463867e-07,
+                "finite": true
+              },
+              "gradient_sha256": "8f7935ac1d3baa479d502cd51129267e5586dc306dd7b4f8dd791be51e12d959"
+            },
+            "v": {
+              "gradient": {
+                "relative_l2": 0.00031591003871852196,
+                "max_abs": 0.00036014878786578153,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 2.890949690543362e-07,
+                "max_abs": 3.5762786865234375e-07,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.00031789904213251787,
+                "max_abs": 3.5762786865234375e-07,
+                "finite": true
+              },
+              "gradient_sha256": "e9fa51bbaafe21acc0063cb779f8eecfd24d2897b1d7a4b37923e71455d32a45"
+            },
+            "bias2": {
+              "gradient": {
+                "relative_l2": 0.0002910079075482928,
+                "max_abs": 0.05805176465545259,
+                "finite": true
+              },
+              "updated_parameter": {
+                "relative_l2": 8.754370149971249e-06,
+                "max_abs": 5.805492401123047e-05,
+                "finite": true
+              },
+              "realized_fp32_update": {
+                "relative_l2": 0.00029100732986365655,
+                "max_abs": 5.805492401123047e-05,
+                "finite": true
+              },
+              "gradient_sha256": "a383992c0ccafc97154d5fc3a730944a593121a66229a1ac2eb537c3fd011501"
+            }
+          },
+          "timing_samples": {
+            "inference": [
+              {
+                "wall_ms": 0.8987030014395714,
+                "event_ms": 0.8823360204696655
+              },
+              {
+                "wall_ms": 0.890054740011692,
+                "event_ms": 0.8730239868164062
+              },
+              {
+                "wall_ms": 0.890018418431282,
+                "event_ms": 0.8740800023078918
+              },
+              {
+                "wall_ms": 0.8921315893530846,
+                "event_ms": 0.8756800293922424
+              },
+              {
+                "wall_ms": 0.9065242484211922,
+                "event_ms": 0.8882560133934021
+              },
+              {
+                "wall_ms": 0.9029507637023926,
+                "event_ms": 0.884768009185791
+              },
+              {
+                "wall_ms": 0.895131379365921,
+                "event_ms": 0.8791040182113647
+              },
+              {
+                "wall_ms": 0.8925888687372208,
+                "event_ms": 0.8758400082588196
+              },
+              {
+                "wall_ms": 0.8934671059250832,
+                "event_ms": 0.8775039911270142
+              },
+              {
+                "wall_ms": 0.8859317749738693,
+                "event_ms": 0.8695999979972839
+              }
+            ],
+            "training": [
+              {
+                "wall_ms": 5.6532276794314384,
+                "event_ms": 5.632607936859131
+              },
+              {
+                "wall_ms": 5.62804751098156,
+                "event_ms": 5.608511924743652
+              },
+              {
+                "wall_ms": 5.588608793914318,
+                "event_ms": 5.5696001052856445
+              },
+              {
+                "wall_ms": 5.566975101828575,
+                "event_ms": 5.549600124359131
+              },
+              {
+                "wall_ms": 5.504789762198925,
+                "event_ms": 5.487135887145996
+              },
+              {
+                "wall_ms": 5.471386015415192,
+                "event_ms": 5.454016208648682
+              },
+              {
+                "wall_ms": 5.463188514113426,
+                "event_ms": 5.445856094360352
+              },
+              {
+                "wall_ms": 5.464604124426842,
+                "event_ms": 5.447360038757324
+              },
+              {
+                "wall_ms": 5.4624853655695915,
+                "event_ms": 5.445343971252441
+              },
+              {
+                "wall_ms": 5.481853149831295,
+                "event_ms": 5.459871768951416
+              }
+            ]
+          },
+          "training_status": "SUPPORTED",
+          "accuracy_call_peak_extra_bytes": 309067776,
+          "timing_median": {
+            "inference": {
+              "wall_ms": 0.893027987331152,
+              "event_ms": 0.8766719996929169
+            },
+            "training": {
+              "wall_ms": 5.49332145601511,
+              "event_ms": 5.473503828048706
+            }
+          },
+          "training_gpu_profile": [
+            {
+              "name": "_streaming_triangle_attention_bwd_dbias2_v1",
+              "count": 1,
+              "total_us": 1739.6850000000004
+            },
+            {
+              "name": "_streaming_triangle_attention_bwd_dkdv_v1",
+              "count": 1,
+              "total_us": 1626.759
+            },
+            {
+              "name": "_streaming_triangle_attention_bwd_dq_v1",
+              "count": 1,
+              "total_us": 997.1680000000001
+            },
+            {
+              "name": "_streaming_triangle_attention_fwd_ieee_v1",
+              "count": 1,
+              "total_us": 669.3970000000002
+            },
+            {
+              "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+              "count": 4,
+              "total_us": 222.10899999999947
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

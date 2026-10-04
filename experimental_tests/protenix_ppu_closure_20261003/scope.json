@@ -1,0 +1,8 @@
+{
+  "operator_shapes": "B=1, N=S, S=131/245/384, H=4, D=32; synthetic CPU-seeded operands. Broad independent-group layout tests and real Protenix-v2 training cover H=2/8 as well.",
+  "training": "Protenix-v2, 48 Pairformer and 4 MSA blocks; crops 131 and 245. Nonzero Adam update audited at step 1, learning rate 0.00018.",
+  "inference": "9 models, G01 693 tokens and G02 245 tokens; cycle=1, step=1, sample=1 screening protocol. This is not production 200-step sampling acceptance.",
+  "data_policy": "Only own code and scalar/hash evidence exported. Coordinates, checkpoint tensors and full gradients stay on their original servers.",
+  "final_selection": "backward_only: generic 64MiB backward cache; original public forward and IEEE backward retained. Experimental integration only.",
+  "training_dispatch": "FlagGems TriAttention explicitly observed; global enable_flaggems=false, triangle_multiplicative=torch. Other training operator dispatch is not certified."
+}

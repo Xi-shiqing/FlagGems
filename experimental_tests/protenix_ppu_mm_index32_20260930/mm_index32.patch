@@ -1,0 +1,69 @@
+--- a/flag_gems/ops/mm.py
++++ b/flag_gems/ops/mm.py
+@@ -454,11 +454,13 @@
+                     SPLIT_K: tl.constexpr, BLOCK_M: tl.constexpr,
+                     BLOCK_N: tl.constexpr, BLOCK_K: tl.constexpr,
+                     ALLOW_TF32: tl.constexpr,
+-                    B_RNE_PREPACKED: tl.constexpr):
+-    pid = tle.program_id(0)
++                    B_RNE_PREPACKED: tl.constexpr,
++                    INDEX_64: tl.constexpr = True):
++    index_dtype: tl.constexpr = tl.int64 if INDEX_64 else tl.int32
++    pid = tle.program_id(0).to(index_dtype)
+     grid_n = tl.cdiv(N, BLOCK_N)
+-    rm = ((pid // grid_n) * BLOCK_M + tl.arange(0, BLOCK_M)).to(tl.int64)
+-    rn = ((pid % grid_n) * BLOCK_N + tl.arange(0, BLOCK_N)).to(tl.int64)
++    rm = ((pid // grid_n) * BLOCK_M + tl.arange(0, BLOCK_M)).to(index_dtype)
++    rn = ((pid % grid_n) * BLOCK_N + tl.arange(0, BLOCK_N)).to(index_dtype)
+     chunk_k = tl.cdiv(K, SPLIT_K)
+     result = tl.zeros((BLOCK_M, BLOCK_N), dtype=tl.float32)
+     for split_id in range(0, SPLIT_K):
+@@ -466,7 +468,7 @@
+         split_end = tl.minimum(split_start + chunk_k, K)
+         acc = tl.zeros((BLOCK_M, BLOCK_N), dtype=tl.float32)
+         for offset_k in range(0, chunk_k, BLOCK_K):
+-            rk = (split_start + offset_k + tl.arange(0, BLOCK_K)).to(tl.int64)
++            rk = (split_start + offset_k + tl.arange(0, BLOCK_K)).to(index_dtype)
+             mask_k = rk < split_end
+             a = tl.load(A + rm[:, None] * stride_am + rk[None, :] * stride_ak,
+                         mask=(rm < M)[:, None] & mask_k[None, :], other=0.0)
+@@ -636,6 +638,17 @@
+     _TF32_RNE_RHS_CACHE_BYTES += size
+ 
+ 
++def _direct_offsets_fit_i32(M, N, K, am, ak, bk, bn, cm, cn, split_k):
++    # Include masked edge tiles; keep large/negative offsets on the original path.
++    return (
++        max(M + 64, N + 128, K + 32 + split_k) < 2**31
++        and min(am, ak, bk, bn, cm, cn) >= 0
++        and (M + 64) * am + (K + 32 + split_k) * ak < 2**31
++        and (K + 32 + split_k) * bk + (N + 128) * bn < 2**31
++        and (M + 64) * cm + (N + 128) * cn < 2**31
++    )
++
++
+ def _direct_mm(a, b, c, M, N, K):
+     # N>512 uses the original unsplit general-MM accumulation order.
+     split_k = _ppu_h100_splitk_parts(M, N, K) or 1
+@@ -651,14 +664,18 @@
+                 )
+             _tf32_rne_rhs_cache_insert(cache_key, b, b_rne)
+         b = b_rne
++    am, ak = a.stride()
++    bk, bn = b.stride()
++    cm, cn = c.stride()
++    allow_tf32 = _allow_tf32()
+     with torch_device_fn.device(a.device):
+         mm_direct_fused[(triton.cdiv(M, 64) * triton.cdiv(N, 128),)](
+             a, b, c, M, N, K,
+-            a.stride(0), a.stride(1), b.stride(0), b.stride(1),
+-            c.stride(0), c.stride(1),
++            am, ak, bk, bn, cm, cn,
+             SPLIT_K=split_k, BLOCK_M=64, BLOCK_N=128, BLOCK_K=32,
+-            ALLOW_TF32=_allow_tf32(),
++            ALLOW_TF32=allow_tf32,
+             B_RNE_PREPACKED=prepack_rhs,
++            INDEX_64=not (allow_tf32 and _direct_offsets_fit_i32(M, N, K, am, ak, bk, bn, cm, cn, split_k)),
+             num_warps=4, num_stages=1,
+         )
+     return c

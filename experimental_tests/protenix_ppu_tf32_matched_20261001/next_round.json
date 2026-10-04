@@ -1,0 +1,16 @@
+{
+  "priority": [
+    "Audit real BMM and SDPA precision on both installed backends using identical operands and native kernel traces; do not infer arithmetic from allow_tf32 alone.",
+    "Run controlled precision interventions at the first mismatching executed entry; keep H100 native TF32 as primary reference and explicitly label any module policy.",
+    "Prioritize host launch/allocation costs exposed on G02; extend full-write allocation only to proven full-write outputs with poison coverage.",
+    "Revalidate retained candidates on three inputs, then nine models; keep the existing FP32 implementation."
+  ],
+  "current_candidate": "Unsplit stages3 ordinary TF32 yields significant G01/G03 improvements; G02 no demonstrated gain. Cross-device TF32 RMSD fails on all three; experimental only.",
+  "coverage_correction": "Full FlagGems context exclude=[] covers registered operators; efficient SDPA is not registered in the installed candidate and remains native PPU Torch.",
+  "same_precision_gate": "PPU TF32 vs H100 native TF32: RMSD <=0.1 A and each confidence relative error <=5%; FP32 drift is diagnostic.",
+  "not_completed": [
+    "Direct cross-server candidate RMSD (rigorous bounds suffice to establish failure)",
+    "Cross-platform same-activation first-divergence localization",
+    "Fresh full-model training and full-default inference acceptance"
+  ]
+}

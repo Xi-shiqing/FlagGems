@@ -1,0 +1,44 @@
+{
+  "baseline_helper_sha256": "d781a51d427278a249dbae659db4d171246117c8bb64feb6ab5c99683b016591",
+  "candidate_helper_sha256": "19f3126da7ef4c08b19ddf7ff9dbb6272404a166b49161882ed1a92598582844",
+  "native_rne_source_sha256": "c16294107e311ebfe1ee594385832074d06db548d1a6fc5472e46b86193e368b",
+  "shape_rules_added": 0,
+  "rounding": "RNE, ties-to-even; preserve non-finite bit patterns",
+  "scope": "PPU isolated candidate; shared main candidate unchanged",
+  "validation": {
+    "independent_bit_patterns": 71168,
+    "bit_mismatches": 0,
+    "actual_activation_pairs": 25,
+    "actual_activation_fp32_and_tf32_hashes_match": true,
+    "direct_model_input_pairs": 4,
+    "prepack_model_input_pairs": 2,
+    "all_software_native_model_coordinates_and_five_metrics_exact": true,
+    "operator_training_probes": 4,
+    "all_software_native_training_fp32_and_tf32_hashes_match": true,
+    "rmsd_gate_A": 0.1,
+    "precision_gates": {
+      "native_vs_ppu_fp32_rmsd_le_0_1A": 3,
+      "native_vs_ppu_fp32_five_metrics_le_5pct": 4,
+      "h100_tf32_vs_h100_fp32_rmsd_le_0_1A": 0,
+      "ppu_fp32_vs_h100_fp32": {
+        "rmsd_le_0_1A": 4,
+        "five_metrics_le_5pct": 4
+      },
+      "ppu_native_vs_h100_fp32": {
+        "rmsd_le_0_1A": 3,
+        "five_metrics_le_5pct": 4
+      },
+      "ppu_fp32_vs_h100_tf32": {
+        "rmsd_le_0_1A": 0,
+        "five_metrics_le_5pct": 4
+      },
+      "ppu_native_vs_h100_tf32": {
+        "rmsd_le_0_1A": 1,
+        "five_metrics_le_5pct": 4
+      }
+    },
+    "scope": "Four model/input pairs, short 1/1/1 inference; not nine-model, full-model training or 80% acceptance",
+    "model_summary_sha256": "464c653892700a0f7d3fc03e77153f83cf99f37f7cb7aa06ff0786d4d3dbb6f2",
+    "model_evidence_archive_sha256": "0815b75dd11d354d44bd4304c132709d33b9775e29caae6f1406d19e106f180c"
+  }
+}

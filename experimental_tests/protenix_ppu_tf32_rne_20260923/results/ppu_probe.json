@@ -1,0 +1,53 @@
+{
+  "device": "PPU-ZW810E",
+  "semantic": {
+    "values": 8205,
+    "bitwise_match": true
+  },
+  "entries": {
+    "mm_addmm_bmm_tf32": {
+      "mm_dispatch_matches_flaggems": true,
+      "addmm_dispatch_matches_flaggems": true,
+      "bmm_dispatch_matches_flaggems": true,
+      "finite": true,
+      "mm_syrk_matches_flaggems": true,
+      "mm_general_matches_flaggems": true
+    },
+    "tf32_rne_operand_reference_relative_l2": {
+      "mm_splitk": 1.1421089594451951e-07,
+      "addmm_splitk": 1.1415619350613598e-07,
+      "bmm": 1.4148383490254122e-07,
+      "mm_syrk": 3.064929804835929e-07,
+      "mm_general": 1.3543769223984034e-07
+    },
+    "mm_addmm_bmm_strict_fp32": {
+      "mm_dispatch_matches_flaggems": true,
+      "addmm_dispatch_matches_flaggems": true,
+      "bmm_dispatch_matches_flaggems": true,
+      "finite": true
+    },
+    "triangle_adapter_forward_backward": {
+      "tf32": {
+        "forward_finite": true,
+        "qkv_grad_finite": true,
+        "bias2_grad_finite": true
+      },
+      "qk_tf32": {
+        "forward_finite": true,
+        "qkv_grad_finite": true,
+        "bias2_grad_finite": true
+      },
+      "pv_tf32": {
+        "forward_finite": true,
+        "qkv_grad_finite": true,
+        "bias2_grad_finite": true
+      },
+      "ieee": {
+        "forward_finite": true,
+        "qkv_grad_finite": true,
+        "bias2_grad_finite": true
+      }
+    }
+  },
+  "passed": true
+}
