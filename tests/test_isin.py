@@ -21,6 +21,20 @@ from . import accuracy_utils as utils
 
 
 @pytest.mark.isin
+@pytest.mark.parametrize("numel", [0, 257, 513, 985, 1005])
+@pytest.mark.parametrize("invert", [False, True])
+def test_isin_partial_tiles_and_empty_set(numel, invert):
+    test_elements = torch.arange(2 * numel, device=flag_gems.device)[::2]
+    elements = torch.cat(
+        (test_elements, torch.tensor([-1, 2 * numel + 1], device=flag_gems.device))
+    )
+    expected = torch.isin(elements.cpu(), test_elements.cpu(), invert=invert)
+    with flag_gems.use_gems():
+        actual = torch.isin(elements, test_elements, invert=invert)
+    utils.gems_assert_equal(actual, expected)
+
+
+@pytest.mark.isin
 @pytest.mark.parametrize("shape", utils.SPECIAL_SHAPES)
 @pytest.mark.parametrize("dtype", utils.INT_DTYPES)
 @pytest.mark.parametrize("assume_unique", [False, True])

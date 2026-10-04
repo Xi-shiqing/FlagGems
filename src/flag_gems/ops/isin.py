@@ -62,7 +62,7 @@ def isin_by_comparation_impl(
         block = tl.where(
             mask,
             tl.where(invert, block and (in0 != in1), block or (in0 == in1)),
-            invert,
+            block,
         )
     out = tl.reduce(block, axis=1, combine_fn=(reduce_all if invert else reduce_any))
     tl.store(out_ptr, out[:, None], row_mask)
@@ -276,7 +276,7 @@ def isin(
         assert torch.is_tensor(in0)
         in1 = torch.tensor(in1, device=in0.device)
     if in0.numel() == 0 or in1.numel() == 0:
-        return torch.zeros_like(in0, dtype=torch.bool)
+        return torch.full_like(in0, invert, dtype=torch.bool)
     elif in0.numel() <= 12288 and in1.numel() <= 12288:  # 1024 * 12
         return isin_by_comparation(in0, in1, invert)
     elif assume_unique or in1.numel() <= 4194304:  # 1024 * 4096
