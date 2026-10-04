@@ -121,3 +121,20 @@ def test_sum_out(shape, dtype):
 
     utils.gems_assert_close(res_out, ref_out, dtype, reduce_dim=inp.numel())
     utils.gems_assert_close(out, ref_out, dtype, reduce_dim=inp.numel())
+
+
+@pytest.mark.sum_dim
+@pytest.mark.parametrize(
+    "shape,dim",
+    [((2, 65537), (-1,)), ((65537, 3), (0,)), ((2, 257, 257), (-1, -2))],
+)
+@pytest.mark.parametrize("keepdim", [False, True])
+def test_sum_bool_accumulation_loop(shape, dim, keepdim):
+    # A boolean accumulator saturates across tiles instead of counting matches.
+    host = torch.arange(torch.tensor(shape).prod()).reshape(shape).remainder(3) != 0
+    inp = host.to(flag_gems.device)
+    reference = torch.sum(host, dim=dim, keepdim=keepdim)
+    with flag_gems.use_gems():
+        actual = torch.sum(inp, dim=dim, keepdim=keepdim)
+    assert actual.dtype == torch.int64
+    torch.testing.assert_close(actual.cpu(), reference, rtol=0, atol=0)

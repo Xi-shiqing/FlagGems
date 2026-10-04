@@ -41,6 +41,9 @@ def sum_kernel_1(
         inp.dtype.element_ty == tl.bfloat16
     ):
         cdtype = tl.float32
+    elif tl.constexpr(inp.dtype.element_ty == tl.int1):
+        # Boolean reductions count true values; a boolean loop accumulator saturates.
+        cdtype = tl.int64
     else:
         cdtype = inp.dtype.element_ty
 
@@ -62,6 +65,9 @@ def sum_kernel_2(mid, out, mid_size, BLOCK_MID: tl.constexpr):
         mid.dtype.element_ty == tl.bfloat16
     ):
         cdtype = tl.float32
+    elif tl.constexpr(mid.dtype.element_ty == tl.int1):
+        # Boolean reductions count true values; a boolean loop accumulator saturates.
+        cdtype = tl.int64
     else:
         cdtype = mid.dtype.element_ty
 
@@ -138,6 +144,9 @@ def sum_dim_kernel_non_inner(
         input_ptr.dtype.element_ty == tl.bfloat16
     ):
         cdtype = tl.float32
+    elif tl.constexpr(input_ptr.dtype.element_ty == tl.int1):
+        # Boolean reductions count true values; a boolean loop accumulator saturates.
+        cdtype = tl.int64
     else:
         cdtype = input_ptr.dtype.element_ty
 
@@ -187,6 +196,9 @@ def sum_dim_kernel_inner(
         input_ptr.dtype.element_ty == tl.bfloat16
     ):
         cdtype = tl.float32
+    elif tl.constexpr(input_ptr.dtype.element_ty == tl.int1):
+        # Boolean reductions count true values; a boolean loop accumulator saturates.
+        cdtype = tl.int64
     else:
         cdtype = input_ptr.dtype.element_ty
 
@@ -238,6 +250,9 @@ def sum_dim_kernel(
         inp.dtype.element_ty == tl.bfloat16
     ):
         cdtype = tl.float32
+    elif tl.constexpr(inp.dtype.element_ty == tl.int1):
+        # Boolean reductions count true values; a boolean loop accumulator saturates.
+        cdtype = tl.int64
     else:
         cdtype = inp.dtype.element_ty
 
