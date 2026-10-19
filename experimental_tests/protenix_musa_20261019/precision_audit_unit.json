@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "cuda_disabled_context_before": {
+    "musa_autocast_enabled": true,
+    "matmul_dtype": "torch.bfloat16"
+  },
+  "cuda_disabled_context_after": {
+    "musa_autocast_enabled": false,
+    "matmul_dtype": "torch.float32"
+  },
+  "state_restored": true,
+  "gemm_records": [
+    {
+      "mudnn_tf32": false,
+      "output_dtype": "torch.float32",
+      "max_abs_error": 0.00019073486328125,
+      "relative_rms_error": 5.734894443776284e-07,
+      "kernels": [
+        "musa_asm_sgemm_nn_256_128x128_epilogue_robust64"
+      ]
+    },
+    {
+      "mudnn_tf32": true,
+      "output_dtype": "torch.float32",
+      "max_abs_error": 0.1245574951171875,
+      "relative_rms_error": 0.000772824336308986,
+      "kernels": [
+        "musa_asm_tf32tf32tf32tf32ssgemm_nn_tce_256_256x128B128_epilogue_persis_stage4"
+      ]
+    }
+  ],
+  "redirect_counts": {
+    "cuda_amp_contexts_redirected_to_musa": 1
+  }
+}
