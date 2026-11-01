@@ -1,0 +1,162 @@
+--- a/src/flag_gems/ops/softmax.py
++++ b/src/flag_gems/ops/softmax.py
+@@ -218,6 +218,9 @@
+     TILE_K: tl.constexpr,
+     ONE_TILE_PER_CTA: tl.constexpr,
+     FUSE_PRODUCT: tl.constexpr = False,
++    STRIDED_GRAD: tl.constexpr = False,
++    GRAD_SHAPE: tl.constexpr = (),
++    GRAD_STRIDES: tl.constexpr = (),
+ ):
+     pid_m = tle.program_id(0)
+     pid_k = tle.program_id(1)
+@@ -228,7 +231,15 @@
+         offsets = pid_m * N * K + offsets_n[:, None] * K + offsets_k
+         mask = (offsets_n < N)[:, None] & (offsets_k < K)
+         out_tile = tl.load(out_ptr + offsets, mask=mask).to(tl.float32)
+-        out_grad_tile = tl.load(out_grad_ptr + offsets, mask=mask).to(tl.float32)
++        gradient_offsets = offsets
++        if STRIDED_GRAD:
++            gradient_offsets = tl.full(offsets.shape, 0, tl.int64)
++            logical_offsets = offsets
++            for d in tl.static_range(len(GRAD_SHAPE) - 1, -1, -1):
++                coordinate = logical_offsets % GRAD_SHAPE[d]
++                gradient_offsets += coordinate.to(tl.int64) * GRAD_STRIDES[d]
++                logical_offsets = logical_offsets // GRAD_SHAPE[d]
++        out_grad_tile = tl.load(out_grad_ptr + gradient_offsets, mask=mask).to(tl.float32)
+         if FUSE_PRODUCT:
+             out_grad_tile = tl.inline_asm_elementwise(
+                 "mul.rn.f32 $0, $1, $2;", constraints="=f,f,f",
+@@ -246,7 +257,15 @@
+         for _ in range(0, N, TILE_N):
+             mask = (offsets_n < N)[:, None] & (offsets_k < K)
+             out_tile = tl.load(out_ptr + offsets, mask=mask).to(tl.float32)
+-            out_grad_tile = tl.load(out_grad_ptr + offsets, mask=mask).to(tl.float32)
++            gradient_offsets = offsets
++            if STRIDED_GRAD:
++                gradient_offsets = tl.full(offsets.shape, 0, tl.int64)
++                logical_offsets = offsets
++                for d in tl.static_range(len(GRAD_SHAPE) - 1, -1, -1):
++                    coordinate = logical_offsets % GRAD_SHAPE[d]
++                    gradient_offsets += coordinate.to(tl.int64) * GRAD_STRIDES[d]
++                    logical_offsets = logical_offsets // GRAD_SHAPE[d]
++            out_grad_tile = tl.load(out_grad_ptr + gradient_offsets, mask=mask).to(tl.float32)
+             if FUSE_PRODUCT:
+                 out_grad_tile = tl.inline_asm_elementwise(
+                     "mul.rn.f32 $0, $1, $2;", constraints="=f,f,f",
+@@ -264,7 +283,15 @@
+         for _ in range(0, N, TILE_N):
+             mask = (offsets_n < N)[:, None] & (offsets_k < K)
+             out_tile = tl.load(out_ptr + offsets, mask=mask).to(tl.float32)
+-            out_grad_tile = tl.load(out_grad_ptr + offsets, mask=mask).to(tl.float32)
++            gradient_offsets = offsets
++            if STRIDED_GRAD:
++                gradient_offsets = tl.full(offsets.shape, 0, tl.int64)
++                logical_offsets = offsets
++                for d in tl.static_range(len(GRAD_SHAPE) - 1, -1, -1):
++                    coordinate = logical_offsets % GRAD_SHAPE[d]
++                    gradient_offsets += coordinate.to(tl.int64) * GRAD_STRIDES[d]
++                    logical_offsets = logical_offsets // GRAD_SHAPE[d]
++            out_grad_tile = tl.load(out_grad_ptr + gradient_offsets, mask=mask).to(tl.float32)
+             if FUSE_PRODUCT:
+                 out_grad_tile = tl.inline_asm_elementwise(
+                     "mul.rn.f32 $0, $1, $2;", constraints="=f,f,f",
+@@ -297,6 +324,9 @@
+     TILE_N: tl.constexpr,
+     ONE_TILE_PER_CTA: tl.constexpr,
+     FUSE_PRODUCT: tl.constexpr = False,
++    STRIDED_GRAD: tl.constexpr = False,
++    GRAD_SHAPE: tl.constexpr = (),
++    GRAD_STRIDES: tl.constexpr = (),
+ ):
+     pid_m = tle.program_id(0)
+     m_offsets = pid_m * TILE_M + tl.arange(0, TILE_M)
+@@ -305,7 +335,15 @@
+         offsets = m_offsets[:, None] * N + n_offsets
+         mask = (m_offsets[:, None] < M) & (n_offsets < N)
+         out_tile = tl.load(out_ptr + offsets, mask=mask).to(tl.float32)
+-        out_grad_tile = tl.load(out_grad_ptr + offsets, mask=mask).to(tl.float32)
++        gradient_offsets = offsets
++        if STRIDED_GRAD:
++            gradient_offsets = tl.full(offsets.shape, 0, tl.int64)
++            logical_offsets = offsets
++            for d in tl.static_range(len(GRAD_SHAPE) - 1, -1, -1):
++                coordinate = logical_offsets % GRAD_SHAPE[d]
++                gradient_offsets += coordinate.to(tl.int64) * GRAD_STRIDES[d]
++                logical_offsets = logical_offsets // GRAD_SHAPE[d]
++        out_grad_tile = tl.load(out_grad_ptr + gradient_offsets, mask=mask).to(tl.float32)
+         if FUSE_PRODUCT:
+             out_grad_tile = tl.inline_asm_elementwise(
+                 "mul.rn.f32 $0, $1, $2;", constraints="=f,f,f",
+@@ -326,7 +364,15 @@
+             out_tile = tl.load(
+                 out_ptr + offsets, mask=mask, eviction_policy="evict_last"
+             ).to(tl.float32)
+-            out_grad_tile = tl.load(out_grad_ptr + offsets, mask=mask).to(tl.float32)
++            gradient_offsets = offsets
++            if STRIDED_GRAD:
++                gradient_offsets = tl.full(offsets.shape, 0, tl.int64)
++                logical_offsets = offsets
++                for d in tl.static_range(len(GRAD_SHAPE) - 1, -1, -1):
++                    coordinate = logical_offsets % GRAD_SHAPE[d]
++                    gradient_offsets += coordinate.to(tl.int64) * GRAD_STRIDES[d]
++                    logical_offsets = logical_offsets // GRAD_SHAPE[d]
++            out_grad_tile = tl.load(out_grad_ptr + gradient_offsets, mask=mask).to(tl.float32)
+             if FUSE_PRODUCT:
+                 out_grad_tile = tl.inline_asm_elementwise(
+                     "mul.rn.f32 $0, $1, $2;", constraints="=f,f,f",
+@@ -346,7 +392,15 @@
+             out_tile = tl.load(
+                 out_ptr + offsets, mask=mask, eviction_policy="evict_first"
+             ).to(tl.float32)
+-            out_grad_tile = tl.load(out_grad_ptr + offsets, mask=mask).to(tl.float32)
++            gradient_offsets = offsets
++            if STRIDED_GRAD:
++                gradient_offsets = tl.full(offsets.shape, 0, tl.int64)
++                logical_offsets = offsets
++                for d in tl.static_range(len(GRAD_SHAPE) - 1, -1, -1):
++                    coordinate = logical_offsets % GRAD_SHAPE[d]
++                    gradient_offsets += coordinate.to(tl.int64) * GRAD_STRIDES[d]
++                    logical_offsets = logical_offsets // GRAD_SHAPE[d]
++            out_grad_tile = tl.load(out_grad_ptr + gradient_offsets, mask=mask).to(tl.float32)
+             if FUSE_PRODUCT:
+                 out_grad_tile = tl.inline_asm_elementwise(
+                     "mul.rn.f32 $0, $1, $2;", constraints="=f,f,f",
+@@ -443,7 +497,6 @@
+     for i in range(dim):
+         M *= output.shape[i]
+ 
+-    grad_output = grad_output.contiguous()
+     # An opaque RN multiply preserves FP32 product rounding and subnormals.
+     is_ppu = runtime.device.vendor_name == "thead" or (runtime.device.vendor_name == "nvidia" and torch_device_fn.get_device_name(output.device).startswith("PPU-"))
+     fuse_product = (
+@@ -452,7 +505,11 @@
+         and not (torch.is_grad_enabled() and (grad_output.requires_grad or output.requires_grad))
+     )
+     if not fuse_product:
++        grad_output = grad_output.contiguous()
+         grad_output = torch.mul(grad_output, output)
++    strided_grad = fuse_product and not grad_output.is_contiguous()
++    gradient_shape = tuple(output.shape) if strided_grad else ()
++    gradient_strides = tuple(grad_output.stride()) if strided_grad else ()
+     in_grad = torch.empty_like(output, dtype=input_dtype)
+     K = output.numel() // M // N
+ 
+@@ -466,6 +523,8 @@
+                 launch_options = dict(
+                     TILE_K=min(1024, max(32, triton.next_power_of_2(K))),
+                     num_warps=4, num_stages=2, FUSE_PRODUCT=fuse_product,
++                        STRIDED_GRAD=strided_grad, GRAD_SHAPE=gradient_shape,
++                        GRAD_STRIDES=gradient_strides,
+                 )
+             backward_kernel[grid](
+                 output,
+@@ -486,6 +545,8 @@
+                 launch_options = dict(
+                     TILE_N=min(1024, triton.next_power_of_2(N)),
+                     num_warps=4, num_stages=2, FUSE_PRODUCT=fuse_product,
++                        STRIDED_GRAD=strided_grad, GRAD_SHAPE=gradient_shape,
++                        GRAD_STRIDES=gradient_strides,
+                 )
+             backward_kernel[grid](
+                 output,

@@ -1,0 +1,52 @@
+--- a/src/flag_gems/ops/triangle_attention.py
++++ b/src/flag_gems/ops/triangle_attention.py
+@@ -275,7 +275,48 @@
+     do = tl.load(do_ptr + q_offsets, mask=valid_m[:, None], other=0.0)
+     row_offsets = ((b * n_size + n) * s_size + offs_m) * n_heads + h
+     lse = tl.load(lse_ptr + row_offsets, mask=valid_m, other=0.0)
+-    delta = tl.sum(out.to(tl.float32) * do.to(tl.float32), axis=1)
++    if qk_precision_mode != 0 or pv_precision_mode != 0:
++        # TF32 PV and dP round different operands: O*dO no longer equals P*dP.
++        # Reconstruct the same P/dP as dS, keeping the Softmax row invariant.
++        delta_numerator = tl.zeros((block_m,), tl.float32)
++        probability_sum = tl.zeros((block_m,), tl.float32)
++        for block_index in range(0, tl.cdiv(s_size, block_n)):
++            offs_n = block_index * block_n + tl.arange(0, block_n)
++            valid_n = offs_n < s_size
++            kv_offsets = base + offs_n[:, None] * n_heads * head_dim + offs_d[None, :]
++            k = tl.load(k_ptr + kv_offsets, mask=valid_n[:, None], other=0.0)
++            v = tl.load(v_ptr + kv_offsets, mask=valid_n[:, None], other=0.0)
++
++            valid_scores = valid_m[:, None] & valid_n[None, :]
++            bias1_base = (b * n_size + n) * s_size
++            bias1 = tl.load(
++                bias1_ptr + bias1_base + offs_n[None, :],
++                mask=valid_n[None, :],
++                other=-1.0e9,
++            )
++            bias2_base = (b * n_heads + h) * s_size * s_size
++            bias2_offsets = bias2_base + offs_m[:, None] * s_size + offs_n[None, :]
++            bias2 = tl.load(bias2_ptr + bias2_offsets, mask=valid_scores, other=0.0)
++            scores = bias1.to(tl.float32) + bias2.to(tl.float32)
++            scores = tl.dot(
++                round_tf32_rne(q, qk_precision_mode == 5),
++                tl.trans(round_tf32_rne(k, qk_precision_mode == 5)),
++                scores,
++                input_precision=qk_precision,
++            )
++            scores = scores * 1.4426950408889634
++            p = tl.exp2(scores - lse[:, None])
++            p = tl.where(valid_scores, p, 0.0)
++            dp = tl.dot(
++                round_tf32_rne(do, pv_precision_mode == 5),
++                tl.trans(round_tf32_rne(v, pv_precision_mode == 5)),
++                input_precision=pv_precision,
++            )
++            delta_numerator += tl.sum(p * dp, axis=1)
++            probability_sum += tl.sum(p, axis=1)
++        delta = delta_numerator / tl.where(valid_m, probability_sum, 1.0)
++    else:
++        delta = tl.sum(out.to(tl.float32) * do.to(tl.float32), axis=1)
+     # dK/dV and dBias2 consume delta after this kernel. Producing it here
+     # removes the standalone preprocessing launch and avoids rereading dO in dQ.
+     tl.store(delta_ptr + row_offsets, delta, mask=valid_m)

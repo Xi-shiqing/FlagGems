@@ -1,0 +1,91 @@
+--- a/src/flag_gems/ops/mm.py
++++ b/src/flag_gems/ops/mm.py
+@@ -254,6 +254,68 @@
+     return c
+ 
+ 
++
++@libentry()
++@triton.jit
++def mm_kernel_long_splitk_tree_reduce(
++    partials, C, elements, stride_cm, stride_cn, N,
++    SPLITS: tl.constexpr, BLOCK: tl.constexpr,
++):
++    offsets = tle.program_id(0) * BLOCK + tl.arange(0, BLOCK)
++    splits = tl.arange(0, SPLITS)
++    values = tl.load(partials + splits[:, None] * elements + offsets[None, :],
++                     mask=offsets[None, :] < elements, other=0.0)
++    # A fixed tree avoids a second serial chain across up to256 partials.
++    acc = tl.sum(values, axis=0)
++    tl.store(C + (offsets // N) * stride_cm + (offsets % N) * stride_cn,
++             acc, mask=offsets < elements)
++
++
++def _long_reduction_splitk_parts(a, b, c, M, N, K):
++    """Bounded split-K from output occupancy and reduction work, no shape list."""
++    if (K <= 8192 or M <= 0 or N <= 0
++            or not _PPU_PACK_RHS_AVAILABLE
++            or os.environ.get("FLAG_GEMS_PPU_LONG_REDUCTION_SPLITK", "1") != "1"
++            or a.dtype is not torch.float32 or b.dtype is not torch.float32
++            or a.device.type != "cuda"
++            or (c is not None and c.dtype is not torch.float32)):
++        return None
++    for tensor, rows, cols in ((a, M, K), (b, K, N)):
++        if ((rows - 1) * abs(tensor.stride(0))
++                + (cols - 1) * abs(tensor.stride(1))) > 2147483647:
++            return None
++    if c is not None and ((M - 1) * abs(c.stride(0))
++                          + (N - 1) * abs(c.stride(1))) > 2147483647:
++        return None
++    output_blocks = triton.cdiv(M, 32) * triton.cdiv(N, 32)
++    # Occupancy alone leaves very long accumulators on larger outputs.
++    # Bound each chain to128 block-dot additions when workspace permits.
++    desired = max(triton.cdiv(2 * get_sm_count(), output_blocks),
++                  triton.cdiv(K, 4096))
++    # Keep at least512 products/split and the existing64MiB workspace cap.
++    maximum = min(256, K // 512, (64 * 1024 * 1024) // (4 * M * N))
++    if desired <= 1 or maximum < 2:
++        return None
++    return min(triton.next_power_of_2(desired), 1 << (maximum.bit_length() - 1))
++
++
++def _long_reduction_splitk_mm(a, b, c, M, N, K):
++    parts = _long_reduction_splitk_parts(a, b, c, M, N, K)
++    if parts is None:
++        return None
++    if c is None:
++        c = torch.empty((M, N), device=a.device, dtype=torch.float32)
++    partials = torch.empty((parts, M, N), device=a.device, dtype=torch.float32)
++    with torch_device_fn.device(a.device):
++        mm_kernel_h100_fp32_splitk[(triton.cdiv(M, 32) * triton.cdiv(N, 32), parts)](
++            a, b, partials, M, N, K, *a.stride(), *b.stride(),
++            SPLIT_K=parts, BLOCK_M=32, BLOCK_N=32, BLOCK_K=32,
++            ALLOW_TF32=_allow_tf32(), num_warps=4, num_stages=2)
++        mm_kernel_long_splitk_tree_reduce[(triton.cdiv(M * N, 64),)](
++            partials, c, M * N, *c.stride(), N, SPLITS=parts, BLOCK=64, num_warps=4)
++    return c
++
++
+ _ordered_datatypes = [torch.float16, torch.bfloat16, torch.float32]
+ 
+ 
+@@ -724,6 +786,9 @@
+         if result is not None:
+             return result
+     use_direct = _should_direct(a, b)
++    reduced = _long_reduction_splitk_mm(a, b, None, M, N, K)
++    if reduced is not None:
++        return reduced
+     tf32_rne_prepack = _tf32_rne_rhs_prepack_enabled()
+     if use_direct and _direct_pack_profitable(a, b) and not tf32_rne_prepack:
+         b = b.contiguous()
+@@ -773,6 +838,9 @@
+         if result is not None:
+             return result
+     use_direct = _should_direct(a, b)
++    reduced = _long_reduction_splitk_mm(a, b, out, M, N, K)
++    if reduced is not None:
++        return reduced
+     tf32_rne_prepack = _tf32_rne_rhs_prepack_enabled()
+     if use_direct and _direct_pack_profitable(a, b) and not tf32_rne_prepack:
+         b = b.contiguous()

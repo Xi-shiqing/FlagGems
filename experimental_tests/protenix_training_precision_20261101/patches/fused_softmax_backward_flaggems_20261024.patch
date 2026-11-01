@@ -1,0 +1,126 @@
+--- a/src/flag_gems/ops/softmax.py
++++ b/src/flag_gems/ops/softmax.py
+@@ -217,6 +217,7 @@
+     TILE_N: tl.constexpr,
+     TILE_K: tl.constexpr,
+     ONE_TILE_PER_CTA: tl.constexpr,
++    FUSE_PRODUCT: tl.constexpr = False,
+ ):
+     pid_m = tle.program_id(0)
+     pid_k = tle.program_id(1)
+@@ -228,6 +229,11 @@
+         mask = (offsets_n < N)[:, None] & (offsets_k < K)
+         out_tile = tl.load(out_ptr + offsets, mask=mask).to(tl.float32)
+         out_grad_tile = tl.load(out_grad_ptr + offsets, mask=mask).to(tl.float32)
++        if FUSE_PRODUCT:
++            out_grad_tile = libdevice.mul_rn(
++                tl.where(mask, out_grad_tile, 0.0),
++                tl.where(mask, out_tile, 0.0),
++            )
+         scale = tl.sum(out_grad_tile, axis=0)
+         in_grad_tile = out_grad_tile - out_tile * scale[None, :]
+         tl.store(in_grad_ptr + offsets, in_grad_tile, mask=mask)
+@@ -239,6 +245,11 @@
+             mask = (offsets_n < N)[:, None] & (offsets_k < K)
+             out_tile = tl.load(out_ptr + offsets, mask=mask).to(tl.float32)
+             out_grad_tile = tl.load(out_grad_ptr + offsets, mask=mask).to(tl.float32)
++            if FUSE_PRODUCT:
++                out_grad_tile = libdevice.mul_rn(
++                    tl.where(mask, out_grad_tile, 0.0),
++                    tl.where(mask, out_tile, 0.0),
++                )
+             scale += out_grad_tile
+             offsets_n += TILE_N
+             offsets += TILE_N * K
+@@ -250,6 +261,11 @@
+             mask = (offsets_n < N)[:, None] & (offsets_k < K)
+             out_tile = tl.load(out_ptr + offsets, mask=mask).to(tl.float32)
+             out_grad_tile = tl.load(out_grad_ptr + offsets, mask=mask).to(tl.float32)
++            if FUSE_PRODUCT:
++                out_grad_tile = libdevice.mul_rn(
++                    tl.where(mask, out_grad_tile, 0.0),
++                    tl.where(mask, out_tile, 0.0),
++                )
+             in_grad_tile = out_grad_tile - out_tile * scale[None, :]
+             tl.store(in_grad_ptr + offsets, in_grad_tile, mask=mask)
+             offsets_n += TILE_N
+@@ -274,6 +290,7 @@
+     TILE_M: tl.constexpr,
+     TILE_N: tl.constexpr,
+     ONE_TILE_PER_CTA: tl.constexpr,
++    FUSE_PRODUCT: tl.constexpr = False,
+ ):
+     pid_m = tle.program_id(0)
+     m_offsets = pid_m * TILE_M + tl.arange(0, TILE_M)
+@@ -283,6 +300,11 @@
+         mask = (m_offsets[:, None] < M) & (n_offsets < N)
+         out_tile = tl.load(out_ptr + offsets, mask=mask).to(tl.float32)
+         out_grad_tile = tl.load(out_grad_ptr + offsets, mask=mask).to(tl.float32)
++        if FUSE_PRODUCT:
++            out_grad_tile = libdevice.mul_rn(
++                tl.where(mask, out_grad_tile, 0.0),
++                tl.where(mask, out_tile, 0.0),
++            )
+         scale = tl.sum(out_grad_tile, 1)
+         in_grad_tile = out_grad_tile - out_tile * scale[:, None]
+         tl.store(in_grad_ptr + offsets, in_grad_tile, mask=mask)
+@@ -297,6 +319,11 @@
+                 out_ptr + offsets, mask=mask, eviction_policy="evict_last"
+             ).to(tl.float32)
+             out_grad_tile = tl.load(out_grad_ptr + offsets, mask=mask).to(tl.float32)
++            if FUSE_PRODUCT:
++                out_grad_tile = libdevice.mul_rn(
++                    tl.where(mask, out_grad_tile, 0.0),
++                    tl.where(mask, out_tile, 0.0),
++                )
+             scale += out_grad_tile
+             n_offsets += TILE_N
+             offsets += TILE_N
+@@ -310,6 +337,11 @@
+                 out_ptr + offsets, mask=mask, eviction_policy="evict_first"
+             ).to(tl.float32)
+             out_grad_tile = tl.load(out_grad_ptr + offsets, mask=mask).to(tl.float32)
++            if FUSE_PRODUCT:
++                out_grad_tile = libdevice.mul_rn(
++                    tl.where(mask, out_grad_tile, 0.0),
++                    tl.where(mask, out_tile, 0.0),
++                )
+             in_grad_tile = out_grad_tile - out_tile * scale[:, None]
+             tl.store(in_grad_ptr + offsets, in_grad_tile, mask=mask)
+             n_offsets += TILE_N
+@@ -400,8 +432,15 @@
+         M *= output.shape[i]
+ 
+     grad_output = grad_output.contiguous()
+-    # Match native CUDA: materialize grad_output * output before reduction.
+-    grad_output = torch.mul(grad_output, output)
++    # Explicit mul_rn inside the kernel preserves the materialized FP32 product.
++    is_ppu = runtime.device.vendor_name == "thead" or (runtime.device.vendor_name == "nvidia" and torch_device_fn.get_device_name(output.device).startswith("PPU-"))
++    fuse_product = (
++        is_ppu and input_dtype == torch.float32
++        and output.dtype == torch.float32 and grad_output.dtype == torch.float32
++        and not (torch.is_grad_enabled() and (grad_output.requires_grad or output.requires_grad))
++    )
++    if not fuse_product:
++        grad_output = torch.mul(grad_output, output)
+     in_grad = torch.empty_like(output, dtype=input_dtype)
+     K = output.numel() // M // N
+ 
+@@ -414,7 +453,7 @@
+                 backward_kernel = softmax_backward_kernel_non_inner_canonical
+                 launch_options = dict(
+                     TILE_K=min(1024, max(32, triton.next_power_of_2(K))),
+-                    num_warps=4, num_stages=2,
++                    num_warps=4, num_stages=2, FUSE_PRODUCT=fuse_product,
+                 )
+             backward_kernel[grid](
+                 output,
+@@ -434,7 +473,7 @@
+                 backward_kernel = softmax_backward_kernel_inner_canonical
+                 launch_options = dict(
+                     TILE_N=min(1024, triton.next_power_of_2(N)),
+-                    num_warps=4, num_stages=2,
++                    num_warps=4, num_stages=2, FUSE_PRODUCT=fuse_product,
+                 )
+             backward_kernel[grid](
+                 output,

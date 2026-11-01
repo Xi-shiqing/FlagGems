@@ -1,0 +1,137 @@
+--- a/src/flag_gems/ops/bmm.py
++++ b/src/flag_gems/ops/bmm.py
+@@ -94,7 +94,7 @@
+     )
+     tile_m = 16 if M < 16 else 32 if M < 256 else 64
+     tile_n = 16 if N <= 16 else 32 if N < 256 else 64
+-    _bmm_tf32_preconverted[(triton.cdiv(M, tile_m), triton.cdiv(N, tile_n), batch)](
++    _bmm_tf32_preconverted_balanced_tf32[(triton.cdiv(M, tile_m), triton.cdiv(N, tile_n), batch)](
+         rounded_a, rounded_b, out, M, N, K, batch,
+         *rounded_a.stride(), *rounded_b.stride(), *out.stride(),
+         tile_m, tile_n, 32, num_warps=4,
+@@ -235,6 +235,107 @@
+     tl.store(o_ptrs, o, mask_c)
+ 
+ 
++
++
++@libentry()
++@libtuner(configs=[triton.Config({'TILE_M': 64, 'TILE_N': 32, 'TILE_K': 32, 'GROUP_M': 1}, num_warps=4, num_stages=2)], key=['M', 'N', 'K', 'stride_am', 'stride_bk'], strategy=runtime.get_expand_config('bmm')['strategy'] if os.environ.get('USE_FLAGTUNE') == '1' else ['log', 'log', 'log', 'align32', 'align32'])
++@triton.heuristics(runtime.get_heuristic_config('bmm'))
++@triton.jit
++def bmm_kernel_balanced_tf32(A, B, O, M, N, K, stride_ab, stride_am, stride_ak, stride_bb, stride_bk, stride_bn, stride_ob, stride_om, stride_on, TILE_M: tl.constexpr, TILE_N: tl.constexpr, TILE_K: tl.constexpr, GROUP_M: tl.constexpr, DIVISIBLE_M: tl.constexpr, DIVISIBLE_N: tl.constexpr, DIVISIBLE_K: tl.constexpr, ALLOW_TF32: tl.constexpr):
++    pid_b = tle.program_id(2)
++    A += pid_b * stride_ab
++    B += pid_b * stride_bb
++    O += pid_b * stride_ob
++    pidx = tle.program_id(0)
++    pidy = tle.program_id(1)
++    if GROUP_M == 1:
++        pid_m, pid_n = (pidx, pidy)
++    else:
++        gridx = tle.num_programs(0)
++        gridy = tle.num_programs(1)
++        pid = pidx + pidy * gridx
++        num_CTA_per_group = gridy * GROUP_M
++        group_id = pid // num_CTA_per_group
++        inner_group_id = pid % num_CTA_per_group
++        GROUP_SIZE = tl.where(group_id * GROUP_M + GROUP_M > gridx, gridx % GROUP_M, GROUP_M)
++        pid_m = group_id * GROUP_M + inner_group_id % GROUP_SIZE
++        pid_n = inner_group_id // GROUP_SIZE
++    offs_m = pid_m * TILE_M + tl.arange(0, TILE_M)
++    offs_n = pid_n * TILE_N + tl.arange(0, TILE_N)
++    offs_k = tl.arange(0, TILE_K)
++    if not DIVISIBLE_M:
++        mask_m = offs_m < M
++    if not DIVISIBLE_N:
++        mask_n = offs_n < N
++    a_ptrs = A + offs_m[:, None] * stride_am + offs_k[None, :] * stride_ak
++    b_ptrs = B + offs_k[:, None] * stride_bk + offs_n[None, :] * stride_bn
++    o_ptrs = O + offs_m[:, None] * stride_om + offs_n[None, :] * stride_on
++    num_iters = tl.cdiv(K, TILE_K)
++    o = tl.zeros((TILE_M, TILE_N), dtype=tl.float32)
++    _balanced_other = tl.full(o.shape, 0, tl.float32)
++    _balanced_index = 0
++    for _ in range(num_iters):
++        if DIVISIBLE_K:
++            if DIVISIBLE_M:
++                mask_a = None
++            else:
++                mask_a = mask_m[:, None]
++            if DIVISIBLE_N:
++                mask_b = None
++            else:
++                mask_b = mask_n[None, :]
++        else:
++            mask_k = offs_k < K
++            if DIVISIBLE_M:
++                mask_a = mask_k[None, :]
++            else:
++                mask_a = mask_m[:, None] & mask_k[None, :]
++            if DIVISIBLE_N:
++                mask_b = mask_k[:, None]
++            else:
++                mask_b = mask_k[:, None] & mask_n[None, :]
++        a = tl.load(a_ptrs, mask_a)
++        b = tl.load(b_ptrs, mask_b)
++        offs_k += TILE_K
++        a_ptrs += TILE_K * stride_ak
++        b_ptrs += TILE_K * stride_bk
++        if _balanced_index & 1 == 0:
++            o += tl.dot(round_tf32_rne(a, ALLOW_TF32), round_tf32_rne(b, ALLOW_TF32), allow_tf32=ALLOW_TF32)
++        else:
++            _balanced_other += tl.dot(round_tf32_rne(a, ALLOW_TF32), round_tf32_rne(b, ALLOW_TF32), allow_tf32=ALLOW_TF32)
++        _balanced_index += 1
++    o = o + _balanced_other
++    if DIVISIBLE_M and DIVISIBLE_N:
++        mask_c = None
++    elif DIVISIBLE_M and (not DIVISIBLE_N):
++        mask_c = mask_n[None, :]
++    elif not DIVISIBLE_M and DIVISIBLE_N:
++        mask_c = mask_m[:, None]
++    else:
++        mask_c = mask_m[:, None] & mask_n[None, :]
++    tl.store(o_ptrs, o, mask_c)
++
++@triton.jit
++def _bmm_tf32_preconverted_balanced_tf32(A, B, O, M: tl.constexpr, N: tl.constexpr, K: tl.constexpr, BATCH: tl.constexpr, AS0: tl.constexpr, AS1: tl.constexpr, AS2: tl.constexpr, BS0: tl.constexpr, BS1: tl.constexpr, BS2: tl.constexpr, OS0: tl.constexpr, OS1: tl.constexpr, OS2: tl.constexpr, TILE_M: tl.constexpr, TILE_N: tl.constexpr, TILE_K: tl.constexpr):
++    mi = tl.program_id(0) * TILE_M + tl.arange(0, TILE_M)
++    ni = tl.program_id(1) * TILE_N + tl.arange(0, TILE_N)
++    batch = tl.program_id(2)
++    ki = tl.arange(0, TILE_K)
++    acc = tl.zeros((TILE_M, TILE_N), dtype=tl.float32)
++    _balanced_other = tl.full(acc.shape, 0, tl.float32)
++    _balanced_index = 0
++    for kb in range(tl.cdiv(K, TILE_K)):
++        kk = kb * TILE_K + ki
++        a = tl.load(A + batch * AS0 + mi[:, None] * AS1 + kk[None, :] * AS2, (mi[:, None] < M) & (kk[None, :] < K), 0.0)
++        b = tl.load(B + batch * BS0 + kk[:, None] * BS1 + ni[None, :] * BS2, (kk[:, None] < K) & (ni[None, :] < N), 0.0)
++        if _balanced_index & 1 == 0:
++            acc += tl.dot(a, b, out_dtype=tl.float32, allow_tf32=True)
++        else:
++            _balanced_other += tl.dot(a, b, out_dtype=tl.float32, allow_tf32=True)
++        _balanced_index += 1
++    acc = acc + _balanced_other
++    tl.store(O + batch * OS0 + mi[:, None] * OS1 + ni[None, :] * OS2, acc, (mi[:, None] < M) & (ni[None, :] < N))
++
+ def bmm(A, B):
+     logger.debug("GEMS BMM")
+     assert A.shape[0] == B.shape[0], "Batch dim mismatch"
+@@ -262,7 +363,7 @@
+     with torch_device_fn.device(A.device):
+         if allow_tf32 and A.dtype == torch.float32 and _bmm_rne_once(A, B, out):
+             return out
+-        bmm_kernel[grid_fn](
++        (bmm_kernel_balanced_tf32 if allow_tf32 and A.dtype is torch.float32 and B.dtype is torch.float32 else bmm_kernel)[grid_fn](
+             A,
+             B,
+             out,
+@@ -307,7 +408,7 @@
+     with torch_device_fn.device(A.device):
+         if allow_tf32 and A.dtype == torch.float32 and _bmm_rne_once(A, B, out):
+             return out
+-        bmm_kernel[grid_fn](
++        (bmm_kernel_balanced_tf32 if allow_tf32 and A.dtype is torch.float32 and B.dtype is torch.float32 else bmm_kernel)[grid_fn](
+             A,
+             B,
+             out,

@@ -1,0 +1,205 @@
+--- a/src/flag_gems/ops/mm.py
++++ b/src/flag_gems/ops/mm.py
+@@ -240,7 +240,7 @@
+     )
+     grid = (triton.cdiv(M, block) * triton.cdiv(N, block), split_k)
+     with torch_device_fn.device(a.device):
+-        mm_kernel_h100_fp32_splitk[grid](
++        (mm_kernel_h100_fp32_splitk_balanced_tf32 if a.dtype is torch.float32 and b.dtype is torch.float32 and _allow_tf32() else mm_kernel_h100_fp32_splitk)[grid](
+             a, b, partials, M, N, K,
+             a.stride(0), a.stride(1), b.stride(0), b.stride(1),
+             SPLIT_K=split_k, BLOCK_M=block, BLOCK_N=block, BLOCK_K=32,
+@@ -285,7 +285,7 @@
+         triton.cdiv(M, META["BLOCK_M"]) * triton.cdiv(N, META["BLOCK_N"]),
+     )
+     with torch_device_fn.device(a.device):
+-        mm_kernel_general[grid](
++        (mm_kernel_general_balanced_tf32 if a.dtype is torch.float32 and b.dtype is torch.float32 and _allow_tf32() else mm_kernel_general)[grid](
+             a,
+             b,
+             c,
+@@ -408,7 +408,7 @@
+         // 2,
+     )
+     with torch_device_fn.device(a.device):
+-        mm_kernel_syrk[grid](
++        (mm_kernel_syrk_balanced_tf32 if a.dtype is torch.float32 and _allow_tf32() else mm_kernel_syrk)[grid](
+             a,
+             c,
+             M,
+@@ -672,7 +672,7 @@
+     cm, cn = c.stride()
+     allow_tf32 = _allow_tf32()
+     with torch_device_fn.device(a.device):
+-        mm_direct_fused[(triton.cdiv(M, 64) * triton.cdiv(N, 128),)](
++        (mm_direct_fused_balanced_tf32 if a.dtype is torch.float32 and b.dtype is torch.float32 and _allow_tf32() else mm_direct_fused)[(triton.cdiv(M, 64) * triton.cdiv(N, 128),)](
+             a, b, c, M, N, K,
+             am, ak, bk, bn, cm, cn,
+             SPLIT_K=split_k, BLOCK_M=64, BLOCK_N=128, BLOCK_K=32,
+@@ -694,6 +694,166 @@
+         and out.untyped_storage().data_ptr() != b.untyped_storage().data_ptr()
+     )
+ 
++
++
++
++@libentry()
++@libtuner(configs=[triton.Config({'BLOCK_M': 32, 'BLOCK_N': 32, 'BLOCK_K': 32}, num_warps=4, num_stages=1)], key=['M', 'N', 'K', 'stride_am', 'stride_bk'], strategy=['align32', 'align32', 'align32', 'align32', 'align32'], warmup=5, rep=10)
++@triton.jit
++def mm_kernel_general_balanced_tf32(A, B, C, M, N, K, stride_am, stride_ak, stride_bk, stride_bn, stride_cm, stride_cn, BLOCK_M: tl.constexpr, BLOCK_N: tl.constexpr, BLOCK_K: tl.constexpr, GROUP_M: tl.constexpr, ALLOW_TF32: tl.constexpr):
++    pid = tle.program_id(0)
++    grid_m = tl.cdiv(M, BLOCK_M)
++    grid_n = tl.cdiv(N, BLOCK_N)
++    width = GROUP_M * grid_n
++    group_id = pid // width
++    group_size = min(grid_m - group_id * GROUP_M, GROUP_M)
++    pid_m = group_id * GROUP_M + pid % group_size
++    pid_n = pid % width // group_size
++    rm = pid_m * BLOCK_M + tl.arange(0, BLOCK_M)
++    rn = pid_n * BLOCK_N + tl.arange(0, BLOCK_N)
++    ram = tl.max_contiguous(tl.multiple_of(rm % M, BLOCK_M), BLOCK_M).to(tl.int64)
++    rbn = tl.max_contiguous(tl.multiple_of(rn % N, BLOCK_N), BLOCK_N).to(tl.int64)
++    rm = rm.to(tl.int64)
++    rn = rn.to(tl.int64)
++    prev_multiple = prev_multiple_of(K, BLOCK_K)
++    acc = tl.zeros((BLOCK_M, BLOCK_N), dtype=tl.float32)
++    _balanced_other = tl.full(acc.shape, 0, tl.float32)
++    _balanced_index = 0
++    for start_k in range(0, prev_multiple, BLOCK_K):
++        rk = (start_k + tl.arange(0, BLOCK_K)).to(tl.int64)
++        a = tl.load(A + (ram[:, None] * stride_am + rk[None, :] * stride_ak))
++        b = tl.load(B + (rk[:, None] * stride_bk + rbn[None, :] * stride_bn))
++        if a.dtype != b.dtype:
++            a = a.to(C.dtype.element_ty)
++            b = b.to(C.dtype.element_ty)
++        if _balanced_index & 1 == 0:
++            acc += tl.dot(round_tf32_rne(a, ALLOW_TF32), round_tf32_rne(b, ALLOW_TF32), out_dtype=tl.float32, allow_tf32=ALLOW_TF32)
++        else:
++            _balanced_other += tl.dot(round_tf32_rne(a, ALLOW_TF32), round_tf32_rne(b, ALLOW_TF32), out_dtype=tl.float32, allow_tf32=ALLOW_TF32)
++        _balanced_index += 1
++    acc = acc + _balanced_other
++    rk = (prev_multiple + tl.arange(0, BLOCK_K)).to(tl.int64)
++    mask_k = rk < K
++    a = tl.load(A + (ram[:, None] * stride_am + rk[None, :] * stride_ak), mask=mask_k[None, :], other=0.0)
++    b = tl.load(B + (rk[:, None] * stride_bk + rbn[None, :] * stride_bn), mask=mask_k[:, None], other=0.0)
++    if a.dtype != b.dtype:
++        a = a.to(C.dtype.element_ty)
++        b = b.to(C.dtype.element_ty)
++    acc += tl.dot(round_tf32_rne(a, ALLOW_TF32), round_tf32_rne(b, ALLOW_TF32), out_dtype=tl.float32, allow_tf32=ALLOW_TF32)
++    acc = acc.to(C.dtype.element_ty)
++    rm = (pid_m * BLOCK_M + tl.arange(0, BLOCK_M)).to(tl.int64)
++    rn = (pid_n * BLOCK_N + tl.arange(0, BLOCK_N)).to(tl.int64)
++    C = C + (rm[:, None] * stride_cm + rn[None, :] * stride_cn)
++    mask = (rm < M)[:, None] & (rn < N)[None, :]
++    tl.store(C, acc, mask=mask)
++
++@libentry()
++@triton.jit
++def mm_kernel_h100_fp32_splitk_balanced_tf32(A, B, partials, M, N, K, stride_am, stride_ak, stride_bk, stride_bn, SPLIT_K: tl.constexpr, BLOCK_M: tl.constexpr, BLOCK_N: tl.constexpr, BLOCK_K: tl.constexpr, ALLOW_TF32: tl.constexpr):
++    """Deterministic FP32 split-K GEMM used for the PPU/H100 protocol."""
++    pid = tle.program_id(0)
++    split_id = tle.program_id(1)
++    grid_n = tl.cdiv(N, BLOCK_N)
++    pid_m = pid // grid_n
++    pid_n = pid % grid_n
++    rm = pid_m * BLOCK_M + tl.arange(0, BLOCK_M)
++    rn = pid_n * BLOCK_N + tl.arange(0, BLOCK_N)
++    chunk_k = tl.cdiv(K, SPLIT_K)
++    split_start = split_id * chunk_k
++    split_end = tl.minimum(split_start + chunk_k, K)
++    acc = tl.zeros((BLOCK_M, BLOCK_N), dtype=tl.float32)
++    _balanced_other = tl.full(acc.shape, 0, tl.float32)
++    _balanced_index = 0
++    for offset_k in range(0, chunk_k, BLOCK_K):
++        rk = split_start + offset_k + tl.arange(0, BLOCK_K)
++        mask_k = rk < split_end
++        a = tl.load(A + rm[:, None] * stride_am + rk[None, :] * stride_ak, mask=(rm < M)[:, None] & mask_k[None, :], other=0.0)
++        b = tl.load(B + rk[:, None] * stride_bk + rn[None, :] * stride_bn, mask=mask_k[:, None] & (rn < N)[None, :], other=0.0)
++        if _balanced_index & 1 == 0:
++            acc += tl.dot(round_tf32_rne(a, ALLOW_TF32), round_tf32_rne(b, ALLOW_TF32), out_dtype=tl.float32, allow_tf32=ALLOW_TF32)
++        else:
++            _balanced_other += tl.dot(round_tf32_rne(a, ALLOW_TF32), round_tf32_rne(b, ALLOW_TF32), out_dtype=tl.float32, allow_tf32=ALLOW_TF32)
++        _balanced_index += 1
++    acc = acc + _balanced_other
++    offset = (split_id * M + rm)[:, None] * N + rn[None, :]
++    tl.store(partials + offset, acc, mask=(rm < M)[:, None] & (rn < N)[None, :])
++
++@libentry()
++@libtuner(configs=runtime.get_tuned_config('mm_self_transpose'), key=['M', 'K', 'stride_am', 'stride_ak'], strategy=['align32', 'align32', 'align32', 'align32'], warmup=2, rep=4)
++@triton.jit
++def mm_kernel_syrk_balanced_tf32(A, C, M, K, stride_am, stride_ak, stride_cm, stride_cn, BLOCK_M: tl.constexpr, BLOCK_K: tl.constexpr, ALLOW_TF32: tl.constexpr):
++    pid = tl.program_id(0)
++    pid_f = pid.to(tl.float32)
++    pid_m = tl.floor((tl.sqrt(8.0 * pid_f + 1.0) - 1.0) / 2.0).to(tl.int32)
++    tri_start = pid_m * (pid_m + 1) // 2
++    pid_m = tl.where(tri_start > pid, pid_m - 1, pid_m)
++    next_tri_start = (pid_m + 1) * (pid_m + 2) // 2
++    pid_m = tl.where(next_tri_start <= pid, pid_m + 1, pid_m)
++    tri_start = pid_m * (pid_m + 1) // 2
++    pid_n = pid - tri_start
++    rm = pid_m * BLOCK_M + tl.arange(0, BLOCK_M)
++    rn = pid_n * BLOCK_M + tl.arange(0, BLOCK_M)
++    ram = tl.max_contiguous(tl.multiple_of(rm % M, BLOCK_M), BLOCK_M).to(tl.int64)
++    ran = tl.max_contiguous(tl.multiple_of(rn % M, BLOCK_M), BLOCK_M).to(tl.int64)
++    rm = rm.to(tl.int64)
++    rn = rn.to(tl.int64)
++    acc = tl.zeros((BLOCK_M, BLOCK_M), dtype=tl.float32)
++    _balanced_other = tl.full(acc.shape, 0, tl.float32)
++    _balanced_index = 0
++    for start_k in range(0, K, BLOCK_K):
++        rk = (start_k + tl.arange(0, BLOCK_K)).to(tl.int64)
++        mask_k = rk < K
++        a = tl.load(A + (ram[:, None] * stride_am + rk[None, :] * stride_ak), mask=mask_k[None, :], other=0.0)
++        b = tl.load(A + (rk[:, None] * stride_ak + ran[None, :] * stride_am), mask=mask_k[:, None], other=0.0)
++        if _balanced_index & 1 == 0:
++            acc += tl.dot(round_tf32_rne(a, ALLOW_TF32), round_tf32_rne(b, ALLOW_TF32), out_dtype=tl.float32, allow_tf32=ALLOW_TF32)
++        else:
++            _balanced_other += tl.dot(round_tf32_rne(a, ALLOW_TF32), round_tf32_rne(b, ALLOW_TF32), out_dtype=tl.float32, allow_tf32=ALLOW_TF32)
++        _balanced_index += 1
++    acc = acc + _balanced_other
++    out = acc.to(C.dtype.element_ty)
++    c_ptr = C + (rm[:, None] * stride_cm + rn[None, :] * stride_cn)
++    mask = (rm < M)[:, None] & (rn < M)[None, :]
++    tl.store(c_ptr, out, mask=mask)
++    if pid_m > pid_n:
++        c_t_ptr = C + (rn[:, None] * stride_cm + rm[None, :] * stride_cn)
++        mask_t = (rn < M)[:, None] & (rm < M)[None, :]
++        tl.store(c_t_ptr, tl.trans(out), mask=mask_t)
++
++@triton.jit
++def mm_direct_fused_balanced_tf32(A, B, C, M, N, K, stride_am, stride_ak, stride_bk, stride_bn, stride_cm, stride_cn, SPLIT_K: tl.constexpr, BLOCK_M: tl.constexpr, BLOCK_N: tl.constexpr, BLOCK_K: tl.constexpr, ALLOW_TF32: tl.constexpr, B_RNE_PREPACKED: tl.constexpr, INDEX_64: tl.constexpr=True):
++    index_dtype: tl.constexpr = tl.int64 if INDEX_64 else tl.int32
++    pid = tle.program_id(0).to(index_dtype)
++    grid_n = tl.cdiv(N, BLOCK_N)
++    rm = (pid // grid_n * BLOCK_M + tl.arange(0, BLOCK_M)).to(index_dtype)
++    rn = (pid % grid_n * BLOCK_N + tl.arange(0, BLOCK_N)).to(index_dtype)
++    chunk_k = tl.cdiv(K, SPLIT_K)
++    result = tl.zeros((BLOCK_M, BLOCK_N), dtype=tl.float32)
++    for split_id in range(0, SPLIT_K):
++        split_start = split_id * chunk_k
++        split_end = tl.minimum(split_start + chunk_k, K)
++        acc = tl.zeros((BLOCK_M, BLOCK_N), dtype=tl.float32)
++        _balanced_other = tl.full(acc.shape, 0, tl.float32)
++        _balanced_index = 0
++        for offset_k in range(0, chunk_k, BLOCK_K):
++            rk = (split_start + offset_k + tl.arange(0, BLOCK_K)).to(index_dtype)
++            mask_k = rk < split_end
++            a = tl.load(A + rm[:, None] * stride_am + rk[None, :] * stride_ak, mask=(rm < M)[:, None] & mask_k[None, :], other=0.0)
++            b = tl.load(B + rk[:, None] * stride_bk + rn[None, :] * stride_bn, mask=mask_k[:, None] & (rn < N)[None, :], other=0.0)
++            a = round_tf32_rne(a, ALLOW_TF32)
++            if not B_RNE_PREPACKED:
++                b = round_tf32_rne(b, ALLOW_TF32)
++            if _balanced_index & 1 == 0:
++                acc += tl.dot(a, b, out_dtype=tl.float32, allow_tf32=ALLOW_TF32)
++            else:
++                _balanced_other += tl.dot(a, b, out_dtype=tl.float32, allow_tf32=ALLOW_TF32)
++            _balanced_index += 1
++        acc = acc + _balanced_other
++        if SPLIT_K == 1:
++            result = acc
++        else:
++            result += acc
++    tl.store(C + rm[:, None] * stride_cm + rn[None, :] * stride_cn, result, mask=(rm < M)[:, None] & (rn < N)[None, :])
+ 
+ def mm(a, b):
+     capture_real_operands(
