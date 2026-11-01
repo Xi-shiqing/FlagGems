@@ -483,6 +483,35 @@ class IndexPutFunction:
 _index_put_func = IndexPutFunction()
 
 
+def _index_put_accumulate_ordered(inp, tensors, values):
+    """Sum equal advanced-index tuples in stable order, including strided slices."""
+    count = tensors[0].numel()
+    if not count:
+        return inp
+    key = torch.zeros_like(tensors[0], dtype=torch.int64)
+    for axis, index in enumerate(tensors):
+        index = index.to(torch.int64)
+        dimension = inp.shape[axis]
+        if bool(((index < -dimension) | (index >= dimension)).any()):
+            raise IndexError("index_put_ index out of bounds")
+        key = key * dimension + torch.where(index < 0, index + dimension, index)
+    order = torch.argsort(key.reshape(-1), stable=True)
+    keys = key.reshape(-1).index_select(0, order)
+    unique, counts = torch.unique_consecutive(keys, return_counts=True)
+    slices = tuple(inp.shape[len(tensors) :])
+    ordered = values.reshape(count, *slices).index_select(0, order)
+    sums = torch.segment_reduce(ordered, "sum", lengths=counts, axis=0, initial=0)
+    coordinates = []
+    remaining = unique
+    for dimension in reversed(inp.shape[: len(tensors)]):
+        coordinates.append(remaining.remainder(dimension))
+        remaining = remaining.div(dimension, rounding_mode="floor")
+    coordinates.reverse()
+    combined = inp[tuple(coordinates)] + sums
+    _index_put_func(inp, coordinates, combined, False)
+    return inp
+
+
 def index_put(inp, indices, values, accumulate=False):
     logger.debug("GEMS INDEX PUT")
 
@@ -529,7 +558,7 @@ def index_put_(inp, indices, values, accumulate=False):
     if len(indices) > inp.ndim:
         raise IndexError("too many indices for tensor of dimension {}".format(inp.ndim))
 
-    if _index_put_sorted_single_index_deterministic(
+    if inp.dtype != torch.float32 and _index_put_sorted_single_index_deterministic(
         inp, indices, values, accumulate
     ):
         return inp
@@ -586,6 +615,10 @@ def index_put_(inp, indices, values, accumulate=False):
         # direct broadcast
         values = values.broadcast_to(target_shape)
 
+    if accumulate and inp.dtype == torch.float32:
+        _index_put_accumulate_ordered(inp_view, tensors, values)
+        return inp
+
     _index_put_func(inp_view, tensors, values, accumulate)
 
     return inp
@@ -596,7 +629,9 @@ def _index_put_impl_(inp, indices, values, accumulate=False, unsafe=False):
 
     # Autograd may preserve basic-index dimensions as ``None`` entries.  The
     # full normalizer below handles their transpose and broadcasting semantics.
-    if any(index is None for index in indices):
+    if (accumulate and inp.dtype == torch.float32) or any(
+        index is None for index in indices
+    ):
         return index_put_(inp, indices, values, accumulate)
 
     # The `unsafe` parameter is a hint to PyTorch for bounds checking.

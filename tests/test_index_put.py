@@ -63,6 +63,54 @@ INDEX_PUT_SHAPE_ACC_TRUE = (
 random.seed(time.time() // 100)
 
 
+@pytest.mark.index_put
+@pytest.mark.parametrize("case", ["shared", "batched", "strided", "empty"])
+@pytest.mark.parametrize("private_entry", [False, True])
+def test_index_put_default_repeatability(case, private_entry):
+    generator = torch.Generator().manual_seed(20260825)
+    index = torch.tensor([2, 3, 2, 10, 1, 2, -1, 5, 7, 3, 2])
+    shape = (3, 13, 4)
+    initial = torch.randn(shape, generator=generator)
+    indices = [None, index, None]
+    if case == "batched":
+        indices = [torch.arange(3)[:, None], index[None, :].expand(3, -1), None]
+    elif case == "strided":
+        initial = torch.randn((4, 13, 3), generator=generator).permute(2, 1, 0)
+    elif case == "empty":
+        index = index[:0]
+        indices = [None, index, None]
+    values = torch.randn((3, index.numel(), 4), generator=generator)
+    reference = torch.ops.aten.index_put_.default(
+        initial.double().clone(), indices, values.double(), True
+    )
+    gpu_indices = [x.to(flag_gems.device) if x is not None else None for x in indices]
+    gpu_values = values.to(flag_gems.device)
+    previous = torch.are_deterministic_algorithms_enabled()
+    warn_only = torch.is_deterministic_algorithms_warn_only_enabled()
+    try:
+        torch.use_deterministic_algorithms(False)
+        results = []
+        with flag_gems.use_gems():
+            for _ in range(16):
+                target = initial.to(flag_gems.device).clone()
+                if private_entry:
+                    result = torch.ops.aten._index_put_impl_.default(
+                        target, gpu_indices, gpu_values, True, False
+                    )
+                else:
+                    result = torch.ops.aten.index_put_.default(
+                        target, gpu_indices, gpu_values, True
+                    )
+                assert result is target
+                results.append(result)
+        assert all(torch.equal(results[0], result) for result in results[1:])
+        flag_gems.testing.assert_close(
+            results[0].cpu(), reference, torch.float32, reduce_dim=11
+        )
+    finally:
+        torch.use_deterministic_algorithms(previous, warn_only=warn_only)
+
+
 def gen_indices_for_index_put(input_shape, indices_shape, accumulate, is_bool):
     """
     Generate indices for torch.index_put.

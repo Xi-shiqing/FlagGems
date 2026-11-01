@@ -14,6 +14,7 @@
 
 import logging
 import os
+from functools import lru_cache
 
 import torch
 import triton
@@ -28,6 +29,11 @@ from flag_gems.utils import tl_extra_shim
 
 logger = logging.getLogger(__name__)
 exp2 = tl_extra_shim.exp2
+
+
+@lru_cache(maxsize=None)
+def _cached_device_name(device):
+    return torch_device_fn.get_device_name(device)
 
 
 @triton.jit
@@ -354,6 +360,10 @@ def softmax_backward_kernel_inner(
             offsets += TILE_N
 
 
+# Keep a separate cache for the timing-independent PPU reduction tree.
+softmax_backward_kernel_inner_canonical = libentry()(softmax_backward_kernel_inner.fn.fn)
+
+
 def softmax_out(self, dim, half_to_float=False, *, out):
     logger.debug("GEMS SOFTMAX_OUT")
 
@@ -450,12 +460,26 @@ def softmax_backward_out(grad_output, output, dim, input_dtype, *, grad_input):
             )
         else:
             grid = lambda meta: (triton.cdiv(M, meta["TILE_M"]), 1, 1)
-            softmax_backward_kernel_inner[grid](
+            backward_kernel = softmax_backward_kernel_inner
+            launch_options = {}
+            if runtime.device.vendor_name == "thead" or (
+                runtime.device.vendor_name == "nvidia"
+                and _cached_device_name(output.device).startswith("PPU-")
+            ):
+                # Autotuned tiling changes floating-point addition order across runs.
+                backward_kernel = softmax_backward_kernel_inner_canonical
+                launch_options = dict(
+                    TILE_N=min(1024, triton.next_power_of_2(N)),
+                    num_warps=4,
+                    num_stages=2,
+                )
+            backward_kernel[grid](
                 output,
                 grad_output,
                 grad_input,
                 M,
                 N,
+                **launch_options,
             )
     return grad_input
 

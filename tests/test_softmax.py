@@ -121,6 +121,50 @@ def test_softmax_backward_out(shape, dtype, dim, neg_inf):
 
 
 @pytest.mark.softmax_backward
+@pytest.mark.parametrize("rows", [3, 71])
+@pytest.mark.parametrize("width", [128, 437, 1025])
+def test_softmax_backward_ppu_autotune_independence(rows, width, monkeypatch):
+    """Changing tuner preferences must not change the PPU training gradient."""
+    import importlib
+
+    from flag_gems.utils import libentry
+
+    if flag_gems.vendor_name != "thead" and not (
+        flag_gems.vendor_name == "nvidia"
+        and torch.cuda.get_device_name().startswith("PPU-")
+    ):
+        pytest.skip("PPU fixed reduction policy")
+    module = importlib.import_module("flag_gems.ops.softmax")
+    raw = libentry()(module.softmax_backward_kernel_inner.fn.fn)
+    generator = torch.Generator(device="cpu").manual_seed(20260825)
+    p = torch.softmax(torch.randn(rows, width, generator=generator).double(), -1).float()
+    dy = torch.randn(rows, width * 2, generator=generator)[:, ::2]
+    reference = p.double() * (
+        dy.double() - (p.double() * dy.double()).sum(-1, keepdim=True)
+    )
+    output, upstream = p.to(flag_gems.device), dy.to(flag_gems.device)
+
+    class ForcedTuner:
+        def __init__(self, tile):
+            self.tile = tile
+
+        def __getitem__(self, grid):
+            def run(*args, **kwargs):
+                return raw[grid](
+                    *args, TILE_N=self.tile, num_warps=4, num_stages=2, **kwargs
+                )
+
+            return run
+
+    results = []
+    for tile in (32, 128):
+        monkeypatch.setattr(module, "softmax_backward_kernel_inner", ForcedTuner(tile))
+        results.append(module.softmax_backward(upstream, output, -1, torch.float32).cpu())
+    torch.testing.assert_close(results[0].double(), reference, rtol=1e-5, atol=1e-7)
+    assert torch.equal(results[0], results[1])
+
+
+@pytest.mark.softmax_backward
 @pytest.mark.parametrize("shape", BACKWARD_SHAPES)
 @pytest.mark.parametrize("dtype", FLOAT_DTYPES)
 @pytest.mark.parametrize("dim", DIM_LIST)
