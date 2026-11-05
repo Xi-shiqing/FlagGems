@@ -1,0 +1,34 @@
+--- a/src/flag_gems/ops/mm.py
++++ b/src/flag_gems/ops/mm.py
+@@ -271,7 +271,8 @@
+     if c is not None and ((M - 1) * abs(c.stride(0))
+                           + (N - 1) * abs(c.stride(1))) > 2147483647:
+         return None
+-    output_blocks = triton.cdiv(M, 32) * triton.cdiv(N, 32)
++    tile = _long_reduction_tile(M, N)
++    output_blocks = triton.cdiv(M, tile) * triton.cdiv(N, tile)
+     desired = max(1, triton.cdiv(2 * get_sm_count(), output_blocks))
+     # At least512 K values per split, at most64 partials and64MiB workspace.
+     maximum = min(64, K // 512, (64 * 1024 * 1024) // (4 * M * N))
+@@ -287,10 +288,11 @@
+     if c is None:
+         c = torch.empty((M, N), device=a.device, dtype=torch.float32)
+     partials = torch.empty((parts, M, N), device=a.device, dtype=torch.float32)
++    tile = _long_reduction_tile(M, N)
+     with torch_device_fn.device(a.device):
+-        mm_kernel_grouped_splitk[(triton.cdiv(M, 32) * triton.cdiv(N, 32), parts)](
++        mm_kernel_grouped_splitk[(triton.cdiv(M, tile) * triton.cdiv(N, tile), parts)](
+             a, b, partials, M, N, K, *a.stride(), *b.stride(),
+-            SPLIT_K=parts, BLOCK_M=32, BLOCK_N=32, BLOCK_K=32,
++            SPLIT_K=parts, BLOCK_M=tile, BLOCK_N=tile, BLOCK_K=32,
+             ALLOW_TF32=_allow_tf32(), num_warps=4, num_stages=2)
+         mm_kernel_h100_fp32_splitk_reduce[(triton.cdiv(M * N, 256),)](
+             partials, c, M * N, *c.stride(), N, parts, BLOCK=256, num_warps=4)
+@@ -888,3 +890,7 @@
+         acc,
+         mask=(rm < M)[:, None] & (rn < N)[None, :],
+     )
++
++
++def _long_reduction_tile(M, N):
++    return 64 if _allow_tf32() and M >= 64 and N >= 64 else 32

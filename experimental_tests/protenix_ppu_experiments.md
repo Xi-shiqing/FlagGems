@@ -1,6 +1,6 @@
 # Protenix PPU / FlagGems 实验索引
 
-本索引归档截至 2026-10-04 的 TF32 实现、失败对照、精度诊断和验证数据。最新结果从 [host pipeline](protenix_ppu_host_pipeline_20261004/README.md) 开始查看。各阶段的目录和 manifest 对应当时隔离的服务器环境，不能按目录日期依次覆盖安装。
+本索引归档 PPU 上的 FlagGems 实现、性能对照、精度诊断和验证数据。最新实验为 [2026-11-05 长求和 MM 分组累加](protenix_grouped_mm_20261105/README.md)，包含四路精度对照、实际输入计时及完整训练中的未改善结果。[2026-11-01 训练算子档案](protenix_training_precision_20261101/)保存此前的训练精度工作。各阶段的目录和 manifest 对应当时隔离的服务器环境，不能按目录日期依次覆盖安装。
 
 | 记录 | 内容与用途 |
 | --- | --- |

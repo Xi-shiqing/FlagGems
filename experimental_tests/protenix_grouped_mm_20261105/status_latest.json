@@ -1,0 +1,2703 @@
+{
+  "exit_code": "0",
+  "tail": [
+    "CALL_MM tf32 fp32 1 occupancy",
+    "CALL_MM tf32 fp32 1 bounded_tree",
+    "CALL_MM tf32 fp32 1 grouped",
+    "CALL_MM tf32 fp32 1 grouped64",
+    "CALL_MM tf32 fp32 1 grouped_work",
+    "COMPLETE_MM tf32 fp32 1 474376",
+    "CALL_MM tf32 tf32 1 original",
+    "CALL_MM tf32 tf32 1 occupancy",
+    "CALL_MM tf32 tf32 1 bounded_tree",
+    "CALL_MM tf32 tf32 1 grouped",
+    "CALL_MM tf32 tf32 1 grouped64",
+    "CALL_MM tf32 tf32 1 grouped_work",
+    "COMPLETE_MM tf32 tf32 1 474376",
+    "COMPLETE_REAL_MM_COMPARISON 8",
+    "[W1105 22:19:13.935876798 AllocatorConfig.cpp:28] Warning: PYTORCH_CUDA_ALLOC_CONF is deprecated, use PYTORCH_ALLOC_CONF instead (function operator())"
+  ],
+  "result.json": {
+    "status": "COMPLETE",
+    "card": {
+      "gpu": 0,
+      "GPU_UUID": "GPU-019e1215-4190-0010-0000-0000e085f370",
+      "SKU": "PPU-ZW810E",
+      "memory_MiB": 2,
+      "total_memory_MiB": 97920,
+      "compute_app_count": 0,
+      "free_memory_MiB": 97918,
+      "owned_pending_launch_count": 0,
+      "hostname": "dsw-766246-9578bd86-vmm4s",
+      "mode": "exclusive",
+      "stable_admission_seconds": 10,
+      "available_host_memory_bytes": 1931272593408,
+      "free_disk_bytes": 325524127744,
+      "performance_measured": false,
+      "timing_allowed": true
+    },
+    "runtime_sources": {
+      "original": {
+        "path": "/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/precision_residual_20261019/gems_canonical_softmax_v2/flag_gems/ops/mm.py",
+        "sha256": "5e1cf91e8b62929dd2d96990d7b2232f539fdd7a0e6c0d5ed79a0a45d551e7b8"
+      },
+      "occupancy": {
+        "path": "/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/precision_residual_20261019/gems_long_reduction_splitk_v2/flag_gems/ops/mm.py",
+        "sha256": "6c3c087f6760a921759e0721144e1a2312c4b04de8e44797ccbf6bb6618fa1b9"
+      },
+      "bounded_tree": {
+        "path": "/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/precision_residual_20261019/gems_bounded_reduction_v1/flag_gems/ops/mm.py",
+        "sha256": "300371952fb3e670e38ec130d1ec82ceb4ed527c03009a131457eedbe78f4e7e"
+      },
+      "grouped": {
+        "path": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/grouped_mm.py",
+        "sha256": "3e88d3e11dda49988d81a955c91d3cd3b85dbe6a7dd7cdd8ca372292f3fab4e7"
+      },
+      "grouped64": {
+        "path": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/grouped64_mm.py",
+        "sha256": "80708fa04ebb82becd7f2dd8879b626a1d8f0cd54c6871daf493de74da3efe06"
+      },
+      "grouped_work": {
+        "path": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/grouped_work_mm.py",
+        "sha256": "a82e7d6b1c1d225e61d1f709db5a5626ad164798c4e87cc30a7485e6ec0c1a6c"
+      }
+    },
+    "source_sha256": "2d1079af3494704eb8dcbd0784673a5a1f8edcf67eafd055aa6087fa93e7b2d5",
+    "cases": [
+      {
+        "input_precision": "fp32",
+        "execution_precision": "fp32",
+        "step": 0,
+        "call": 150934,
+        "shapes": [
+          [
+            64,
+            360000
+          ],
+          [
+            360000,
+            256
+          ]
+        ],
+        "strides": [
+          [
+            1,
+            64
+          ],
+          [
+            256,
+            1
+          ]
+        ],
+        "input_sha256": "240e787fda7eec75c2865cab6eeee1b8fd1fb5f9cff77a01624974f2130e94d4",
+        "quantization_only_vs_CPU64": {
+          "status": "finite",
+          "elements": 16384,
+          "difference_squared": 3.2443209805728877e-11,
+          "actual_squared": 0.1585880734705759,
+          "reference_squared": 0.1585875295168405,
+          "absolute_L2": 5.695894118198553e-06,
+          "relative_L2_percent": 0.001430300830090234,
+          "cosine": 0.9999999998991824,
+          "max_abs": 1.1115543808136452e-06
+        },
+        "implementations": {
+          "original": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 1.8334573604525434e-11,
+              "actual_squared": 0.1585882099681355,
+              "reference_squared": 0.1585875295168405,
+              "absolute_L2": 4.281889022910967e-06,
+              "relative_L2_percent": 0.001075228804597369,
+              "cosine": 0.9999999999444953,
+              "max_abs": 1.9656360740472056e-06
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 5.356825423528252e-11,
+              "actual_squared": 0.1585882099681355,
+              "reference_squared": 0.1585880734705759,
+              "absolute_L2": 7.319033695460249e-06,
+              "relative_L2_percent": 0.0018378856417613993,
+              "cosine": 0.9999999998312015,
+              "max_abs": 1.8022466637956924e-06
+            },
+            "parts": null,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/fp32_fp32_step0_original.pt",
+            "output_sha256": "335c421472ebaf4174e774b19a5de9449daf1a9b0944163fc61165bc5793d3bf",
+            "device_ms": [
+              17.051240921020508,
+              16.95092010498047,
+              17.002880096435547,
+              16.886680603027344,
+              16.850120544433594
+            ],
+            "median_device_ms": 16.95092010498047
+          },
+          "occupancy": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 5.729911013443235e-13,
+              "actual_squared": 0.15858756358778697,
+              "reference_squared": 0.1585875295168405,
+              "absolute_L2": 7.569617568571899e-07,
+              "relative_L2_percent": 0.0001900813123825802,
+              "cosine": 0.9999999999981991,
+              "max_abs": 4.0101414869320173e-07
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.331032438090644e-11,
+              "actual_squared": 0.15858756358778697,
+              "reference_squared": 0.1585880734705759,
+              "absolute_L2": 5.771509714182802e-06,
+              "relative_L2_percent": 0.001449286241373968,
+              "cosine": 0.9999999998962703,
+              "max_abs": 1.2323869456772052e-06
+            },
+            "parts": 8,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/fp32_fp32_step0_occupancy.pt",
+            "output_sha256": "ee9728945a847f3063e086b4252f40e4ac68f5df7a8021aeff1c40f9b9146fb5",
+            "device_ms": [
+              1.8696800470352173,
+              1.8458399772644043,
+              1.847599983215332,
+              1.8575199842453003,
+              1.8819999694824219
+            ],
+            "median_device_ms": 1.8575199842453003
+          },
+          "bounded_tree": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 5.016304674823196e-15,
+              "actual_squared": 0.15858751597821055,
+              "reference_squared": 0.1585875295168405,
+              "absolute_L2": 7.082587574342583e-08,
+              "relative_L2_percent": 1.7785146065834653e-05,
+              "cosine": 0.9999999999999849,
+              "max_abs": 2.1025255453333003e-08
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.2551306596542416e-11,
+              "actual_squared": 0.15858751597821055,
+              "reference_squared": 0.1585880734705759,
+              "absolute_L2": 5.705375237137555e-06,
+              "relative_L2_percent": 0.0014326791849175605,
+              "cosine": 0.9999999998989161,
+              "max_abs": 1.1271474947456561e-06
+            },
+            "parts": 128,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/fp32_fp32_step0_bounded_tree.pt",
+            "output_sha256": "f6e49125c4580b1df53e781aaa198d02d1e826275831c315fe4b8328536d45a5",
+            "device_ms": [
+              0.9302399754524231,
+              0.9145200252532959,
+              0.9164000153541565,
+              0.912559986114502,
+              0.9210399985313416
+            ],
+            "median_device_ms": 0.9164000153541565
+          },
+          "grouped": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 1.37345276113132e-15,
+              "actual_squared": 0.15858753642430817,
+              "reference_squared": 0.1585875295168405,
+              "absolute_L2": 3.706012359843556e-08,
+              "relative_L2_percent": 9.306199245651298e-06,
+              "cosine": 0.999999999999996,
+              "max_abs": 1.0250194554251024e-08
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.244343678737466e-11,
+              "actual_squared": 0.15858753642430817,
+              "reference_squared": 0.1585880734705759,
+              "absolute_L2": 5.695914043186981e-06,
+              "relative_L2_percent": 0.0014303033805096008,
+              "cosine": 0.999999999899145,
+              "max_abs": 1.1196969141487323e-06
+            },
+            "parts": 8,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/fp32_fp32_step0_grouped.pt",
+            "output_sha256": "c1b450cccd021a4c4341f7a5586739dad601df5d6c5396b5c33ed32afb64d602",
+            "device_ms": [
+              3.557039976119995,
+              3.5493199825286865,
+              3.5525200366973877,
+              3.5553998947143555,
+              3.555079936981201
+            ],
+            "median_device_ms": 3.555079936981201
+          },
+          "grouped64": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 1.37345276113132e-15,
+              "actual_squared": 0.15858753642430817,
+              "reference_squared": 0.1585875295168405,
+              "absolute_L2": 3.706012359843556e-08,
+              "relative_L2_percent": 9.306199245651298e-06,
+              "cosine": 0.999999999999996,
+              "max_abs": 1.0250194554251024e-08
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.244343678737466e-11,
+              "actual_squared": 0.15858753642430817,
+              "reference_squared": 0.1585880734705759,
+              "absolute_L2": 5.695914043186981e-06,
+              "relative_L2_percent": 0.0014303033805096008,
+              "cosine": 0.999999999899145,
+              "max_abs": 1.1196969141487323e-06
+            },
+            "parts": 8,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/fp32_fp32_step0_grouped64.pt",
+            "output_sha256": "a795d0062988eea724d9f13a85d5c8b240e802815a4ce6494199a3d110355554",
+            "device_ms": [
+              3.5655200481414795,
+              3.5543599128723145,
+              3.556999921798706,
+              3.558799982070923,
+              3.5560801029205322
+            ],
+            "median_device_ms": 3.556999921798706
+          },
+          "grouped_work": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 2.5161486392629285e-15,
+              "actual_squared": 0.15858753981435686,
+              "reference_squared": 0.1585875295168405,
+              "absolute_L2": 5.016122645293802e-08,
+              "relative_L2_percent": 1.2596028357471034e-05,
+              "cosine": 0.9999999999999928,
+              "max_abs": 2.3678228128209966e-08
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.240993319063433e-11,
+              "actual_squared": 0.15858753981435686,
+              "reference_squared": 0.1585880734705759,
+              "absolute_L2": 5.692972263293958e-06,
+              "relative_L2_percent": 0.0014295646689184843,
+              "cosine": 0.9999999998992325,
+              "max_abs": 1.1159716238502704e-06
+            },
+            "parts": 44,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/fp32_fp32_step0_grouped_work.pt",
+            "output_sha256": "d77da4ee4cd46c80682dc216b4ffa9e64dad89794e075c126765ad3d72f45bf4",
+            "device_ms": [
+              0.998960018157959,
+              0.9913600087165833,
+              1.0016000270843506,
+              1.001520037651062,
+              0.9957200288772583
+            ],
+            "median_device_ms": 0.998960018157959
+          }
+        },
+        "input_values_unchanged": true
+      },
+      {
+        "input_precision": "fp32",
+        "execution_precision": "tf32",
+        "step": 0,
+        "call": 150934,
+        "shapes": [
+          [
+            64,
+            360000
+          ],
+          [
+            360000,
+            256
+          ]
+        ],
+        "strides": [
+          [
+            1,
+            64
+          ],
+          [
+            256,
+            1
+          ]
+        ],
+        "input_sha256": "240e787fda7eec75c2865cab6eeee1b8fd1fb5f9cff77a01624974f2130e94d4",
+        "quantization_only_vs_CPU64": {
+          "status": "finite",
+          "elements": 16384,
+          "difference_squared": 3.2443209805728877e-11,
+          "actual_squared": 0.1585880734705759,
+          "reference_squared": 0.1585875295168405,
+          "absolute_L2": 5.695894118198553e-06,
+          "relative_L2_percent": 0.001430300830090234,
+          "cosine": 0.9999999998991824,
+          "max_abs": 1.1115543808136452e-06
+        },
+        "implementations": {
+          "original": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 5.558641881404837e-08,
+              "actual_squared": 0.15868062815814646,
+              "reference_squared": 0.1585875295168405,
+              "absolute_L2": 0.00023576772216325198,
+              "relative_L2_percent": 0.059203833800414024,
+              "cosine": 0.9999998678497544,
+              "max_abs": 0.0001054616511459161
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 5.5183724315755146e-08,
+              "actual_squared": 0.15868062815814646,
+              "reference_squared": 0.1585880734705759,
+              "absolute_L2": 0.0002349121629796021,
+              "relative_L2_percent": 0.058988892438508564,
+              "cosine": 0.9999998686175348,
+              "max_abs": 0.00010529826173566459
+            },
+            "parts": null,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/fp32_tf32_step0_original.pt",
+            "output_sha256": "0cdbf04c2fef5a45c6e713d43abdc63d109a4ddd5670ab94d5e6d044b7e58604",
+            "device_ms": [
+              12.26803970336914,
+              12.312600135803223,
+              12.27184009552002,
+              12.257120132446289,
+              12.272720336914062
+            ],
+            "median_device_ms": 12.27184009552002
+          },
+          "occupancy": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 1.350846875683948e-09,
+              "actual_squared": 0.15860326984534479,
+              "reference_squared": 0.1585875295168405,
+              "absolute_L2": 3.6753868853277857e-05,
+              "relative_L2_percent": 0.009229295355387855,
+              "cosine": 0.9999999969724953,
+              "max_abs": 1.6769051193646356e-05
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 1.247677138169889e-09,
+              "actual_squared": 0.15860326984534479,
+              "reference_squared": 0.1585880734705759,
+              "absolute_L2": 3.5322473556786603e-05,
+              "relative_L2_percent": 0.008869841249915501,
+              "cosine": 0.9999999972141284,
+              "max_abs": 1.5745942748834896e-05
+            },
+            "parts": 8,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/fp32_tf32_step0_occupancy.pt",
+            "output_sha256": "c505aeb4a1e924fc32fa439a3249b57b4a293067dde98c60b5c3d29f83eb1799",
+            "device_ms": [
+              1.2237600088119507,
+              1.1988799571990967,
+              1.2023999691009521,
+              1.2082799673080444,
+              1.1977200508117676
+            ],
+            "median_device_ms": 1.2023999691009521
+          },
+          "bounded_tree": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 5.700851733844185e-11,
+              "actual_squared": 0.15858976195796404,
+              "reference_squared": 0.1585875295168405,
+              "absolute_L2": 7.550398488718449e-06,
+              "relative_L2_percent": 0.0018959870042917098,
+              "cosine": 0.9999999998450326,
+              "max_abs": 2.7023550266541685e-06
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 1.629728316456524e-11,
+              "actual_squared": 0.15858976195796404,
+              "reference_squared": 0.1585880734705759,
+              "absolute_L2": 4.036989368894256e-06,
+              "relative_L2_percent": 0.0010137301050596674,
+              "cosine": 0.9999999999627874,
+              "max_abs": 1.6792465818427083e-06
+            },
+            "parts": 128,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/fp32_tf32_step0_bounded_tree.pt",
+            "output_sha256": "67bc9ea12b3b906251b9eeb5d73bfdbf8f662087e6592bd3def1b278c78f8b67",
+            "device_ms": [
+              1.1557999849319458,
+              1.3243600130081177,
+              1.128000020980835,
+              1.1236000061035156,
+              1.11899995803833
+            ],
+            "median_device_ms": 1.128000020980835
+          },
+          "grouped": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.954299151427785e-11,
+              "actual_squared": 0.15858888593165116,
+              "reference_squared": 0.1585875295168405,
+              "absolute_L2": 6.288321836092508e-06,
+              "relative_L2_percent": 0.0015790658596164815,
+              "cosine": 0.9999999998844724,
+              "max_abs": 1.7635818714417661e-06
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.274655461708457e-12,
+              "actual_squared": 0.15858888593165116,
+              "reference_squared": 0.1585880734705759,
+              "absolute_L2": 1.8096009122755374e-06,
+              "relative_L2_percent": 0.0004544096491935057,
+              "cosine": 0.9999999999929561,
+              "max_abs": 7.404734266303059e-07
+            },
+            "parts": 8,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/fp32_tf32_step0_grouped.pt",
+            "output_sha256": "38d3957888df4f28a64fd17490f5393e55544f74a559b26308d565be3e116057",
+            "device_ms": [
+              1.2430800199508667,
+              1.2520400285720825,
+              1.2234400510787964,
+              1.224519968032837,
+              1.2231199741363525
+            ],
+            "median_device_ms": 1.224519968032837
+          },
+          "grouped64": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.953398305274978e-11,
+              "actual_squared": 0.15858888379942748,
+              "reference_squared": 0.1585875295168405,
+              "absolute_L2": 6.287605510267782e-06,
+              "relative_L2_percent": 0.0015788859824276747,
+              "cosine": 0.9999999998844721,
+              "max_abs": 1.7561312908448423e-06
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.2854171815576083e-12,
+              "actual_squared": 0.15858888379942748,
+              "reference_squared": 0.1585880734705759,
+              "absolute_L2": 1.8125719796900779e-06,
+              "relative_L2_percent": 0.0004551557151865174,
+              "cosine": 0.999999999992905,
+              "max_abs": 7.330228460333821e-07
+            },
+            "parts": 32,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/fp32_tf32_step0_grouped64.pt",
+            "output_sha256": "4bd4be2559b7f1cf7160239eee1474f319162e451124740ac835ab36ef99f762",
+            "device_ms": [
+              0.8142399787902832,
+              0.8343999981880188,
+              0.8054400086402893,
+              0.8267199993133545,
+              0.8157600164413452
+            ],
+            "median_device_ms": 0.8157600164413452
+          },
+          "grouped_work": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.9574674589335253e-11,
+              "actual_squared": 0.15858888690291587,
+              "reference_squared": 0.1585875295168405,
+              "absolute_L2": 6.290840531227544e-06,
+              "relative_L2_percent": 0.0015796983313000536,
+              "cosine": 0.9999999998843856,
+              "max_abs": 1.77103245203869e-06
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.314555034873287e-12,
+              "actual_squared": 0.15858888690291587,
+              "reference_squared": 0.1585880734705759,
+              "absolute_L2": 1.8205919462837594e-06,
+              "relative_L2_percent": 0.0004571696123843231,
+              "cosine": 0.9999999999928383,
+              "max_abs": 7.479240072272297e-07
+            },
+            "parts": 44,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/fp32_tf32_step0_grouped_work.pt",
+            "output_sha256": "85dec17ca457d76a0ef1b5496c1c0c134dcefb3b9b26ad2d7229825d2b79c532",
+            "device_ms": [
+              0.8482000231742859,
+              0.8672000169754028,
+              0.7939199805259705,
+              0.796239972114563,
+              0.7966399788856506
+            ],
+            "median_device_ms": 0.7966399788856506
+          }
+        },
+        "input_values_unchanged": true
+      },
+      {
+        "input_precision": "fp32",
+        "execution_precision": "fp32",
+        "step": 1,
+        "call": 474376,
+        "shapes": [
+          [
+            64,
+            360000
+          ],
+          [
+            360000,
+            256
+          ]
+        ],
+        "strides": [
+          [
+            1,
+            64
+          ],
+          [
+            256,
+            1
+          ]
+        ],
+        "input_sha256": "a18a11404e10cf25bb0590eddcfb6ac7a1393c6db1028075e762ec09c7665286",
+        "quantization_only_vs_CPU64": {
+          "status": "finite",
+          "elements": 16384,
+          "difference_squared": 3.017784147363402e-11,
+          "actual_squared": 0.1575717494769821,
+          "reference_squared": 0.15757093409724307,
+          "absolute_L2": 5.493436217308254e-06,
+          "relative_L2_percent": 0.001383904213587694,
+          "cosine": 0.9999999999075881,
+          "max_abs": 1.3933967419610394e-06
+        },
+        "implementations": {
+          "original": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 1.7458772639846653e-11,
+              "actual_squared": 0.1575716796178863,
+              "reference_squared": 0.15757093409724307,
+              "absolute_L2": 4.178369615034871e-06,
+              "relative_L2_percent": 0.0010526131709611285,
+              "cosine": 0.9999999999473985,
+              "max_abs": 2.2243492524276487e-06
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 4.8465765943585546e-11,
+              "actual_squared": 0.1575716796178863,
+              "reference_squared": 0.1575717494769821,
+              "absolute_L2": 6.961735842703711e-06,
+              "relative_L2_percent": 0.0017537931193086116,
+              "cosine": 0.9999999998462349,
+              "max_abs": 2.3335922319095426e-06
+            },
+            "parts": null,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/fp32_fp32_step1_original.pt",
+            "output_sha256": "ca634c0e59a322eed17520e8de5de06375a9c993c412ae010ad2c82cd9d72a19",
+            "device_ms": [
+              17.101720809936523,
+              16.961000442504883,
+              16.946279525756836,
+              16.940479278564453,
+              16.95676040649414
+            ],
+            "median_device_ms": 16.95676040649414
+          },
+          "occupancy": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 4.872140878454716e-13,
+              "actual_squared": 0.15757090588821726,
+              "reference_squared": 0.15757093409724307,
+              "absolute_L2": 6.980072262129323e-07,
+              "relative_L2_percent": 0.00017584169602756519,
+              "cosine": 0.9999999999984582,
+              "max_abs": 3.3767777468662885e-07
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.1395067944803297e-11,
+              "actual_squared": 0.15757090588821726,
+              "reference_squared": 0.1575717494769821,
+              "absolute_L2": 5.603130191669947e-06,
+              "relative_L2_percent": 0.0014115346227967064,
+              "cosine": 0.999999999903961,
+              "max_abs": 1.3699034406566835e-06
+            },
+            "parts": 8,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/fp32_fp32_step1_occupancy.pt",
+            "output_sha256": "4f0d16b0f42102c770e79e88bedc100020cbda7e3ae29f6a569c796e7ff14bde",
+            "device_ms": [
+              1.8620400428771973,
+              1.8431199789047241,
+              1.8430800437927246,
+              1.8557599782943726,
+              1.8565599918365479
+            ],
+            "median_device_ms": 1.8557599782943726
+          },
+          "bounded_tree": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 5.583490494640641e-15,
+              "actual_squared": 0.15757095413977323,
+              "reference_squared": 0.15757093409724307,
+              "absolute_L2": 7.472275754173316e-08,
+              "relative_L2_percent": 1.8824126634452112e-05,
+              "cosine": 0.9999999999999843,
+              "max_abs": 3.4851255159562555e-08
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.011404644342602e-11,
+              "actual_squared": 0.15757095413977323,
+              "reference_squared": 0.1575717494769821,
+              "absolute_L2": 5.4876266676429455e-06,
+              "relative_L2_percent": 0.0013824370973703783,
+              "cosine": 0.9999999999076278,
+              "max_abs": 1.3848046018505311e-06
+            },
+            "parts": 128,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/fp32_fp32_step1_bounded_tree.pt",
+            "output_sha256": "1d6a114959dbb54c982d5a1089ec80726ee65434256be75bc67466b076955909",
+            "device_ms": [
+              0.9213600158691406,
+              0.9170399904251099,
+              0.9161199927330017,
+              0.9145600199699402,
+              0.9178000092506409
+            ],
+            "median_device_ms": 0.9170399904251099
+          },
+          "grouped": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 1.4362300480556295e-15,
+              "actual_squared": 0.15757092741708756,
+              "reference_squared": 0.15757093409724307,
+              "absolute_L2": 3.789762588943573e-08,
+              "relative_L2_percent": 9.547154472844449e-06,
+              "cosine": 0.9999999999999958,
+              "max_abs": 1.8275507246423572e-08
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.0200698490702777e-11,
+              "actual_squared": 0.15757092741708756,
+              "reference_squared": 0.1575717494769821,
+              "absolute_L2": 5.495516216944754e-06,
+              "relative_L2_percent": 0.0013844246242735224,
+              "cosine": 0.9999999999075705,
+              "max_abs": 1.3997057630443788e-06
+            },
+            "parts": 8,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/fp32_fp32_step1_grouped.pt",
+            "output_sha256": "89c7669b6dbd530159d74377524684077d96ec8488c1349a389fbda6b316b9b1",
+            "device_ms": [
+              3.5576798915863037,
+              3.5534400939941406,
+              3.552720069885254,
+              3.5490798950195312,
+              3.556119918823242
+            ],
+            "median_device_ms": 3.5534400939941406
+          },
+          "grouped64": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 1.4362300480556295e-15,
+              "actual_squared": 0.15757092741708756,
+              "reference_squared": 0.15757093409724307,
+              "absolute_L2": 3.789762588943573e-08,
+              "relative_L2_percent": 9.547154472844449e-06,
+              "cosine": 0.9999999999999958,
+              "max_abs": 1.8275507246423572e-08
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.0200698490702777e-11,
+              "actual_squared": 0.15757092741708756,
+              "reference_squared": 0.1575717494769821,
+              "absolute_L2": 5.495516216944754e-06,
+              "relative_L2_percent": 0.0013844246242735224,
+              "cosine": 0.9999999999075705,
+              "max_abs": 1.3997057630443788e-06
+            },
+            "parts": 8,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/fp32_fp32_step1_grouped64.pt",
+            "output_sha256": "850f0555dd0bd11ba5640f377e86e7f35bf33e310808040a57d4a2e73d6d0c76",
+            "device_ms": [
+              3.555720090866089,
+              3.562119960784912,
+              3.5627200603485107,
+              3.5500400066375732,
+              3.564079999923706
+            ],
+            "median_device_ms": 3.562119960784912
+          },
+          "grouped_work": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 2.2107547345337783e-15,
+              "actual_squared": 0.15757092757967983,
+              "reference_squared": 0.15757093409724307,
+              "absolute_L2": 4.701866368298634e-08,
+              "relative_L2_percent": 1.1844922597468692e-05,
+              "cosine": 0.9999999999999934,
+              "max_abs": 2.1210182277187073e-08
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.0260577927040503e-11,
+              "actual_squared": 0.15757092757967983,
+              "reference_squared": 0.1575717494769821,
+              "absolute_L2": 5.500961545679128e-06,
+              "relative_L2_percent": 0.0013857964057203476,
+              "cosine": 0.9999999999073792,
+              "max_abs": 1.4146069242382264e-06
+            },
+            "parts": 44,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/fp32_fp32_step1_grouped_work.pt",
+            "output_sha256": "371d2a1da992d06f480636313370ca1deab7b9d034184c5a9f3d3fb321364c33",
+            "device_ms": [
+              1.000040054321289,
+              1.0008000135421753,
+              0.997439980506897,
+              0.9961199760437012,
+              1.0046000480651855
+            ],
+            "median_device_ms": 1.000040054321289
+          }
+        },
+        "input_values_unchanged": true
+      },
+      {
+        "input_precision": "fp32",
+        "execution_precision": "tf32",
+        "step": 1,
+        "call": 474376,
+        "shapes": [
+          [
+            64,
+            360000
+          ],
+          [
+            360000,
+            256
+          ]
+        ],
+        "strides": [
+          [
+            1,
+            64
+          ],
+          [
+            256,
+            1
+          ]
+        ],
+        "input_sha256": "a18a11404e10cf25bb0590eddcfb6ac7a1393c6db1028075e762ec09c7665286",
+        "quantization_only_vs_CPU64": {
+          "status": "finite",
+          "elements": 16384,
+          "difference_squared": 3.017784147363402e-11,
+          "actual_squared": 0.1575717494769821,
+          "reference_squared": 0.15757093409724307,
+          "absolute_L2": 5.493436217308254e-06,
+          "relative_L2_percent": 0.001383904213587694,
+          "cosine": 0.9999999999075881,
+          "max_abs": 1.3933967419610394e-06
+        },
+        "implementations": {
+          "original": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 5.711787199111645e-08,
+              "actual_squared": 0.15765619903712802,
+              "reference_squared": 0.15757093409724307,
+              "absolute_L2": 0.00023899345595876983,
+              "relative_L2_percent": 0.06020713404829315,
+              "cosine": 0.9999998553857634,
+              "max_abs": 0.00010942330288096769
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 5.668911643323664e-08,
+              "actual_squared": 0.15765619903712802,
+              "reference_squared": 0.1575717494769821,
+              "absolute_L2": 0.0002380947635569431,
+              "relative_L2_percent": 0.05998058063452856,
+              "cosine": 0.9999998560498827,
+              "max_abs": 0.00010953254586044958
+            },
+            "parts": null,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/fp32_tf32_step1_original.pt",
+            "output_sha256": "19a19c752a147135e742b92d74872172cc997ae796f17f87728630495eb1c8d7",
+            "device_ms": [
+              12.060999870300293,
+              12.05951976776123,
+              12.049440383911133,
+              12.014679908752441,
+              12.003640174865723
+            ],
+            "median_device_ms": 12.049440383911133
+          },
+          "occupancy": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 1.5000170313406596e-09,
+              "actual_squared": 0.1575866929989806,
+              "reference_squared": 0.15757093409724307,
+              "absolute_L2": 3.873005333511251e-05,
+              "relative_L2_percent": 0.009756859255790413,
+              "cosine": 0.9999999964905849,
+              "max_abs": 1.7499012174349016e-05
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 1.3990309769204145e-09,
+              "actual_squared": 0.1575866929989806,
+              "reference_squared": 0.1575717494769821,
+              "absolute_L2": 3.740362251066619e-05,
+              "relative_L2_percent": 0.009422680963279246,
+              "cosine": 0.9999999966849988,
+              "max_abs": 1.6841263371508708e-05
+            },
+            "parts": 8,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/fp32_tf32_step1_occupancy.pt",
+            "output_sha256": "7615876bef4239d30e30c61c9a882f69ccd575d28497cc011afcc4e1308c6dbb",
+            "device_ms": [
+              1.2048399448394775,
+              1.192039966583252,
+              1.1947200298309326,
+              1.1982799768447876,
+              1.1969200372695923
+            ],
+            "median_device_ms": 1.1969200372695923
+          },
+          "bounded_tree": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 5.542428843024571e-11,
+              "actual_squared": 0.15757338328393258,
+              "reference_squared": 0.15757093409724307,
+              "absolute_L2": 7.4447490508576385e-06,
+              "relative_L2_percent": 0.0018754781475615607,
+              "cosine": 0.9999999998543299,
+              "max_abs": 2.568048658113664e-06
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 1.750137146131174e-11,
+              "actual_squared": 0.15757338328393258,
+              "reference_squared": 0.1575717494769821,
+              "absolute_L2": 4.183464050438553e-06,
+              "relative_L2_percent": 0.0010538938322722459,
+              "cosine": 0.999999999957904,
+              "max_abs": 1.9102998552733563e-06
+            },
+            "parts": 128,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/fp32_tf32_step1_bounded_tree.pt",
+            "output_sha256": "3b8bb851227fd54004ea8c1573419c8dec6f8cb6d9373610a46e031b0466433e",
+            "device_ms": [
+              1.1456799507141113,
+              1.12608003616333,
+              1.134160041809082,
+              1.108839988708496,
+              1.1269999742507935
+            ],
+            "median_device_ms": 1.1269999742507935
+          },
+          "grouped": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.7085435042787397e-11,
+              "actual_squared": 0.15757252846237485,
+              "reference_squared": 0.15757093409724307,
+              "absolute_L2": 6.089781198268736e-06,
+              "relative_L2_percent": 0.0015341351982130996,
+              "cosine": 0.9999999998951199,
+              "max_abs": 1.8265338057599223e-06
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.410800967546827e-12,
+              "actual_squared": 0.15757252846237485,
+              "reference_squared": 0.1575717494769821,
+              "absolute_L2": 1.8468353926505813e-06,
+              "relative_L2_percent": 0.00046525281586500103,
+              "cosine": 0.999999999992232,
+              "max_abs": 7.927127657347821e-07
+            },
+            "parts": 8,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/fp32_tf32_step1_grouped.pt",
+            "output_sha256": "7d21013df27ff7961893bd19b897ccb41d96a5d10c585ee57e7f43b30890b4e9",
+            "device_ms": [
+              1.2273600101470947,
+              1.2198799848556519,
+              1.2206000089645386,
+              1.2237600088119507,
+              1.2261600494384766
+            ],
+            "median_device_ms": 1.2237600088119507
+          },
+          "grouped64": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.707911039971977e-11,
+              "actual_squared": 0.1575725281896156,
+              "reference_squared": 0.15757093409724307,
+              "absolute_L2": 6.0892618928503784e-06,
+              "relative_L2_percent": 0.001534004375003696,
+              "cosine": 0.9999999998951355,
+              "max_abs": 1.8116326445660746e-06
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.442367944524604e-12,
+              "actual_squared": 0.1575725281896156,
+              "reference_squared": 0.1575717494769821,
+              "absolute_L2": 1.8553619443452547e-06,
+              "relative_L2_percent": 0.0004674008157362142,
+              "cosine": 0.9999999999921296,
+              "max_abs": 7.927127657347821e-07
+            },
+            "parts": 32,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/fp32_tf32_step1_grouped64.pt",
+            "output_sha256": "371e93340c5ade73344e61e129e8ae55b9b2e6e3afadc4d32e911fb515320ec5",
+            "device_ms": [
+              0.7979999780654907,
+              0.8065199851989746,
+              0.8198800086975098,
+              0.8144800066947937,
+              0.80867999792099
+            ],
+            "median_device_ms": 0.80867999792099
+          },
+          "grouped_work": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.7004875398861604e-11,
+              "actual_squared": 0.15757251678739964,
+              "reference_squared": 0.15757093409724307,
+              "absolute_L2": 6.083163272415233e-06,
+              "relative_L2_percent": 0.0015324680130285302,
+              "cosine": 0.9999999998951887,
+              "max_abs": 1.796731483372227e-06
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.413647741521201e-12,
+              "actual_squared": 0.15757251678739964,
+              "reference_squared": 0.1575717494769821,
+              "absolute_L2": 1.8476059486592916e-06,
+              "relative_L2_percent": 0.0004654469335185075,
+              "cosine": 0.9999999999921323,
+              "max_abs": 7.927127657347821e-07
+            },
+            "parts": 44,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/fp32_tf32_step1_grouped_work.pt",
+            "output_sha256": "5b654c94cdbcb246f6874d50b96cb4a7688bc78c141d623b1d8b0d17dd80334f",
+            "device_ms": [
+              0.8072400093078613,
+              0.8548399806022644,
+              0.7902399897575378,
+              0.843720018863678,
+              0.7912799715995789
+            ],
+            "median_device_ms": 0.8072400093078613
+          }
+        },
+        "input_values_unchanged": true
+      },
+      {
+        "input_precision": "tf32",
+        "execution_precision": "fp32",
+        "step": 0,
+        "call": 150934,
+        "shapes": [
+          [
+            64,
+            360000
+          ],
+          [
+            360000,
+            256
+          ]
+        ],
+        "strides": [
+          [
+            1,
+            64
+          ],
+          [
+            256,
+            1
+          ]
+        ],
+        "input_sha256": "8bfb79129e9757a774e993ec13fe633626e1b7b52d03b2c7a87479b28b4423dd",
+        "quantization_only_vs_CPU64": {
+          "status": "finite",
+          "elements": 16384,
+          "difference_squared": 3.1328265638556055e-11,
+          "actual_squared": 0.15879805586505527,
+          "reference_squared": 0.1587988260638783,
+          "absolute_L2": 5.597165857695844e-06,
+          "relative_L2_percent": 0.0014045737011122719,
+          "cosine": 0.999999999904299,
+          "max_abs": 1.0364980884448871e-06
+        },
+        "implementations": {
+          "original": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 2.0148880974302442e-11,
+              "actual_squared": 0.15879947568159108,
+              "reference_squared": 0.1587988260638783,
+              "absolute_L2": 4.4887504914288166e-06,
+              "relative_L2_percent": 0.0011264238100871925,
+              "cosine": 0.9999999999386504,
+              "max_abs": 2.1539896637723377e-06
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 5.0845014278582916e-11,
+              "actual_squared": 0.15879947568159108,
+              "reference_squared": 0.15879805586505527,
+              "absolute_L2": 7.130569001039322e-06,
+              "relative_L2_percent": 0.0017893759512746014,
+              "cosine": 0.9999999998499003,
+              "max_abs": 2.5253628390814464e-06
+            },
+            "parts": null,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/tf32_fp32_step0_original.pt",
+            "output_sha256": "d3506c89ce9bf6dcc615f21b61b613455900ae7ddae614cd972f58bb587102cf",
+            "device_ms": [
+              16.865760803222656,
+              16.942399978637695,
+              16.78152084350586,
+              16.994319915771484,
+              16.883159637451172
+            ],
+            "median_device_ms": 16.883159637451172
+          },
+          "occupancy": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 4.893490792542305e-13,
+              "actual_squared": 0.15879877993641617,
+              "reference_squared": 0.1587988260638783,
+              "absolute_L2": 6.995349020986948e-07,
+              "relative_L2_percent": 0.0001755439005165473,
+              "cosine": 0.9999999999984698,
+              "max_abs": 2.3240695158632807e-07
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.1775363556733605e-11,
+              "actual_squared": 0.15879877993641617,
+              "reference_squared": 0.15879805586505527,
+              "absolute_L2": 5.6369640372042115e-06,
+              "relative_L2_percent": 0.0014145642353229897,
+              "cosine": 0.9999999999025495,
+              "max_abs": 1.1853718728388474e-06
+            },
+            "parts": 8,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/tf32_fp32_step0_occupancy.pt",
+            "output_sha256": "8badce9cd1bf9aac284edeefba01a9461c3d629708b05a34746c4181e8bb0465",
+            "device_ms": [
+              1.8645600080490112,
+              1.8565200567245483,
+              1.858839988708496,
+              1.8656799793243408,
+              1.859879970550537
+            ],
+            "median_device_ms": 1.859879970550537
+          },
+          "bounded_tree": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 4.819413763682735e-15,
+              "actual_squared": 0.15879882965749467,
+              "reference_squared": 0.1587988260638783,
+              "absolute_L2": 6.942199769297002e-08,
+              "relative_L2_percent": 1.7421015334779312e-05,
+              "cosine": 0.999999999999985,
+              "max_abs": 2.1610452205500508e-08
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.140411344584652e-11,
+              "actual_squared": 0.15879882965749467,
+              "reference_squared": 0.15879805586505527,
+              "absolute_L2": 5.603937316373776e-06,
+              "relative_L2_percent": 0.0014062763665715862,
+              "cosine": 0.9999999999040878,
+              "max_abs": 1.0456734866465256e-06
+            },
+            "parts": 128,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/tf32_fp32_step0_bounded_tree.pt",
+            "output_sha256": "e7d1efc618d3c5855b218688c7b83b70d57eff306d0bc10502a1e9ab9c9c9ee6",
+            "device_ms": [
+              0.9256399869918823,
+              0.9145600199699402,
+              0.9185600280761719,
+              0.9178799986839294,
+              0.9130399823188782
+            ],
+            "median_device_ms": 0.9178799986839294
+          },
+          "grouped": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 1.469961333872932e-15,
+              "actual_squared": 0.15879883064129247,
+              "reference_squared": 0.1587988260638783,
+              "absolute_L2": 3.834007477656938e-08,
+              "relative_L2_percent": 9.621201532880084e-06,
+              "cosine": 0.9999999999999954,
+              "max_abs": 1.567303245519902e-08
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.134673107721136e-11,
+              "actual_squared": 0.15879883064129247,
+              "reference_squared": 0.15879805586505527,
+              "absolute_L2": 5.598815149405395e-06,
+              "relative_L2_percent": 0.0014049909877483396,
+              "cosine": 0.9999999999042759,
+              "max_abs": 1.0400855511988327e-06
+            },
+            "parts": 8,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/tf32_fp32_step0_grouped.pt",
+            "output_sha256": "7a93be05f6c27a1131c08e20ad117d98dd5d4bbccf93fc4da6c26fe1e34d635a",
+            "device_ms": [
+              3.5603599548339844,
+              3.548719882965088,
+              3.559999942779541,
+              3.5647199153900146,
+              3.5616800785064697
+            ],
+            "median_device_ms": 3.5603599548339844
+          },
+          "grouped64": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 1.469961333872932e-15,
+              "actual_squared": 0.15879883064129247,
+              "reference_squared": 0.1587988260638783,
+              "absolute_L2": 3.834007477656938e-08,
+              "relative_L2_percent": 9.621201532880084e-06,
+              "cosine": 0.9999999999999954,
+              "max_abs": 1.567303245519902e-08
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.134673107721136e-11,
+              "actual_squared": 0.15879883064129247,
+              "reference_squared": 0.15879805586505527,
+              "absolute_L2": 5.598815149405395e-06,
+              "relative_L2_percent": 0.0014049909877483396,
+              "cosine": 0.9999999999042759,
+              "max_abs": 1.0400855511988327e-06
+            },
+            "parts": 8,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/tf32_fp32_step0_grouped64.pt",
+            "output_sha256": "d79bda32dfeebc296448b0c878fe0c0de90b8ef720d56d615f42fa692c6226a2",
+            "device_ms": [
+              3.566119909286499,
+              3.5674800872802734,
+              3.5724399089813232,
+              3.565999984741211,
+              3.5713601112365723
+            ],
+            "median_device_ms": 3.5674800872802734
+          },
+          "grouped_work": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 2.092003270160085e-15,
+              "actual_squared": 0.1587988180755331,
+              "reference_squared": 0.1587988260638783,
+              "absolute_L2": 4.573842225263225e-08,
+              "relative_L2_percent": 1.1477770475228001e-05,
+              "cosine": 0.9999999999999937,
+              "max_abs": 2.309303137604246e-08
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.128246571420881e-11,
+              "actual_squared": 0.1587988180755331,
+              "reference_squared": 0.15879805586505527,
+              "absolute_L2": 5.59307301170017e-06,
+              "relative_L2_percent": 0.0014035500307760223,
+              "cosine": 0.9999999999043824,
+              "max_abs": 1.0372915834749863e-06
+            },
+            "parts": 44,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/tf32_fp32_step0_grouped_work.pt",
+            "output_sha256": "58704860fc411d6f0e7bdc9993bd494503c7de39ac17f6264f4233996e7e255f",
+            "device_ms": [
+              0.9975200295448303,
+              0.9937999844551086,
+              0.9929199814796448,
+              0.997160017490387,
+              0.9962000250816345
+            ],
+            "median_device_ms": 0.9962000250816345
+          }
+        },
+        "input_values_unchanged": true
+      },
+      {
+        "input_precision": "tf32",
+        "execution_precision": "tf32",
+        "step": 0,
+        "call": 150934,
+        "shapes": [
+          [
+            64,
+            360000
+          ],
+          [
+            360000,
+            256
+          ]
+        ],
+        "strides": [
+          [
+            1,
+            64
+          ],
+          [
+            256,
+            1
+          ]
+        ],
+        "input_sha256": "8bfb79129e9757a774e993ec13fe633626e1b7b52d03b2c7a87479b28b4423dd",
+        "quantization_only_vs_CPU64": {
+          "status": "finite",
+          "elements": 16384,
+          "difference_squared": 3.1328265638556055e-11,
+          "actual_squared": 0.15879805586505527,
+          "reference_squared": 0.1587988260638783,
+          "absolute_L2": 5.597165857695844e-06,
+          "relative_L2_percent": 0.0014045737011122719,
+          "cosine": 0.999999999904299,
+          "max_abs": 1.0364980884448871e-06
+        },
+        "implementations": {
+          "original": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 5.5716600185796406e-08,
+              "actual_squared": 0.15889189468209367,
+              "reference_squared": 0.1587988260638783,
+              "absolute_L2": 0.00023604364042650335,
+              "relative_L2_percent": 0.059233672556266125,
+              "cosine": 0.9999998675308759,
+              "max_abs": 0.00010615664421623205
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 5.582026192888792e-08,
+              "actual_squared": 0.15889189468209367,
+              "reference_squared": 0.15879805586505527,
+              "absolute_L2": 0.0002362631201201066,
+              "relative_L2_percent": 0.059288893390471484,
+              "cosine": 0.9999998679175292,
+              "max_abs": 0.00010652801739154116
+            },
+            "parts": null,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/tf32_tf32_step0_original.pt",
+            "output_sha256": "a5318531c1ea02ad17a28d9d0050e54d423f21f9decd19f0a248919f3fa9f728",
+            "device_ms": [
+              11.886079788208008,
+              11.858440399169922,
+              11.804519653320312,
+              11.79032039642334,
+              11.743160247802734
+            ],
+            "median_device_ms": 11.804519653320312
+          },
+          "occupancy": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 1.2794317507201825e-09,
+              "actual_squared": 0.158813445552084,
+              "reference_squared": 0.1587988260638783,
+              "absolute_L2": 3.5769145233289854e-05,
+              "relative_L2_percent": 0.00897604287299546,
+              "cosine": 0.999999997031069,
+              "max_abs": 1.586372504393252e-05
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 1.2580411326607472e-09,
+              "actual_squared": 0.158813445552084,
+              "reference_squared": 0.15879805586505527,
+              "absolute_L2": 3.546887554829935e-05,
+              "relative_L2_percent": 0.008900713661929066,
+              "cosine": 0.9999999972129731,
+              "max_abs": 1.5987837913913894e-05
+            },
+            "parts": 8,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/tf32_tf32_step0_occupancy.pt",
+            "output_sha256": "e6857a4a5261ecb375b8ce3506339cb669f30a7a8c5a52221dcb97d361170e1a",
+            "device_ms": [
+              1.223680019378662,
+              1.1975200176239014,
+              1.196679949760437,
+              1.1965199708938599,
+              1.195520043373108
+            ],
+            "median_device_ms": 1.196679949760437
+          },
+          "bounded_tree": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 4.793779905597109e-11,
+              "actual_squared": 0.15879976920178726,
+              "reference_squared": 0.1587988260638783,
+              "absolute_L2": 6.923712808599956e-06,
+              "relative_L2_percent": 0.0017374623465271166,
+              "cosine": 0.9999999998534709,
+              "max_abs": 1.5884126202264648e-06
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 1.6423300715942732e-11,
+              "actual_squared": 0.15879976920178726,
+              "reference_squared": 0.15879805586505527,
+              "absolute_L2": 4.052567175993846e-06,
+              "relative_L2_percent": 0.0010169688063591073,
+              "cosine": 0.9999999999628403,
+              "max_abs": 1.712525490207839e-06
+            },
+            "parts": 128,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/tf32_tf32_step0_bounded_tree.pt",
+            "output_sha256": "430f2c7bd0cac86952a1ef5f3eab5786f4f5331d7ca48fa28d92253a72f0a0a6",
+            "device_ms": [
+              1.1298799514770508,
+              1.1485600471496582,
+              1.139359951019287,
+              1.120959997177124,
+              1.1313999891281128
+            ],
+            "median_device_ms": 1.1313999891281128
+          },
+          "grouped": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.4704620662110606e-11,
+              "actual_squared": 0.15879888037538392,
+              "reference_squared": 0.1587988260638783,
+              "absolute_L2": 5.891062778659773e-06,
+              "relative_L2_percent": 0.001478325291920721,
+              "cosine": 0.9999999998907426,
+              "max_abs": 1.2285523034623325e-06
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.294970079006007e-12,
+              "actual_squared": 0.15879888037538392,
+              "reference_squared": 0.15879805586505527,
+              "absolute_L2": 1.8152052443197731e-06,
+              "relative_L2_percent": 0.0004555154869604251,
+              "cosine": 0.9999999999929952,
+              "max_abs": 7.514005932046652e-07
+            },
+            "parts": 8,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/tf32_tf32_step0_grouped.pt",
+            "output_sha256": "2e9ba9789a9e521ad9386650b84d7306f8fbce8db8a7d50c020fe8c1e8c89218",
+            "device_ms": [
+              1.231719970703125,
+              1.232319951057434,
+              1.2345999479293823,
+              1.228119969367981,
+              1.221560001373291
+            ],
+            "median_device_ms": 1.231719970703125
+          },
+          "grouped64": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.472240785918124e-11,
+              "actual_squared": 0.15879887379154073,
+              "reference_squared": 0.1587988260638783,
+              "absolute_L2": 5.89257226168515e-06,
+              "relative_L2_percent": 0.0014787040872277788,
+              "cosine": 0.9999999998906831,
+              "max_abs": 1.223895690589255e-06
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.3127442295303304e-12,
+              "actual_squared": 0.15879887379154073,
+              "reference_squared": 0.15879805586505527,
+              "absolute_L2": 1.8200945660954902e-06,
+              "relative_L2_percent": 0.0004567424345998402,
+              "cosine": 0.9999999999928857,
+              "max_abs": 7.514005932046652e-07
+            },
+            "parts": 32,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/tf32_tf32_step0_grouped64.pt",
+            "output_sha256": "034b273355fff32dd49ed8e5471c6bb8998047511249465af1909027327c5c0e",
+            "device_ms": [
+              0.8132799863815308,
+              0.811519980430603,
+              0.807479977607727,
+              0.8204799890518188,
+              0.8242800235748291
+            ],
+            "median_device_ms": 0.8132799863815308
+          },
+          "grouped_work": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.473368059036116e-11,
+              "actual_squared": 0.15879887075628163,
+              "reference_squared": 0.1587988260638783,
+              "absolute_L2": 5.893528704465701e-06,
+              "relative_L2_percent": 0.0014789441005506523,
+              "cosine": 0.9999999998906463,
+              "max_abs": 1.225758335738486e-06
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.312629697125787e-12,
+              "actual_squared": 0.15879887075628163,
+              "reference_squared": 0.15879805586505527,
+              "absolute_L2": 1.8200631025120493e-06,
+              "relative_L2_percent": 0.00045673453899157363,
+              "cosine": 0.9999999999928615,
+              "max_abs": 7.514005932046652e-07
+            },
+            "parts": 44,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/tf32_tf32_step0_grouped_work.pt",
+            "output_sha256": "58b06b16846a49d9be3e74f50efd35fe134f2fe5eb49a2b919402c5a8b67ebf6",
+            "device_ms": [
+              0.8445600271224976,
+              0.8503999710083008,
+              0.7919999957084656,
+              0.7917600274085999,
+              0.8520399928092957
+            ],
+            "median_device_ms": 0.8445600271224976
+          }
+        },
+        "input_values_unchanged": true
+      },
+      {
+        "input_precision": "tf32",
+        "execution_precision": "fp32",
+        "step": 1,
+        "call": 474376,
+        "shapes": [
+          [
+            64,
+            360000
+          ],
+          [
+            360000,
+            256
+          ]
+        ],
+        "strides": [
+          [
+            1,
+            64
+          ],
+          [
+            256,
+            1
+          ]
+        ],
+        "input_sha256": "a159002d547bc8bcbdf2c7a04f7ced50ef6adeff61a9b1cc1c88924b2facc74f",
+        "quantization_only_vs_CPU64": {
+          "status": "finite",
+          "elements": 16384,
+          "difference_squared": 3.25545139980694e-11,
+          "actual_squared": 0.15782258683938288,
+          "reference_squared": 0.15782226882777564,
+          "absolute_L2": 5.70565631615412e-06,
+          "relative_L2_percent": 0.0014362216426233511,
+          "cosine": 0.999999999897371,
+          "max_abs": 7.594861878464088e-07
+        },
+        "implementations": {
+          "original": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 2.3771694354195237e-11,
+              "actual_squared": 0.15782343291619194,
+              "reference_squared": 0.15782226882777564,
+              "absolute_L2": 4.875622458127294e-06,
+              "relative_L2_percent": 0.0012272864167785836,
+              "cosine": 0.9999999999314891,
+              "max_abs": 3.1348141349696323e-06
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 5.793492296989199e-11,
+              "actual_squared": 0.15782343291619194,
+              "reference_squared": 0.15782258683938288,
+              "absolute_L2": 7.611499390388992e-06,
+              "relative_L2_percent": 0.0019159564715767524,
+              "cosine": 0.9999999998200486,
+              "max_abs": 3.232414327980493e-06
+            },
+            "parts": null,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/tf32_fp32_step1_original.pt",
+            "output_sha256": "89cb90e47973b9e482cdd0b6478bb8b888ef7b0fb086d05b01cb0963824a7a08",
+            "device_ms": [
+              16.86836051940918,
+              16.869279861450195,
+              16.93907928466797,
+              16.838720321655273,
+              16.923559188842773
+            ],
+            "median_device_ms": 16.869279861450195
+          },
+          "occupancy": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 4.672393311900697e-13,
+              "actual_squared": 0.15782232634381277,
+              "reference_squared": 0.15782226882777564,
+              "absolute_L2": 6.835490700674457e-07,
+              "relative_L2_percent": 0.00017206223330459234,
+              "cosine": 0.9999999999985364,
+              "max_abs": 2.632968245097622e-07
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.249620879820884e-11,
+              "actual_squared": 0.15782232634381277,
+              "reference_squared": 0.15782258683938288,
+              "absolute_L2": 5.700544605404718e-06,
+              "relative_L2_percent": 0.0014349334826234462,
+              "cosine": 0.9999999998973887,
+              "max_abs": 7.910841574101934e-07
+            },
+            "parts": 8,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/tf32_fp32_step1_occupancy.pt",
+            "output_sha256": "fc63489fc56d3e81e3e79b4f6b579e5e89afc1be4b647feed2095014dfee7939",
+            "device_ms": [
+              1.8812799453735352,
+              1.8547600507736206,
+              1.8662400245666504,
+              1.8507599830627441,
+              1.8446400165557861
+            ],
+            "median_device_ms": 1.8547600507736206
+          },
+          "bounded_tree": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.6299319028614334e-15,
+              "actual_squared": 0.1578222705029403,
+              "reference_squared": 0.15782226882777564,
+              "absolute_L2": 6.024891619657099e-08,
+              "relative_L2_percent": 1.5165792082696216e-05,
+              "cosine": 0.9999999999999888,
+              "max_abs": 1.6656160693739874e-08
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.256407521557558e-11,
+              "actual_squared": 0.1578222705029403,
+              "reference_squared": 0.15782258683938288,
+              "absolute_L2": 5.7064941264821765e-06,
+              "relative_L2_percent": 0.0014364310881314402,
+              "cosine": 0.9999999998973355,
+              "max_abs": 7.603505124478827e-07
+            },
+            "parts": 128,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/tf32_fp32_step1_bounded_tree.pt",
+            "output_sha256": "cb0f2e222df6848e1f9a5b44effa38b217cdd1f50ca9397db444f3528a3f9653",
+            "device_ms": [
+              0.9279199838638306,
+              0.9244400262832642,
+              0.9253600239753723,
+              0.9132800102233887,
+              0.9149199724197388
+            ],
+            "median_device_ms": 0.9244400262832642
+          },
+          "grouped": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 1.201076804292081e-15,
+              "actual_squared": 0.15782227109647026,
+              "reference_squared": 0.15782226882777564,
+              "absolute_L2": 3.4656554997461605e-08,
+              "relative_L2_percent": 8.72371057562597e-06,
+              "cosine": 0.9999999999999961,
+              "max_abs": 1.3338348925362453e-08
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.254545889732708e-11,
+              "actual_squared": 0.15782227109647026,
+              "reference_squared": 0.15782258683938288,
+              "absolute_L2": 5.704862741322273e-06,
+              "relative_L2_percent": 0.0014360204380355211,
+              "cosine": 0.9999999998973926,
+              "max_abs": 7.603505124478827e-07
+            },
+            "parts": 8,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/tf32_fp32_step1_grouped.pt",
+            "output_sha256": "e21d3901110a4a737f21e593503645ef148a9cfd07dd19079d3f0923a0bd29fb",
+            "device_ms": [
+              3.570039987564087,
+              3.5606400966644287,
+              3.556040048599243,
+              3.576240062713623,
+              3.550800085067749
+            ],
+            "median_device_ms": 3.5606400966644287
+          },
+          "grouped64": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 1.201076804292081e-15,
+              "actual_squared": 0.15782227109647026,
+              "reference_squared": 0.15782226882777564,
+              "absolute_L2": 3.4656554997461605e-08,
+              "relative_L2_percent": 8.72371057562597e-06,
+              "cosine": 0.9999999999999961,
+              "max_abs": 1.3338348925362453e-08
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.254545889732708e-11,
+              "actual_squared": 0.15782227109647026,
+              "reference_squared": 0.15782258683938288,
+              "absolute_L2": 5.704862741322273e-06,
+              "relative_L2_percent": 0.0014360204380355211,
+              "cosine": 0.9999999998973926,
+              "max_abs": 7.603505124478827e-07
+            },
+            "parts": 8,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/tf32_fp32_step1_grouped64.pt",
+            "output_sha256": "5defc4fd515991fadc7c484aa89404a8e1beded5f9b56f2d596703117d0ba8f8",
+            "device_ms": [
+              3.5633199214935303,
+              3.5515999794006348,
+              3.555759906768799,
+              3.5525200366973877,
+              3.5747599601745605
+            ],
+            "median_device_ms": 3.555759906768799
+          },
+          "grouped_work": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 2.8391376733139883e-15,
+              "actual_squared": 0.15782225490454593,
+              "reference_squared": 0.15782226882777564,
+              "absolute_L2": 5.328355912768955e-08,
+              "relative_L2_percent": 1.3412479927773065e-05,
+              "cosine": 0.9999999999999919,
+              "max_abs": 3.472639936719091e-08
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.260408116656575e-11,
+              "actual_squared": 0.15782225490454593,
+              "reference_squared": 0.15782258683938288,
+              "absolute_L2": 5.7099983508373926e-06,
+              "relative_L2_percent": 0.0014373131668109326,
+              "cosine": 0.9999999998972593,
+              "max_abs": 7.603505124478827e-07
+            },
+            "parts": 44,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/tf32_fp32_step1_grouped_work.pt",
+            "output_sha256": "84938d46f92ad082726d1533e800dada18b3c8e733dbb2503f618fc5d050a1de",
+            "device_ms": [
+              1.0058799982070923,
+              1.0007200241088867,
+              0.9928399920463562,
+              0.9954400062561035,
+              0.9944800138473511
+            ],
+            "median_device_ms": 0.9954400062561035
+          }
+        },
+        "input_values_unchanged": true
+      },
+      {
+        "input_precision": "tf32",
+        "execution_precision": "tf32",
+        "step": 1,
+        "call": 474376,
+        "shapes": [
+          [
+            64,
+            360000
+          ],
+          [
+            360000,
+            256
+          ]
+        ],
+        "strides": [
+          [
+            1,
+            64
+          ],
+          [
+            256,
+            1
+          ]
+        ],
+        "input_sha256": "a159002d547bc8bcbdf2c7a04f7ced50ef6adeff61a9b1cc1c88924b2facc74f",
+        "quantization_only_vs_CPU64": {
+          "status": "finite",
+          "elements": 16384,
+          "difference_squared": 3.25545139980694e-11,
+          "actual_squared": 0.15782258683938288,
+          "reference_squared": 0.15782226882777564,
+          "absolute_L2": 5.70565631615412e-06,
+          "relative_L2_percent": 0.0014362216426233511,
+          "cosine": 0.999999999897371,
+          "max_abs": 7.594861878464088e-07
+        },
+        "implementations": {
+          "original": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 5.6514989954091116e-08,
+              "actual_squared": 0.15790737837510987,
+              "reference_squared": 0.15782226882777564,
+              "absolute_L2": 0.0002377288159943828,
+              "relative_L2_percent": 0.059840840682899306,
+              "cosine": 0.9999998573344957,
+              "max_abs": 0.00011084785782469742
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 5.665314421986697e-08,
+              "actual_squared": 0.15790737837510987,
+              "reference_squared": 0.15782258683938288,
+              "absolute_L2": 0.0002380192097706968,
+              "relative_L2_percent": 0.05991387792733504,
+              "cosine": 0.9999998566260268,
+              "max_abs": 0.00011094545801770828
+            },
+            "parts": null,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/tf32_tf32_step1_original.pt",
+            "output_sha256": "c25bbe3dc36b3da55c265a88341639a0f1b3ef3e32488ee41b6827705c01edc0",
+            "device_ms": [
+              11.930720329284668,
+              11.907520294189453,
+              11.863240242004395,
+              11.87012004852295,
+              11.8689603805542
+            ],
+            "median_device_ms": 11.87012004852295
+          },
+          "occupancy": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 1.406228020792598e-09,
+              "actual_squared": 0.15783764489583846,
+              "reference_squared": 0.15782226882777564,
+              "absolute_L2": 3.749970694275621e-05,
+              "relative_L2_percent": 0.009439385711111732,
+              "cosine": 0.9999999967314912,
+              "max_abs": 1.7030464432299386e-05
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 1.4101826692084091e-09,
+              "actual_squared": 0.15783764489583846,
+              "reference_squared": 0.15782258683938288,
+              "absolute_L2": 3.755239898073636e-05,
+              "relative_L2_percent": 0.009452639770453566,
+              "cosine": 0.9999999966703991,
+              "max_abs": 1.7170993372742083e-05
+            },
+            "parts": 8,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/tf32_tf32_step1_occupancy.pt",
+            "output_sha256": "1718886340435069058369d5146d1d88c9890a4f307fc6e8f7e48182f30dcdc3",
+            "device_ms": [
+              1.214959979057312,
+              1.196720004081726,
+              1.198799967765808,
+              1.1984399557113647,
+              1.1951199769973755
+            ],
+            "median_device_ms": 1.1984399557113647
+          },
+          "bounded_tree": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 4.587571616918213e-11,
+              "actual_squared": 0.15782422759560727,
+              "reference_squared": 0.15782226882777564,
+              "absolute_L2": 6.77316146043944e-06,
+              "relative_L2_percent": 0.0017049328840441753,
+              "cosine": 0.999999999873916,
+              "max_abs": 1.7865765309932335e-06
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 1.7566230531348487e-11,
+              "actual_squared": 0.15782422759560727,
+              "reference_squared": 0.15782258683938288,
+              "absolute_L2": 4.191208719611621e-06,
+              "relative_L2_percent": 0.0010550054671499371,
+              "cosine": 0.9999999999578586,
+              "max_abs": 1.9271054714359304e-06
+            },
+            "parts": 128,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/tf32_tf32_step1_bounded_tree.pt",
+            "output_sha256": "c5dd2aeefd131b53c8258b797c994564b88c6a76f384820914736c7f464103b3",
+            "device_ms": [
+              1.14628005027771,
+              1.135599970817566,
+              1.1526800394058228,
+              1.144320011138916,
+              1.1425600051879883
+            ],
+            "median_device_ms": 1.144320011138916
+          },
+          "grouped": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.439177705212164e-11,
+              "actual_squared": 0.15782335742104234,
+              "reference_squared": 0.15782226882777564,
+              "absolute_L2": 5.864450277061068e-06,
+              "relative_L2_percent": 0.0014761930868771424,
+              "cosine": 0.99999999989699,
+              "max_abs": 9.785525618144497e-07
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.376659341619338e-12,
+              "actual_squared": 0.15782335742104234,
+              "reference_squared": 0.15782258683938288,
+              "absolute_L2": 1.8375688671773196e-06,
+              "relative_L2_percent": 0.00046255038363163015,
+              "cosine": 0.9999999999922825,
+              "max_abs": 7.797160595096608e-07
+            },
+            "parts": 8,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/tf32_tf32_step1_grouped.pt",
+            "output_sha256": "85c4ea2a94a644f4f240ae2ce537f9d3ea70ae30e684af79fa466600aaec9517",
+            "device_ms": [
+              1.2345600128173828,
+              1.2227200269699097,
+              1.231600046157837,
+              1.2297199964523315,
+              1.2211999893188477
+            ],
+            "median_device_ms": 1.2297199964523315
+          },
+          "grouped64": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.445193961111112e-11,
+              "actual_squared": 0.15782336166323085,
+              "reference_squared": 0.15782226882777564,
+              "absolute_L2": 5.869577464444193e-06,
+              "relative_L2_percent": 0.0014774836969450112,
+              "cosine": 0.999999999896846,
+              "max_abs": 9.934537230082974e-07
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.418056994557801e-12,
+              "actual_squared": 0.15782336166323085,
+              "reference_squared": 0.15782258683938288,
+              "absolute_L2": 1.8487987977489063e-06,
+              "relative_L2_percent": 0.00046537716677256516,
+              "cosine": 0.9999999999921843,
+              "max_abs": 7.871666401065847e-07
+            },
+            "parts": 32,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/tf32_tf32_step1_grouped64.pt",
+            "output_sha256": "71c9b2fcbe742e740cd26a2d494c7e05a1abdbf3bdc62672c1149f404cf31b85",
+            "device_ms": [
+              0.8227999806404114,
+              0.828719973564148,
+              0.8263599872589111,
+              0.8093199729919434,
+              0.7316799759864807
+            ],
+            "median_device_ms": 0.8227999806404114
+          },
+          "grouped_work": {
+            "vs_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.449020494083249e-11,
+              "actual_squared": 0.15782337000902824,
+              "reference_squared": 0.15782226882777564,
+              "absolute_L2": 5.872836192235613e-06,
+              "relative_L2_percent": 0.0014783039803834307,
+              "cosine": 0.999999999896817,
+              "max_abs": 1.008354884202145e-06
+            },
+            "vs_RNE_operand_CPU64": {
+              "status": "finite",
+              "elements": 16384,
+              "difference_squared": 3.443546073800555e-12,
+              "actual_squared": 0.15782337000902824,
+              "reference_squared": 0.15782258683938288,
+              "absolute_L2": 1.8556794102970897e-06,
+              "relative_L2_percent": 0.00046710914538334333,
+              "cosine": 0.9999999999921687,
+              "max_abs": 7.946172207035085e-07
+            },
+            "parts": 44,
+            "repeats_byte_equal": true,
+            "output_file": "/root/xishiqing_protenix_precision_20261023/mm_accumulation_20261105_v9/outputs/tf32_tf32_step1_grouped_work.pt",
+            "output_sha256": "ee4c071c65f5a6a2c48961dad3c959fc8d54e4f78353f422ad13c6c177266491",
+            "device_ms": [
+              0.863319993019104,
+              0.8558800220489502,
+              0.8019599914550781,
+              0.796999990940094,
+              0.7886800169944763
+            ],
+            "median_device_ms": 0.8019599914550781
+          }
+        },
+        "input_values_unchanged": true
+      }
+    ],
+    "generic_checks": [
+      {
+        "M": 1,
+        "N": 1,
+        "K": 8209,
+        "strided": false,
+        "mode": "fp32",
+        "selected": true,
+        "error_vs_declared_reference": {
+          "status": "finite",
+          "elements": 1,
+          "difference_squared": 4.973180809853407e-10,
+          "actual_squared": 13541.783992410637,
+          "reference_squared": 13541.789182622702,
+          "absolute_L2": 2.2300629609617317e-05,
+          "relative_L2_percent": 1.916368838673855e-05,
+          "cosine": 1.0,
+          "max_abs": 2.2300629609617317e-05
+        },
+        "repeat_and_strided_mm_out": "PASS"
+      },
+      {
+        "M": 1,
+        "N": 1,
+        "K": 8209,
+        "strided": false,
+        "mode": "tf32",
+        "selected": false,
+        "error_vs_declared_reference": {
+          "status": "finite",
+          "elements": 1,
+          "difference_squared": 2.5110658795156397e-10,
+          "actual_squared": 13541.792870675272,
+          "reference_squared": 13541.789182622702,
+          "absolute_L2": 1.5846343046632683e-05,
+          "relative_L2_percent": 1.3617300745808001e-05,
+          "cosine": 1.0,
+          "max_abs": 1.5846343046632683e-05
+        },
+        "repeat_and_strided_mm_out": "PASS"
+      },
+      {
+        "M": 17,
+        "N": 65,
+        "K": 8192,
+        "strided": false,
+        "mode": "fp32",
+        "selected": false,
+        "error_vs_declared_reference": {
+          "status": "finite",
+          "elements": 1105,
+          "difference_squared": 7.864614056059918e-07,
+          "actual_squared": 8840538.402435618,
+          "reference_squared": 8840538.254236475,
+          "absolute_L2": 0.0008868265927485439,
+          "relative_L2_percent": 2.9826298071441097e-05,
+          "cosine": 0.9999999999999557,
+          "max_abs": 0.00010061598268862326
+        },
+        "repeat_and_strided_mm_out": "PASS"
+      },
+      {
+        "M": 17,
+        "N": 65,
+        "K": 8192,
+        "strided": false,
+        "mode": "tf32",
+        "selected": false,
+        "error_vs_declared_reference": {
+          "status": "finite",
+          "elements": 1105,
+          "difference_squared": 6.410466140711213e-06,
+          "actual_squared": 8840244.798388815,
+          "reference_squared": 8840257.430136021,
+          "absolute_L2": 0.002531889835816561,
+          "relative_L2_percent": 8.515543059846997e-05,
+          "cosine": 0.9999999999998928,
+          "max_abs": 0.0002740784602792701
+        },
+        "repeat_and_strided_mm_out": "PASS"
+      },
+      {
+        "M": 17,
+        "N": 65,
+        "K": 8193,
+        "strided": false,
+        "mode": "fp32",
+        "selected": true,
+        "error_vs_declared_reference": {
+          "status": "finite",
+          "elements": 1105,
+          "difference_squared": 1.4569955655757716e-06,
+          "actual_squared": 9074930.041848315,
+          "reference_squared": 9074930.262609068,
+          "absolute_L2": 0.0012070607132931514,
+          "relative_L2_percent": 4.006890431680668e-05,
+          "cosine": 0.9999999999999197,
+          "max_abs": 0.00014697342260205914
+        },
+        "repeat_and_strided_mm_out": "PASS"
+      },
+      {
+        "M": 17,
+        "N": 65,
+        "K": 8193,
+        "strided": false,
+        "mode": "tf32",
+        "selected": true,
+        "error_vs_declared_reference": {
+          "status": "finite",
+          "elements": 1105,
+          "difference_squared": 2.6356191252972372e-05,
+          "actual_squared": 9074824.925324958,
+          "reference_squared": 9074851.661682567,
+          "absolute_L2": 0.00513382812849947,
+          "relative_L2_percent": 0.0001704203911594736,
+          "cosine": 0.999999999999633,
+          "max_abs": 0.0006018248968757689
+        },
+        "repeat_and_strided_mm_out": "PASS"
+      },
+      {
+        "M": 33,
+        "N": 17,
+        "K": 8209,
+        "strided": true,
+        "mode": "fp32",
+        "selected": true,
+        "error_vs_declared_reference": {
+          "status": "finite",
+          "elements": 561,
+          "difference_squared": 8.12119659654592e-07,
+          "actual_squared": 5065035.8370679775,
+          "reference_squared": 5065035.8929927815,
+          "absolute_L2": 0.0009011768193060627,
+          "relative_L2_percent": 4.004227540494595e-05,
+          "cosine": 0.9999999999999201,
+          "max_abs": 0.00012753009406196725
+        },
+        "repeat_and_strided_mm_out": "PASS"
+      },
+      {
+        "M": 33,
+        "N": 17,
+        "K": 8209,
+        "strided": true,
+        "mode": "tf32",
+        "selected": true,
+        "error_vs_declared_reference": {
+          "status": "finite",
+          "elements": 561,
+          "difference_squared": 1.4329817961842549e-05,
+          "actual_squared": 5065102.255692578,
+          "reference_squared": 5065117.137126094,
+          "absolute_L2": 0.003785474601928079,
+          "relative_L2_percent": 0.0001681998445123518,
+          "cosine": 0.9999999999996646,
+          "max_abs": 0.0004648621556953003
+        },
+        "repeat_and_strided_mm_out": "PASS"
+      },
+      {
+        "M": 65,
+        "N": 33,
+        "K": 16387,
+        "strided": true,
+        "mode": "fp32",
+        "selected": true,
+        "error_vs_declared_reference": {
+          "status": "finite",
+          "elements": 2145,
+          "difference_squared": 9.129723169157028e-06,
+          "actual_squared": 33846266.95926337,
+          "reference_squared": 33846267.14923784,
+          "absolute_L2": 0.0030215431767818624,
+          "relative_L2_percent": 5.1936588059345135e-05,
+          "cosine": 0.9999999999998651,
+          "max_abs": 0.0003069762215659466
+        },
+        "repeat_and_strided_mm_out": "PASS"
+      },
+      {
+        "M": 65,
+        "N": 33,
+        "K": 16387,
+        "strided": true,
+        "mode": "tf32",
+        "selected": true,
+        "error_vs_declared_reference": {
+          "status": "finite",
+          "elements": 2145,
+          "difference_squared": 0.00020249274504564662,
+          "actual_squared": 33846633.13103956,
+          "reference_squared": 33846774.66373765,
+          "absolute_L2": 0.014229994555362509,
+          "relative_L2_percent": 0.00024459416303547054,
+          "cosine": 0.9999999999991943,
+          "max_abs": 0.001020746898575453
+        },
+        "repeat_and_strided_mm_out": "PASS"
+      },
+      {
+        "M": 64,
+        "N": 257,
+        "K": 10007,
+        "strided": false,
+        "mode": "fp32",
+        "selected": true,
+        "error_vs_declared_reference": {
+          "status": "finite",
+          "elements": 16448,
+          "difference_squared": 4.732716982256452e-05,
+          "actual_squared": 165283581.57977587,
+          "reference_squared": 165283582.4996205,
+          "absolute_L2": 0.006879474530991777,
+          "relative_L2_percent": 5.351067241877781e-05,
+          "cosine": 0.999999999999857,
+          "max_abs": 0.0003140165411537055
+        },
+        "repeat_and_strided_mm_out": "PASS"
+      },
+      {
+        "M": 64,
+        "N": 257,
+        "K": 10007,
+        "strided": false,
+        "mode": "tf32",
+        "selected": true,
+        "error_vs_declared_reference": {
+          "status": "finite",
+          "elements": 16448,
+          "difference_squared": 0.0004915707427153126,
+          "actual_squared": 165284631.28169873,
+          "reference_squared": 165285122.50853032,
+          "absolute_L2": 0.022171394694861048,
+          "relative_L2_percent": 0.00017245513537159107,
+          "cosine": 0.9999999999996172,
+          "max_abs": 0.0006924284680280834
+        },
+        "repeat_and_strided_mm_out": "PASS"
+      },
+      {
+        "M": 1024,
+        "N": 128,
+        "K": 4096,
+        "strided": false,
+        "mode": "fp32",
+        "selected": false,
+        "error_vs_declared_reference": {
+          "status": "finite",
+          "elements": 131072,
+          "difference_squared": 0.00023776853992720003,
+          "actual_squared": 535307712.9095856,
+          "reference_squared": 535307709.2966486,
+          "absolute_L2": 0.015419745131719915,
+          "relative_L2_percent": 6.664620834797068e-05,
+          "cosine": 0.9999999999997778,
+          "max_abs": 0.0002933147023895799
+        },
+        "repeat_and_strided_mm_out": "PASS"
+      },
+      {
+        "M": 1024,
+        "N": 128,
+        "K": 4096,
+        "strided": false,
+        "mode": "tf32",
+        "selected": false,
+        "error_vs_declared_reference": {
+          "status": "finite",
+          "elements": 131072,
+          "difference_squared": 0.010184770061365134,
+          "actual_squared": 535303493.44306755,
+          "reference_squared": 535307550.1234578,
+          "absolute_L2": 0.10091962178568216,
+          "relative_L2_percent": 0.0004361882172788017,
+          "cosine": 0.9999999999976658,
+          "max_abs": 0.0014160173595882952
+        },
+        "repeat_and_strided_mm_out": "PASS"
+      },
+      {
+        "M": 512,
+        "N": 512,
+        "K": 8209,
+        "strided": false,
+        "mode": "fp32",
+        "selected": true,
+        "error_vs_declared_reference": {
+          "status": "finite",
+          "elements": 262144,
+          "difference_squared": 0.0007078518758588957,
+          "actual_squared": 2148530657.521307,
+          "reference_squared": 2148530651.9916973,
+          "absolute_L2": 0.026605485822643715,
+          "relative_L2_percent": 5.739848329491437e-05,
+          "cosine": 0.9999999999998354,
+          "max_abs": 0.0003519857192593179
+        },
+        "repeat_and_strided_mm_out": "PASS"
+      },
+      {
+        "M": 512,
+        "N": 512,
+        "K": 8209,
+        "strided": false,
+        "mode": "tf32",
+        "selected": true,
+        "error_vs_declared_reference": {
+          "status": "finite",
+          "elements": 262144,
+          "difference_squared": 0.023124407488736606,
+          "actual_squared": 2148512643.463268,
+          "reference_squared": 2148524843.938218,
+          "absolute_L2": 0.15206711507994292,
+          "relative_L2_percent": 0.0003280689411372217,
+          "cosine": 0.9999999999986493,
+          "max_abs": 0.0015865434252191335
+        },
+        "repeat_and_strided_mm_out": "PASS"
+      },
+      {
+        "M": 128,
+        "N": 512,
+        "K": 65539,
+        "strided": false,
+        "mode": "fp32",
+        "selected": true,
+        "error_vs_declared_reference": {
+          "status": "finite",
+          "elements": 65536,
+          "difference_squared": 0.001409675858918231,
+          "actual_squared": 4311829544.949571,
+          "reference_squared": 4311829555.078809,
+          "absolute_L2": 0.037545650332871196,
+          "relative_L2_percent": 5.717798398525232e-05,
+          "cosine": 0.9999999999998366,
+          "max_abs": 0.0006978251816178727
+        },
+        "repeat_and_strided_mm_out": "PASS"
+      },
+      {
+        "M": 128,
+        "N": 512,
+        "K": 65539,
+        "strided": false,
+        "mode": "tf32",
+        "selected": true,
+        "error_vs_declared_reference": {
+          "status": "finite",
+          "elements": 65536,
+          "difference_squared": 0.04580299258598429,
+          "actual_squared": 4311824163.859464,
+          "reference_squared": 4311848364.227221,
+          "absolute_L2": 0.21401633719411303,
+          "relative_L2_percent": 0.00032592313362460573,
+          "cosine": 0.9999999999986263,
+          "max_abs": 0.0034869784403781523
+        },
+        "repeat_and_strided_mm_out": "PASS"
+      },
+      {
+        "M": 256,
+        "N": 1024,
+        "K": 65539,
+        "strided": true,
+        "mode": "fp32",
+        "selected": true,
+        "error_vs_declared_reference": {
+          "status": "finite",
+          "elements": 262144,
+          "difference_squared": 0.005679802829714367,
+          "actual_squared": 17222109017.835922,
+          "reference_squared": 17222109052.63844,
+          "absolute_L2": 0.07536446662528945,
+          "relative_L2_percent": 5.742796968012197e-05,
+          "cosine": 0.999999999999835,
+          "max_abs": 0.0006912176215791987
+        },
+        "repeat_and_strided_mm_out": "PASS"
+      },
+      {
+        "M": 256,
+        "N": 1024,
+        "K": 65539,
+        "strided": true,
+        "mode": "tf32",
+        "selected": true,
+        "error_vs_declared_reference": {
+          "status": "finite",
+          "elements": 262144,
+          "difference_squared": 0.18291068558129028,
+          "actual_squared": 17222003826.087353,
+          "reference_squared": 17222100487.510597,
+          "absolute_L2": 0.42768058826803246,
+          "relative_L2_percent": 0.0003258940859411898,
+          "cosine": 0.9999999999986273,
+          "max_abs": 0.0038679936012613325
+        },
+        "repeat_and_strided_mm_out": "PASS"
+      }
+    ],
+    "new_H100_GPU_execution": false,
+    "runtime": {
+      "torch": "2.9.0",
+      "torch_file": "/usr/local/lib/python3.12/site-packages/torch/__init__.py",
+      "triton": "3.6.0",
+      "triton_file": "/usr/local/lib/python3.12/site-packages/triton/__init__.py"
+    },
+    "timing_scope": "Complete FlagGems MM API, own allocations, five interleaved CUDA-event measurements after warmup"
+  },
+  "admission.json": {
+    "status": "WAITING_ANY_MATCHING_PPU_CAPACITY",
+    "mode": "exclusive",
+    "actual_GPU_cases": 0,
+    "eligible_cards": 15,
+    "cards": [
+      {
+        "gpu": 0,
+        "GPU_UUID": "GPU-019e1215-4190-0010-0000-0000e085f370",
+        "SKU": "PPU-ZW810E",
+        "memory_MiB": 2,
+        "total_memory_MiB": 97920,
+        "compute_app_count": 0,
+        "free_memory_MiB": 97918,
+        "owned_pending_launch_count": 0
+      },
+      {
+        "gpu": 1,
+        "GPU_UUID": "GPU-019e4205-c711-021a-0000-000020c87d05",
+        "SKU": "PPU-ZW810E",
+        "memory_MiB": 2,
+        "total_memory_MiB": 97920,
+        "compute_app_count": 0,
+        "free_memory_MiB": 97918,
+        "owned_pending_launch_count": 0
+      },
+      {
+        "gpu": 2,
+        "GPU_UUID": "GPU-019e4205-0490-0520-0000-0000a0791e63",
+        "SKU": "PPU-ZW810E",
+        "memory_MiB": 2,
+        "total_memory_MiB": 97920,
+        "compute_app_count": 0,
+        "free_memory_MiB": 97918,
+        "owned_pending_launch_count": 0
+      },
+      {
+        "gpu": 3,
+        "GPU_UUID": "GPU-019e421d-c441-0014-0000-0000405a293d",
+        "SKU": "PPU-ZW810E",
+        "memory_MiB": 2,
+        "total_memory_MiB": 97920,
+        "compute_app_count": 0,
+        "free_memory_MiB": 97918,
+        "owned_pending_launch_count": 0
+      },
+      {
+        "gpu": 4,
+        "GPU_UUID": "GPU-019e4205-c2a1-0618-0000-00006065aa17",
+        "SKU": "PPU-ZW810E",
+        "memory_MiB": 2,
+        "total_memory_MiB": 97920,
+        "compute_app_count": 0,
+        "free_memory_MiB": 97918,
+        "owned_pending_launch_count": 0
+      },
+      {
+        "gpu": 5,
+        "GPU_UUID": "GPU-019e4205-c771-0820-0000-0000e0abcd5e",
+        "SKU": "PPU-ZW810E",
+        "memory_MiB": 2,
+        "total_memory_MiB": 97920,
+        "compute_app_count": 0,
+        "free_memory_MiB": 97918,
+        "owned_pending_launch_count": 0
+      },
+      {
+        "gpu": 6,
+        "GPU_UUID": "GPU-019e421d-c481-0624-0000-0000a0780803",
+        "SKU": "PPU-ZW810E",
+        "memory_MiB": 2,
+        "total_memory_MiB": 97920,
+        "compute_app_count": 0,
+        "free_memory_MiB": 97918,
+        "owned_pending_launch_count": 0
+      },
+      {
+        "gpu": 7,
+        "GPU_UUID": "GPU-019e1215-0202-0104-0000-0000a0b25f7d",
+        "SKU": "PPU-ZW810E",
+        "memory_MiB": 2,
+        "total_memory_MiB": 97920,
+        "compute_app_count": 0,
+        "free_memory_MiB": 97918,
+        "owned_pending_launch_count": 0
+      },
+      {
+        "gpu": 8,
+        "GPU_UUID": "GPU-019e120d-c811-042c-0000-00006087ca21",
+        "SKU": "PPU-ZW810E",
+        "memory_MiB": 2,
+        "total_memory_MiB": 97920,
+        "compute_app_count": 0,
+        "free_memory_MiB": 97918,
+        "owned_pending_launch_count": 0
+      },
+      {
+        "gpu": 9,
+        "GPU_UUID": "GPU-019e421d-8611-0300-0000-000000c24c04",
+        "SKU": "PPU-ZW810E",
+        "memory_MiB": 2,
+        "total_memory_MiB": 97920,
+        "compute_app_count": 0,
+        "free_memory_MiB": 97918,
+        "owned_pending_launch_count": 0
+      },
+      {
+        "gpu": 10,
+        "GPU_UUID": "GPU-019e1215-0232-0716-0000-000020fb3443",
+        "SKU": "PPU-ZW810E",
+        "memory_MiB": 2,
+        "total_memory_MiB": 97920,
+        "compute_app_count": 0,
+        "free_memory_MiB": 97918,
+        "owned_pending_launch_count": 0
+      },
+      {
+        "gpu": 11,
+        "GPU_UUID": "GPU-019e1215-0202-0b1c-0000-0000c0762f18",
+        "SKU": "PPU-ZW810E",
+        "memory_MiB": 2,
+        "total_memory_MiB": 97920,
+        "compute_app_count": 0,
+        "free_memory_MiB": 97918,
+        "owned_pending_launch_count": 0
+      },
+      {
+        "gpu": 12,
+        "GPU_UUID": "GPU-019e1215-41e0-0216-0000-000080e7265a",
+        "SKU": "PPU-ZW810E",
+        "memory_MiB": 2,
+        "total_memory_MiB": 97920,
+        "compute_app_count": 0,
+        "free_memory_MiB": 97918,
+        "owned_pending_launch_count": 0
+      },
+      {
+        "gpu": 13,
+        "GPU_UUID": "GPU-019e120d-c871-0610-0000-000020fbe87a",
+        "SKU": "PPU-ZW810E",
+        "memory_MiB": 2,
+        "total_memory_MiB": 97920,
+        "compute_app_count": 0,
+        "free_memory_MiB": 97918,
+        "owned_pending_launch_count": 0
+      },
+      {
+        "gpu": 14,
+        "GPU_UUID": "GPU-019e421d-c451-0616-0000-000020403b2d",
+        "SKU": "PPU-ZW810E",
+        "memory_MiB": 2,
+        "total_memory_MiB": 97920,
+        "compute_app_count": 0,
+        "free_memory_MiB": 97918,
+        "owned_pending_launch_count": 0
+      },
+      {
+        "gpu": 15,
+        "GPU_UUID": "GPU-019e1215-41e0-0620-0000-000000b39e32",
+        "SKU": "PPU-ZW810E",
+        "memory_MiB": 2,
+        "total_memory_MiB": 97920,
+        "compute_app_count": 0,
+        "free_memory_MiB": 97918,
+        "owned_pending_launch_count": 0
+      }
+    ]
+  }
+}

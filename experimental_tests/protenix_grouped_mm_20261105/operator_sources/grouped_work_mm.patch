@@ -1,0 +1,17 @@
+--- a/src/flag_gems/ops/mm.py
++++ b/src/flag_gems/ops/mm.py
+@@ -273,12 +273,12 @@
+         return None
+     tile = _long_reduction_tile(M, N)
+     output_blocks = triton.cdiv(M, tile) * triton.cdiv(N, tile)
+-    desired = max(1, triton.cdiv(2 * get_sm_count(), output_blocks))
++    desired = max(1, triton.cdiv(2 * get_sm_count(), output_blocks), triton.cdiv(K, 8192))
+     # At least512 K values per split, at most64 partials and64MiB workspace.
+     maximum = min(64, K // 512, (64 * 1024 * 1024) // (4 * M * N))
+     if maximum < 1:
+         return None
+-    return min(triton.next_power_of_2(desired), 1 << (maximum.bit_length() - 1))
++    return min(desired, maximum)
+ 
+ 
+ def _long_reduction_splitk_mm(a, b, c, M, N, K):

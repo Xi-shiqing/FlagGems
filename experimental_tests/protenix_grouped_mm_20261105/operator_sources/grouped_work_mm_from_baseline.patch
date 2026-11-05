@@ -1,0 +1,133 @@
+--- a/src/flag_gems/ops/mm.py
++++ b/src/flag_gems/ops/mm.py
+@@ -254,6 +254,51 @@
+     return c
+ 
+ 
++
++def _long_reduction_splitk_parts(a, b, c, M, N, K):
++    """Bounded split-K from output occupancy and reduction work, no shape list."""
++    if (K <= 8192 or M <= 0 or N <= 0
++            or not _PPU_PACK_RHS_AVAILABLE
++            or os.environ.get("FLAG_GEMS_PPU_LONG_REDUCTION_SPLITK", "1") != "1"
++            or a.dtype is not torch.float32 or b.dtype is not torch.float32
++            or a.device.type != "cuda"
++            or (c is not None and c.dtype is not torch.float32)):
++        return None
++    for tensor, rows, cols in ((a, M, K), (b, K, N)):
++        if ((rows - 1) * abs(tensor.stride(0))
++                + (cols - 1) * abs(tensor.stride(1))) > 2147483647:
++            return None
++    if c is not None and ((M - 1) * abs(c.stride(0))
++                          + (N - 1) * abs(c.stride(1))) > 2147483647:
++        return None
++    tile = _long_reduction_tile(M, N)
++    output_blocks = triton.cdiv(M, tile) * triton.cdiv(N, tile)
++    desired = max(1, triton.cdiv(2 * get_sm_count(), output_blocks), triton.cdiv(K, 8192))
++    # At least512 K values per split, at most64 partials and64MiB workspace.
++    maximum = min(64, K // 512, (64 * 1024 * 1024) // (4 * M * N))
++    if maximum < 1:
++        return None
++    return min(desired, maximum)
++
++
++def _long_reduction_splitk_mm(a, b, c, M, N, K):
++    parts = _long_reduction_splitk_parts(a, b, c, M, N, K)
++    if parts is None:
++        return None
++    if c is None:
++        c = torch.empty((M, N), device=a.device, dtype=torch.float32)
++    partials = torch.empty((parts, M, N), device=a.device, dtype=torch.float32)
++    tile = _long_reduction_tile(M, N)
++    with torch_device_fn.device(a.device):
++        mm_kernel_grouped_splitk[(triton.cdiv(M, tile) * triton.cdiv(N, tile), parts)](
++            a, b, partials, M, N, K, *a.stride(), *b.stride(),
++            SPLIT_K=parts, BLOCK_M=tile, BLOCK_N=tile, BLOCK_K=32,
++            ALLOW_TF32=_allow_tf32(), num_warps=4, num_stages=2)
++        mm_kernel_h100_fp32_splitk_reduce[(triton.cdiv(M * N, 256),)](
++            partials, c, M * N, *c.stride(), N, parts, BLOCK=256, num_warps=4)
++    return c
++
++
+ _ordered_datatypes = [torch.float16, torch.bfloat16, torch.float32]
+ 
+ 
+@@ -724,6 +769,9 @@
+         if result is not None:
+             return result
+     use_direct = _should_direct(a, b)
++    reduced = _long_reduction_splitk_mm(a, b, None, M, N, K)
++    if reduced is not None:
++        return reduced
+     tf32_rne_prepack = _tf32_rne_rhs_prepack_enabled()
+     if use_direct and _direct_pack_profitable(a, b) and not tf32_rne_prepack:
+         b = b.contiguous()
+@@ -773,6 +821,9 @@
+         if result is not None:
+             return result
+     use_direct = _should_direct(a, b)
++    reduced = _long_reduction_splitk_mm(a, b, out, M, N, K)
++    if reduced is not None:
++        return reduced
+     tf32_rne_prepack = _tf32_rne_rhs_prepack_enabled()
+     if use_direct and _direct_pack_profitable(a, b) and not tf32_rne_prepack:
+         b = b.contiguous()
+@@ -788,3 +839,58 @@
+         return streamk_mm(a, b, out, M, N, K, sm_count=sm_count)
+     else:
+         return general_mm(a, b, out, M, N, K)
++
++
++@libentry()
++@triton.jit
++def mm_kernel_grouped_splitk(
++    A, B, partials, M, N, K,
++    stride_am, stride_ak, stride_bk, stride_bn,
++    SPLIT_K: tl.constexpr, BLOCK_M: tl.constexpr,
++    BLOCK_N: tl.constexpr, BLOCK_K: tl.constexpr,
++    ALLOW_TF32: tl.constexpr,
++):
++    """Deterministic FP32 split-K GEMM used for the PPU/H100 protocol."""
++    pid = tle.program_id(0)
++    split_id = tle.program_id(1)
++    grid_n = tl.cdiv(N, BLOCK_N)
++    pid_m = pid // grid_n
++    pid_n = pid % grid_n
++    rm = pid_m * BLOCK_M + tl.arange(0, BLOCK_M)
++    rn = pid_n * BLOCK_N + tl.arange(0, BLOCK_N)
++    chunk_k = tl.cdiv(K, SPLIT_K)
++    split_start = split_id * chunk_k
++    split_end = tl.minimum(split_start + chunk_k, K)
++    total = tl.zeros((BLOCK_M, BLOCK_N), dtype=tl.float32)
++    for group_start in range(0, chunk_k, 1024):
++        acc = tl.zeros((BLOCK_M, BLOCK_N), dtype=tl.float32)
++        group_end = tl.minimum(group_start + 1024, chunk_k)
++        for offset_k in range(group_start, group_end, BLOCK_K):
++            rk = split_start + offset_k + tl.arange(0, BLOCK_K)
++            mask_k = rk < split_end
++            a = tl.load(
++                A + rm[:, None] * stride_am + rk[None, :] * stride_ak,
++                mask=(rm < M)[:, None] & mask_k[None, :], other=0.0,
++            )
++            b = tl.load(
++                B + rk[:, None] * stride_bk + rn[None, :] * stride_bn,
++                mask=mask_k[:, None] & (rn < N)[None, :], other=0.0,
++            )
++            acc += tl.dot(
++                round_tf32_rne(a, ALLOW_TF32),
++                round_tf32_rne(b, ALLOW_TF32),
++                out_dtype=tl.float32,
++                allow_tf32=ALLOW_TF32,
++            )
++        total += acc
++    acc = total
++    offset = (split_id * M + rm)[:, None] * N + rn[None, :]
++    tl.store(
++        partials + offset,
++        acc,
++        mask=(rm < M)[:, None] & (rn < N)[None, :],
++    )
++
++
++def _long_reduction_tile(M, N):
++    return 64 if _allow_tf32() and M >= 64 and N >= 64 else 32
