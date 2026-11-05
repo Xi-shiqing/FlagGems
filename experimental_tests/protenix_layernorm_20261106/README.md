@@ -1,0 +1,11 @@
+# PPU LayerNorm backward experiments (2026-11-06)
+
+The core `src/flag_gems/ops/layernorm.py` patch fixes normalized-suffix M/N geometry and empty inputs. It does not integrate the experimental split or fused kernels. The new regression covers multidimensional prefixes, an unbatched input and empty inputs; the five exact test bodies were run in the original PPU container, without pytest collection.
+
+The experimental implementation reduces long affine-gradient sums in parallel and fuses input and parameter-gradient computation to reuse input loads. Configuration uses dimensions, SM count and bounded workspace, with no model/input/layer identity or exact-shape table. The v3 source is `layernorm_candidate_v3.py` (SHA-256 `9ef996d0835e8d53d623cfdf117a8a4f6bd071a26ea025406ecb6eb46d18742f`).
+
+[Full four-path results](REPORT.md) include every measured comparator, missing H100 measurements, absolute errors for tiny bias gradients and the complete two-step training outcome. The fused candidate improves operator device time on tested large inputs, while small inputs retain the original C++ implementation in the model experiment. The two-step training gate rejects promotion because both full-gradient differences increase, despite smaller actual-update differences. The integration adapter remains experimental.
+
+`benchmark_v3_complete.json` retains all 16 actual packets, all four implementations and seven raw timing samples per call. `operator_cases.csv` expands the results. `registered_v3_status.json` validates registered autograd; `core_check_status.json` binds the separately tested core-only source. Model comparisons are in `training_final_fp32_analysis.json` and `training_final_tf32_analysis.json`. Operator timings use the original PyTorch 2.10.0 / Triton 3.5.0 container.
+
+Scripts require the existing original-server paths and datasets. Raw operands, tensor outputs and training states remain on the original PPU server. Complete capture, launch, environment, source and failed-version records are in [the companion Protenix experiment](https://github.com/Xi-shiqing/Protenix-FlagOS/tree/master/comparison/training_gradient_20261106). [Independent result audit](EXPERIMENT_AUDIT.md) records same-family/provisional scope.

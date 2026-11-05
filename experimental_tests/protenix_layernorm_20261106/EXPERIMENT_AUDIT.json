@@ -1,0 +1,375 @@
+{
+  "audit_skill": "experiment-audit",
+  "verdict": "WARN",
+  "reason_code": "limited_scope_and_receipt_only_provenance",
+  "summary": "最终标量与声明匹配；旧形状错误及限定算子收益有证据。两种精度完整梯度退步，按既定门槛拒绝训练采用。保留单配置/两步与本地回执审计限制。",
+  "audited_input_hashes": {
+    "/home/lgx1429541889/Protenix/Protenix-main/protenix/model/layer_norm/layer_norm.py": "sha256:30b9a8803530a6fbdaa3c9302a7091eb04bca2d10dd2f79aa79a5efc1e4dfb8a",
+    "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/checkpoint_current_gems_20261018_224r2/norm_abi/fast_layer_norm_cuda_v2.py": "sha256:c6aba5e0de3553b22550653c4036e659acaf7ba05e64125b01ddc843dabec619",
+    "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/precision_residual_20261019/MSA0_CHILD_FINDINGS_20261030V.md": "sha256:f1dad887b6d641d36606111ef5e2ea44de0e5b09b91ffff6b05af0726b5abd57",
+    "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/precision_residual_20261019/TRANSITION_PRECISION_FINDINGS_20261027H.md": "sha256:33df7df2f05215164d1dd1898fb01a29b1a2871e265c2624010883386ab8b208",
+    "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/precision_residual_20261019/analyze_linear_forward_training_20261023.py": "sha256:10049ec7a27e10d180e244a69665f6921dae190d3a5cc532155be4340af5f723",
+    "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/precision_residual_20261019/analyze_softmax_forward_fidelity_training_20261023.py": "sha256:fe8f34671fbb6d5237ecbd718e65c5cc8556064a536ddd91bd515ada8bb16235",
+    "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/precision_residual_20261019/balanced_boundary_helpers_v2_20261025.py": "sha256:63bfdf25c34f0010b19fa77c06e89c7174333bfb5bb554e71565b468d5484ab7",
+    "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/precision_residual_20261019/bootstrap_replay_trunk_blocks_v2_20261027L.py": "sha256:a4404c1a2f8ecd67a3147f4eba5602ddc0758d100337676f8a7ecdea6f58fd2e",
+    "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/precision_residual_20261019/current_bmm_policy_existing_H100_snapshot_manifest.json": "sha256:9f07e8cc4b7ba2d5109b1730ad3bb546d1d32fc6ca7b361e027b25cd4906f7be",
+    "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/precision_residual_20261019/experiment_integrity_aten_backend_training_20261027K/extracted_references/fp32/training_report.json": "sha256:fb7673c4fdb55d57e5a3898b570261195f80b89ff4c138890d60d7c9266a74ae",
+    "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/precision_residual_20261019/experiment_integrity_aten_backend_training_20261027K/extracted_references/tf32/training_report.json": "sha256:2a71494fcfa0edbff0372dccc9239cac3037e57ac479f8f9be6d0014b0f36eb4",
+    "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/precision_residual_20261019/fused_backward_v2_observer_20261024.py": "sha256:fd617f0fe99ff2125f9f0d032827668acdcc7df3211d7159c3c57ca16f14ff3d",
+    "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/precision_residual_20261019/fused_backward_v2_training_final_results_20261024.json": "sha256:28ff3215bc5b8919f9961d354c24d63d405520b28ccbaf430c2dfa6f47519ddc",
+    "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/precision_residual_20261019/linear_x3_environment_20261023.sh": "sha256:9e1bf586ae707b84bf1a2dac1f94eff448d8e5c608769b2acc55f4735b31a354",
+    "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/precision_residual_20261019/noninner_private_package_observer_20261024.py": "sha256:5d60501dfc4c72b924255853dbaeb3e1bf9f876ce6871ef605899fea7162cdb5",
+    "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/precision_residual_20261019/operator_replay_helpers_20261031AB.py": "sha256:d5f59ee0a0060d11d3b716dbe273b6319380d575fa34ddd3aed7cb39c72fbb01",
+    "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/precision_residual_20261019/replay_msa0_children_20261030V.py": "sha256:2e5512d37542fbab1635f1231ab8cefbc799261c188d81f1bac76d6369b21b5e",
+    "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/precision_residual_20261019/replay_trunk_blocks_20261027L.py": "sha256:c89c8c722bbc37007b958bfe9c53576b66307892ce7a3e874364a5ca42413040",
+    "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/precision_residual_20261019/runtime_guard_trunk_blocks_20261027L.py": "sha256:224deea08b7b8f06ae3a81d468eb6519a51b69b3692cebbe23eb92119cd212e8",
+    "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/precision_residual_20261019/total_cotangent_vjp_v3_20261027L.py": "sha256:623b39f96d1bdb169a386348bcf0bdb6ca4b6ea3d1c109cc39ed86271305485f",
+    "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/precision_residual_20261019/train_noninner_private_package_20261024.py": "sha256:531f0d9fab4abc976242c4922e18a7939b74a588d0d0236b9919ff55054cbe7d",
+    "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/precision_residual_20261019/train_softmax_forward_fidelity_20261023.py": "sha256:96895d44a24d2e6f712ddd30dfb6635acb1da946f007b6b78235bc63c8d568c1",
+    "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/prepare_experimental_training.py": "sha256:bc2b85c109fbf6bc308897ef0806162e8ca49ddbe06a0c04a2ca024818e6fe9a",
+    "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/train_entry_nonzero.py": "sha256:58fb82981a4778de40f38b1dab6ac35a417c4d65162c5dfe27542fb21e494053",
+    "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/train_route_entry.py": "sha256:55b4979116d9a436c2ec7ed40b7702d94633a86e641f0df87cd8dd0fb5f2e705",
+    "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/training_experimental.py": "sha256:1b2845cdc70a39fdde5991389eb494f2b2ed9ef14b4f241d323157568e458524",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/PLAN.md": "sha256:f816c76f07079d0d2df7d9279466ca99c7d1db7ff0ef9556ad3297617a283dac",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/REPORT.md": "sha256:7b05097f70a3c2b5e55b5bb1679473cc9b6ab532c9257f8c83fbb5fc966c8ddb",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/SUMMARY.json": "sha256:f603d7883dce911467ef308badd28d7900ae76d3e1dd5ae0dce546ae08a202f4",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/analyze_layernorm_training_20261106.py": "sha256:c03e3d39dafb6794da24b1fa118f23b5f852b5d9b8a7bedd58baff191e7c09d0",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/analyze_ln_abi_20261106.py": "sha256:4925f397e969fc964d5cdce6c7e07fb299a3c807bd0afed1f68b9dcc894ea58f",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/benchmark_layernorm_20261106.py": "sha256:9228d95b8aa65fd62905cce9cb04f9718ececdfe40bb4ad432d3a0a643c662ae",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/benchmark_layernorm_v2_20261106.py": "sha256:759f8703b2a63b8aee8f3314ca2389cf4dce71a847263227eaec0fe9f9dbb2e5",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/benchmark_layernorm_v3_20261106.py": "sha256:db2f3563fc81d93126f4e81e15e7ed6cd7c86b58ae1328d31d637346c97b4971",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/benchmark_v1_status.json": "sha256:5676ae082f1d3b2361ce32d88caf563049d5478b68d4b1d0fd374ea6a176b535",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/benchmark_v2_complete.json": "sha256:78e0ec8ca14cd9f704f8c60d1c5b8c86baaa820edafcff33d4159df5a1af1458",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/benchmark_v3_complete.json": "sha256:690ae464e3257c04973af550f8cb685d1e8982a97e25f1a7b1d88c20aed0e691",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/bootstrap_benchmark_layernorm_v3_20261106.py": "sha256:8024a8468da697e43d2ca9fdd474cb26297b3443564d625098f09ba1dbbf7333",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/bootstrap_check_registered_ln_v3_20261106.py": "sha256:9a5860131fc1e0a5e71df9ccb5443584607a23f6352316e8847d6f435a67ef5f",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/build_layernorm_candidate.py": "sha256:180e5bb07266f949c298300a6457281f48c1f04ad456f616ca481f7f2a10e8c4",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/build_layernorm_fused.py": "sha256:fc2bec04b6c46afc9913363285bec34d371c38a077f74b819cefa5a52168ae99",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/build_layernorm_training_package_20261106.py": "sha256:8abfdd5d34a60d92b827cd3d51e65395de27e35fd431c2c6154ca55648365766",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/candidate_current_status.json": "sha256:c01f1eab0fe3fe9c686b49872c9d04cdb29ff0f58c62173a041181cba61d6ae7",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/capture_v2_complete.json": "sha256:d193ef75f06b79e74756421f01a997008d9fea297adb00f5d5e5f5a3e3cf9cb1",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/capture_v2_status.json": "sha256:4b8eddb6c5c7049714595a828347eafd42e172808942e2559f3398d0526af417",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/check_registered_layernorm_20261106.py": "sha256:2f8e76529ee67af467ae93542eae9d2e49b1a1a4b8b9d848cfc3718cd5ddfb25",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/check_registered_layernorm_v3_20261106.py": "sha256:19d121580846d310ae47250f5906c43d7fa3c130ee01500de9c842f38c2c648e",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/layernorm_axes_fixed.py": "sha256:8f205adadd7d92f0f6664c18d2f78031bcf9675282ba7d556f13c9158b8bb7ef",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/layernorm_baseline.py": "sha256:00c6190b1074d151a65472486ab79411765eabb3186871e4d71fc1d4a799e4eb",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/layernorm_baseline_identity.json": "sha256:8b5cde04a4813d96ba25fda5fd0b1ab3b9c2b37e1aed5426173e2ae4e9edf750",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/layernorm_candidate.py": "sha256:ceef91008ec421bbed5022043d6eae6513e3d04ca062ffd1b82f0ec05de0b8eb",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/layernorm_candidate_manifest.json": "sha256:e38218273bde7251108e531efb800f6fd7d4a23416219d04d7e68664d3b5850e",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/layernorm_candidate_v2.py": "sha256:0f13e2cc19ebf434ac5c678242262f58dd36fe87ac16391a10a40017b7c7abcb",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/layernorm_candidate_v3.py": "sha256:9ef996d0835e8d53d623cfdf117a8a4f6bd071a26ea025406ecb6eb46d18742f",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/layernorm_fused_manifest.json": "sha256:fa91175d9583ec500f9ecfdd3380a60f5d59f66fc51fd8c6a6fd4a00e2313656",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/layernorm_training_route_20261106.py": "sha256:3e1d6c9e70054153bf3c2a65bd3f7fa375d928c4294e1a18497607c488be2e47",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/layernorm_v2_correction.json": "sha256:6c57531907a2261937c846c0426ebef021593044f4db0f50777bf65354a5ddba",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/ln_abi_observer_20261106.py": "sha256:0bb38d62ce05e176f56ef40b69770a7c099dd37a7c41d550f5ad8697bf156580",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/ln_abi_observer_v2_20261106.py": "sha256:02d6152753a4b635ec2c7aa4f08723d9383ed27f455c411a0ee587df831ce54e",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/nonzero_capture_correction.json": "sha256:721b67bb39e1698f5953fc319ae248cbbcf4a304157b58b8aec27e3f4978a9f0",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/operator_cases.csv": "sha256:4eb5e413c23dbbe3de86e836557702447d2a84ef0cd7b6f01fb28dae3260f6d5",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/progress_current.json": "sha256:80cd6017be6c94a0c5538bb6e8bdf95931a7d7d182114efb6e96e3b8e3a30855",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/queue_benchmark_layernorm_v3_20261106.py": "sha256:8ba45c331f00fe870899f7ea746147f9f7be8768b9b0405e5aa1a154145f19b2",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/queue_check_registered_ln_v3_20261106.py": "sha256:b6c9096fadb0e1be107a52c11c0c9801f67a7fddf9aa33a82f572e70c19b4243",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/queue_train_layernorm_20261106.py": "sha256:f4cb380989c1f440fa20243ec4b059ce18cb131c81b46443eecb309229449648",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/registered_launch.json": "sha256:cc9fbe56080e92481f8b1b551487648803413fb30e5b06ac5153f191f5c9f385",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/registered_v3_launch.json": "sha256:ce0a1ac0735bcabb79f2f4c9fc9a350187a63249ebd2f8ce20d627086f3ca8be",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/registered_v3_status.json": "sha256:601d59e24fbd77fcd6867faf67e1a708f829eb39b6c5cf8d4f7d6033f59e3f4a",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/replay_ln_abi_20261106.py": "sha256:d383087964f23aedd942c71f22f94cf103f28fa278299dc3e0b7e0977d1773f3",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/replay_ln_abi_v2_20261106.py": "sha256:4a64279683deeb98d96be80fc94662abf1a9fed9bada581056ca6ba702fc169e",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/status_latest.json": "sha256:4b7b94413b3504d44259c5d3d61855aece3c83295146d13a80ddfcd49d70a316",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/summarize_results.py": "sha256:f42f8767a0f559a924a456577614284b0c3ad5ef04e6e94eea9fdd4b90c679dd",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/train_layernorm_20261106.py": "sha256:cd0d502124ab710a35094a0013823d3ca83b02abcd67d94c69431d7cd27f5644",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/training_analysis_launch.json": "sha256:4493bc2ef2dca34ca3e2bc48daabf3c2e7819deefffb132253df020b6e7647e6",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/training_current.json": "sha256:57a038ef9e315035883cd5490f49a1041329121e105c610a8c4a8fe7c43ad604",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/training_final_fp32_analysis.json": "sha256:5ecdb40dcd61518eb4946ec296923c372f7da8a9cdf622da871318ee83265761",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/training_final_receipts.json": "sha256:67ca286a739e2eba38e411e0076a4d7e0d8c629279ece732b0325ea59e7cdaeb",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/training_final_tf32_analysis.json": "sha256:8df32de38f6bb117516c3ca74ee3dde32ec884d965527e64b49d3f6bd32fab6b",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/training_launch.json": "sha256:7e0580e0898925fb244f3b72d09f984c43e1816b0b4de5528d46e24092bbf8e1",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/training_status.json": "sha256:04a6fdfaf0be683f52b64b69d833c491ce7888edbf444c50debeac405b87a6a2",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/layernorm_core_axes_fixed.py": "sha256:c78e555ea8caf95a3b0d23c2b457d6ce64e6bc73cd0486df0dbdf4fb33284c68",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/check_core_layernorm_axes_20261106.py": "sha256:0fc660df8b0930c67e81ebe1d39bcf87eb8c8e56c76c431cbdae379398e16827",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/core_regression_source.json": "sha256:d75b4735e8530d0270425767781e60395557e516cd8f1db6cbd43c9795aee135",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/core_check_status.json": "sha256:f381c46b17d854561f72b99c0a9a4d1186453b08538836a3c1ff9fe92d368a27",
+    "/home/lgx1429541889/publication-20261105/FlagGems/src/flag_gems/ops/layernorm.py": "sha256:c78e555ea8caf95a3b0d23c2b457d6ce64e6bc73cd0486df0dbdf4fb33284c68",
+    "/home/lgx1429541889/publication-20261105/FlagGems/tests/test_layer_norm.py": "sha256:8a7827891ac080265ae210038b446d7aae0b7a1d2d8cb06dbe62b484b4d64599",
+    "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/precision_residual_20261019/ppu229_inference_startup_20261023/sitecustomize.py": "sha256:837d05e5e3055844dd40e52ac49de00b80e013a83b405e43d0e48d4c365b2241",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/training_process_check.json": "sha256:234aa8641b2f4634f74c3e6d4caa8ddc2e5ebecbbb996f8e7458ab55642c1949",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/core_check_launch.json": "sha256:8b3e90cbcc04982aa45454c4515cf6427bf1018ff8c3d00d49e7274587e72a06",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/queue_check_core_ln_axes_20261106.py": "sha256:4443f8f2726adc6fc7fe0fcfa41d7d5d9d383e8e081acd088b8eca0d28e0b6cd",
+    "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/bootstrap_check_core_ln_axes_20261106.py": "sha256:888219b23a9685928eaed4d6070b67a340f880107b559862c1fd745fee6523ef",
+    "/home/lgx1429541889/publication-20261105/FlagGems/src/flag_gems/__init__.py": "sha256:7c0623e9bfc11a81fb89c66f194524f397fc2ea543982d9305a60a4c6fe72824",
+    "/home/lgx1429541889/publication-20261105/FlagGems/experimental_tests/protenix_layernorm_20261106/REPORT.md": "sha256:7b05097f70a3c2b5e55b5bb1679473cc9b6ab532c9257f8c83fbb5fc966c8ddb"
+  },
+  "trace_path": "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/audit_trace",
+  "trace_status": "Parent-owned REQUEST.md and RESPONSE.md existence verified locally; trace content not re-audited in this narrow follow-up",
+  "agent_id": "/root/layernorm_integrity_20261106",
+  "verdict_id": "/root/layernorm_integrity_20261106:2026-11-06:final",
+  "executor_model": "codex (parent model not independently asserted)",
+  "executor_family": "openai",
+  "reviewer_model": "gpt-6-astra",
+  "reviewer_family": "openai",
+  "reviewer_reasoning": "ultra",
+  "review_independence": "same-family",
+  "acceptance_status": "provisional",
+  "generated_at": "2026-11-05T17:58:23.907569+00:00",
+  "date": "2026-11-06",
+  "auditor": "gpt-6-astra-ultra",
+  "overall_verdict": "warn",
+  "integrity_status": "warn",
+  "review_method": "Fresh independent local source/receipt audit with a read-only training provenance subreview; no remote access, raw-tensor transfer or GPU execution. Deterministic scalar calculations were independently recomputed.",
+  "checks": {
+    "gt_provenance": {
+      "label": "A. 参考与训练目标来源",
+      "status": "PASS",
+      "details": "CPU64 解析式是固定实际操作数的数值参考；保存统计量和重算统计量分开。H100 是历史实现输出对照，未冒充结构真值。训练监督来自原实验结构资产，未改为预测标签。原始资产/张量未在本次本地审计重新读取。",
+      "evidence": [
+        "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/analyze_ln_abi_20261106.py:38",
+        "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/analyze_ln_abi_20261106.py:73",
+        "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/precision_residual_20261019/operator_replay_helpers_20261031AB.py:43",
+        "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/training_experimental.py:225",
+        "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/training_experimental.py:327",
+        "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/analyze_layernorm_training_20261106.py:27"
+      ]
+    },
+    "score_normalization": {
+      "label": "B. 归一化、单位与汇总",
+      "status": "PASS",
+      "details": "误差分母为对应参考平方范数。算子相对误差存百分比；训练 relative_l2 存比例，报告乘 100。正确池化平方和；零范数保留 null，近零偏置保留绝对误差。64 个七样本计时中位数、32 个 mean-of-two-medians 汇总、664 个算子及 448 个训练标量对象、64 行 CSV 和报告 82 个数值单元全部复算匹配。",
+      "evidence": [
+        "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/precision_residual_20261019/operator_replay_helpers_20261031AB.py:59",
+        "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/summarize_results.py:10",
+        "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/summarize_results.py:43",
+        "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/precision_residual_20261019/analyze_linear_forward_training_20261023.py:24",
+        "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/REPORT.md:17"
+      ]
+    },
+    "result_existence": {
+      "label": "C. 结果存在、失败保留与声明对应",
+      "status": "PASS",
+      "details": "最终两精度捕获、v2/v3 benchmark、真实注册检查和两份训练分析均有完成记录。源码/候选哈希匹配；历史编译与注册失败未改写成成功。最终报告和 SUMMARY 明确未通过训练采用条件。完整原始执行独立性仍受本地 scalar/hash 回执范围限制。",
+      "evidence": [
+        "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/capture_v2_complete.json:3",
+        "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/benchmark_v3_complete.json:2",
+        "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/registered_v3_status.json:21",
+        "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/training_final_fp32_analysis.json:2",
+        "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/training_final_tf32_analysis.json:2",
+        "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/SUMMARY.json:132",
+        "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/REPORT.md:82"
+      ]
+    },
+    "dead_code": {
+      "label": "D. 实际调用、注册路径与静态安全",
+      "status": "PASS",
+      "details": "参考/度量函数确实在 benchmark 中调用；注册检查使用 autograd 并观察到候选 helper。每精度训练 FlagGems 路由、ATen 入口和 fused helper 返回计数按 M/N 完全一致（1294 次、7 组），另外 480 次保留原接口。旧维度错误由静态索引证明，没有运行可能越界的旧三维输入。training_routes PASS 只代表跳过 profiler 后的告警检查，不能扩大成全算子路由审计。",
+      "evidence": [
+        "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/benchmark_layernorm_v3_20261106.py:28",
+        "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/benchmark_layernorm_v3_20261106.py:98",
+        "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/check_registered_layernorm_v3_20261106.py:25",
+        "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/layernorm_training_route_20261106.py:23",
+        "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/training_final_fp32_analysis.json:267",
+        "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/layernorm_baseline.py:416",
+        "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/train_route_entry.py:23"
+      ]
+    },
+    "scope": {
+      "label": "E. 范围与采用边界",
+      "status": "WARN",
+      "details": "128 记录仅为 112 个不同 shape/layout/affine/mask 组合，含 40 次全关闭输出；8 个形状/布局、4 种仿射组合，不是 128 个独立数据。16 份实际 ABI 均为 both-affine，8 份非零、8 份全零；更广的训练路由没有逐组性能测量。仅一个模型/配置/种子、每精度两步且一次正学习率更新。两种精度完整梯度对 H100 均退步，因此拒绝默认训练采用。没有新 H100、长训练、质量或整网吞吐证据。",
+      "evidence": [
+        "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/benchmark_layernorm_v3_20261106.py:33",
+        "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/benchmark_layernorm_v3_20261106.py:48",
+        "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/benchmark_v3_complete.json:4697",
+        "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/precision_residual_20261019/linear_x3_environment_20261023.sh:43",
+        "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/training_experimental.py:196",
+        "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/PLAN.md:20",
+        "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/REPORT.md:71"
+      ]
+    },
+    "evaluation_type": {
+      "label": "F. 评价类型分类",
+      "status": "PASS",
+      "details": "算子公式检查、固定输入 ABI 数值一致性和 H100 梯度/更新一致性为 synthetic_proxy（数值/实现参考，非生物学预测真值）；原数据监督 loss 执行为 real_gt（回执限定），不是独立质量 benchmark。GPU 事件计时为经验性能测量，不属于 GT 分类。",
+      "types": {
+        "operator_formula_and_ABI": "synthetic_proxy: fixed-operand numerical reference",
+        "H100_training_consistency": "synthetic_proxy: historical implementation reference",
+        "dataset_supervised_loss": "real_gt: receipt-limited training-label provenance",
+        "operator_timing": "empirical_performance_measurement"
+      },
+      "evidence": [
+        "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/REPORT.md:42",
+        "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/REPORT.md:84",
+        "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/analyze_layernorm_training_20261106.py:54",
+        "/home/lgx1429541889/Protenix/comparison/ppu_full_acceptance_20261005/training_experimental.py:327"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "claim": "归一化外部行划分错误及空输入修正",
+      "impact": "supported",
+      "qualification": "静态证明旧代码错误；修正版通过已列出的 synthetic/native-autograd 检查，不是原 C++ 模型路径故障。"
+    },
+    {
+      "id": "C2",
+      "claim": "已测大输入完整 LayerNorm 反向更快",
+      "impact": "supported_with_qualifier",
+      "qualification": "PPU 同卡 GPU 事件；四组、两个步的各七样本中位数的均值；小输入仍较慢；不推出所有训练 shape 或整网收益。"
+    },
+    {
+      "id": "C3",
+      "claim": "数学精度改善",
+      "impact": "needs_qualifier",
+      "qualification": "非零大输入参数梯度相对 C++ 改善，但 FP32 dX 略退步；近零 dBeta 必须带绝对范数，零向量不计改善。"
+    },
+    {
+      "id": "C4",
+      "claim": "实际注册及训练融合路径被执行",
+      "impact": "supported",
+      "qualification": "每精度 1294 次，7 个 M/N 组合；source/adapter hashes 与 tested v3 一致；不是全模型 profiler 审计。"
+    },
+    {
+      "id": "C5",
+      "claim": "通过两步训练的默认路径提名条件",
+      "impact": "unsupported_rejected",
+      "qualification": "FP32/TF32 gradients 均增加对 H100 的相对 L2；updates 改善不能覆盖 conjunctive gate 失败。最终报告已披露拒绝。"
+    },
+    {
+      "id": "C6",
+      "claim": "H100 同操作数性能、长训练收敛、结构质量或整网速度/MFU改善",
+      "impact": "not_evaluated",
+      "qualification": "本轮无相应证据，最终报告没有提出这些收益。"
+    },
+    {
+      "id": "C7",
+      "claim": "拟发布 core-only LayerNorm 后缀维度/空输入修正",
+      "impact": "supported",
+      "qualification": "源码与核心检查包一致；独立 CPU autograd 参考的五个 regression function-body 案例通过；没有执行 pytest collection/full suite。融合版性能不归属此补丁。"
+    }
+  ],
+  "training_promotion_passed": false,
+  "training_gate": [
+    {
+      "precision": "fp32",
+      "metric": "gradients",
+      "old_percent": 0.0015403599633673157,
+      "new_percent": 0.0017296411224725083,
+      "no_regression": false
+    },
+    {
+      "precision": "fp32",
+      "metric": "updates",
+      "old_percent": 0.0429411421633987,
+      "new_percent": 0.042364646676005924,
+      "no_regression": true
+    },
+    {
+      "precision": "tf32",
+      "metric": "gradients",
+      "old_percent": 1.2897880625567986,
+      "new_percent": 1.3060053773102778,
+      "no_regression": false
+    },
+    {
+      "precision": "tf32",
+      "metric": "updates",
+      "old_percent": 6.433917284225956,
+      "new_percent": 6.36952252264205,
+      "no_regression": true
+    }
+  ],
+  "deterministic_checks": {
+    "operator_metric_objects": 664,
+    "training_metric_objects": 448,
+    "timing_vectors": 64,
+    "timing_samples_per_vector": 7,
+    "summary_timing_values": 32,
+    "operator_csv_rows": 64,
+    "report_numeric_cells": 82,
+    "scalar_discrepancies": 0,
+    "generic_records": 128,
+    "generic_unique_shape_layout_affine_mask_tuples": 112,
+    "generic_all_outputs_disabled_records": 40,
+    "generic_nonnull_error_vectors": 128,
+    "formula_checks": 12,
+    "formula_max_abs": 5.684341886080802e-14,
+    "actual_ABI_packets": 16,
+    "nonzero_ABI_packets": 8,
+    "zero_ABI_packets": 8,
+    "registered_positive_size_cases": 6,
+    "registered_empty_cases": 2,
+    "training_fused_entries_per_precision": 1294,
+    "training_original_entries_per_precision": 480,
+    "training_fused_MN_pairs_per_precision": 7
+  },
+  "resolved_during_review": [
+    {
+      "finding": "Final FP32 v2 capture calibration absent from intermediate status snapshot",
+      "resolution": "capture_v2_complete.json supplies both complete modes, source hashes, byte-equality controls and exact benchmark packet binding."
+    },
+    {
+      "finding": "Timing aggregation wording did not explicitly say mean of two per-call medians",
+      "resolution": "REPORT.md:17 and summarize_results.py:29 now specify the exact statistic; values unchanged."
+    },
+    {
+      "finding": "Current analyzer checks only candidate step1 LR and does not embed metric helper hashes",
+      "resolution": "training_final_receipts.json supplies all six candidate/old/H100 step1 LR receipts and matching helper hashes. Helper checks are post-run and do not establish analysis-start immutability."
+    },
+    {
+      "finding": "Absolute bias L2 rows appeared under percentage-error columns",
+      "resolution": "REPORT.md:59 now has a separate absolute-norm table. The two CPU64 reference norms and all eight absolute/eight relative bias values independently match the same two nonzero 256-channel cases per precision. Publication REPORT copy is byte-identical."
+    }
+  ],
+  "remaining_obligations": [
+    "Preserve rejected training promotion; a change of gate would require explicit new protocol, not reinterpretation of current update gains.",
+    "Keep fixed-input numerical references, historical H100 implementation comparisons, and dataset-supervised targets separately labeled.",
+    "Any broader performance, architecture, convergence or structural-quality claim needs separate evidence; current records do not supply it.",
+    "Original raw tensors, binaries and datasets were not independently reread by this reviewer; use receipt-limited wording. Post-run helper hashes do not prove byte identity at process start.",
+    "Parent-owned reviewer REQUEST.md and RESPONSE.md are present; retain the trace, including this narrow report follow-up. Audit agent wrote only the two assigned outputs.",
+    "Describe the core publication as a normalized-suffix/empty-input correction. Do not attribute experimental fused-v3 speedups to it; five regression function bodies passed, pytest collection/full suite was not run.",
+    "REPORT.md:86 describes a future dX byte-preservation design constraint; it is not a demonstrated causal isolation of the full-model gradient regression or a sufficient acceptance condition by itself."
+  ],
+  "subreview": {
+    "agent_id": "/root/layernorm_integrity_20261106/training_provenance",
+    "scope": "Read-only inherited training source and metric provenance; final scalar/gate verification done by primary reviewer",
+    "new_artifacts": false
+  },
+  "core_publication_review": {
+    "status": "PASS",
+    "core_source_sha256": "c78e555ea8caf95a3b0d23c2b457d6ce64e6bc73cd0486df0dbdf4fb33284c68",
+    "core_copy_matches_publication_bytes": true,
+    "axes_fixed_AST_equal_after_tle_ext_alias_normalization": true,
+    "publication_diff_scope": "Only normalized M/N and empty-input return; no fusion or training integration",
+    "regression_function_body_AST_equal": true,
+    "regression_function_AST_sha256": "3dc56eddd3c1e1e7a712af38722d71f6b360e69622423bb851ccc6748902874f",
+    "regression_body_cases": 5,
+    "regression_body_exit": 0,
+    "pytest_collection_executed": false,
+    "rtol": 0.0001,
+    "atol": 1e-05,
+    "evidence": [
+      "/home/lgx1429541889/publication-20261105/FlagGems/src/flag_gems/ops/layernorm.py:431",
+      "/home/lgx1429541889/publication-20261105/FlagGems/tests/test_layer_norm.py:162",
+      "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/check_core_layernorm_axes_20261106.py:5",
+      "/home/lgx1429541889/Protenix/comparison/training_gradient_20261106/core_check_status.json:16"
+    ],
+    "claim_ceiling": "Core normalized-suffix/empty-input bugfix checked on listed cases. Experimental fused-v3 speed or training results do not describe this core-only source."
+  },
+  "trace_files_present": {
+    "REQUEST.md": true,
+    "RESPONSE.md": true
+  },
+  "narrow_report_followup": {
+    "scope": "Only bias units/new reference-norm table, publication copy identity, affected hashes and citations",
+    "status": "PASS",
+    "bias_scalar_cells_recomputed": 18,
+    "new_reference_norm_cells": 2,
+    "reference_L2": {
+      "fp32": 1.4585887205801459e-08,
+      "tf32": 1.2170278622236233e-05
+    },
+    "publication_report_path": "/home/lgx1429541889/publication-20261105/FlagGems/experimental_tests/protenix_layernorm_20261106/REPORT.md",
+    "publication_report_byte_equal": true,
+    "raw_result_hashes_unchanged": true,
+    "training_promotion_passed": false,
+    "overall_verdict_unchanged": "WARN"
+  }
+}
