@@ -10,7 +10,7 @@ The candidate groups every 1024 products within each parallel task before adding
 
 Four saved inputs from two original FP32 and two original TF32 training steps were each executed in both precision modes through six implementations. The shape is 64×360000 @ 360000×256. For this table, FP32 uses FP32-source inputs and TF32 uses TF32-source inputs; every PPU/H100 comparison uses identical operands. All eight cross-precision evaluations and all 48 implementation comparisons are in the JSON/CSV files.
 
-Relative L2 errors use the CPU float64 product of original operands as the denominator. Errors are pooled over the two steps by squared norms. API times include allocations, using the mean of each step's median from five interleaved device-event samples after warmup. H100 outputs are existing native records; those records did not time the individual MM calls.
+Relative L2 errors use the CPU float64 product of original operands as the denominator. Errors are pooled over the two steps by squared norms. Timing records device-event elapsed time around the allocating MM API, using the mean of each step's median from five interleaved samples after warmup. Host API wall time was not measured separately. H100 outputs are existing native records; those records did not time the individual MM calls.
 
 | Measurement | PPU FlagGems FP32 | H100 native FP32 | PPU FlagGems TF32 | H100 native TF32 |
 |---|---:|---:|---:|---:|
