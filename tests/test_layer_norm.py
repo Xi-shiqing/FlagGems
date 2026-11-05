@@ -154,6 +154,34 @@ def test_native_layer_norm_statistics(shape, dtype):
 
 
 @pytest.mark.layer_norm_backward
+@pytest.mark.parametrize(
+    "shape, normalized_shape",
+    [((2, 3, 7), (7,)), ((2, 3, 4, 5), (4, 5)), ((5,), (5,)),
+     ((0, 5), (5,)), ((2, 0), (0,))],
+)
+def test_layer_norm_backward_normalized_suffix(shape, normalized_shape):
+    # CPU autograd supplies independent gradients and the actual saved statistics.
+    generator = torch.Generator().manual_seed(20261106)
+    x = torch.randn(shape, generator=generator, dtype=torch.float32).requires_grad_()
+    w = torch.randn(normalized_shape, generator=generator, dtype=torch.float32).requires_grad_()
+    b = torch.randn(normalized_shape, generator=generator, dtype=torch.float32).requires_grad_()
+    dy = torch.randn(shape, generator=generator, dtype=torch.float32)
+    output, mean, rstd = torch.ops.aten.native_layer_norm.default(
+        x, normalized_shape, w, b, 1e-5
+    )
+    reference = torch.autograd.grad(output, (x, w, b), dy)
+    with flag_gems.use_gems(include=["layer_norm_backward"]):
+        actual = torch.ops.aten.native_layer_norm_backward.default(
+            dy.to(flag_gems.device), x.detach().to(flag_gems.device),
+            normalized_shape, mean.to(flag_gems.device), rstd.to(flag_gems.device),
+            w.detach().to(flag_gems.device), b.detach().to(flag_gems.device),
+            (True, True, True),
+        )
+    for value, expected in zip(actual, reference):
+        torch.testing.assert_close(value.cpu(), expected, rtol=1e-4, atol=1e-5)
+
+
+@pytest.mark.layer_norm_backward
 @pytest.mark.parametrize("shape", LAYER_NORM_SHAPES)
 @pytest.mark.parametrize("wb_none", [False, True])
 @pytest.mark.parametrize("dtype", FLOAT_DTYPES)
