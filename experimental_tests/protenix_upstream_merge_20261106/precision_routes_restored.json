@@ -1,0 +1,620 @@
+{
+  "source_metadata_note": "sources names exported Python functions; actual F.linear uses native composition when the PPU policy excludes linear. Per-case ATen calls record the executed forward/backward.",
+  "package": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_restored/flag_gems/__init__.py",
+  "seed": 20261106,
+  "cases": [
+    {
+      "operator": "mm",
+      "precision": "fp32",
+      "shapes": [
+        [
+          64,
+          128
+        ],
+        [
+          128,
+          64
+        ]
+      ],
+      "actual_ATen_calls": {
+        "aten.mm.default": 3,
+        "aten.t.default": 2
+      },
+      "forward": {
+        "difference_l2": 0.00010715776537870162,
+        "reference_l2": 726.8239005326382,
+        "relative_l2": 1.4743291366749666e-07,
+        "max_abs": 1.1787181277256309e-05
+      },
+      "gradients": [
+        {
+          "difference_l2": 7.81687119567064e-05,
+          "reference_l2": 733.0547755958312,
+          "relative_l2": 1.0663420328060807e-07,
+          "max_abs": 6.367157482145558e-06
+        },
+        {
+          "difference_l2": 7.845359523656876e-05,
+          "reference_l2": 727.0591165620777,
+          "relative_l2": 1.0790538685153842e-07,
+          "max_abs": 6.831823249342506e-06
+        }
+      ],
+      "forward_no_grad": {
+        "difference_l2": 0.00010715776537870162,
+        "reference_l2": 726.8239005326382,
+        "relative_l2": 1.4743291366749666e-07,
+        "max_abs": 1.1787181277256309e-05
+      },
+      "status": "PASS",
+      "device_ms": [
+        0.15174667040506998,
+        0.10317333539326985,
+        0.10705332954724629,
+        0.09272000193595886,
+        0.09390667080879211,
+        0.1021066705385844,
+        0.09589333335558574
+      ],
+      "median_ms": 0.1021066705385844
+    },
+    {
+      "operator": "mm",
+      "precision": "tf32",
+      "shapes": [
+        [
+          64,
+          128
+        ],
+        [
+          128,
+          64
+        ]
+      ],
+      "actual_ATen_calls": {
+        "aten.mm.default": 3,
+        "aten.t.default": 2
+      },
+      "forward": {
+        "difference_l2": 0.00017888578587737833,
+        "reference_l2": 726.8154450270167,
+        "relative_l2": 2.4612270845555424e-07,
+        "max_abs": 1.6761943697929382e-05
+      },
+      "gradients": [
+        {
+          "difference_l2": 0.0001025636372909399,
+          "reference_l2": 733.0507681419067,
+          "relative_l2": 1.3991341629845377e-07,
+          "max_abs": 7.670372724533081e-06
+        },
+        {
+          "difference_l2": 0.00010221402275824073,
+          "reference_l2": 727.0643114811955,
+          "relative_l2": 1.4058456885334875e-07,
+          "max_abs": 6.75395131111145e-06
+        }
+      ],
+      "forward_no_grad": {
+        "difference_l2": 0.00017888578587737833,
+        "reference_l2": 726.8154450270167,
+        "relative_l2": 2.4612270845555424e-07,
+        "max_abs": 1.6761943697929382e-05
+      },
+      "status": "PASS",
+      "device_ms": [
+        0.11238666375478108,
+        0.11457332968711853,
+        0.09490666786829631,
+        0.09551999966303508,
+        0.10098666946093242,
+        0.10097333788871765,
+        0.09032000104586284
+      ],
+      "median_ms": 0.10097333788871765
+    },
+    {
+      "operator": "addmm",
+      "precision": "fp32",
+      "shapes": [
+        [
+          64
+        ],
+        [
+          64,
+          128
+        ],
+        [
+          128,
+          64
+        ]
+      ],
+      "actual_ATen_calls": {
+        "aten.addmm.default": 1,
+        "aten.t.default": 2,
+        "aten.mm.default": 2,
+        "aten.sum.dim_IntList": 1,
+        "aten.view.default": 1
+      },
+      "forward": {
+        "difference_l2": 0.00010690846507740091,
+        "reference_l2": 721.9512518223884,
+        "relative_l2": 1.480826645947864e-07,
+        "max_abs": 1.0673489487800225e-05
+      },
+      "gradients": [
+        {
+          "difference_l2": 4.339572528101635e-06,
+          "reference_l2": 48.53531097847803,
+          "relative_l2": 8.941062580243748e-08,
+          "max_abs": 1.3271346688270569e-06
+        },
+        {
+          "difference_l2": 7.683891035799188e-05,
+          "reference_l2": 714.2635202747931,
+          "relative_l2": 1.0757781711773582e-07,
+          "max_abs": 7.440670628966473e-06
+        },
+        {
+          "difference_l2": 7.830153361962508e-05,
+          "reference_l2": 734.1875022019444,
+          "relative_l2": 1.0665059454810441e-07,
+          "max_abs": 4.8867564537147246e-06
+        }
+      ],
+      "forward_no_grad": {
+        "difference_l2": 0.00010690846507740091,
+        "reference_l2": 721.9512518223884,
+        "relative_l2": 1.480826645947864e-07,
+        "max_abs": 1.0673489487800225e-05
+      },
+      "status": "PASS",
+      "device_ms": [
+        0.23564000924428305,
+        0.20877333482106528,
+        0.20974665880203247,
+        0.20731999476750693,
+        0.20110666751861572,
+        0.22490666309992471,
+        0.1941200097401937
+      ],
+      "median_ms": 0.20877333482106528
+    },
+    {
+      "operator": "addmm",
+      "precision": "tf32",
+      "shapes": [
+        [
+          64
+        ],
+        [
+          64,
+          128
+        ],
+        [
+          128,
+          64
+        ]
+      ],
+      "actual_ATen_calls": {
+        "aten.addmm.default": 1,
+        "aten.t.default": 2,
+        "aten.mm.default": 2,
+        "aten.sum.dim_IntList": 1,
+        "aten.view.default": 1
+      },
+      "forward": {
+        "difference_l2": 0.0001768516216235749,
+        "reference_l2": 721.9451986692783,
+        "relative_l2": 2.4496543775006157e-07,
+        "max_abs": 1.446157693862915e-05
+      },
+      "gradients": [
+        {
+          "difference_l2": 4.339572528101635e-06,
+          "reference_l2": 48.53531097847803,
+          "relative_l2": 8.941062580243748e-08,
+          "max_abs": 1.3271346688270569e-06
+        },
+        {
+          "difference_l2": 9.9433314564665e-05,
+          "reference_l2": 714.2574507593399,
+          "relative_l2": 1.392121488672686e-07,
+          "max_abs": 6.113201379776001e-06
+        },
+        {
+          "difference_l2": 0.00010147155142945645,
+          "reference_l2": 734.1815838048922,
+          "relative_l2": 1.3821042868384232e-07,
+          "max_abs": 7.10412859916687e-06
+        }
+      ],
+      "forward_no_grad": {
+        "difference_l2": 0.0001768516216235749,
+        "reference_l2": 721.9451986692783,
+        "relative_l2": 2.4496543775006157e-07,
+        "max_abs": 1.446157693862915e-05
+      },
+      "status": "PASS",
+      "device_ms": [
+        0.2286533315976461,
+        0.21370667219161987,
+        0.22606666882832846,
+        0.2032933235168457,
+        0.21425332625706991,
+        0.2273199955622355,
+        0.20007999738057455
+      ],
+      "median_ms": 0.21425332625706991
+    },
+    {
+      "operator": "bmm",
+      "precision": "fp32",
+      "shapes": [
+        [
+          2,
+          64,
+          128
+        ],
+        [
+          2,
+          128,
+          64
+        ]
+      ],
+      "actual_ATen_calls": {
+        "aten.bmm.default": 3,
+        "aten.transpose.int": 2
+      },
+      "forward": {
+        "difference_l2": 0.0002078371621062491,
+        "reference_l2": 1029.71579739659,
+        "relative_l2": 2.0183934502288852e-07,
+        "max_abs": 1.8573851697567534e-05
+      },
+      "gradients": [
+        {
+          "difference_l2": 0.0001493913370632309,
+          "reference_l2": 1039.6492961643398,
+          "relative_l2": 1.4369397220234952e-07,
+          "max_abs": 9.84981727469858e-06
+        },
+        {
+          "difference_l2": 0.00014717917103511475,
+          "reference_l2": 1030.6385469044612,
+          "relative_l2": 1.4280386802644793e-07,
+          "max_abs": 1.0883248624082853e-05
+        }
+      ],
+      "forward_no_grad": {
+        "difference_l2": 0.0002078371621062491,
+        "reference_l2": 1029.71579739659,
+        "relative_l2": 2.0183934502288852e-07,
+        "max_abs": 1.8573851697567534e-05
+      },
+      "status": "PASS",
+      "device_ms": [
+        0.06435999770959218,
+        0.06714666883150737,
+        0.0618399977684021,
+        0.06353333095709483,
+        0.054586668809254967,
+        0.05286666750907898,
+        0.06039999922116598
+      ],
+      "median_ms": 0.0618399977684021
+    },
+    {
+      "operator": "bmm",
+      "precision": "tf32",
+      "shapes": [
+        [
+          2,
+          64,
+          128
+        ],
+        [
+          2,
+          128,
+          64
+        ]
+      ],
+      "actual_ATen_calls": {
+        "aten.bmm.default": 3,
+        "aten.transpose.int": 2
+      },
+      "forward": {
+        "difference_l2": 0.00046812761385464044,
+        "reference_l2": 1029.7231574907319,
+        "relative_l2": 4.5461502001702226e-07,
+        "max_abs": 2.5480985641479492e-05
+      },
+      "gradients": [
+        {
+          "difference_l2": 0.0002549045232319617,
+          "reference_l2": 1039.6541788344987,
+          "relative_l2": 2.451820311228121e-07,
+          "max_abs": 1.3333745300769806e-05
+        },
+        {
+          "difference_l2": 0.00025322984382185944,
+          "reference_l2": 1030.6424239159267,
+          "relative_l2": 2.4570097052643384e-07,
+          "max_abs": 1.2233853340148926e-05
+        }
+      ],
+      "forward_no_grad": {
+        "difference_l2": 0.00046812761385464044,
+        "reference_l2": 1029.7231574907319,
+        "relative_l2": 4.5461502001702226e-07,
+        "max_abs": 2.5480985641479492e-05
+      },
+      "status": "PASS",
+      "device_ms": [
+        0.08501332998275757,
+        0.06750666598478954,
+        0.061759998401006065,
+        0.07223999996980031,
+        0.07231999933719635,
+        0.0747599999109904,
+        0.06530666848023732
+      ],
+      "median_ms": 0.07223999996980031
+    },
+    {
+      "operator": "linear",
+      "precision": "fp32",
+      "shapes": [
+        [
+          64,
+          128
+        ],
+        [
+          64,
+          128
+        ],
+        [
+          64
+        ]
+      ],
+      "actual_ATen_calls": {
+        "aten.t.default": 5,
+        "aten.addmm.default": 1,
+        "aten.mm.default": 2,
+        "aten.sum.dim_IntList": 1,
+        "aten.view.default": 1
+      },
+      "forward": {
+        "difference_l2": 0.00010847553869340101,
+        "reference_l2": 728.129725254031,
+        "relative_l2": 1.4897831379642675e-07,
+        "max_abs": 9.400323609298766e-06
+      },
+      "gradients": [
+        {
+          "difference_l2": 7.924281198362229e-05,
+          "reference_l2": 730.3574597576395,
+          "relative_l2": 1.0849866859704299e-07,
+          "max_abs": 5.7353811317995e-06
+        },
+        {
+          "difference_l2": 7.642681167023004e-05,
+          "reference_l2": 730.9277070240386,
+          "relative_l2": 1.0456138265903298e-07,
+          "max_abs": 5.26889587249002e-06
+        },
+        {
+          "difference_l2": 5.205895127442097e-06,
+          "reference_l2": 69.68167805842835,
+          "relative_l2": 7.470966934919297e-08,
+          "max_abs": 2.1792948246002197e-06
+        }
+      ],
+      "forward_no_grad": {
+        "difference_l2": 0.00010847553869340101,
+        "reference_l2": 728.129725254031,
+        "relative_l2": 1.4897831379642675e-07,
+        "max_abs": 9.400323609298766e-06
+      },
+      "status": "PASS",
+      "device_ms": [
+        0.2322266697883606,
+        0.22537332773208618,
+        0.23061333100001016,
+        0.20468000570933023,
+        0.2075600028038025,
+        0.2191200057665507,
+        0.20336000124613443
+      ],
+      "median_ms": 0.2191200057665507
+    },
+    {
+      "operator": "linear",
+      "precision": "tf32",
+      "shapes": [
+        [
+          64,
+          128
+        ],
+        [
+          64,
+          128
+        ],
+        [
+          64
+        ]
+      ],
+      "actual_ATen_calls": {
+        "aten.t.default": 5,
+        "aten.addmm.default": 1,
+        "aten.mm.default": 2,
+        "aten.sum.dim_IntList": 1,
+        "aten.view.default": 1
+      },
+      "forward": {
+        "difference_l2": 0.0001803300586291192,
+        "reference_l2": 728.1412802646656,
+        "relative_l2": 2.476580624073018e-07,
+        "max_abs": 1.5577534213662148e-05
+      },
+      "gradients": [
+        {
+          "difference_l2": 0.00010236134095399048,
+          "reference_l2": 730.3643686415462,
+          "relative_l2": 1.4015106068821406e-07,
+          "max_abs": 7.241964340209961e-06
+        },
+        {
+          "difference_l2": 0.00010299239563627434,
+          "reference_l2": 730.932979174655,
+          "relative_l2": 1.409053888258947e-07,
+          "max_abs": 7.852911949157715e-06
+        },
+        {
+          "difference_l2": 5.205895127442097e-06,
+          "reference_l2": 69.68167805842835,
+          "relative_l2": 7.470966934919297e-08,
+          "max_abs": 2.1792948246002197e-06
+        }
+      ],
+      "forward_no_grad": {
+        "difference_l2": 0.0001803300586291192,
+        "reference_l2": 728.1412802646656,
+        "relative_l2": 2.476580624073018e-07,
+        "max_abs": 1.5577534213662148e-05
+      },
+      "status": "PASS",
+      "device_ms": [
+        0.23197333017985025,
+        0.22594666481018066,
+        0.20922666788101196,
+        0.20870665709177652,
+        0.22473333279291788,
+        0.20537332693735758,
+        0.2185866634051005
+      ],
+      "median_ms": 0.2185866634051005
+    },
+    {
+      "operator": "softmax",
+      "precision": "fp32",
+      "shapes": [
+        [
+          600,
+          600,
+          8
+        ]
+      ],
+      "actual_ATen_calls": {
+        "aten._softmax.default": 1,
+        "aten.detach.default": 2,
+        "aten._softmax_backward_data.default": 1
+      },
+      "forward": {
+        "difference_l2": 3.69075197225491e-07,
+        "reference_l2": 4.635222834761355,
+        "relative_l2": 7.962404621794043e-08,
+        "max_abs": 1.1343738656743874e-08
+      },
+      "gradients": [
+        {
+          "difference_l2": 4.0299685617177767e-07,
+          "reference_l2": 4.589289327620289,
+          "relative_l2": 8.781247539708855e-08,
+          "max_abs": 1.5812530618219967e-08
+        }
+      ],
+      "forward_no_grad": {
+        "difference_l2": 3.69075197225491e-07,
+        "reference_l2": 4.635222834761355,
+        "relative_l2": 7.962404621794043e-08,
+        "max_abs": 1.1343738656743874e-08
+      },
+      "status": "PASS",
+      "device_ms": [
+        0.14914666612943014,
+        0.05153333147366842,
+        0.04229333500067393,
+        0.03922666609287262,
+        0.042453333735466,
+        0.04233333468437195,
+        0.04560000201066335
+      ],
+      "median_ms": 0.042453333735466
+    },
+    {
+      "operator": "softmax",
+      "precision": "tf32",
+      "shapes": [
+        [
+          600,
+          600,
+          8
+        ]
+      ],
+      "actual_ATen_calls": {
+        "aten._softmax.default": 1,
+        "aten.detach.default": 2,
+        "aten._softmax_backward_data.default": 1
+      },
+      "forward": {
+        "difference_l2": 3.69075197225491e-07,
+        "reference_l2": 4.635222834761355,
+        "relative_l2": 7.962404621794043e-08,
+        "max_abs": 1.1343738656743874e-08
+      },
+      "gradients": [
+        {
+          "difference_l2": 4.0299685617177767e-07,
+          "reference_l2": 4.589289327620289,
+          "relative_l2": 8.781247539708855e-08,
+          "max_abs": 1.5812530618219967e-08
+        }
+      ],
+      "forward_no_grad": {
+        "difference_l2": 3.69075197225491e-07,
+        "reference_l2": 4.635222834761355,
+        "relative_l2": 7.962404621794043e-08,
+        "max_abs": 1.1343738656743874e-08
+      },
+      "status": "PASS",
+      "device_ms": [
+        0.050986667474110924,
+        0.041080000499884285,
+        0.04865333437919617,
+        0.04677333434422811,
+        0.03867999960978826,
+        0.03821333249409994,
+        0.03849333276351293
+      ],
+      "median_ms": 0.041080000499884285
+    }
+  ],
+  "sources": {
+    "mm": {
+      "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_restored/flag_gems/runtime/backend/_thead/ops/mm.py",
+      "sha256": "52f09e8b1b44efcf868ac2676434410a72ef24a12cf858900b29a0dab0049c05"
+    },
+    "addmm": {
+      "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_restored/flag_gems/runtime/backend/_thead/ops/addmm.py",
+      "sha256": "869b3b7de7f12f13379ef750f91b2e454378420b5211d312e9bb05503229a60f"
+    },
+    "bmm": {
+      "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_restored/flag_gems/runtime/backend/_thead/ops/bmm.py",
+      "sha256": "be1e6ae6bf757a3a90499c4e503a8d3ab8cc22c69f6e3965386802ca243cb3cc"
+    },
+    "linear": {
+      "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_restored/flag_gems/runtime/backend/_thead/ops/linear.py",
+      "sha256": "bc56178092b08033fbd651c1cff789682aafffc0d348cea81f0e0508f948f985"
+    },
+    "softmax": {
+      "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_restored/flag_gems/runtime/backend/_thead/ops/softmax.py",
+      "sha256": "0660917a80d00506a65e01b7efb8bcc9386e6a33b9f212d6224872d63d567984"
+    },
+    "softmax_backward": {
+      "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_restored/flag_gems/runtime/backend/_thead/ops/softmax.py",
+      "sha256": "0660917a80d00506a65e01b7efb8bcc9386e6a33b9f212d6224872d63d567984"
+    }
+  },
+  "status": "PASS_ALL_CURRENT_PRECISION_ROUTES"
+}

@@ -1,0 +1,18 @@
+{
+  "source": "current accepted production ops/cdist.py",
+  "original_sha256": "59f65db2e146e79aa3ac1b921ee7602c58fa3f53c1039559cf8ae066f47d1bca",
+  "backend_sha256": "35507c2b15b52bae51637e0619c6227aa91e4cdf25a15beec7b86f72914c4bac",
+  "retained_kernel_AST_equal": {
+    "_cdist_p_kernel": true,
+    "_cdist_l2_grad_x1_reduce_kernel": true,
+    "_cdist_l2_grad_x2_reduce_kernel": true,
+    "_cdist_p_grad_x1_kernel": true,
+    "_cdist_p_grad_x2_kernel": true
+  },
+  "adaptations": [
+    "Context-scoped AutogradCUDA entry and autograd.Function replace process-global register_autograd.",
+    "Use FlagGems sum_to_size for broadcast gradients.",
+    "Empty distance gradients return zeros without launching a zero-width kernel.",
+    "Empty-feature forward allocates zeros; skip launches for empty broadcast batches."
+  ]
+}

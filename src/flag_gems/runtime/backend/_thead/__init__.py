@@ -46,6 +46,7 @@ from backend_utils import VendorDescriptor
 
 vendor_info = VendorDescriptor(
     vendor_name="thead",
+    tle_enabled=True,
     # PPU uses CUDA-compatible API, accessed via torch.cuda
     device_name="cuda",
     # PPU device management tool (similar to nvidia-smi)
@@ -67,6 +68,13 @@ CUSTOMIZED_UNUSED_OPS = (
     # backend override has no performance work to accelerate and replaces the
     # native autograd decomposition with a NotImplemented grad_fn.
     "narrow",
+    # Preserve the native CompositeImplicitAutograd decomposition to pow;
+    # a CUDA-only square implementation otherwise drops its backward rule.
+    "square",
+    "square_",
+    # Preserve the accepted Linear decomposition into Gems MM/addmm/BMM
+    # and its established model graph and reduction organization.
+    "linear",
 )
 
 __all__ = ["*"]

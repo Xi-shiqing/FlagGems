@@ -1,0 +1,24 @@
+{
+  "recorded_at": "2026-11-06T06:09:36.274328+00:00",
+  "precision_cache_evidence": [
+    {
+      "path": "src/flag_gems/utils/libentry.py",
+      "lines": "1605-1647",
+      "finding": "Explicit JIT constexpr keyword values enter const_args and entry_key. ALLOW_TF32 is an explicit constexpr for retained MM paths, so true/false select different compiled dispatch keys."
+    },
+    {
+      "path": "src/flag_gems/runtime/backend/_thead/ops/mm_fp32.py",
+      "lines": "545-549,598-620,655-681",
+      "finding": "Packed RHS cache does not include precision in the key, but is only queried when current _allow_tf32() and opt-in RNE packing flag are true. FP32 bypasses packed RNE cache. Key includes storage pointer/size, offset, shape/stride, dtype/device, tensor version and stream; insertion retains original tensor to prevent pointer reuse."
+    },
+    {
+      "path": "check_precision_routes_v2.py",
+      "lines": "52-55,70-88",
+      "finding": "Same input tensors are reused for FP32 then TF32 forward/backward and no-grad forward checks. This exercises flag switching for tested shapes, not an exhaustive cache invalidation or special-value test."
+    }
+  ],
+  "limitations": [
+    "No dedicated tensor-mutation/version-cache device test independently executed by this auditor.",
+    "Only locally available source and aggregate results were inspected."
+  ]
+}

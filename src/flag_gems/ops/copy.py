@@ -20,15 +20,25 @@ import torch
 import triton
 import triton.language as tl
 
+from flag_gems.runtime import torch_device_fn
 from flag_gems.utils import pointwise_dynamic
 
 logger = logging.getLogger(__name__)
+
+_current_device = getattr(torch_device_fn, "current_device", None)
 
 _FALLBACK_KEYSET = torch._C.DispatchKeySet(
     torch._C.DispatchKey.CompositeExplicitAutograd
 )
 
 _FLOAT8_E8M0FNU = getattr(torch, "float8_e8m0fnu", None)
+
+# 4096 x int32 = 16 KB per program at 4 warps.
+_FLAT_COPY_BLOCK = 4096
+# Offsets are int32, so the last masked tile must still fit in an int32.
+_FLAT_COPY_MAX_ELEMS = 2**31 - 1 - _FLAT_COPY_BLOCK
+
+_NARROW_INT_DTYPES = (torch.int8, torch.uint8, torch.int16)
 
 
 @pointwise_dynamic(is_tensor=[True], promotion_methods=[(0, "DEFAULT")])
@@ -37,22 +47,98 @@ def _copy_kernel(src):
     return src
 
 
+@pointwise_dynamic(is_tensor=[True], promotion_methods=[(0, "DEFAULT")])
 @triton.jit
-def _copy_contiguous_flat_kernel(
-    dst_ptr, src_ptr, n_elements, BLOCK: tl.constexpr
-):
-    """Copy equal-dtype contiguous storage without pointwise stride setup.
+def _copy_to_bool_kernel(src):
+    return src != 0
 
-    This is deliberately guarded by an opt-in environment variable until a
-    complete Protenix A/B run confirms that the launch policy helps end to
-    end.  The kernel is only used after ``copy_`` has completed PyTorch's
-    broadcast, alias, dtype, and device checks.
+
+@pointwise_dynamic(is_tensor=[True], promotion_methods=[(0, "DEFAULT")])
+@triton.jit
+def _copy_to_narrow_int_kernel(src):
+    # PyTorch narrows from int32 (32768 -> int16 is -32768, -1.0 -> uint8 is
+    # 255); a direct float store saturates at the narrow width instead.
+    return src.to(tl.int32)
+
+
+@triton.jit
+def _flat_copy_kernel(
+    src_ptr,
+    dst_ptr,
+    n_elements,
+    BLOCK_SIZE: tl.constexpr,
+    NEED_MASK: tl.constexpr,
+):
+    """Bounded-tile flat copy for contiguous same-dtype tensors.
+
+    ``_copy_kernel`` tiles by shape with a fixed 512-element tile, which leaves
+    only 8 B (fp16) or 4 B (bool/int8) per thread and loses bandwidth; a flat
+    tile keeps the accesses contiguous and 128-bit wide. ``NEED_MASK`` splits
+    the exact-multiple case (masked accesses are slower) from the tail.
     """
     pid = tl.program_id(0)
-    offsets = pid * BLOCK + tl.arange(0, BLOCK)
-    mask = offsets < n_elements
-    value = tl.load(src_ptr + offsets, mask=mask, other=0)
-    tl.store(dst_ptr + offsets, value, mask=mask)
+    offsets = pid * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE)
+    if NEED_MASK:
+        mask = offsets < n_elements
+        tl.store(dst_ptr + offsets, tl.load(src_ptr + offsets, mask=mask), mask=mask)
+    else:
+        tl.store(dst_ptr + offsets, tl.load(src_ptr + offsets))
+
+
+def _int32_viewable(tensor: torch.Tensor) -> bool:
+    """Whether ``tensor.reshape(-1).view(torch.int32)`` is expressible.
+
+    A different element size is only allowed when the byte offset is a multiple
+    of 4, which a contiguous slice such as ``t[1:]`` does not satisfy.
+    """
+    esize = tensor.element_size()
+    if (tensor.numel() * esize) % 4 != 0:
+        return False
+    return (tensor.storage_offset() * esize) % 4 == 0
+
+
+def _flat_copy_plan(dst: torch.Tensor, src: torch.Tensor):
+    """Return ``(as_int32, n_elements)`` for ``_flat_copy_kernel``, or None.
+
+    Reinterpreting as int32 keeps accesses 128-bit wide regardless of element
+    size and halves the element count for 8-byte dtypes. Both operands must be
+    viewable or neither.
+    """
+    if src.shape != dst.shape or src.dtype != dst.dtype:
+        return None
+    if not src.is_contiguous() or not dst.is_contiguous():
+        return None
+
+    as_int32 = _int32_viewable(src) and _int32_viewable(dst)
+    n_elements = src.numel()
+    if as_int32:
+        n_elements = n_elements * src.element_size() // 4
+    if n_elements > _FLAT_COPY_MAX_ELEMS:
+        return None
+    return as_int32, n_elements
+
+
+def _flat_copy(
+    dst: torch.Tensor, src: torch.Tensor, as_int32: bool, n_elements: int
+) -> None:
+    view = src.reshape(-1)
+    out = dst.reshape(-1)
+    if as_int32:
+        view = view.view(torch.int32)
+        out = out.view(torch.int32)
+
+    grid = ((n_elements + _FLAT_COPY_BLOCK - 1) // _FLAT_COPY_BLOCK,)
+    need_mask = n_elements % _FLAT_COPY_BLOCK != 0
+    device_index = view.device.index
+    if (
+        _current_device is None
+        or device_index is None
+        or _current_device() == device_index
+    ):
+        _flat_copy_kernel[grid](view, out, n_elements, _FLAT_COPY_BLOCK, need_mask)
+    else:
+        with torch_device_fn.device(device_index):
+            _flat_copy_kernel[grid](view, out, n_elements, _FLAT_COPY_BLOCK, need_mask)
 
 
 @triton.jit
@@ -134,43 +220,13 @@ def _try_strided_3d_copy(dst: torch.Tensor, src: torch.Tensor) -> bool:
     return True
 
 
-def _try_contiguous_flat_copy(dst: torch.Tensor, src: torch.Tensor) -> bool:
-    """Run the opt-in fast path when storage is an exact dense copy.
-
-    ``copy_`` supports broadcasting and dtype conversion, so the specialized
-    path intentionally declines both.  Keeping this policy opt-in makes the
-    candidate easy to compare and avoids changing unrelated workloads.
-    """
-    if os.getenv("FLAG_GEMS_PPU_COPY_FLAT", "0") != "1":
-        return False
-    if dst.shape != src.shape or dst.dtype != src.dtype:
-        return False
-    if not dst.is_contiguous() or not src.is_contiguous():
-        return False
-    if dst.numel() == 0:
-        return False
-
-    # The profile's large dense copies are bandwidth-bound.  4096 elements
-    # with four warps was the best measured PPU schedule for [480249, 64].
-    # Keep a smaller block for short tensors to avoid wasting lanes.
-    n_elements = int(dst.numel())
-    block = 4096 if n_elements >= 1 << 20 else 1024
-    grid = (triton.cdiv(n_elements, block),)
-    _copy_contiguous_flat_kernel[grid](
-        dst,
-        src,
-        n_elements,
-        BLOCK=block,
-        num_warps=4,
-        num_stages=2,
-    )
-    return True
-
 
 def _can_use_triton(dst: torch.Tensor, src: torch.Tensor) -> bool:
     if dst.layout != torch.strided or src.layout != torch.strided:
         return False
     if dst.device != src.device:
+        return False
+    if src.is_neg() or dst.is_neg():
         return False
     if dst.is_quantized or src.is_quantized:
         return False
@@ -257,24 +313,34 @@ def copy_(dst: torch.Tensor, src: torch.Tensor, non_blocking: bool = False):
 
     logger.debug("GEMS COPY_")
 
-    try:
-        broadcast_shape = torch.broadcast_shapes(dst.shape, src.shape)
-    except RuntimeError as exc:
-        raise RuntimeError(str(exc)) from exc
+    plan = _flat_copy_plan(dst, src)
+    if plan is not None:
+        _flat_copy(dst, src, *plan)
+        return dst
 
-    if torch.Size(broadcast_shape) != dst.shape:
-        raise RuntimeError(
-            f"The broadcast shape {broadcast_shape} does not match destination shape {tuple(dst.shape)}"
-        )
+    if src.shape != dst.shape:
+        # Equal shapes always broadcast to themselves, so only a mismatch can fail.
+        try:
+            broadcast_shape = torch.broadcast_shapes(dst.shape, src.shape)
+        except RuntimeError as exc:
+            raise RuntimeError(str(exc)) from exc
+
+        if torch.Size(broadcast_shape) != dst.shape:
+            raise RuntimeError(
+                f"The broadcast shape {broadcast_shape} does not match destination shape {tuple(dst.shape)}"
+            )
 
     expanded_src = _expand_like(src, dst.shape)
 
     if _try_strided_3d_copy(dst, expanded_src):
         return dst
 
-    if _try_contiguous_flat_copy(dst, expanded_src):
-        return dst
-
-    overload = _copy_kernel.instantiate(expanded_src.ndim)
+    if dst.dtype == torch.bool and src.dtype != torch.bool:
+        kernel = _copy_to_bool_kernel
+    elif src.dtype.is_floating_point and dst.dtype in _NARROW_INT_DTYPES:
+        kernel = _copy_to_narrow_int_kernel
+    else:
+        kernel = _copy_kernel
+    overload = kernel.instantiate(expanded_src.ndim)
     overload(expanded_src, out0=dst)
     return dst

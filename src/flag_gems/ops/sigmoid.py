@@ -135,7 +135,7 @@ def sigmoid_backward_kernel(dy, y):
 
 
 def sigmoid(self):
-    logger.debug("GEMS SIGMOID FORWARD")
+    logger.debug("GEMS SIGMOID_FORWARD")
     fast_output = _try_ppu_flat_sigmoid(self)
     if fast_output is not None:
         return fast_output
@@ -144,13 +144,13 @@ def sigmoid(self):
 
 
 def sigmoid_backward(grad_output, output):
-    logger.debug("GEMS SIGMOID BACKWARD")
+    logger.debug("GEMS SIGMOID_BACKWARD")
     grad_input = sigmoid_backward_kernel(grad_output, output)
     return grad_input
 
 
 def sigmoid_(A):
-    logger.debug("GEMS SIGMOID_ FORWARD")
+    logger.debug("GEMS SIGMOID__FORWARD")
     if _try_ppu_flat_sigmoid_inplace(A):
         return A
     out = sigmoid_forward(A, out0=A)

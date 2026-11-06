@@ -1,0 +1,137 @@
+{
+  "checked_at": "2026-11-06T06:37:53.422203+00:00",
+  "scope": "final restored training aggregate verification; final report claim check still pending",
+  "modes": {
+    "fp32": {
+      "file_sha256": "749b888080424bfd1db8f912b4b6fd05346659d19b19e7999060cff5d9f6824f",
+      "status": "COMPLETE_FULL_TRAINING_COMPARISON",
+      "actual_training_steps": 2,
+      "new_H100_execution": false,
+      "actual_LR_step1": 1.8e-05,
+      "uniform_RNG": {
+        "count": 3338,
+        "semantic_sha256": "2fa07a2f666b52a6bc66821ddb18235795492a7d40ac4708533bac59a7107521"
+      },
+      "ratios_recomputed": 224,
+      "arithmetic_errors": [],
+      "provider_hash_errors": [],
+      "exclusion_policy_hash_matches": true,
+      "observer_hash_matches": true,
+      "cached_H100_snapshot_matches_pinned_baseline": true,
+      "timing_valid": false,
+      "losses": {
+        "new_losses": [
+          1.8798576593399048,
+          4.581812858581543
+        ],
+        "old_PPU_losses": [
+          1.8798578977584839,
+          4.581814765930176
+        ],
+        "H100_losses": [
+          1.8798567056655884,
+          4.581809043884277
+        ]
+      },
+      "gradient_and_update_relative_l2": {
+        "gradients": {
+          "new_vs_H100": 1.9662595487683797e-05,
+          "old_vs_H100": 1.5403599633673157e-05,
+          "new_vs_old_PPU": 1.0998532838029852e-05
+        },
+        "updates": {
+          "new_vs_H100": 0.0005626107896979529,
+          "old_vs_H100": 0.000429411421633987,
+          "new_vs_old_PPU": 0.0004629794590991135
+        }
+      },
+      "step0_adam_relative_l2": {
+        "exp_avg": 1.886979504479786e-05,
+        "exp_avg_sq": 2.5608274318953088e-05
+      },
+      "snapshots": {
+        "candidate": {
+          "sha256": "7eaed8e53b1eb2a3fd173ca2ba1c64ae7ef65bb7874c0ae7879bc98f7815200a",
+          "bytes": 3719254939
+        },
+        "old_PPU": {
+          "sha256": "8a2c36e7f5167d261daa6372a7bca1153b576807dcae290ba9cbc0b254460548",
+          "bytes": 3719254939
+        },
+        "H100": {
+          "sha256": "c9c6bb06bd6c2686cc3fc6cdf8781b5453f542cacd8a05334a86e56ff1af1126",
+          "bytes": 3719254939
+        }
+      }
+    },
+    "tf32": {
+      "file_sha256": "26e52cee83b73f7c36e58f4560b3d3e6afffa71ff772332e187450bd8ef94e1c",
+      "status": "COMPLETE_FULL_TRAINING_COMPARISON",
+      "actual_training_steps": 2,
+      "new_H100_execution": false,
+      "actual_LR_step1": 1.8e-05,
+      "uniform_RNG": {
+        "count": 3338,
+        "semantic_sha256": "2fa07a2f666b52a6bc66821ddb18235795492a7d40ac4708533bac59a7107521"
+      },
+      "ratios_recomputed": 224,
+      "arithmetic_errors": [],
+      "provider_hash_errors": [],
+      "exclusion_policy_hash_matches": true,
+      "observer_hash_matches": true,
+      "cached_H100_snapshot_matches_pinned_baseline": true,
+      "timing_valid": false,
+      "losses": {
+        "new_losses": [
+          1.8840559720993042,
+          4.580809593200684
+        ],
+        "old_PPU_losses": [
+          1.8833922147750854,
+          4.578239440917969
+        ],
+        "H100_losses": [
+          1.8828532695770264,
+          4.5790205001831055
+        ]
+      },
+      "gradient_and_update_relative_l2": {
+        "gradients": {
+          "new_vs_H100": 0.008502894183626328,
+          "old_vs_H100": 0.012897880625567985,
+          "new_vs_old_PPU": 0.013919811441263356
+        },
+        "updates": {
+          "new_vs_H100": 0.04555015374361353,
+          "old_vs_H100": 0.06433917284225955,
+          "new_vs_old_PPU": 0.07078163870783741
+        }
+      },
+      "step0_adam_relative_l2": {
+        "exp_avg": 0.018742224394909354,
+        "exp_avg_sq": 0.022639861050088465
+      },
+      "snapshots": {
+        "candidate": {
+          "sha256": "0f7df1f602fab8ccd28c22a1b7aedc031dc42f4ea6ccc56c338c866926e38ce1",
+          "bytes": 3719254939
+        },
+        "old_PPU": {
+          "sha256": "e8b4db6c69cdc4c6f3cb27a6c7e7e6233affd221986b7d6f5b4f8351ba33ddec",
+          "bytes": 3719254939
+        },
+        "H100": {
+          "sha256": "c0cbd595ce2108133c102a8a4b9cdc2361f5f336c2cda574880ce250888b69e3",
+          "bytes": 3719254939
+        }
+      }
+    }
+  },
+  "claim_constraints": [
+    "FP32 gradient and update residuals to H100 are larger than old PPU, though small in absolute relative-L2 scale. Do not claim all precision metrics improved or no numerical degradation.",
+    "TF32 gradient/update residuals to H100 are smaller on this one trace; its step1 absolute loss gap is larger. Do not generalize to all metrics or seeds.",
+    "Metric checks use locally available source and aggregates only, not the original multi-GB tensors.",
+    "Two optimizer steps: step0 LR=0 and step1 before-update LR=1.8e-5. Full gradient/update comparison covers step1; step0 comparison covers Adam moments against old PPU, not H100.",
+    "Forward ATen observation is not exhaustive (AutogradCUDA cdist may execute above the observer); use actual registered VJP tests and provider/source provenance with this limitation."
+  ]
+}

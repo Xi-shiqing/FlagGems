@@ -28,8 +28,7 @@ def test_square(shape, dtype):
     ref_inp = utils.to_reference(inp)
 
     ref_out = torch.square(ref_inp)
-    with flag_gems.use_gems():
-        res_out = torch.square(inp)
+    res_out = flag_gems.square(inp)
 
     utils.gems_assert_equal(res_out, ref_out)
 
@@ -43,8 +42,7 @@ def test_square_(shape, dtype):
     ref_inp = utils.to_reference(inp.clone())
 
     ref_out = torch.square_(ref_inp)
-    with flag_gems.use_gems():
-        res_out = torch.square_(inp)
+    res_out = flag_gems.square_(inp)
 
     utils.gems_assert_equal(res_out, ref_out)
 
@@ -60,7 +58,30 @@ def test_square_out(shape, dtype):
     ref_out = torch.empty_like(ref_inp)
 
     torch.square(ref_inp, out=ref_out)
-    with flag_gems.use_gems():
-        torch.square(inp, out=out)
+    flag_gems.square_out(inp, out=out)
 
     utils.gems_assert_equal(out, ref_out)
+
+
+@pytest.mark.square
+@pytest.mark.parametrize("inplace", [False, True])
+def test_square_preserves_native_autograd(inplace):
+    generator = torch.Generator().manual_seed(20261106)
+    cpu = torch.randn((3, 7), generator=generator, dtype=torch.float32)
+    reference = cpu.clone().requires_grad_()
+    reference_value = reference * 2
+    if inplace:
+        reference_value.square_()
+    else:
+        reference_value = reference_value.square()
+    reference_value.sum().backward()
+    actual = cpu.to(flag_gems.device).requires_grad_()
+    with flag_gems.use_gems(exclude=[]):
+        value = actual * 2
+        if inplace:
+            value.square_()
+        else:
+            value = value.square()
+        value.sum().backward()
+    torch.testing.assert_close(value.detach().cpu(), reference_value.detach(), rtol=0, atol=0)
+    torch.testing.assert_close(actual.grad.cpu(), reference.grad, rtol=0, atol=0)

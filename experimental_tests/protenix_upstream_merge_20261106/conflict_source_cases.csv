@@ -1,0 +1,151 @@
+case,variant,status,precision_route,median_ms,relative_l2,max_abs,environment
+"copy_(4096, 256)_dense",ours,PASS,FP32 except explicit dtype in case,0.05409333109855652,0.0,0.0,"{""FLAG_GEMS_PPU_COPY_FLAT"": ""1"", ""FLAG_GEMS_PPU_COPY_STRIDED"": ""1""}"
+"copy_(4096, 256)_dense",upstream,PASS,FP32 except explicit dtype in case,0.03311999887228012,0.0,0.0,"{""FLAG_GEMS_PPU_COPY_FLAT"": ""1"", ""FLAG_GEMS_PPU_COPY_STRIDED"": ""1""}"
+"copy_(4096, 256)_dense",merged,PASS,FP32 except explicit dtype in case,0.029440000653266907,0.0,0.0,"{""FLAG_GEMS_PPU_COPY_FLAT"": ""1"", ""FLAG_GEMS_PPU_COPY_STRIDED"": ""1""}"
+"copy_(480249, 64)_dense",ours,PASS,FP32 except explicit dtype in case,0.1352666715780894,0.0,0.0,"{""FLAG_GEMS_PPU_COPY_FLAT"": ""1"", ""FLAG_GEMS_PPU_COPY_STRIDED"": ""1""}"
+"copy_(480249, 64)_dense",upstream,PASS,FP32 except explicit dtype in case,0.13025333484013876,0.0,0.0,"{""FLAG_GEMS_PPU_COPY_FLAT"": ""1"", ""FLAG_GEMS_PPU_COPY_STRIDED"": ""1""}"
+"copy_(480249, 64)_dense",merged,PASS,FP32 except explicit dtype in case,0.1297599971294403,0.0,0.0,"{""FLAG_GEMS_PPU_COPY_FLAT"": ""1"", ""FLAG_GEMS_PPU_COPY_STRIDED"": ""1""}"
+"copy_(64, 127, 128)_transpose",ours,PASS,FP32 except explicit dtype in case,0.06227999925613403,0.0,0.0,"{""FLAG_GEMS_PPU_COPY_FLAT"": ""1"", ""FLAG_GEMS_PPU_COPY_STRIDED"": ""1""}"
+"copy_(64, 127, 128)_transpose",upstream,PASS,FP32 except explicit dtype in case,0.06906666855017345,0.0,0.0,"{""FLAG_GEMS_PPU_COPY_FLAT"": ""1"", ""FLAG_GEMS_PPU_COPY_STRIDED"": ""1""}"
+"copy_(64, 127, 128)_transpose",merged,PASS,FP32 except explicit dtype in case,0.03800000001986822,0.0,0.0,"{""FLAG_GEMS_PPU_COPY_FLAT"": ""1"", ""FLAG_GEMS_PPU_COPY_STRIDED"": ""1""}"
+"copy_(600, 600, 8)_transpose",ours,PASS,FP32 except explicit dtype in case,0.0618399977684021,0.0,0.0,"{""FLAG_GEMS_PPU_COPY_FLAT"": ""1"", ""FLAG_GEMS_PPU_COPY_STRIDED"": ""1""}"
+"copy_(600, 600, 8)_transpose",upstream,PASS,FP32 except explicit dtype in case,0.06974666814009349,0.0,0.0,"{""FLAG_GEMS_PPU_COPY_FLAT"": ""1"", ""FLAG_GEMS_PPU_COPY_STRIDED"": ""1""}"
+"copy_(600, 600, 8)_transpose",merged,PASS,FP32 except explicit dtype in case,0.039333333571751915,0.0,0.0,"{""FLAG_GEMS_PPU_COPY_FLAT"": ""1"", ""FLAG_GEMS_PPU_COPY_STRIDED"": ""1""}"
+copy_dtype_conversion,ours,FAIL,FP32 except explicit dtype in case,,,,{}
+copy_dtype_conversion,upstream,PASS,FP32 except explicit dtype in case,,,,{}
+copy_dtype_conversion,merged,PASS,FP32 except explicit dtype in case,,,,{}
+div_tensor_4093,ours,PASS,FP32 except explicit dtype in case,0.09327999750773112,0.0,0.0,{}
+div_tensor_4093,upstream,PASS,FP32 except explicit dtype in case,0.0829999993244807,5.340295373128644e-09,3.0517578125e-05,{}
+div_tensor_4093,merged,PASS,FP32 except explicit dtype in case,0.08518667022387187,0.0,0.0,{}
+div_scalar_4093,ours,PASS,FP32 except explicit dtype in case,0.0811333308617274,4.547485562235406e-08,2.9802322387695312e-08,{}
+div_scalar_4093,upstream,PASS,FP32 except explicit dtype in case,0.08012000223000844,2.3467948337294454e-08,2.9802322387695312e-08,{}
+div_scalar_4093,merged,PASS,FP32 except explicit dtype in case,0.08037333190441132,4.547485562235406e-08,2.9802322387695312e-08,{}
+div_tensor_1048576,ours,PASS,FP32 except explicit dtype in case,0.08070666591326396,0.0,0.0,{}
+div_tensor_1048576,upstream,PASS,FP32 except explicit dtype in case,0.08342666427294414,4.42358631364325e-09,0.00390625,{}
+div_tensor_1048576,merged,PASS,FP32 except explicit dtype in case,0.08357333143552144,0.0,0.0,{}
+div_scalar_1048576,ours,PASS,FP32 except explicit dtype in case,0.08156000077724457,4.743466108760718e-08,5.960464477539063e-08,{}
+div_scalar_1048576,upstream,PASS,FP32 except explicit dtype in case,0.08103999992211659,2.5491744957832485e-08,5.960464477539063e-08,{}
+div_scalar_1048576,merged,PASS,FP32 except explicit dtype in case,0.0793333351612091,4.743466108760718e-08,5.960464477539063e-08,{}
+div_scalar_trunc,ours,FAIL,FP32 except explicit dtype in case,,,,{}
+div_scalar_trunc,upstream,PASS,FP32 except explicit dtype in case,,,,{}
+div_scalar_trunc,merged,PASS,FP32 except explicit dtype in case,,,,{}
+"mean_(17, 31, 13)_1",ours,PASS,FP32 except explicit dtype in case,0.04494666556517283,9.762844376324138e-08,5.960464477539063e-08,{}
+"mean_(17, 31, 13)_1",upstream,PASS,FP32 except explicit dtype in case,0.04812000195185343,9.762844376324138e-08,5.960464477539063e-08,{}
+"mean_(17, 31, 13)_1",merged,PASS,FP32 except explicit dtype in case,0.04413333535194397,9.762844376324138e-08,5.960464477539063e-08,{}
+"mean_(64, 600, 8)_1",ours,PASS,FP32 except explicit dtype in case,0.04215999941031138,1.4016174766139783e-07,1.6763806343078613e-08,{}
+"mean_(64, 600, 8)_1",upstream,PASS,FP32 except explicit dtype in case,0.04200000067551931,1.4016174766139783e-07,1.6763806343078613e-08,{}
+"mean_(64, 600, 8)_1",merged,PASS,FP32 except explicit dtype in case,0.047826667626698814,1.4016174766139783e-07,1.6763806343078613e-08,{}
+"mean_(7, 13, 11)_(0, 2)",ours,PASS,FP32 except explicit dtype in case,0.055959999561309814,1.157487115525432e-07,4.470348358154297e-08,{}
+"mean_(7, 13, 11)_(0, 2)",upstream,PASS,FP32 except explicit dtype in case,0.05865333477656046,1.157487115525432e-07,4.470348358154297e-08,{}
+"mean_(7, 13, 11)_(0, 2)",merged,PASS,FP32 except explicit dtype in case,0.055213332176208496,1.157487115525432e-07,4.470348358154297e-08,{}
+"mean_(2, 0, 4)_1",ours,PASS,FP32 except explicit dtype in case,0.015746666739384334,0.0,0.0,{}
+"mean_(2, 0, 4)_1",upstream,PASS,FP32 except explicit dtype in case,0.018533332894245785,0.0,0.0,{}
+"mean_(2, 0, 4)_1",merged,PASS,FP32 except explicit dtype in case,0.016493332882722218,0.0,0.0,{}
+"mean_(0, 5)_1",ours,FAIL,FP32 except explicit dtype in case,,,,{}
+"mean_(0, 5)_1",upstream,PASS,FP32 except explicit dtype in case,0.010146666939059893,0.0,0.0,{}
+"mean_(0, 5)_1",merged,PASS,FP32 except explicit dtype in case,0.010373333469033241,0.0,0.0,{}
+"mean_(0, 5)_0",ours,PASS,FP32 except explicit dtype in case,0.014760000010331472,0.0,0.0,{}
+"mean_(0, 5)_0",upstream,PASS,FP32 except explicit dtype in case,0.016706666598717373,0.0,0.0,{}
+"mean_(0, 5)_0",merged,PASS,FP32 except explicit dtype in case,0.016253333538770676,0.0,0.0,{}
+mean_invalid_dtype,ours,FAIL,FP32 except explicit dtype in case,,,,{}
+mean_invalid_dtype,upstream,PASS,FP32 except explicit dtype in case,,,,{}
+mean_invalid_dtype,merged,PASS,FP32 except explicit dtype in case,,,,{}
+"pad_(17, 31)",ours,PASS,FP32 except explicit dtype in case,0.060306668281555176,0.0,0.0,{}
+"pad_(17, 31)",upstream,PASS,FP32 except explicit dtype in case,0.05542666713396708,0.0,0.0,{}
+"pad_(17, 31)",merged,PASS,FP32 except explicit dtype in case,0.05295999844868978,0.0,0.0,{}
+"pad_(2, 7, 13)",ours,PASS,FP32 except explicit dtype in case,0.0631600022315979,0.0,0.0,{}
+"pad_(2, 7, 13)",upstream,PASS,FP32 except explicit dtype in case,0.06353333095709483,0.0,0.0,{}
+"pad_(2, 7, 13)",merged,PASS,FP32 except explicit dtype in case,0.05806666612625122,0.0,0.0,{}
+"pad_(600, 600, 8)",ours,PASS,FP32 except explicit dtype in case,0.07754666606585185,0.0,0.0,{}
+"pad_(600, 600, 8)",upstream,PASS,FP32 except explicit dtype in case,0.07770666480064392,0.0,0.0,{}
+"pad_(600, 600, 8)",merged,PASS,FP32 except explicit dtype in case,0.07885333398977916,0.0,0.0,{}
+pad_autograd,ours,PASS,FP32 except explicit dtype in case,,,,{}
+pad_autograd,upstream,FAIL,FP32 except explicit dtype in case,,,,{}
+pad_autograd,merged,PASS,FP32 except explicit dtype in case,,,,{}
+"sigmoid_(127, 129)_dense",ours,PASS,FP32 except explicit dtype in case,0.0759200006723404,4.391904530119573e-08,1.1920928955078125e-07,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"sigmoid_(127, 129)_dense",upstream,PASS,FP32 except explicit dtype in case,0.07569333414236705,4.391904530119573e-08,1.1920928955078125e-07,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"sigmoid_(127, 129)_dense",merged,PASS,FP32 except explicit dtype in case,0.07660000026226044,4.391904530119573e-08,1.1920928955078125e-07,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"sigmoid_backward_(127, 129)_dense",ours,PASS,FP32 except explicit dtype in case,0.07982666790485382,4.86113832778759e-08,1.1920928955078125e-07,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"sigmoid_backward_(127, 129)_dense",upstream,PASS,FP32 except explicit dtype in case,0.07713333268960317,4.86113832778759e-08,1.1920928955078125e-07,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"sigmoid_backward_(127, 129)_dense",merged,PASS,FP32 except explicit dtype in case,0.07634666562080383,4.86113832778759e-08,1.1920928955078125e-07,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"sigmoid_(127, 129)_transpose",ours,PASS,FP32 except explicit dtype in case,0.08092000087102254,4.324593346317555e-08,1.1920928955078125e-07,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"sigmoid_(127, 129)_transpose",upstream,PASS,FP32 except explicit dtype in case,0.07904000083605449,4.324593346317555e-08,1.1920928955078125e-07,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"sigmoid_(127, 129)_transpose",merged,PASS,FP32 except explicit dtype in case,0.07727999985218048,4.324593346317555e-08,1.1920928955078125e-07,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"sigmoid_backward_(127, 129)_transpose",ours,PASS,FP32 except explicit dtype in case,0.0949466625849406,5.034649988481405e-08,5.960464477539063e-08,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"sigmoid_backward_(127, 129)_transpose",upstream,PASS,FP32 except explicit dtype in case,0.10050666332244873,5.034649988481405e-08,5.960464477539063e-08,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"sigmoid_backward_(127, 129)_transpose",merged,PASS,FP32 except explicit dtype in case,0.09251999855041504,5.034649988481405e-08,5.960464477539063e-08,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"sigmoid_(1048576,)_dense",ours,PASS,FP32 except explicit dtype in case,0.030426666140556335,4.3629112501680504e-08,1.1920928955078125e-07,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"sigmoid_(1048576,)_dense",upstream,PASS,FP32 except explicit dtype in case,0.07871999839941661,4.3629112501680504e-08,1.1920928955078125e-07,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"sigmoid_(1048576,)_dense",merged,PASS,FP32 except explicit dtype in case,0.03647999962170919,4.3629112501680504e-08,1.1920928955078125e-07,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"sigmoid_backward_(1048576,)_dense",ours,PASS,FP32 except explicit dtype in case,0.08170666793982188,4.882628591470279e-08,1.1920928955078125e-07,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"sigmoid_backward_(1048576,)_dense",upstream,PASS,FP32 except explicit dtype in case,0.07929333547751109,4.882628591470279e-08,1.1920928955078125e-07,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"sigmoid_backward_(1048576,)_dense",merged,PASS,FP32 except explicit dtype in case,0.07743999858697255,4.882628591470279e-08,1.1920928955078125e-07,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"silu_(127, 129)_dense",ours,PASS,FP32 except explicit dtype in case,0.03245333333810171,5.3249780565511356e-08,9.5367431640625e-07,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"silu_(127, 129)_dense",upstream,PASS,FP32 except explicit dtype in case,0.08282666901747386,5.3249780565511356e-08,9.5367431640625e-07,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"silu_(127, 129)_dense",merged,PASS,FP32 except explicit dtype in case,0.03136000037193298,5.3249780565511356e-08,9.5367431640625e-07,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"silu_backward_(127, 129)_dense",ours,PASS,FP32 except explicit dtype in case,0.07863999903202057,1.2858916155734912e-07,1.6689300537109375e-06,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"silu_backward_(127, 129)_dense",upstream,PASS,FP32 except explicit dtype in case,0.07709333300590515,1.2858916155734912e-07,1.6689300537109375e-06,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"silu_backward_(127, 129)_dense",merged,PASS,FP32 except explicit dtype in case,0.07950666546821594,1.2858916155734912e-07,1.6689300537109375e-06,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"silu_(127, 129)_transpose",ours,PASS,FP32 except explicit dtype in case,0.08297333121299744,5.2992120836963136e-08,9.5367431640625e-07,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"silu_(127, 129)_transpose",upstream,PASS,FP32 except explicit dtype in case,0.07830666502316792,5.2992120836963136e-08,9.5367431640625e-07,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"silu_(127, 129)_transpose",merged,PASS,FP32 except explicit dtype in case,0.07849333186944325,5.2992120836963136e-08,9.5367431640625e-07,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"silu_backward_(127, 129)_transpose",ours,PASS,FP32 except explicit dtype in case,0.10401333371798198,1.262869219028044e-07,1.430511474609375e-06,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"silu_backward_(127, 129)_transpose",upstream,PASS,FP32 except explicit dtype in case,0.09090666969617207,1.262869219028044e-07,1.430511474609375e-06,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"silu_backward_(127, 129)_transpose",merged,PASS,FP32 except explicit dtype in case,0.10405332843462627,1.262869219028044e-07,1.430511474609375e-06,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"silu_(1048576,)_dense",ours,PASS,FP32 except explicit dtype in case,0.03402666747570038,5.26081357843112e-08,9.5367431640625e-07,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"silu_(1048576,)_dense",upstream,PASS,FP32 except explicit dtype in case,0.07991999884446462,5.26081357843112e-08,9.5367431640625e-07,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"silu_(1048576,)_dense",merged,PASS,FP32 except explicit dtype in case,0.033399999141693115,5.26081357843112e-08,9.5367431640625e-07,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"silu_backward_(1048576,)_dense",ours,PASS,FP32 except explicit dtype in case,0.07844000061353047,1.3107621000884482e-07,2.384185791015625e-06,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"silu_backward_(1048576,)_dense",upstream,PASS,FP32 except explicit dtype in case,0.07706666489442189,1.3107621000884482e-07,2.384185791015625e-06,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"silu_backward_(1048576,)_dense",merged,PASS,FP32 except explicit dtype in case,0.0802400012811025,1.3107621000884482e-07,2.384185791015625e-06,"{""FLAG_GEMS_PPU_SIGMOID_FAST"": ""1"", ""FLAG_GEMS_PPU_SILU_FAST"": ""1""}"
+"log_softmax_(71, 437)",ours,PASS,FP32 except explicit dtype in case,0.041519999504089355,3.811591672418898e-08,9.5367431640625e-07,{}
+"log_softmax_(71, 437)",upstream,PASS,FP32 except explicit dtype in case,0.03602666656176249,3.847103490659402e-08,9.5367431640625e-07,{}
+"log_softmax_(71, 437)",merged,PASS,FP32 except explicit dtype in case,0.0439600000778834,3.811591672418898e-08,9.5367431640625e-07,{}
+"log_softmax_backward_(71, 437)",ours,PASS,FP32 except explicit dtype in case,0.03569333255290985,1.520201580011683e-08,2.384185791015625e-07,{}
+"log_softmax_backward_(71, 437)",upstream,PASS,FP32 except explicit dtype in case,0.04242666562398275,2.132622767600935e-08,2.980232238769531e-07,{}
+"log_softmax_backward_(71, 437)",merged,PASS,FP32 except explicit dtype in case,0.04334666828314463,1.520201580011683e-08,2.384185791015625e-07,{}
+"log_softmax_(17, 1025)",ours,PASS,FP32 except explicit dtype in case,0.04682666560014089,4.067272905388033e-08,9.5367431640625e-07,{}
+"log_softmax_(17, 1025)",upstream,PASS,FP32 except explicit dtype in case,0.0370533342162768,4.095845523740264e-08,9.5367431640625e-07,{}
+"log_softmax_(17, 1025)",merged,PASS,FP32 except explicit dtype in case,0.041080000499884285,4.067272905388033e-08,9.5367431640625e-07,{}
+"log_softmax_backward_(17, 1025)",ours,PASS,FP32 except explicit dtype in case,0.041080000499884285,1.2148187164306299e-08,2.384185791015625e-07,{}
+"log_softmax_backward_(17, 1025)",upstream,PASS,FP32 except explicit dtype in case,0.039906665682792664,1.9020027989599792e-08,2.384185791015625e-07,{}
+"log_softmax_backward_(17, 1025)",merged,PASS,FP32 except explicit dtype in case,0.036199999352296196,1.2148187164306299e-08,2.384185791015625e-07,{}
+"log_softmax_(7, 13, 11)",ours,PASS,FP32 except explicit dtype in case,0.039546666045983635,4.197200020133252e-08,4.76837158203125e-07,{}
+"log_softmax_(7, 13, 11)",upstream,PASS,FP32 except explicit dtype in case,0.036973332365353904,4.219139695248375e-08,4.76837158203125e-07,{}
+"log_softmax_(7, 13, 11)",merged,PASS,FP32 except explicit dtype in case,0.03660000115633011,4.197200020133252e-08,4.76837158203125e-07,{}
+"log_softmax_backward_(7, 13, 11)",ours,PASS,FP32 except explicit dtype in case,0.038759998977184296,3.488354320754493e-08,2.384185791015625e-07,{}
+"log_softmax_backward_(7, 13, 11)",upstream,PASS,FP32 except explicit dtype in case,0.039693333208560944,4.4211148249970526e-08,2.384185791015625e-07,{}
+"log_softmax_backward_(7, 13, 11)",merged,PASS,FP32 except explicit dtype in case,0.03821333249409994,3.488354320754493e-08,2.384185791015625e-07,{}
+"unfold_backward_(2, 17, 7)_torch.float32",ours,PASS,FP32 except explicit dtype in case,0.031426665683587394,0.0,0.0,{}
+"unfold_backward_(2, 17, 7)_torch.float32",upstream,PASS,FP32 except explicit dtype in case,0.040306667486826576,2.5346661435089746e-08,2.384185791015625e-07,{}
+"unfold_backward_(2, 17, 7)_torch.float32",merged,PASS,FP32 except explicit dtype in case,0.03257333238919576,0.0,0.0,{}
+"unfold_backward_(64, 256, 128)_torch.float32",ours,PASS,FP32 except explicit dtype in case,0.38461331526438397,0.0,0.0,{}
+"unfold_backward_(64, 256, 128)_torch.float32",upstream,PASS,FP32 except explicit dtype in case,3.6550798416137695,9.511003208468618e-08,3.814697265625e-06,{}
+"unfold_backward_(64, 256, 128)_torch.float32",merged,PASS,FP32 except explicit dtype in case,0.38311998049418133,0.0,0.0,{}
+"unfold_backward_(2, 17, 7)_torch.float64",ours,PASS,FP32 except explicit dtype in case,0.030413334568341572,0.0,0.0,{}
+"unfold_backward_(2, 17, 7)_torch.float64",upstream,FAIL,FP32 except explicit dtype in case,,2.6638504822970325e-08,1.601874828338623e-07,{}
+"unfold_backward_(2, 17, 7)_torch.float64",merged,PASS,FP32 except explicit dtype in case,0.03309333324432373,0.0,0.0,{}
+"unfold_backward_(3, 31)_torch.float16",ours,PASS,FP32 except explicit dtype in case,0.035959998766581215,9.556724008341866e-05,0.0009765625,{}
+"unfold_backward_(3, 31)_torch.float16",upstream,PASS,FP32 except explicit dtype in case,0.055160000920295715,9.556724008341866e-05,0.0009765625,{}
+"unfold_backward_(3, 31)_torch.float16",merged,PASS,FP32 except explicit dtype in case,0.03398666779200236,9.556724008341866e-05,0.0009765625,{}
+"linear_(1, 256, 384)_fp32",ours,PASS,FP32 except explicit dtype in case,0.07747999827067058,2.9076045541090484e-07,2.47955322265625e-05,"{""FLAG_GEMS_PPU_FAST_FP32"": ""0"", ""FLAG_GEMS_PPU_PACKED_LINEAR"": ""1""}"
+"linear_(1, 256, 384)_fp32",upstream,PASS,FP32 except explicit dtype in case,0.08402666449546814,7.760227744661089e-08,3.814697265625e-06,"{""FLAG_GEMS_PPU_FAST_FP32"": ""0"", ""FLAG_GEMS_PPU_PACKED_LINEAR"": ""1""}"
+"linear_(1, 256, 384)_fp32",merged,PASS,FP32 except explicit dtype in case,0.0867733359336853,7.760227744661089e-08,3.814697265625e-06,"{""FLAG_GEMS_PPU_FAST_FP32"": ""0"", ""FLAG_GEMS_PPU_PACKED_LINEAR"": ""1""}"
+"linear_(5, 1024, 384)_fp32",ours,PASS,FP32 except explicit dtype in case,0.18610666195551553,5.809103240105686e-07,0.0001220703125,"{""FLAG_GEMS_PPU_FAST_FP32"": ""0"", ""FLAG_GEMS_PPU_PACKED_LINEAR"": ""1""}"
+"linear_(5, 1024, 384)_fp32",upstream,PASS,FP32 except explicit dtype in case,0.08243999878565471,9.617256406607551e-08,1.52587890625e-05,"{""FLAG_GEMS_PPU_FAST_FP32"": ""0"", ""FLAG_GEMS_PPU_PACKED_LINEAR"": ""1""}"
+"linear_(5, 1024, 384)_fp32",merged,PASS,FP32 except explicit dtype in case,0.08525333801905315,9.617256406607551e-08,1.52587890625e-05,"{""FLAG_GEMS_PPU_FAST_FP32"": ""0"", ""FLAG_GEMS_PPU_PACKED_LINEAR"": ""1""}"
+"linear_(7, 17, 13)_fp32",ours,PASS,FP32 except explicit dtype in case,0.069733331600825,7.325410397439142e-08,9.5367431640625e-07,"{""FLAG_GEMS_PPU_FAST_FP32"": ""0"", ""FLAG_GEMS_PPU_PACKED_LINEAR"": ""1""}"
+"linear_(7, 17, 13)_fp32",upstream,PASS,FP32 except explicit dtype in case,0.0624533345301946,7.325410397439142e-08,9.5367431640625e-07,"{""FLAG_GEMS_PPU_FAST_FP32"": ""0"", ""FLAG_GEMS_PPU_PACKED_LINEAR"": ""1""}"
+"linear_(7, 17, 13)_fp32",merged,PASS,FP32 except explicit dtype in case,0.06311999758084615,7.325410397439142e-08,9.5367431640625e-07,"{""FLAG_GEMS_PPU_FAST_FP32"": ""0"", ""FLAG_GEMS_PPU_PACKED_LINEAR"": ""1""}"
+"linear_(32768, 256, 256)_fp32",ours,PASS,FP32 except explicit dtype in case,0.3154933253924052,2.8941290152619374e-07,5.91278076171875e-05,"{""FLAG_GEMS_PPU_FAST_FP32"": ""0"", ""FLAG_GEMS_PPU_PACKED_LINEAR"": ""1""}"
+"linear_(32768, 256, 256)_fp32",upstream,PASS,FP32 except explicit dtype in case,0.2879733244578044,2.8941290152619374e-07,5.91278076171875e-05,"{""FLAG_GEMS_PPU_FAST_FP32"": ""0"", ""FLAG_GEMS_PPU_PACKED_LINEAR"": ""1""}"
+"linear_(32768, 256, 256)_fp32",merged,PASS,FP32 except explicit dtype in case,0.27672000726064044,2.8941290152619374e-07,5.91278076171875e-05,"{""FLAG_GEMS_PPU_FAST_FP32"": ""0"", ""FLAG_GEMS_PPU_PACKED_LINEAR"": ""1""}"
+"linear_(32768, 256, 256)_tf32",ours,PASS,legacy RTZ flag diagnostic; upstream strict FP32,0.17165333032608032,0.0007698308651927919,0.07370758056640625,"{""FLAG_GEMS_PPU_FAST_FP32"": ""1"", ""FLAG_GEMS_PPU_PACKED_LINEAR"": ""1""}"
+"linear_(32768, 256, 256)_tf32",upstream,PASS,legacy RTZ flag diagnostic; upstream strict FP32,0.28798667589823407,2.8941290152619374e-07,5.91278076171875e-05,"{""FLAG_GEMS_PPU_FAST_FP32"": ""1"", ""FLAG_GEMS_PPU_PACKED_LINEAR"": ""1""}"
+"linear_(32768, 256, 256)_tf32",merged,PASS,legacy RTZ flag diagnostic; upstream strict FP32,0.1931999921798706,0.0007698308651927919,0.07370758056640625,"{""FLAG_GEMS_PPU_FAST_FP32"": ""1"", ""FLAG_GEMS_PPU_PACKED_LINEAR"": ""1""}"
+"linear_(360000, 256, 256)_fp32",ours,PASS,FP32 except explicit dtype in case,2.6826400756835938,2.890497364137134e-07,7.62939453125e-05,"{""FLAG_GEMS_PPU_FAST_FP32"": ""0"", ""FLAG_GEMS_PPU_PACKED_LINEAR"": ""1""}"
+"linear_(360000, 256, 256)_fp32",upstream,PASS,FP32 except explicit dtype in case,2.5083600680033364,2.890497364137134e-07,7.62939453125e-05,"{""FLAG_GEMS_PPU_FAST_FP32"": ""0"", ""FLAG_GEMS_PPU_PACKED_LINEAR"": ""1""}"
+"linear_(360000, 256, 256)_fp32",merged,PASS,FP32 except explicit dtype in case,2.4968667030334473,2.890497364137134e-07,7.62939453125e-05,"{""FLAG_GEMS_PPU_FAST_FP32"": ""0"", ""FLAG_GEMS_PPU_PACKED_LINEAR"": ""1""}"
+"linear_(360000, 256, 256)_tf32",ours,PASS,legacy RTZ flag diagnostic; upstream strict FP32,1.5041066805521648,0.0007690020662954947,0.07569122314453125,"{""FLAG_GEMS_PPU_FAST_FP32"": ""1"", ""FLAG_GEMS_PPU_PACKED_LINEAR"": ""1""}"
+"linear_(360000, 256, 256)_tf32",upstream,PASS,legacy RTZ flag diagnostic; upstream strict FP32,2.5051466623942056,2.890497364137134e-07,7.62939453125e-05,"{""FLAG_GEMS_PPU_FAST_FP32"": ""1"", ""FLAG_GEMS_PPU_PACKED_LINEAR"": ""1""}"
+"linear_(360000, 256, 256)_tf32",merged,PASS,legacy RTZ flag diagnostic; upstream strict FP32,1.5452399253845215,0.0007690020662954947,0.07569122314453125,"{""FLAG_GEMS_PPU_FAST_FP32"": ""1"", ""FLAG_GEMS_PPU_PACKED_LINEAR"": ""1""}"

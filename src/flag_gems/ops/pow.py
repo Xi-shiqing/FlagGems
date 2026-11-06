@@ -70,8 +70,20 @@ def _is_fp32_square(A, exponent):
     return A.dtype == torch.float32 and exponent == 2
 
 
+@pointwise_dynamic(promotion_methods=[(0, "DEFAULT")])
+@triton.jit
+def pow_identity_fp32_func(x):
+    return x
+
+
+def _is_fp32_identity(A, exponent):
+    return A.dtype == torch.float32 and not isinstance(exponent, complex) and exponent == 1
+
+
 def pow_tensor_scalar(A, exponent):
     logger.debug("GEMS POW_TENSOR_SCALAR")
+    if _is_fp32_identity(A, exponent):
+        return pow_identity_fp32_func(A)
     if _is_fp32_square(A, exponent):
         return pow_square_fp32_rn_func(A)
     return pow_func_tensor_scalar(A, exponent)
@@ -79,6 +91,8 @@ def pow_tensor_scalar(A, exponent):
 
 def pow_tensor_scalar_(A, exponent):
     logger.debug("GEMS POW_TENSOR_SCALAR_")
+    if _is_fp32_identity(A, exponent):
+        return pow_identity_fp32_func(A, out0=A)
     if _is_fp32_square(A, exponent):
         return pow_square_fp32_rn_func(A, out0=A)
     return pow_func_tensor_scalar(A, exponent, out0=A)

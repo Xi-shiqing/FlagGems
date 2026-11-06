@@ -163,7 +163,7 @@ def silu_backward_kernel(x, dy):
 
 
 def silu(self):
-    logger.debug("GEMS SILU FORWARD")
+    logger.debug("GEMS SILU_FORWARD")
     if _can_use_measured_ppu_path(self):
         return _silu_measured_ppu(self)
     candidate = _try_ppu_flat_silu(self)
@@ -174,7 +174,7 @@ def silu(self):
 
 
 def silu_backward(grad_output, self):
-    logger.debug("GEMS SILU BACKWARD")
+    logger.debug("GEMS SILU_BACKWARD")
     if (
         os.getenv("FLAG_GEMS_PPU_SILU_BWD_BLOCK") == "8192"
         and _can_use_measured_ppu_path(self, "FLAG_GEMS_PPU_SILU_BWD_BLOCK")
@@ -187,7 +187,7 @@ def silu_backward(grad_output, self):
 
 
 def silu_(A):
-    logger.debug("GEMS SILU_ FORWARD")
+    logger.debug("GEMS SILU__FORWARD")
     if _can_use_measured_ppu_path(A):
         return _silu_measured_ppu(A, out=A)
     if (

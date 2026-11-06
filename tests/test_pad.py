@@ -83,8 +83,7 @@ def test_pad(shape, dtype, pad_mode, contiguous):
     pad_params_list = [int(pad_params[i]) for i in range(pad_params.shape[0])]
 
     ref_out = torch.nn.functional.pad(ref_x, pad_params_list, pad_mode, pad_value)
-    with flag_gems.use_gems():
-        res_out = torch.nn.functional.pad(x, pad_params_list, pad_mode, pad_value)
+    res_out = flag_gems.pad(x, pad_params_list, pad_mode, pad_value)
 
     if ref_out.dtype != res_out.dtype:
         ref_out = ref_out.to(res_out.dtype)
@@ -97,18 +96,18 @@ def test_pad(shape, dtype, pad_mode, contiguous):
 @pytest.mark.parametrize("noncontiguous_grad", [False, True])
 def test_constant_pad_autograd(pad_params, noncontiguous_grad):
     shape = (3, 5) if len(pad_params) == 2 else (2, 3, 5)
-    ref_x = torch.randn(shape, dtype=torch.float32, device=device, requires_grad=True)
-    x = ref_x.detach().clone().requires_grad_(True)
+    x = torch.randn(shape, dtype=torch.float32, device=device, requires_grad=True)
+    ref_x = to_reference(x.detach()).clone().requires_grad_(True)
 
     ref_out = torch.nn.functional.pad(ref_x, pad_params, "constant", 1.25)
     if noncontiguous_grad:
         grad_out = torch.randn(
-            (*ref_out.shape, 2), dtype=ref_out.dtype, device=ref_out.device
+            (*ref_out.shape, 2), dtype=ref_out.dtype, device=device
         )[..., 0]
         assert not grad_out.is_contiguous()
     else:
-        grad_out = torch.randn_like(ref_out)
-    ref_out.backward(grad_out)
+        grad_out = torch.randn(ref_out.shape, dtype=ref_out.dtype, device=device)
+    ref_out.backward(grad_out.to(ref_out.device))
 
     with flag_gems.use_gems(exclude=[]):
         out = torch.nn.functional.pad(x, pad_params, "constant", 1.25)

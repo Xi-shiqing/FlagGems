@@ -1,0 +1,60 @@
+{
+  "recorded_at": "2026-11-06T06:00:31.490294+00:00",
+  "stage": "merged_ready rejected for numerical adoption; causal cdist repair pending",
+  "artifacts": {
+    "autograd_registration_before.json": {
+      "sha256": "756f63af2dfbde2520c54f35caf50f9f7a4a41803e3a6ea3a49e12a7b29f86d8",
+      "bytes": 9743
+    },
+    "autograd_registration_v2_before.json": {
+      "sha256": "c815d55665456435165f733ed41e292351580d7dd2f55e6336864d601f9f1296",
+      "bytes": 10947
+    },
+    "check_autograd_registration.py": {
+      "sha256": "f48fa7085ea11867a4b0751afd3cdcb917af990bddd5ad7afb1cd6364cf77807",
+      "bytes": 2451
+    },
+    "check_autograd_registration_v2.py": {
+      "sha256": "c716190e39f4e528b10663d29b1c5b44ca2732eed5b961671a7dbc2557e60ad0",
+      "bytes": 2660
+    },
+    "current_production_cdist_source.json": {
+      "sha256": "53d1b03873d666dac6118ddc9d2c467a5f3b5149d8577a2f384f6f1bb1d0de2d",
+      "bytes": 19460
+    },
+    "training_native_linear_fp32.json": {
+      "sha256": "d2da2ca79f8ff089b697c37080e90d488690e5bd226219c849e9279cdd5e5f09",
+      "bytes": 155882
+    },
+    "training_native_linear_tf32.json": {
+      "sha256": "101b1fe21cd9feca4c83f4ce08b1ebe4784f5395458d1a612572e3d0364d9b9c",
+      "bytes": 155733
+    },
+    "training_adoption_progress.json": {
+      "sha256": "659a5222e7a170526913d20250e9402f9dacd0579860b8f53c2d62c19ca45faf",
+      "bytes": 12225
+    }
+  },
+  "observations": [
+    {
+      "id": "CDIST-REGISTERED-AUTOGRAD",
+      "status": "FAIL in merged_ready; final repair pending",
+      "evidence": [
+        "autograd_registration_v2_before.json rows cdist_self and cdist_cross",
+        "check_autograd_registration_v2.py random upstream gradient and native CPU float64 reference",
+        "current_production_cdist_source.json ops/cdist.py"
+      ],
+      "details": "Actual dispatcher differentiates neither tested cdist output back to its input. Deployed baseline source includes explicit torch.library.register_autograd for aten::cdist; pinned ours cdist does not. Source restoration must be tested through registered dispatcher and whole-model training."
+    },
+    {
+      "id": "CLONE-HYPOTHESIS",
+      "status": "not supported by actual probe",
+      "details": "Correcting malformed fallthrough changes registrar side effects, but actual clone, clone_nonleaf, contiguous_transpose, max_pool3d have exact tested gradients. Fake registrar experiment is source semantics only, not a device-autograd proof."
+    },
+    {
+      "id": "NEAR-ZERO-RELATIVE-METRIC",
+      "status": "corrected in v2 probe",
+      "details": "Old all-ones upstream gradient made softmax/layernorm reference gradients nearly zero, yielding meaningless relative-only failures. V2 fixed independent random upstream gradients and unchanged explicit rtol=2e-5, atol=2e-6 comparisons."
+    }
+  ]
+}

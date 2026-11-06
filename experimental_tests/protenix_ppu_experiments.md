@@ -1,8 +1,10 @@
 # Protenix PPU / FlagGems 实验索引
 
-最新 LayerNorm 结果见 [2026-11-06 反向优化](protenix_layernorm_20261106/README.md)：核心维度修正与融合候选分别归档。
+上游合并、冲突实现取舍和服务器训练修复同步见 [2026-11-06 合并验收](protenix_upstream_merge_20261106/README.md)。
 
-本索引归档 PPU 上的 FlagGems 实现、性能对照、精度诊断和验证数据。最新实验为 [2026-11-05 长求和 MM 分组累加](protenix_grouped_mm_20261105/README.md)，包含四路精度对照、实际输入计时及完整训练中的未改善结果。[2026-11-01 训练算子档案](protenix_training_precision_20261101/)保存此前的训练精度工作。各阶段的目录和 manifest 对应当时隔离的服务器环境，不能按目录日期依次覆盖安装。
+LayerNorm 结果见 [2026-11-06 反向优化](protenix_layernorm_20261106/README.md)：核心维度修正与融合候选分别归档。
+
+本索引归档 PPU 上的 FlagGems 实现、性能对照、精度诊断和验证数据。[2026-11-05 长求和 MM 分组累加](protenix_grouped_mm_20261105/README.md)，包含四路精度对照、实际输入计时及完整训练中的未改善结果。[2026-11-01 训练算子档案](protenix_training_precision_20261101/)保存此前的训练精度工作。各阶段的目录和 manifest 对应当时隔离的服务器环境，不能按目录日期依次覆盖安装。
 
 | 记录 | 内容与用途 |
 | --- | --- |
@@ -27,6 +29,6 @@
 
 性能比较采用 PPU+FlagGems FP32/TF32 与 H100 原生 FP32/TF32；额外候选和混合精度诊断另列，不替代基线。报告中的模型、输入、循环/采样步数和重复次数决定结论适用范围。坐标 RMSD 的区间和未通过状态按记录保留，不能把 UNRESOLVED 计为 PASS。
 
-`src/flag_gems/ops/` 中保留 K=1 外积及 N=1 列 MM 的较新通用源码集成；最新 host-pipeline 改动仍在实验目录中。服务器的实际部署源码以各阶段快照和 hash 为准，较新通用源码不能直接继承这些性能数字。
+`src/flag_gems/ops/` 中保留 K=1 外积及 N=1 列 MM 的较新通用源码集成；本次上游合并还将当前验证的矩阵、融合 Softmax 与距离反向实现集成到 PPU 后端。各阶段的实测记录保留在对应实验目录。
 
 归档内容为源码、补丁、标量测量及 hash。原始输入张量、激活、坐标、模型权重和完整 trace 留在原服务器。旧 manifest 中的提交状态描述的是实验完成时的状态。

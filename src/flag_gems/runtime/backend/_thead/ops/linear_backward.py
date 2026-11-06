@@ -138,15 +138,10 @@ def linear_backward(
     """
     Computes the gradients for a linear layer backward pass.
 
-    Thead specialization: uses a fixed-config Triton matmul kernel instead of
-    the generic FlagGems mm (which uses triton.autotune that hangs on PPU).
-    The sum reduction uses torch.sum directly (also avoids FlagGems sum_dim
-    autotune). PPU eager matmul is fast but goes through aten::mm dispatch
-    which is intercepted by FlagGems inside use_gems(), so we implement a
-    simple tiled matmul with fixed config (BLOCK=32, num_warps=1).
+    FP32 tensors use the accepted PPU MM provider, including its RNE TF32
+    policy. Other dtypes retain the upstream fixed-config Triton matmul.
     """
     logger.debug("GEMS_THEAD LINEAR_BACKWARD")
-
     assert (
         input.device.type == flag_gems.device
         and grad_output.device.type == flag_gems.device
@@ -167,8 +162,36 @@ def linear_backward(
     for dim in batch_dims:
         batch_size *= dim
 
-    input_flat = input.view(batch_size, in_features).contiguous()
-    grad_output_flat = grad_output.view(batch_size, out_features).contiguous()
+    if batch_size == 0 or in_features == 0 or out_features == 0:
+        grad_input = torch.zeros_like(input) if output_mask[0] else None
+        grad_weight = torch.zeros_like(weight) if output_mask[1] else None
+        grad_bias = None
+        if output_mask[2]:
+            grad_bias = (
+                flag_gems.sum_dim(grad_output.contiguous().view(batch_size, out_features), [0], False)
+                if batch_size > 0 and out_features > 0
+                else torch.zeros((out_features,), device=weight.device, dtype=weight.dtype)
+            )
+        return grad_input, grad_weight, grad_bias
+
+    input_flat = input.contiguous().view(batch_size, in_features)
+    grad_output_flat = grad_output.contiguous().view(batch_size, out_features)
+
+    if input.dtype == grad_output.dtype == weight.dtype == torch.float32:
+        # Preserve the accepted provider's strict FP32 / RNE TF32 policy.
+        grad_input = (
+            flag_gems.mm(grad_output_flat, weight).view(*batch_dims, in_features)
+            if output_mask[0] else None
+        )
+        grad_weight = (
+            flag_gems.mm(grad_output_flat.transpose(0, 1), input_flat)
+            if output_mask[1] else None
+        )
+        grad_bias = (
+            flag_gems.sum_dim(grad_output_flat, [0], False)
+            if output_mask[2] else None
+        )
+        return grad_input, grad_weight, grad_bias
 
     grad_input = None
     grad_weight = None

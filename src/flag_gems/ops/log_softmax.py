@@ -112,6 +112,7 @@ def log_softmax_kernel(
     for start_n in range(0, N, BLOCK_N):
         n_offset = start_n + tl.arange(0, BLOCK_N)
         offset = m_offset[:, None] * N * K + n_offset[None, :] * K + pid_k
+        # '&' for element-wise tensor AND; Python 'and' is deprecated on tensors
         mask = (m_offset[:, None] < M) & (n_offset[None, :] < N)
         input_ptrs = input_ptr + offset
         inp = tl.load(input_ptrs, mask=mask, other=-float("inf")).to(tl.float32)
@@ -131,6 +132,7 @@ def log_softmax_kernel(
     for start_n in range(0, N, BLOCK_N):
         n_offset = start_n + tl.arange(0, BLOCK_N)
         offset = m_offset[:, None] * N * K + n_offset[None, :] * K + pid_k
+        # '&' for element-wise tensor AND; Python 'and' is deprecated on tensors
         mask = (m_offset[:, None] < M) & (n_offset[None, :] < N)
         input_ptrs = input_ptr + offset
         inp = tl.load(input_ptrs, mask=mask, other=-float("inf")).to(tl.float32)
@@ -199,6 +201,7 @@ def log_softmax_backward_kernel(
     for start_n in range(0, N, BLOCK_N):
         n_offset = start_n + tl.arange(0, BLOCK_N)
         offsets = m_offset[:, None] * N * K + n_offset[None, :] * K + pid_k
+        # '&' for element-wise tensor AND; Python 'and' is deprecated on tensors
         mask = (m_offset[:, None] < M) & (n_offset[None, :] < N)
         out_grad_ptrs = out_grad_ptr + offsets
         out_grad = tl.load(out_grad_ptrs, mask=mask, other=0.0).to(tl.float32)
@@ -208,6 +211,7 @@ def log_softmax_backward_kernel(
     for start_n in range(0, N, BLOCK_N):
         n_offset = start_n + tl.arange(0, BLOCK_N)
         offsets = m_offset[:, None] * N * K + n_offset[None, :] * K + pid_k
+        # '&' for element-wise tensor AND; Python 'and' is deprecated on tensors
         mask = (m_offset[:, None] < M) & (n_offset[None, :] < N)
         out_ptrs = out_ptr + offsets
         out = tl.load(out_ptrs, mask=mask, other=0.0).to(tl.float32)

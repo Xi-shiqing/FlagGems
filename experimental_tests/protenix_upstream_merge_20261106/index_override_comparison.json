@@ -1,0 +1,279 @@
+{
+  "torch": "2.10.0",
+  "triton": "3.5.0",
+  "device": "PPU-ZW810E",
+  "vendor": "thead",
+  "runtime_package": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/ours/flag_gems/__init__.py",
+  "seed": 20261106,
+  "comparison": "Pinned operator modules, identical existing FlagGems runtime utilities",
+  "source_hashes": {
+    "ours": {
+      "copy": "0fec011818c0cf005884617df1c6360a32f141c288bd2059d3f40ea241f433c6",
+      "div": "1ae9d88aad1fce25f425b0212360b83e9ceaa888e67da0f662eadbce861d8765",
+      "mean": "877e2264c31436494dc3c51f719fe461a8dd4f3a5b38fc85f1ab110f0045f27f",
+      "linear": "5e4fa832e20a1bc9951ee602eed1db53ac536ec846aa50de0562bad7062e6d10",
+      "pad": "12b4bc5375124386a4c2349b5484fcdbf98aa91b1805fe4ecfeb1938c7ea9288",
+      "sigmoid": "a3ca4039c084ebfced0d682fa97139e74b7ff442ee2dea7e75c09f1d2d3f0dde",
+      "silu": "b2ed58b2159ebc32fcc48c84bca7202760abd688b75b960be3d92f071d5e99bd",
+      "log_softmax": "a7b1cfb987e98e7ac17303896dbfa5a4ef30055393ad4afcb1d55a026783eed6",
+      "unfold_backward": "aa86a32917aeee7a307341c47c7114ab2e6eba2d81594f1453896f0bfb3d4777"
+    },
+    "upstream": {
+      "copy": "a2aa747868107bcb017e7bee94b249919c4b0310323d7174eb55c375c352d291",
+      "div": "50e29adc415a0ac4767d6d3bb9ea0ed4fd74fabff4ab9ea802864bb0dd1be7d3",
+      "mean": "56072a75ec78b01ba81a0fc6851000ea7e8605454b8825b276f58e3a2547cd0c",
+      "linear": "564f52ffba1f50da4c47fe07c01b90d63164a326779078f8234571b4e7fbb0b7",
+      "pad": "4071c42a3525492a04b9ae534a66626a6ab9cd213938e0d2077a615df129a539",
+      "sigmoid": "6ab3f35b8a01f1d076552af7df194ccbe7f30f36fb04bddc3a10a671e5bc4bf4",
+      "silu": "e7a034961505326b4fcd8faad0aacadbee05b5293b21ad49aabb98625aeac5e8",
+      "log_softmax": "246042ef7028ba07aa6535d752a3a98a4308cf09a7c2e27baf666b113b3388f7",
+      "unfold_backward": "9995254fa17719711b5e16844006be62799003233a629a046a1094d4cc1c6707"
+    }
+  },
+  "cases": [
+    {
+      "name": "index_select_backward_override_8",
+      "inputs": [
+        {
+          "shape": [
+            8,
+            8
+          ],
+          "dtype": "torch.float32",
+          "stride": [
+            8,
+            1
+          ],
+          "sha256": "26d6e2ad49ba8ebc837f1961b0badce719e47ead0b8fb7fc8c60ef1f7dbfa5bb"
+        },
+        {
+          "shape": [
+            8
+          ],
+          "dtype": "torch.int64",
+          "stride": [
+            1
+          ],
+          "sha256": "329b8d0d4ef6cf98a6d20e44ad460c015b325529e4343720fb693b4fb264d997"
+        }
+      ],
+      "env": {},
+      "variants": {
+        "ours_generic": {
+          "difference_l2": 0.0,
+          "reference_l2": 6.5633328218191815,
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "output_sha256": "67c9211a5bd50854d5dda773fe645d1d5fb8bea8542c7c97069c0d5479db73be",
+          "repeat_equal": true,
+          "status": "PASS",
+          "device_ms": [
+            0.24489333232243857,
+            0.15797332922617593,
+            0.13899999856948853,
+            0.1299066642920176,
+            0.15594666202863058,
+            0.13738666971524557,
+            0.1526266634464264
+          ],
+          "median_ms": 0.1526266634464264,
+          "wall_ms": [
+            1.9670103987058003,
+            0.16260985285043716,
+            0.1440020278096199,
+            0.13446249067783356,
+            0.16174434373776117,
+            0.14198850840330124,
+            0.15721314897139868
+          ],
+          "wall_median_ms": 0.15721314897139868
+        },
+        "ours_public": {
+          "difference_l2": 0.0,
+          "reference_l2": 6.5633328218191815,
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "output_sha256": "67c9211a5bd50854d5dda773fe645d1d5fb8bea8542c7c97069c0d5479db73be",
+          "repeat_equal": true,
+          "status": "PASS",
+          "device_ms": [
+            0.16372000177701315,
+            0.15441333254178366,
+            0.15350666642189026,
+            0.17882666985193887,
+            0.12946666280428568,
+            0.15944000085194907,
+            0.13645333051681519
+          ],
+          "median_ms": 0.15441333254178366,
+          "wall_ms": [
+            0.16968262692292532,
+            0.1588268205523491,
+            0.15801594903071722,
+            0.18825971831878027,
+            0.13442865262428919,
+            0.16474847992261252,
+            0.1409929245710373
+          ],
+          "wall_median_ms": 0.1588268205523491
+        },
+        "upstream_ppu": {
+          "difference_l2": 0.0,
+          "reference_l2": 6.5633328218191815,
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "output_sha256": "67c9211a5bd50854d5dda773fe645d1d5fb8bea8542c7c97069c0d5479db73be",
+          "repeat_equal": true,
+          "status": "PASS",
+          "device_ms": [
+            0.05942666530609131,
+            0.03783999880154928,
+            0.049026668071746826,
+            0.03743999948104223,
+            0.05086666842301687,
+            0.036920001109441124,
+            0.055773332715034485
+          ],
+          "median_ms": 0.049026668071746826,
+          "wall_ms": [
+            0.06424169987440109,
+            0.04227925091981888,
+            0.05365783969561259,
+            0.041726045310497284,
+            0.05531776696443558,
+            0.04115390280882517,
+            0.06021931767463684
+          ],
+          "wall_median_ms": 0.05365783969561259
+        }
+      }
+    },
+    {
+      "name": "index_select_backward_override_32",
+      "inputs": [
+        {
+          "shape": [
+            32,
+            8
+          ],
+          "dtype": "torch.float32",
+          "stride": [
+            8,
+            1
+          ],
+          "sha256": "e9c1d420a5288ce6187cd625e1c60d9e8893dc3cab1f74108fa6f9eca4dec84c"
+        },
+        {
+          "shape": [
+            32
+          ],
+          "dtype": "torch.int64",
+          "stride": [
+            1
+          ],
+          "sha256": "b56ff8bd028ee5545ff6921f2b511064f2f3dfb4e7eb48f7584bc9c7493eed03"
+        }
+      ],
+      "env": {},
+      "variants": {
+        "ours_generic": {
+          "difference_l2": 0.0,
+          "reference_l2": 15.244297315089065,
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "output_sha256": "c5ad95679f31eb52f05cbe6fe4b4b8c252b2c3ef0e0385528bc9754e14118eb4",
+          "repeat_equal": true,
+          "status": "PASS",
+          "device_ms": [
+            0.23291999101638794,
+            0.1577999989191691,
+            0.13121333718299866,
+            0.13700000445048013,
+            0.15145333607991537,
+            0.13333333532015482,
+            0.1519333322842916
+          ],
+          "median_ms": 0.15145333607991537,
+          "wall_ms": [
+            0.2456456422805786,
+            0.16226464261611304,
+            0.1357346773147583,
+            0.14147814363241196,
+            0.15594003101189932,
+            0.13765258093674979,
+            0.1564870278040568
+          ],
+          "wall_median_ms": 0.15594003101189932
+        },
+        "ours_public": {
+          "difference_l2": 0.0,
+          "reference_l2": 15.244297315089065,
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "output_sha256": "c5ad95679f31eb52f05cbe6fe4b4b8c252b2c3ef0e0385528bc9754e14118eb4",
+          "repeat_equal": true,
+          "status": "PASS",
+          "device_ms": [
+            0.16870667537053427,
+            0.1330933372179667,
+            0.14735999703407288,
+            0.13920000195503235,
+            0.1346399982770284,
+            0.15228000283241272,
+            0.1259600023428599
+          ],
+          "median_ms": 0.13920000195503235,
+          "wall_ms": [
+            0.17376368244489035,
+            0.13795805474122366,
+            0.15192944556474686,
+            0.14360000689824423,
+            0.1391454910238584,
+            0.15681516379117966,
+            0.13058539479970932
+          ],
+          "wall_median_ms": 0.14360000689824423
+        },
+        "upstream_ppu": {
+          "difference_l2": 17580.429708413474,
+          "reference_l2": 15.244297315089065,
+          "relative_l2": 1153.246315329475,
+          "max_abs": 3111.7882239818573,
+          "output_sha256": "870364b828b9adf085541e9f29b9c43451aecf5da3caf9741a64c27f8cb33a30",
+          "status": "FAIL",
+          "exception": "Tensor-likes are not close!\n\nMismatched elements: 32 / 56 (57.1%)\nGreatest absolute difference: 3111.788330078125 at index (4, 1) (up to 1e-06 allowed)\nGreatest relative difference: 50554.44921875 at index (4, 0) (up to 1e-05 allowed)",
+          "traceback": "Traceback (most recent call last):\n  File \"/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/check_index_override.py\", line 98, in compare\n  File \"/usr/local/lib/python3.12/site-packages/torch/testing/_comparison.py\", line 1600, in assert_close\n    raise error_metas[0].to_error(msg)\nAssertionError: Tensor-likes are not close!\n\nMismatched elements: 32 / 56 (57.1%)\nGreatest absolute difference: 3111.788330078125 at index (4, 1) (up to 1e-06 allowed)\nGreatest relative difference: 50554.44921875 at index (4, 0) (up to 1e-05 allowed)\n"
+        }
+      }
+    }
+  ],
+  "actual_function_sources": {
+    "mm": {
+      "ours_generic": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/ours/flag_gems/ops/mm.py",
+      "ours_public": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/ours/flag_gems/ops/mm.py",
+      "upstream_ppu": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/upstream/flag_gems/runtime/backend/_thead/ops/mm.py"
+    },
+    "bmm": {
+      "ours_generic": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/ours/flag_gems/ops/bmm.py",
+      "ours_public": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/ours/flag_gems/ops/bmm.py",
+      "upstream_ppu": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/upstream/flag_gems/runtime/backend/_thead/ops/bmm.py"
+    },
+    "addmm": {
+      "ours_generic": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/ours/flag_gems/ops/addmm.py",
+      "ours_public": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/ours/flag_gems/ops/addmm.py",
+      "upstream_ppu": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/upstream/flag_gems/runtime/backend/_thead/ops/addmm.py"
+    },
+    "linear": {
+      "ours_generic": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/ours/flag_gems/ops/linear.py",
+      "ours_public": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/ours/flag_gems/ops/linear.py",
+      "upstream_ppu": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/upstream/flag_gems/runtime/backend/_thead/ops/linear.py"
+    },
+    "index_select_backward": {
+      "ours_generic": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/ours/flag_gems/ops/index_select_backward.py",
+      "ours_public": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/ours/flag_gems/ops/index_select_backward.py",
+      "upstream_ppu": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/upstream/flag_gems/runtime/backend/_thead/ops/index_select_backward.py"
+    }
+  },
+  "scope": "Actual published public entries, generic entries, and upstream PPU overrides with merged generic fallbacks",
+  "status": "COMPLETE_WITH_PER_CASE_VERDICTS"
+}

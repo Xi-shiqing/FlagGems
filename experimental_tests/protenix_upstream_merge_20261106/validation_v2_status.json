@@ -1,0 +1,96 @@
+{
+  "validation_v2.exit": "0",
+  "validation_v2.log": "VALIDATION_FILE copy 0\nVALIDATION_FILE div 0\nVALIDATION_FILE mean 0\nVALIDATION_FILE linear 0\nVALIDATION_FILE pad 0\nVALIDATION_FILE sigmoid 0\nVALIDATION_FILE silu 0\nVALIDATION_FILE unfold_backward 0\nVALIDATION_FILE log_softmax 0\nVALIDATION_FILE index_put 0\nVALIDATION_FILE index_select 0\nVALIDATION_FILE layer_norm 0\nVALIDATION_FILE softmax 0\nVALIDATION_FILE narrow 0\nVALIDATION_FILE sum 0\nVALIDATION_FILE scaled_dot_product_attention_math 0\nVALIDATION_FILE square 1\nVALIDATION_FILE libentry 1\n",
+  "files": [
+    {
+      "file": "copy",
+      "returncode": 0
+    },
+    {
+      "file": "div",
+      "returncode": 0
+    },
+    {
+      "file": "mean",
+      "returncode": 0
+    },
+    {
+      "file": "linear",
+      "returncode": 0
+    },
+    {
+      "file": "pad",
+      "returncode": 0
+    },
+    {
+      "file": "sigmoid",
+      "returncode": 0
+    },
+    {
+      "file": "silu",
+      "returncode": 0
+    },
+    {
+      "file": "unfold_backward",
+      "returncode": 0
+    },
+    {
+      "file": "log_softmax",
+      "returncode": 0
+    },
+    {
+      "file": "index_put",
+      "returncode": 0
+    },
+    {
+      "file": "index_select",
+      "returncode": 0
+    },
+    {
+      "file": "layer_norm",
+      "returncode": 0
+    },
+    {
+      "file": "softmax",
+      "returncode": 0
+    },
+    {
+      "file": "narrow",
+      "returncode": 0
+    },
+    {
+      "file": "sum",
+      "returncode": 0
+    },
+    {
+      "file": "scaled_dot_product_attention_math",
+      "returncode": 0
+    },
+    {
+      "file": "square",
+      "returncode": 1
+    },
+    {
+      "file": "libentry",
+      "returncode": 1
+    }
+  ],
+  "failures": {
+    "libentry": [
+      {
+        "name": "test_libentry_key_without_vendor_hook",
+        "messages": [
+          "monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f30fcd817f0>\n\n    def test_libentry_key_without_vendor_hook(monkeypatch):\n        \"\"\"Tensor-like arguments key on dtype and pointer alignment.\"\"\"\n        monkeypatch.setattr(libentry_mod, \"device\", SimpleNamespace(vendor_name=\"nvidia\"))\n        entry = SimpleNamespace(divisibility=16)\n    \n        aligned = SimpleNamespace(dtype=\"f32\", data_ptr=lambda: 32)\n        misaligned = SimpleNamespace(dtype=\"f32\", data_ptr=lambda: 33)\n    \n>       assert libentry_mod.LibEntry.key(entry, (aligned, misaligned, 7), (), ()) == (\n            (\"f32\", True),\n            (\"f32\", False),\n            (int, 7),\n        )\n\ntests/test_libentry.py:764: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n../packages/merged_v2/flag_gems/utils/libentry.py:1549: in key\n    spec_key = [spec_arg(_descriptor_cache_key(arg)) for arg in spec_args]\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\narg = namespace(dtype='f32', data_ptr=<function test_libentry_key_without_vendor_hook.<locals>.<lambda> at 0x7f30fd00c720>)\n\n    def spec_arg(arg):\n        if hasattr(arg, \"data_ptr\"):\n            base = (arg.dtype, arg.data_ptr() % self.divisibility == 0)\n>           if self._tensor_spec_fn is not None:\nE           AttributeError: 'types.SimpleNamespace' object has no attribute '_tensor_spec_fn'\n\n../packages/merged_v2/flag_gems/utils/libentry.py:1533: AttributeError"
+        ]
+      }
+    ],
+    "square": [
+      {
+        "name": "test_square_preserves_native_autograd[False]",
+        "messages": [
+          "inplace = False\n\n    @pytest.mark.square\n    @pytest.mark.parametrize(\"inplace\", [False, True])\n    def test_square_preserves_native_autograd(inplace):\n        generator = torch.Generator().manual_seed(20261106)\n        cpu = torch.randn((3, 7), generator=generator, dtype=torch.float32)\n        reference = cpu.clone().requires_grad_()\n        reference_value = reference * 2\n        if inplace:\n            reference_value.square_()\n        else:\n            reference_value = reference_value.square()\n        reference_value.sum().backward()\n        actual = cpu.to(flag_gems.device).requires_grad_()\n        with flag_gems.use_gems(exclude=[]):\n            value = actual * 2\n            if inplace:\n                value.square_()\n            else:\n                value = value.square()\n            value.sum().backward()\n        torch.testing.assert_close(value.detach().cpu(), reference_value.detach(), rtol=0, atol=0)\n>       torch.testing.assert_close(actual.grad.cpu(), reference.grad, rtol=0, atol=0)\nE       AssertionError: Tensor-likes are not equal!\nE       \nE       Mismatched elements: 1 / 21 (4.8%)\nE       Greatest absolute difference: 9.5367431640625e-07 at index (0, 0)\nE       Greatest relative difference: 8.495963754739932e-08 at index (0, 0)\n\ntests/test_square.py:86: AssertionError"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "overrides.log": "",
+  "index_override.exit": "0",
+  "index_override.log": "CASE index_select_backward_override_8 {'ours_generic': ('PASS', 0.1526266634464264), 'ours_public': ('PASS', 0.15441333254178366), 'upstream_ppu': ('PASS', 0.049026668071746826)}\nCASE index_select_backward_override_32 {'ours_generic': ('PASS', 0.15145333607991537), 'ours_public': ('PASS', 0.13920000195503235), 'upstream_ppu': ('FAIL', None)}\nCOMPLETE_BACKEND_OVERRIDE_COMPARISON 2\n",
+  "processes": [
+    "  81042       1       09:01  0.0  0.0 python3 -S -c import pathlib,subprocess;root=pathlib.Path('/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106');log=(root/'overrides.log').open('xb');rc=subprocess.call(['python3',str(root/'queue_overrides.py')],stdin=subprocess.DEVNULL,stdout=log,stderr=subprocess.STDOUT);log.close();(root/'overrides.exit').write_text(str(rc))",
+    "  81043   81042       09:01  0.2  0.0 python3 /root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/queue_overrides.py",
+    "  81393   81043       08:37  0.0  0.0 docker exec xishiqing-protenix-precision-runtime-20261023 bash --noprofile --norc -c set -euo pipefail source /mnt/cpfs/xishiqing/ppu_tf32_rne_20260923/vendor_gemm_20260930/env_ppu.sh export OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 export PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 export CUDA_VISIBLE_DEVICES=\"1\" export PYTHONPATH=/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/ours export TRITON_CACHE_DIR=\"/ro",
+    "  81456  924044       08:37  4.7  0.0 python3 /root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/compare_overrides.py --output /root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/override_results"
+  ],
+  "cache_file_count": 268
+}

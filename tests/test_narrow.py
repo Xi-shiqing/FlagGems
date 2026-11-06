@@ -60,7 +60,7 @@ def test_narrow_backward(dtype):
 
     expected = torch.zeros_like(inp)
     expected[:, 2:6, :] = 1
-    utils.gems_assert_equal(inp.grad, expected)
+    utils.gems_assert_equal(inp.grad, utils.to_reference(expected))
 
 
 @pytest.mark.narrow

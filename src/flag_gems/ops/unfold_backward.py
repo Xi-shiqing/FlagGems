@@ -49,7 +49,7 @@ def _unfold_backward_gather(grad, output, total, after, length, dimension,
 
 def unfold_backward(grad_in: torch.Tensor, input_sizes, dim: int,
                     size: int, step: int) -> torch.Tensor:
-    logger.debug('GEMS DETERMINISTIC UNFOLD BACKWARD')
+    logger.debug('GEMS UNFOLD_BACKWARD')
     input_sizes = tuple(int(x) for x in input_sizes)
     if not input_sizes or not -len(input_sizes) <= dim < len(input_sizes):
         raise IndexError('unfold_backward dimension out of range')

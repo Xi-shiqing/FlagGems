@@ -1,0 +1,148 @@
+{
+  "mm": {
+    "sha256": "5e1cf91e8b62929dd2d96990d7b2232f539fdd7a0e6c0d5ed79a0a45d551e7b8",
+    "bytes": 26815,
+    "functions": [
+      "_allow_tf32",
+      "prev_multiple_of",
+      "mm_kernel_general",
+      "mm_kernel_h100_fp32_splitk",
+      "mm_kernel_h100_fp32_splitk_reduce",
+      "_ppu_h100_splitk_parts",
+      "ppu_h100_fp32_splitk_scenario",
+      "ppu_h100_fp32_splitk_mm",
+      "get_higher_dtype",
+      "general_mm",
+      "mm_kernel_syrk",
+      "is_syrk_transpose_pair",
+      "syrk_mm",
+      "streamk_scenario",
+      "mm_rne_pack_rhs",
+      "mm_direct_fused",
+      "_should_pack_rhs",
+      "_maybe_pack_rhs",
+      "_should_direct",
+      "_direct_pack_profitable",
+      "_tf32_rne_rhs_prepack_enabled",
+      "_tf32_rne_rhs_cache_capacity",
+      "_tf32_rne_rhs_cache_stats",
+      "_tf32_rne_rhs_cache_lookup",
+      "_tf32_rne_rhs_cache_insert",
+      "_direct_offsets_fit_i32",
+      "_direct_mm",
+      "_direct_out_safe",
+      "mm",
+      "mm_out"
+    ],
+    "matmul_calls": [
+      "tl.dot(round_tf32_rne(a, ALLOW_TF32), round_tf32_rne(b, ALLOW_TF32), out_dtype=tl.float32, allow_tf32=ALLOW_TF32)",
+      "tl.dot(round_tf32_rne(a, ALLOW_TF32), round_tf32_rne(b, ALLOW_TF32), out_dtype=tl.float32, allow_tf32=ALLOW_TF32)",
+      "tl.dot(round_tf32_rne(a, ALLOW_TF32), round_tf32_rne(b, ALLOW_TF32), out_dtype=tl.float32, allow_tf32=ALLOW_TF32)",
+      "tl.dot(round_tf32_rne(a, ALLOW_TF32), round_tf32_rne(b, ALLOW_TF32), out_dtype=tl.float32, allow_tf32=ALLOW_TF32)",
+      "tl.dot(a, b, out_dtype=tl.float32, allow_tf32=ALLOW_TF32)"
+    ]
+  },
+  "bmm": {
+    "sha256": "2352062170a4b4716f8e8f20419fa2056fd629e0698f34c318445c96ac23cecb",
+    "bytes": 10488,
+    "functions": [
+      "_allow_tf32",
+      "_allow_bmm_tf32",
+      "_round_bmm_inputs",
+      "_bmm_tf32_preconverted",
+      "_bmm_rne_once",
+      "bmm_kernel",
+      "bmm",
+      "bmm_out"
+    ],
+    "matmul_calls": [
+      "tl.dot(a, b, out_dtype=tl.float32, allow_tf32=True)",
+      "tl.dot(round_tf32_rne(a, ALLOW_TF32), round_tf32_rne(b, ALLOW_TF32), allow_tf32=ALLOW_TF32)"
+    ]
+  },
+  "softmax": {
+    "sha256": "2148bd988c577db8bd6aa01dcf6a7bfe37722d03d12bd7db9829f2199e9b1a10",
+    "bytes": 15225,
+    "functions": [
+      "_codex_softmax8_bm16_kernel",
+      "_codex_softmax8_kernel",
+      "softmax_kernel_non_inner",
+      "next_multiple_of",
+      "prev_multiple_of",
+      "softmax_kernel_inner",
+      "softmax_backward_kernel_non_inner",
+      "softmax_backward_kernel_inner",
+      "softmax",
+      "softmax_backward"
+    ],
+    "matmul_calls": []
+  },
+  "index_put": {
+    "sha256": "e556112b97d08ab6829b51875742b65cec151641614fdc6801596d2350a26a42",
+    "bytes": 24079,
+    "functions": [
+      "_index_put_sorted_dim0_deterministic_kernel",
+      "_index_put_sorted_dim0_deterministic",
+      "_index_put_sorted_single_index_deterministic",
+      "_index_put_stable_keys_deterministic",
+      "get_max_rank_shape",
+      "broadcast_indices",
+      "generate_imports",
+      "generate_index_put_kernel",
+      "generate_index_put_wrapper",
+      "generate_code",
+      "_index_put_accumulate_ordered",
+      "index_put",
+      "index_put_",
+      "_index_put_impl_"
+    ],
+    "matmul_calls": []
+  },
+  "unfold_backward": {
+    "sha256": "aa86a32917aeee7a307341c47c7114ab2e6eba2d81594f1453896f0bfb3d4777",
+    "bytes": 3262,
+    "functions": [
+      "_unfold_backward_gather",
+      "unfold_backward"
+    ],
+    "matmul_calls": []
+  },
+  "div": {
+    "sha256": "365537cffff5d38cd5026d6d7bf2424f0f9311bdc08621c892b9e2a8206f81f4",
+    "bytes": 11725,
+    "functions": [
+      "div_complex_kernel",
+      "true_div_func",
+      "true_div_func_tensor_scalar",
+      "true_div_func_scalar_tensor",
+      "true_div_func_scalar_tensor_fp32_rn",
+      "true_divide",
+      "true_divide_out",
+      "true_divide_",
+      "trunc_div_func",
+      "trunc_div_func_tensor_scalar",
+      "trunc_div_func_scalar_tensor",
+      "trunc_div_int_func",
+      "trunc_div_int_func_tensor_scalar",
+      "trunc_div_int_func_scalar_tensor",
+      "trunc_divide",
+      "trunc_divide_",
+      "_int_floordiv",
+      "_float_floordiv",
+      "floor_div_func",
+      "floor_div_func_tensor_scalar",
+      "floor_div_func_scalar_tensor",
+      "floor_divide",
+      "floor_divide_",
+      "div_mode",
+      "div_mode_",
+      "_remainder",
+      "rem_tt",
+      "rem_ts",
+      "rem_st",
+      "remainder",
+      "remainder_"
+    ],
+    "matmul_calls": []
+  }
+}

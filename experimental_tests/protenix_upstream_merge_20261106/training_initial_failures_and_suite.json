@@ -1,0 +1,852 @@
+{
+  "fp32": {
+    "report_keys": [
+      "status",
+      "error",
+      "protocol",
+      "environment",
+      "input_hashes",
+      "experimental_training_manifest",
+      "batch_audits",
+      "batch_sha256",
+      "batch_tensor_count",
+      "batch_leaf_hashes",
+      "losses",
+      "gradient_norms",
+      "parameter_updates",
+      "parameter_gradients",
+      "timings",
+      "formal_event_median_ms",
+      "formal_wall_median_ms",
+      "launcher_wall_seconds"
+    ],
+    "report_status": "fail",
+    "errors": {
+      "error": "Traceback (most recent call last):\n  File \"/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/training_experimental.py\", line 546, in main\n    trainer.run()\n  File \"/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/runner/train.py\", line 698, in run\n    self.train_step(batch)\n  File \"/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/training_experimental.py\", line 435, in timed_train_step\n    result = native_train_step(self, batch)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/train_entry_nonzero.py\", line 94, in step\n    result = native_step(self, batch)\n             ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/train_route_entry.py\", line 26, in step\n    else:result=original(self,batch)\n                ^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/runner/train.py\", line 615, in train_step\n    scaler.scale(loss / self.iters_to_accumulate).backward()\n  File \"/usr/local/lib/python3.12/site-packages/torch/_tensor.py\", line 630, in backward\n    torch.autograd.backward(\n  File \"/usr/local/lib/python3.12/site-packages/torch/autograd/__init__.py\", line 364, in backward\n    _engine_run_backward(\n  File \"/usr/local/lib/python3.12/site-packages/torch/autograd/graph.py\", line 865, in _engine_run_backward\n    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/upstream_training_observer_20261106.py\", line 24, in __torch_dispatch__\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/torch/_ops.py\", line 819, in __call__\n    return self._op(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/runtime/backend/_thead/ops/linear_backward.py\", line 172, in linear_backward\n    grad_output_flat = grad_output.view(batch_size, out_features).contiguous()\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: view size is not compatible with input tensor's size and stride (at least one dimension spans across two contiguous subspaces). Use .reshape(...) instead.\n"
+    },
+    "traceback": "Traceback (most recent call last):\\n  File \\\"/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/training_experimental.py\\\", line 546, in main\\n    trainer.run()\\n  File \\\"/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/runner/train.py\\\", line 698, in run\\n    self.train_step(batch)\\n  File \\\"/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/training_experimental.py\\\", line 435, in timed_train_step\\n    result = native_train_step(self, batch)\\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/train_entry_nonzero.py\\\", line 94, in step\\n    result = native_step(self, batch)\\n             ^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/train_route_entry.py\\\", line 26, in step\\n    else:result=original(self,batch)\\n                ^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/runner/train.py\\\", line 615, in train_step\\n    scaler.scale(loss / self.iters_to_accumulate).backward()\\n  File \\\"/usr/local/lib/python3.12/site-packages/torch/_tensor.py\\\", line 630, in backward\\n    torch.autograd.backward(\\n  File \\\"/usr/local/lib/python3.12/site-packages/torch/autograd/__init__.py\\\", line 364, in backward\\n    _engine_run_backward(\\n  File \\\"/usr/local/lib/python3.12/site-packages/torch/autograd/graph.py\\\", line 865, in _engine_run_backward\\n    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass\\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/upstream_training_observer_20261106.py\\\", line 24, in __torch_dispatch__\\n    return func(*args, **kwargs)\\n           ^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/usr/local/lib/python3.12/site-packages/torch/_ops.py\\\", line 819, in __call__\\n    return self._op(*args, **kwargs)\\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/runtime/backend/_thead/ops/linear_backward.py\\\", line 172, in linear_backward\\n    grad_output_flat = grad_output.view(batch_size, out_features).contiguous()\\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\nRuntimeError: view size is not compatible with input tensor's size and stride (at least one dimension spans across two contiguous subspaces). Use .reshape(...) instead.\\n\", \"protocol\": {\"platform\": \"ppu810e\", \"disable_flaggems\": false, \"enable_flaggems\": true, \"model\": \"protenix-v2\", \"dtype\": \"fp32\", \"seed\": 20260825, \"max_steps\": 2, \"warmup_steps_excluded\": 1, \"formal_steps\": 1, \"crop_size\": 693, \"epoch_size\": 17, \"data_scope\": \"Disjoint public experimental training labels; no synthetic prediction labels\", \"triangle_attention\": \"triattention\", \"triangle_attention_flaggems_public\": \"1\", \"triangle_attention_flaggems_precision\": \"ieee\", \"triangle_attention_ppu_streaming\": \"0\", \"triangle_attention_ppu_small\": \"0\", \"triangle_multiplicative\": \"torch\", \"blocks_per_ckpt\": 1, \"pairformer_blocks\": 48, \"msa_blocks\": 4, \"diffusion_batch_size\": 1, \"shared_rng\": true, \"replay_step_rng\": false, \"learning_rate\": 0.00018, \"progress_interval\": 1, \"track_parameter_updates\": false, \"enable_checkpoints\": false, \"checkpoint_interval\": 1000, \"audit_parameter_gradients\": false, \"gradient_audit_step\": 0, \"load_strict\": true, \"deterministic_algorithms\": false, \"triangle_attention_fp16_training_scratch\": \"0\", \"triangle_attention_strict_cross_device\": \"0\", \"triangle_attention_strict_forward_schedule\": \"0\", \"triangle_attention_strict_backward_schedule\": \"0\", \"disable_permutation_error_dump\": \"0\", \"tf32\": false, \"checkpoint_and_eval_in_step_timing\": false}, \"environment\": {\"hostname\": \"dsw-766246-9578bd86-vmm4s\", \"python\": \"3.12.3 (main, Apr 28 2026, 13:59:41) [GCC 13.3.0]\", \"torch\": \"2.10.0\", \"device_name\": \"PPU-ZW810E\", \"device_count_visible\": 1, \"flag_gems\": \"/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/__init__.py\"}, \"input_hashes\": {\"/mnt/cpfs/xishiqing/root_migrated/checkpoint/protenix-v2.pt\": \"8f931f9774a396b67033d0e58628e1834f4a1448165e04254b40a780b0c0d599\", \"/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/experimental_training/manifest.json\": \"cd491b660cb87b4df10b6900dd2021dc9812f69446460509bb6c209334d24545\", \"/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/experimental_training/bioassembly/5sak.pkl.gz\": \"643908a9ea84d913766d41a24c45a57c3ff5596710cc034804772d875bbde869\", \"/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/experimental_training/bioassembly/7pzb.pkl.gz\": \"67fd68b7d3875e4b0a421ccc68ad0d88f50262cf1e07af52ade1c15ffc756d1f\", \"/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/experimental_training/cif/5sak.cif\": \"b01623f2999b5e15aa597d4f8add557c5f89931dacba22147f218894fcd4cbe7\", \"/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/experimental_training/cif/7pzb.cif\": \"d48ccef75b2df04b139cf0fb0e7f5dcd35fe09e1d62e5bdb2b65f55ddabe1ee6\", \"/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/experimental_training/empty_index.json\": \"ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356\", \"/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/experimental_training/indices.csv\": \"9011b254695d6e43a488788c6005b6180969951d5dc458fec6a3bc850b38cd96\"}, \"experimental_training_manifest\": {\"status\": \"PASS_EXPERIMENTAL_GEOMETRY_AND_DISJOINT_SPLIT\", \"train_pdb\": [\"5sak\", \"7pzb\"], \"validation_pdb\": [\"7r6r\", \"7st3\", \"7wux\", \"9gmw\"], \"index_count\": 17, \"structures\": [{\"pdb_id\": \"5sak\", \"atom_count\": 3074, \"resolved_atom_count\": 2407, \"finite\": true, \"resolution\": 1.1, \"N_token\": 437, \"consecutive_resolved_CA_pairs\": 329, \"consecutive_CA_distance_quantiles_A\": [2.953404426574707, 3.7405289459228515, 3.8018746376037598, 3.8399875354766846, 3.849336624145508]}, {\"pdb_id\": \"7pzb\", \"atom_count\": 5222, \"resolved_atom_count\": 4673, \"finite\": true, \"resolution\": 3.12, \"N_token\": 600, \"consecutive_resolved_CA_pairs\": 451, \"consecutive_CA_distance_quantiles_A\": [3.620004653930664, 3.705176591873169, 3.8031649589538574, 3.8426913022994995, 3.860142230987549]}], \"asset_sha256\": {\"bioassembly/5sak.pkl.gz\": \"643908a9ea84d913766d41a24c45a57c3ff5596710cc034804772d875bbde869\", \"cif/5sak.cif\": \"b01623f2999b5e15aa597d4f8add557c5f89931dacba22147f218894fcd4cbe7\", \"bioassembly/7pzb.pkl.gz\": \"67fd68b7d3875e4b0a421ccc68ad0d88f50262cf1e07af52ade1c15ffc756d1f\", \"cif/7pzb.cif\": \"d48ccef75b2df04b139cf0fb0e7f5dcd35fe09e1d62e5bdb2b65f55ddabe1ee6\", \"indices.csv\": \"9011b254695d6e43a488788c6005b6180969951d5dc458fec6a3bc850b38cd96\", \"empty_index.json\": \"ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356\"}, \"scope\": \"Experimental labels from native WeightedPDB; held out from this fine-tuning only, not claimed absent from original pretraining.\"}, \"batch_audits\": [{\"batch_index\": 0, \"sha256\": \"81585b557466b3b1298ea30f74ac14d766ed7421eadc9d8b8b0047a33e76257f\", \"tensor_count\": 71, \"leaf_hashes\": {\"batch.basic.N_asym\": {\"sha256\": \"d63e93bc4684dc95ae910c0a240d25b6af4f6d78c1603b032bb7eb3f2e9d8836\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.basic.N_atom\": {\"sha256\": \"9587fbfb9ac7c83f479c8fe27e5f4fd1b462fcc717c7f3b9b7b170852703416a\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.basic.N_dna_atom\": {\"sha256\": \"8a2db309feceed10ba2f69105735124cd30c5f2c1f229b57774938079d3186fa\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.basic.N_dna_token\": {\"sha256\": \"2f6771b0b756ab9c5718817bb1eef26c32bf5efd3607798a72bfcde6304ceb08\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.basic.N_lig_atom\": {\"sha256\": \"82ae67a35f60e8f592eefb56f821b3beb53ae0b8496ba3c81631150d7f4e01cd\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.basic.N_lig_token\": {\"sha256\": \"82ae67a35f60e8f592eefb56f821b3beb53ae0b8496ba3c81631150d7f4e01cd\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.basic.N_msa\": {\"sha256\": \"c145f362bf357521a45777fcde4f84959c9bccb5d4003d53278088e632f8c4b9\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.basic.N_msa_prot_pair\": {\"sha256\": \"8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.basic.N_msa_prot_unpair\": {\"sha256\": \"8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.basic.N_msa_rna_pair\": {\"sha256\": \"8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.basic.N_msa_rna_unpair\": {\"sha256\": \"8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.basic.N_prot_atom\": {\"sha256\": \"3931b7a9ec0e9b3a7bf933b40dfa8ae274d38ec556b2ea35a6da1fb7f018c7e7\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.basic.N_prot_token\": {\"sha256\": \"884e60cf0b11ae62878c6b97c891b076bb7e40f21ae5cd4b6a15df6ac8edafe2\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.basic.N_rna_atom\": {\"sha256\": \"2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.basic.N_rna_token\": {\"sha256\": \"2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.basic.N_token\": {\"sha256\": \"cdde644b5018cfd5aa67139b65c6efd384425e88defad2a4bbb25558113f8f60\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.input_feature_dict.asym_id\": {\"sha256\": \"3bb5dbb53207af20c5dfd4da4fd6ea8bd8f90c741dfc353dac7c394e42eeaaa2\", \"dtype\": \"torch.int64\", \"shape\": [600]}, \"batch.input_feature_dict.atom_to_tokatom_idx\": {\"sha256\": \"92673cb95fe23fd2d6a09d7b1405ff2188ddae13242abf837bc73729954f60f1\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.atom_to_token_idx\": {\"sha256\": \"551c159ea07e355d89de3cfe33884fc32a9cfcf8492f8cee0bd1ae60614950f2\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.bond_mask\": {\"sha256\": \"a83dcef8e6f2cc5f5c9b8c7b8787b60026f6ae39202e29f47d7470bb3a79203b\", \"dtype\": \"torch.int64\", \"shape\": [5222, 5222]}, \"batch.input_feature_dict.deletion_mean\": {\"sha256\": \"0630fb64aa8c49a13c17164ce33fa5e781dfd433de0e0de60334089676a52168\", \"dtype\": \"torch.float32\", \"shape\": [600]}, \"batch.input_feature_dict.deletion_value\": {\"sha256\": \"9f91300341b40c0caa0047c31c0dd0620d16994fbd1b41c6741fcb6f1aa4d3b7\", \"dtype\": \"torch.float32\", \"shape\": [2, 600]}, \"batch.input_feature_dict.distogram_rep_atom_mask\": {\"sha256\": \"da71b723ffa2f578fd41cc0d978f7ee0d526b02f214f5d9d6956c133a954f098\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.entity_id\": {\"sha256\": \"c28b8303b3fad46a47f4ff659670e72fdb8a19c1b9bfd5c1301635ed83b7448c\", \"dtype\": \"torch.int64\", \"shape\": [600]}, \"batch.input_feature_dict.entity_mol_id\": {\"sha256\": \"0ae62f49a2d0063f3b797634307382878c8d7a02501bb8d4e83a842fb3ddab57\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.frame_atom_index\": {\"sha256\": \"88a5300fff5193df8117582c6813d73dd9f0c2e71a4257e39fa42c647821b8b7\", \"dtype\": \"torch.int64\", \"shape\": [600, 3]}, \"batch.input_feature_dict.has_deletion\": {\"sha256\": \"9f91300341b40c0caa0047c31c0dd0620d16994fbd1b41c6741fcb6f1aa4d3b7\", \"dtype\": \"torch.float32\", \"shape\": [2, 600]}, \"batch.input_feature_dict.has_frame\": {\"sha256\": \"6533a2602e55c8cd6667df1d25a0beb21032b6c49d5bd569d78ac93146a80ad4\", \"dtype\": \"torch.int64\", \"shape\": [600]}, \"batch.input_feature_dict.is_distillation\": {\"sha256\": \"a63056d911afd30d0fb050244218bf0540e363d9e61c70e1860a1da29326aa03\", \"dtype\": \"torch.bool\", \"shape\": [1]}, \"batch.input_feature_dict.is_dna\": {\"sha256\": \"efc72f48184789ea2372e359d48d64fa3f971b741c7fa94369b3ffb1b274170d\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.is_ligand\": {\"sha256\": \"44b95034a0846608acb3f6e9084b45fbc3ddc8e182eaf94750cb9a68df0526fb\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.is_protein\": {\"sha256\": \"c165d04627cb311f49a56054f57e022853685c61d06c82f15ea0b17ac80cd74e\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.is_rna\": {\"sha256\": \"6c013fd9f1567a8fdddb093db6932bd1eea1cd5f52c85e685ee4f69620db1880\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.modified_res_mask\": {\"sha256\": \"6c013fd9f1567a8fdddb093db6932bd1eea1cd5f52c85e685ee4f69620db1880\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.mol_atom_index\": {\"sha256\": \"d2014b4616d53cb690f47f69bb0a2b6bcae436d2e77786ccf4a55d92f93cf331\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.mol_id\": {\"sha256\": \"c9aed0f6c9ac5efb4168da9c316a11c0bdd1054daa750fb2b1252cc97ecfb072\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.msa\": {\"sha256\": \"14a113fda0180d80447ca18589eeee04e1a12f4925e00c313f3ae04f71e5059a\", \"dtype\": \"torch.int64\", \"shape\": [2, 600]}, \"batch.input_feature_dict.pae_rep_atom_mask\": {\"sha256\": \"cafcc515bba612eebd79c882c387a91915774e3fe5e41ada7b78571dac3536e9\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.plddt_m_rep_atom_mask\": {\"sha256\": \"b91b78ee4c2d09b1cc759e069012a4403dee631eb7a483a0e0eaeb5689b7b623\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.profile\": {\"sha256\": \"4a16f4013186addf8a03f0955ed648a43300dd16ccdd8c6c7cc57605f1a79aa7\", \"dtype\": \"torch.float32\", \"shape\": [600, 32]}, \"batch.input_feature_dict.prot_pair_num_alignments\": {\"sha256\": \"35aa899bfc9cc839bcd696a2d658d35288c0c94b0c0e157fff56d59ddb23f8ab\", \"dtype\": \"torch.int64\", \"shape\": []}, \"batch.input_feature_dict.prot_unpair_num_alignments\": {\"sha256\": \"35aa899bfc9cc839bcd696a2d658d35288c0c94b0c0e157fff56d59ddb23f8ab\", \"dtype\": \"torch.int64\", \"shape\": []}, \"batch.input_feature_dict.ref_atom_name_chars\": {\"sha256\": \"05344843895975a132d43de3d174dd6a819f8460d0744feee42392aea0e71ae5\", \"dtype\": \"torch.int64\", \"shape\": [5222, 4, 64]}, \"batch.input_feature_dict.ref_charge\": {\"sha256\": \"46afea99a57134f5bac346a8f0a370ed69cd3dd6aa615e014c98533da63e3e6b\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.ref_element\": {\"sha256\": \"89686ba524d5b7649eab4f7a2988894702f7bdce36cb2056f056600d1282aa6d\", \"dtype\": \"torch.int64\", \"shape\": [5222, 128]}, \"batch.input_feature_dict.ref_mask\": {\"sha256\": \"c216526322f16b8057cd6e856f595dc89c2b4701fa2012437881a7532d7e7917\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.ref_pos\": {\"sha256\": \"63aaadd45b5d1311465e3225c16dfc3d419d8666ad732458193af24b9bb5b284\", \"dtype\": \"torch.float32\", \"shape\": [5222, 3]}, \"batch.input_feature_dict.ref_space_uid\": {\"sha256\": \"4d2f80e36acfb82b56a3edd80357549f4736f7a8b3462280053fd7caf8dca04a\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.residue_index\": {\"sha256\": \"82122f50f1a13a76b1cb7947776bbabdead549749c65683262d5ec6ab84ca31a\", \"dtype\": \"torch.int64\", \"shape\": [600]}, \"batch.input_feature_dict.resolution\": {\"sha256\": \"e5afadc16ff7ced47db294dbd4a92fb74af314b79bdabaa21fb7305651d73efb\", \"dtype\": \"torch.float32\", \"shape\": [1]}, \"batch.in",
+    "receipt": {
+      "status": "FAILED_PRESERVED",
+      "kind": "accurate",
+      "precision": "fp32",
+      "actual_softmax_forward_calls": [
+        {
+          "shape": [
+            600,
+            600,
+            8
+          ],
+          "axis": 1,
+          "half_to_float": false,
+          "count": 24
+        }
+      ],
+      "optimizer_steps": 0,
+      "common_geometry_imports": {
+        "protenix.model.loss": {
+          "source": "/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/precision_residual_20261019/model_ieee_matching/protenix/model/loss.py",
+          "sha256": "52139a09a83030cdb0c9931dcc7204592b8007273f87f2a900e3f70a4c444377"
+        },
+        "protenix.utils.torch_utils": {
+          "source": "/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/precision_residual_20261019/model_ieee_matching/protenix/utils/torch_utils.py",
+          "sha256": "de4201459cf1d6ac2c4accc5fb762adb659639a6e0d0cc44e70779e263f86fe2"
+        },
+        "protenix.utils.permutation.permutation": {
+          "source": "/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/precision_residual_20261019/model_ieee_matching/protenix/utils/permutation/permutation.py",
+          "sha256": "ee5cb4315dc2552b6d1138c66cf909afd5768b83e51c521f325697b151403260"
+        },
+        "flag_gems.ops.mm": {
+          "source": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/ops/mm.py",
+          "sha256": "f7ae1559bc499a02b7759a58a7eb778d12229138982c09e5e7be7d8532f11308"
+        },
+        "flag_gems.ops.bmm": {
+          "source": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/ops/bmm.py",
+          "sha256": "00c6035aeccc22f08ffe585b5da7b3b3ea9c70e76f5f514fd65c49cd48e8d585"
+        },
+        "flag_gems.ops.softmax": {
+          "source": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/ops/softmax.py",
+          "sha256": "9ba0ac9de6427baf69990ec09c2052a71c4c55119c4b1ecab39555862390d779"
+        },
+        "flag_gems.ops.index_put": {
+          "source": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/ops/index_put.py",
+          "sha256": "c1ed9ccde4b3625aa3fb632d06b19b7d374df8fa6db3dc65133ec5e402970ea6"
+        },
+        "flag_gems.ops.unfold_backward": {
+          "source": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/ops/unfold_backward.py",
+          "sha256": "aeb6d77bf514cbf8ca43b66731222a0290923214a875e670a8d9faa046bbf28c"
+        }
+      },
+      "registration_observation": {
+        "public_sources": {
+          "mm": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/runtime/backend/_thead/ops/mm.py",
+            "sha256": "41e078e91dd4aef65703a2a12a02f91a27cb9a09f2c4f62bcc0ef941b8b33197"
+          },
+          "addmm": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/runtime/backend/_thead/ops/addmm.py",
+            "sha256": "869b3b7de7f12f13379ef750f91b2e454378420b5211d312e9bb05503229a60f"
+          },
+          "bmm": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/runtime/backend/_thead/ops/bmm.py",
+            "sha256": "be1e6ae6bf757a3a90499c4e503a8d3ab8cc22c69f6e3965386802ca243cb3cc"
+          },
+          "linear": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/runtime/backend/_thead/ops/linear.py",
+            "sha256": "ef4022136adb42f3f0eaf9bd4b142a33e6f24a97d9cd8344139ea329cc301e72"
+          },
+          "linear_backward": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/runtime/backend/_thead/ops/linear_backward.py",
+            "sha256": "0bde5945976e79c8a6b16b02bb9bc6b1c8abb29a51c998afbd0a40659ccefb6a"
+          },
+          "softmax": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/runtime/backend/_thead/ops/softmax.py",
+            "sha256": "0660917a80d00506a65e01b7efb8bcc9386e6a33b9f212d6224872d63d567984"
+          },
+          "softmax_backward": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/runtime/backend/_thead/ops/softmax.py",
+            "sha256": "0660917a80d00506a65e01b7efb8bcc9386e6a33b9f212d6224872d63d567984"
+          },
+          "mean": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/ops/mean.py",
+            "sha256": "56072a75ec78b01ba81a0fc6851000ea7e8605454b8825b276f58e3a2547cd0c"
+          },
+          "true_divide": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/ops/div.py",
+            "sha256": "2f3ad2593640a351c7b9317b493fd979aff51e0e0b58f1798eac106eba06c8cf"
+          },
+          "pad": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/ops/pad.py",
+            "sha256": "ca1dd309ac99095c3d74f846e80e9fc080c2f51bc8cc44ef4cda8001af36afcb"
+          },
+          "unfold_backward": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/ops/unfold_backward.py",
+            "sha256": "aeb6d77bf514cbf8ca43b66731222a0290923214a875e670a8d9faa046bbf28c"
+          },
+          "index_select_backward": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/ops/index_select_backward.py",
+            "sha256": "e0737d5ff554c4b0e266e7a92341762b4cd7b47d3d0d4f0be4162e924e48c4f2"
+          }
+        },
+        "retained_current_providers": {
+          "mm_fp32.py": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/runtime/backend/_thead/ops/mm_fp32.py",
+            "sha256": "5e1cf91e8b62929dd2d96990d7b2232f539fdd7a0e6c0d5ed79a0a45d551e7b8"
+          },
+          "bmm_fp32.py": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/runtime/backend/_thead/ops/bmm_fp32.py",
+            "sha256": "2352062170a4b4716f8e8f20419fa2056fd629e0698f34c318445c96ac23cecb"
+          },
+          "addmm_fp32.py": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/runtime/backend/_thead/ops/addmm_fp32.py",
+            "sha256": "11465be57c6c86be46bcd3f64a9f0ea1ba8df9a2a7f10d562452b2189af7944f"
+          },
+          "softmax_fp32.py": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/runtime/backend/_thead/ops/softmax_fp32.py",
+            "sha256": "fa19926fd806b489402d705aab9b43f0c3c012e0a74a2d215ac564643d16839f"
+          }
+        },
+        "actual_cuda_ATen_calls": {
+          "aten.set_.source_Storage": 4174,
+          "aten.copy_.default": 8915,
+          "aten.set_.source_Storage_storage_offset": 4174,
+          "aten.unsqueeze.default": 3483,
+          "aten.eq.Tensor": 67,
+          "aten._to_copy.default": 2012,
+          "aten.sub.Tensor": 336,
+          "aten.add.Tensor": 4638,
+          "aten.clip.default": 3,
+          "aten.mul.Tensor": 7841,
+          "aten.rsub.Scalar": 507,
+          "aten.one_hot.default": 13,
+          "aten.view.default": 7467,
+          "aten.unfold.default": 471,
+          "aten.permute.default": 1914,
+          "aten.new_ones.default": 234,
+          "aten.slice.Tensor": 5087,
+          "aten.fill_.Tensor": 426,
+          "aten.clone.default": 1105,
+          "aten._unsafe_view.default": 550,
+          "aten.transpose.int": 4716,
+          "aten.linear.default": 13510,
+          "aten.arcsinh.default": 23,
+          "aten.pow.Tensor_Scalar": 160,
+          "aten.sum.dim_IntList": 695,
+          "aten.reciprocal.default": 44,
+          "aten.relu.default": 139,
+          "aten.detach.default": 5090,
+          "aten.empty_like.default": 10357,
+          "aten.sigmoid.default": 4091,
+          "aten.div.Tensor": 1199,
+          "aten.new_zeros.default": 150,
+          "aten.expand.default": 1533,
+          "aten.silu.default": 819,
+          "aten.max.default": 1025,
+          "aten._local_scalar_dense.default": 2386,
+          "aten.scatter_add_.default": 46,
+          "aten.lt.Scalar": 1157,
+          "aten.index_put_.default": 33,
+          "aten.zeros_like.default": 2,
+          "aten.select.int": 1673,
+          "aten.std.correction": 260,
+          "aten.bmm.default": 313,
+          "aten.ge.Scalar": 244,
+          "aten.index_select.default": 16,
+          "aten._softmax.default": 24,
+          "aten.unbind.int": 47,
+          "aten.mean.dim": 68,
+          "aten.squeeze.dim": 30,
+          "aten.gt.Scalar": 994,
+          "aten.is_nonzero.default": 2291,
+          "aten.sqrt.default": 94,
+          "aten.split.Tensor": 80,
+          "aten.silu_.default": 80,
+          "aten.mul_.Tensor": 80,
+          "aten.log.default": 22,
+          "aten.cos.default": 22,
+          "aten.index.Tensor": 2636,
+          "aten._unique2.default": 1133,
+          "aten.resolve_conj.default": 20,
+          "aten.resolve_neg.default": 20,
+          "aten.eq.Scalar": 52,
+          "aten.sum.default": 1130,
+          "aten.le.Scalar": 4,
+          "aten.isin.Tensor_Tensor": 46,
+          "aten.all.default": 47,
+          "aten.any.default": 1064,
+          "aten.mm.default": 35,
+          "aten.linalg_svd.default": 8,
+          "aten.linalg_det.default": 8,
+          "aten.ones_like.default": 20,
+          "aten.diag_embed.default": 8,
+          "aten.linalg_vector_norm.default": 30,
+          "aten.lt.Tensor": 7,
+          "aten.mean.default": 31,
+          "aten.argsort.default": 2,
+          "aten.lift_fresh.default": 1033,
+          "aten.ne.Tensor": 1512,
+          "aten.unique_dim.default": 1024,
+          "aten.min.default": 1024,
+          "aten.any.dim": 1024,
+          "aten.min.dim": 486,
+          "aten.clamp.default": 4,
+          "aten.cdist.default": 8,
+          "aten.gt.Tensor": 5,
+          "aten.exp.default": 1,
+          "aten.alias.default": 4,
+          "aten.gather.default": 2,
+          "aten.bitwise_not.default": 2,
+          "aten.abs.default": 4,
+          "aten.add_.Tensor": 6,
+          "aten.isnan.default": 9,
+          "aten.isinf.default": 9,
+          "aten.nonzero_numpy.default": 1,
+          "aten._log_softmax.default": 5,
+          "aten.clamp_min.default": 8,
+          "aten.expand_as.default": 8,
+          "aten.cross.default": 2,
+          "aten.where.self": 1,
+          "aten.isfinite.default": 1,
+          "aten.div.Scalar": 15,
+          "aten._log_softmax_backward_data.default": 5,
+          "aten.index_put.default": 8,
+          "aten.mul.Scalar": 1,
+          "aten.neg.default": 5,
+          "aten.sigmoid_backward.default": 161,
+          "aten.sgn.default": 1,
+          "aten.linear_backward.default": 512,
+          "aten.silu_backward.default": 36,
+          "aten.slice_backward.default": 6,
+          "aten.sum_to_size.default": 31,
+          "aten.unfold_backward.default": 13,
+          "aten.threshold_backward.default": 6
+        },
+        "gradient_or_kernel_replacement_by_observer": false,
+        "scope": "Read-only actual ATen observation; merged package provides all kernels."
+      },
+      "helper_sha256": "972266b9e960d3baec563974aa1ce040d965334fa0dbae2cbbed73e2230c1e02",
+      "scope": "Complete upstream-merged FlagGems package with current accepted PPU FP32/RNE matrix kernels and fused Softmax retained as backend providers. Same model, data, RNG, precision configuration and optimizer.",
+      "new_H100_execution": false,
+      "timing_valid": false
+    }
+  },
+  "tf32": {
+    "report_keys": [
+      "status",
+      "error",
+      "protocol",
+      "environment",
+      "input_hashes",
+      "experimental_training_manifest",
+      "batch_audits",
+      "batch_sha256",
+      "batch_tensor_count",
+      "batch_leaf_hashes",
+      "losses",
+      "gradient_norms",
+      "parameter_updates",
+      "parameter_gradients",
+      "timings",
+      "formal_event_median_ms",
+      "formal_wall_median_ms",
+      "launcher_wall_seconds"
+    ],
+    "report_status": "fail",
+    "errors": {
+      "error": "Traceback (most recent call last):\n  File \"/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/training_experimental.py\", line 546, in main\n    trainer.run()\n  File \"/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/runner/train.py\", line 698, in run\n    self.train_step(batch)\n  File \"/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/training_experimental.py\", line 435, in timed_train_step\n    result = native_train_step(self, batch)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/train_entry_nonzero.py\", line 94, in step\n    result = native_step(self, batch)\n             ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/train_route_entry.py\", line 26, in step\n    else:result=original(self,batch)\n                ^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/runner/train.py\", line 615, in train_step\n    scaler.scale(loss / self.iters_to_accumulate).backward()\n  File \"/usr/local/lib/python3.12/site-packages/torch/_tensor.py\", line 630, in backward\n    torch.autograd.backward(\n  File \"/usr/local/lib/python3.12/site-packages/torch/autograd/__init__.py\", line 364, in backward\n    _engine_run_backward(\n  File \"/usr/local/lib/python3.12/site-packages/torch/autograd/graph.py\", line 865, in _engine_run_backward\n    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/upstream_training_observer_20261106.py\", line 24, in __torch_dispatch__\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/torch/_ops.py\", line 819, in __call__\n    return self._op(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/runtime/backend/_thead/ops/linear_backward.py\", line 172, in linear_backward\n    grad_output_flat = grad_output.view(batch_size, out_features).contiguous()\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: view size is not compatible with input tensor's size and stride (at least one dimension spans across two contiguous subspaces). Use .reshape(...) instead.\n"
+    },
+    "traceback": "Traceback (most recent call last):\\n  File \\\"/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/training_experimental.py\\\", line 546, in main\\n    trainer.run()\\n  File \\\"/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/runner/train.py\\\", line 698, in run\\n    self.train_step(batch)\\n  File \\\"/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/training_experimental.py\\\", line 435, in timed_train_step\\n    result = native_train_step(self, batch)\\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/train_entry_nonzero.py\\\", line 94, in step\\n    result = native_step(self, batch)\\n             ^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/train_route_entry.py\\\", line 26, in step\\n    else:result=original(self,batch)\\n                ^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/mnt/cpfs/xishiqing/flagtree_ppu_docker_20260821/experiments/public_e2e_profile_20260822/Protenix-public-profile/runner/train.py\\\", line 615, in train_step\\n    scaler.scale(loss / self.iters_to_accumulate).backward()\\n  File \\\"/usr/local/lib/python3.12/site-packages/torch/_tensor.py\\\", line 630, in backward\\n    torch.autograd.backward(\\n  File \\\"/usr/local/lib/python3.12/site-packages/torch/autograd/__init__.py\\\", line 364, in backward\\n    _engine_run_backward(\\n  File \\\"/usr/local/lib/python3.12/site-packages/torch/autograd/graph.py\\\", line 865, in _engine_run_backward\\n    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass\\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/upstream_training_observer_20261106.py\\\", line 24, in __torch_dispatch__\\n    return func(*args, **kwargs)\\n           ^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/usr/local/lib/python3.12/site-packages/torch/_ops.py\\\", line 819, in __call__\\n    return self._op(*args, **kwargs)\\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/runtime/backend/_thead/ops/linear_backward.py\\\", line 172, in linear_backward\\n    grad_output_flat = grad_output.view(batch_size, out_features).contiguous()\\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\nRuntimeError: view size is not compatible with input tensor's size and stride (at least one dimension spans across two contiguous subspaces). Use .reshape(...) instead.\\n\", \"protocol\": {\"platform\": \"ppu810e\", \"disable_flaggems\": false, \"enable_flaggems\": true, \"model\": \"protenix-v2\", \"dtype\": \"fp32\", \"seed\": 20260825, \"max_steps\": 2, \"warmup_steps_excluded\": 1, \"formal_steps\": 1, \"crop_size\": 693, \"epoch_size\": 17, \"data_scope\": \"Disjoint public experimental training labels; no synthetic prediction labels\", \"triangle_attention\": \"triattention\", \"triangle_attention_flaggems_public\": \"1\", \"triangle_attention_flaggems_precision\": \"tf32\", \"triangle_attention_ppu_streaming\": \"0\", \"triangle_attention_ppu_small\": \"0\", \"triangle_multiplicative\": \"torch\", \"blocks_per_ckpt\": 1, \"pairformer_blocks\": 48, \"msa_blocks\": 4, \"diffusion_batch_size\": 1, \"shared_rng\": true, \"replay_step_rng\": false, \"learning_rate\": 0.00018, \"progress_interval\": 1, \"track_parameter_updates\": false, \"enable_checkpoints\": false, \"checkpoint_interval\": 1000, \"audit_parameter_gradients\": false, \"gradient_audit_step\": 0, \"load_strict\": true, \"deterministic_algorithms\": false, \"triangle_attention_fp16_training_scratch\": \"0\", \"triangle_attention_strict_cross_device\": \"0\", \"triangle_attention_strict_forward_schedule\": \"0\", \"triangle_attention_strict_backward_schedule\": \"0\", \"disable_permutation_error_dump\": \"0\", \"tf32\": false, \"checkpoint_and_eval_in_step_timing\": false}, \"environment\": {\"hostname\": \"dsw-766246-9578bd86-vmm4s\", \"python\": \"3.12.3 (main, Apr 28 2026, 13:59:41) [GCC 13.3.0]\", \"torch\": \"2.10.0\", \"device_name\": \"PPU-ZW810E\", \"device_count_visible\": 1, \"flag_gems\": \"/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/__init__.py\"}, \"input_hashes\": {\"/mnt/cpfs/xishiqing/root_migrated/checkpoint/protenix-v2.pt\": \"8f931f9774a396b67033d0e58628e1834f4a1448165e04254b40a780b0c0d599\", \"/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/experimental_training/manifest.json\": \"cd491b660cb87b4df10b6900dd2021dc9812f69446460509bb6c209334d24545\", \"/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/experimental_training/bioassembly/5sak.pkl.gz\": \"643908a9ea84d913766d41a24c45a57c3ff5596710cc034804772d875bbde869\", \"/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/experimental_training/bioassembly/7pzb.pkl.gz\": \"67fd68b7d3875e4b0a421ccc68ad0d88f50262cf1e07af52ade1c15ffc756d1f\", \"/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/experimental_training/cif/5sak.cif\": \"b01623f2999b5e15aa597d4f8add557c5f89931dacba22147f218894fcd4cbe7\", \"/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/experimental_training/cif/7pzb.cif\": \"d48ccef75b2df04b139cf0fb0e7f5dcd35fe09e1d62e5bdb2b65f55ddabe1ee6\", \"/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/experimental_training/empty_index.json\": \"ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356\", \"/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/experimental_training/indices.csv\": \"9011b254695d6e43a488788c6005b6180969951d5dc458fec6a3bc850b38cd96\"}, \"experimental_training_manifest\": {\"status\": \"PASS_EXPERIMENTAL_GEOMETRY_AND_DISJOINT_SPLIT\", \"train_pdb\": [\"5sak\", \"7pzb\"], \"validation_pdb\": [\"7r6r\", \"7st3\", \"7wux\", \"9gmw\"], \"index_count\": 17, \"structures\": [{\"pdb_id\": \"5sak\", \"atom_count\": 3074, \"resolved_atom_count\": 2407, \"finite\": true, \"resolution\": 1.1, \"N_token\": 437, \"consecutive_resolved_CA_pairs\": 329, \"consecutive_CA_distance_quantiles_A\": [2.953404426574707, 3.7405289459228515, 3.8018746376037598, 3.8399875354766846, 3.849336624145508]}, {\"pdb_id\": \"7pzb\", \"atom_count\": 5222, \"resolved_atom_count\": 4673, \"finite\": true, \"resolution\": 3.12, \"N_token\": 600, \"consecutive_resolved_CA_pairs\": 451, \"consecutive_CA_distance_quantiles_A\": [3.620004653930664, 3.705176591873169, 3.8031649589538574, 3.8426913022994995, 3.860142230987549]}], \"asset_sha256\": {\"bioassembly/5sak.pkl.gz\": \"643908a9ea84d913766d41a24c45a57c3ff5596710cc034804772d875bbde869\", \"cif/5sak.cif\": \"b01623f2999b5e15aa597d4f8add557c5f89931dacba22147f218894fcd4cbe7\", \"bioassembly/7pzb.pkl.gz\": \"67fd68b7d3875e4b0a421ccc68ad0d88f50262cf1e07af52ade1c15ffc756d1f\", \"cif/7pzb.cif\": \"d48ccef75b2df04b139cf0fb0e7f5dcd35fe09e1d62e5bdb2b65f55ddabe1ee6\", \"indices.csv\": \"9011b254695d6e43a488788c6005b6180969951d5dc458fec6a3bc850b38cd96\", \"empty_index.json\": \"ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356\"}, \"scope\": \"Experimental labels from native WeightedPDB; held out from this fine-tuning only, not claimed absent from original pretraining.\"}, \"batch_audits\": [{\"batch_index\": 0, \"sha256\": \"81585b557466b3b1298ea30f74ac14d766ed7421eadc9d8b8b0047a33e76257f\", \"tensor_count\": 71, \"leaf_hashes\": {\"batch.basic.N_asym\": {\"sha256\": \"d63e93bc4684dc95ae910c0a240d25b6af4f6d78c1603b032bb7eb3f2e9d8836\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.basic.N_atom\": {\"sha256\": \"9587fbfb9ac7c83f479c8fe27e5f4fd1b462fcc717c7f3b9b7b170852703416a\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.basic.N_dna_atom\": {\"sha256\": \"8a2db309feceed10ba2f69105735124cd30c5f2c1f229b57774938079d3186fa\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.basic.N_dna_token\": {\"sha256\": \"2f6771b0b756ab9c5718817bb1eef26c32bf5efd3607798a72bfcde6304ceb08\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.basic.N_lig_atom\": {\"sha256\": \"82ae67a35f60e8f592eefb56f821b3beb53ae0b8496ba3c81631150d7f4e01cd\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.basic.N_lig_token\": {\"sha256\": \"82ae67a35f60e8f592eefb56f821b3beb53ae0b8496ba3c81631150d7f4e01cd\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.basic.N_msa\": {\"sha256\": \"c145f362bf357521a45777fcde4f84959c9bccb5d4003d53278088e632f8c4b9\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.basic.N_msa_prot_pair\": {\"sha256\": \"8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.basic.N_msa_prot_unpair\": {\"sha256\": \"8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.basic.N_msa_rna_pair\": {\"sha256\": \"8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.basic.N_msa_rna_unpair\": {\"sha256\": \"8e83d70f2043c10c20babee8ed05ed6c93506b5ffc6eac229ffb1d1d0e568526\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.basic.N_prot_atom\": {\"sha256\": \"3931b7a9ec0e9b3a7bf933b40dfa8ae274d38ec556b2ea35a6da1fb7f018c7e7\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.basic.N_prot_token\": {\"sha256\": \"884e60cf0b11ae62878c6b97c891b076bb7e40f21ae5cd4b6a15df6ac8edafe2\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.basic.N_rna_atom\": {\"sha256\": \"2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.basic.N_rna_token\": {\"sha256\": \"2a4af4c962d62e93d29e79fb478bebc259ea64c92d4103749bea17ee68914f01\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.basic.N_token\": {\"sha256\": \"cdde644b5018cfd5aa67139b65c6efd384425e88defad2a4bbb25558113f8f60\", \"dtype\": \"torch.int64\", \"shape\": [1]}, \"batch.input_feature_dict.asym_id\": {\"sha256\": \"3bb5dbb53207af20c5dfd4da4fd6ea8bd8f90c741dfc353dac7c394e42eeaaa2\", \"dtype\": \"torch.int64\", \"shape\": [600]}, \"batch.input_feature_dict.atom_to_tokatom_idx\": {\"sha256\": \"92673cb95fe23fd2d6a09d7b1405ff2188ddae13242abf837bc73729954f60f1\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.atom_to_token_idx\": {\"sha256\": \"551c159ea07e355d89de3cfe33884fc32a9cfcf8492f8cee0bd1ae60614950f2\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.bond_mask\": {\"sha256\": \"a83dcef8e6f2cc5f5c9b8c7b8787b60026f6ae39202e29f47d7470bb3a79203b\", \"dtype\": \"torch.int64\", \"shape\": [5222, 5222]}, \"batch.input_feature_dict.deletion_mean\": {\"sha256\": \"0630fb64aa8c49a13c17164ce33fa5e781dfd433de0e0de60334089676a52168\", \"dtype\": \"torch.float32\", \"shape\": [600]}, \"batch.input_feature_dict.deletion_value\": {\"sha256\": \"9f91300341b40c0caa0047c31c0dd0620d16994fbd1b41c6741fcb6f1aa4d3b7\", \"dtype\": \"torch.float32\", \"shape\": [2, 600]}, \"batch.input_feature_dict.distogram_rep_atom_mask\": {\"sha256\": \"da71b723ffa2f578fd41cc0d978f7ee0d526b02f214f5d9d6956c133a954f098\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.entity_id\": {\"sha256\": \"c28b8303b3fad46a47f4ff659670e72fdb8a19c1b9bfd5c1301635ed83b7448c\", \"dtype\": \"torch.int64\", \"shape\": [600]}, \"batch.input_feature_dict.entity_mol_id\": {\"sha256\": \"0ae62f49a2d0063f3b797634307382878c8d7a02501bb8d4e83a842fb3ddab57\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.frame_atom_index\": {\"sha256\": \"88a5300fff5193df8117582c6813d73dd9f0c2e71a4257e39fa42c647821b8b7\", \"dtype\": \"torch.int64\", \"shape\": [600, 3]}, \"batch.input_feature_dict.has_deletion\": {\"sha256\": \"9f91300341b40c0caa0047c31c0dd0620d16994fbd1b41c6741fcb6f1aa4d3b7\", \"dtype\": \"torch.float32\", \"shape\": [2, 600]}, \"batch.input_feature_dict.has_frame\": {\"sha256\": \"6533a2602e55c8cd6667df1d25a0beb21032b6c49d5bd569d78ac93146a80ad4\", \"dtype\": \"torch.int64\", \"shape\": [600]}, \"batch.input_feature_dict.is_distillation\": {\"sha256\": \"a63056d911afd30d0fb050244218bf0540e363d9e61c70e1860a1da29326aa03\", \"dtype\": \"torch.bool\", \"shape\": [1]}, \"batch.input_feature_dict.is_dna\": {\"sha256\": \"efc72f48184789ea2372e359d48d64fa3f971b741c7fa94369b3ffb1b274170d\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.is_ligand\": {\"sha256\": \"44b95034a0846608acb3f6e9084b45fbc3ddc8e182eaf94750cb9a68df0526fb\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.is_protein\": {\"sha256\": \"c165d04627cb311f49a56054f57e022853685c61d06c82f15ea0b17ac80cd74e\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.is_rna\": {\"sha256\": \"6c013fd9f1567a8fdddb093db6932bd1eea1cd5f52c85e685ee4f69620db1880\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.modified_res_mask\": {\"sha256\": \"6c013fd9f1567a8fdddb093db6932bd1eea1cd5f52c85e685ee4f69620db1880\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.mol_atom_index\": {\"sha256\": \"d2014b4616d53cb690f47f69bb0a2b6bcae436d2e77786ccf4a55d92f93cf331\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.mol_id\": {\"sha256\": \"c9aed0f6c9ac5efb4168da9c316a11c0bdd1054daa750fb2b1252cc97ecfb072\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.msa\": {\"sha256\": \"14a113fda0180d80447ca18589eeee04e1a12f4925e00c313f3ae04f71e5059a\", \"dtype\": \"torch.int64\", \"shape\": [2, 600]}, \"batch.input_feature_dict.pae_rep_atom_mask\": {\"sha256\": \"cafcc515bba612eebd79c882c387a91915774e3fe5e41ada7b78571dac3536e9\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.plddt_m_rep_atom_mask\": {\"sha256\": \"b91b78ee4c2d09b1cc759e069012a4403dee631eb7a483a0e0eaeb5689b7b623\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.profile\": {\"sha256\": \"4a16f4013186addf8a03f0955ed648a43300dd16ccdd8c6c7cc57605f1a79aa7\", \"dtype\": \"torch.float32\", \"shape\": [600, 32]}, \"batch.input_feature_dict.prot_pair_num_alignments\": {\"sha256\": \"35aa899bfc9cc839bcd696a2d658d35288c0c94b0c0e157fff56d59ddb23f8ab\", \"dtype\": \"torch.int64\", \"shape\": []}, \"batch.input_feature_dict.prot_unpair_num_alignments\": {\"sha256\": \"35aa899bfc9cc839bcd696a2d658d35288c0c94b0c0e157fff56d59ddb23f8ab\", \"dtype\": \"torch.int64\", \"shape\": []}, \"batch.input_feature_dict.ref_atom_name_chars\": {\"sha256\": \"05344843895975a132d43de3d174dd6a819f8460d0744feee42392aea0e71ae5\", \"dtype\": \"torch.int64\", \"shape\": [5222, 4, 64]}, \"batch.input_feature_dict.ref_charge\": {\"sha256\": \"46afea99a57134f5bac346a8f0a370ed69cd3dd6aa615e014c98533da63e3e6b\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.ref_element\": {\"sha256\": \"89686ba524d5b7649eab4f7a2988894702f7bdce36cb2056f056600d1282aa6d\", \"dtype\": \"torch.int64\", \"shape\": [5222, 128]}, \"batch.input_feature_dict.ref_mask\": {\"sha256\": \"c216526322f16b8057cd6e856f595dc89c2b4701fa2012437881a7532d7e7917\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.ref_pos\": {\"sha256\": \"63aaadd45b5d1311465e3225c16dfc3d419d8666ad732458193af24b9bb5b284\", \"dtype\": \"torch.float32\", \"shape\": [5222, 3]}, \"batch.input_feature_dict.ref_space_uid\": {\"sha256\": \"4d2f80e36acfb82b56a3edd80357549f4736f7a8b3462280053fd7caf8dca04a\", \"dtype\": \"torch.int64\", \"shape\": [5222]}, \"batch.input_feature_dict.residue_index\": {\"sha256\": \"82122f50f1a13a76b1cb7947776bbabdead549749c65683262d5ec6ab84ca31a\", \"dtype\": \"torch.int64\", \"shape\": [600]}, \"batch.input_feature_dict.resolution\": {\"sha256\": \"e5afadc16ff7ced47db294dbd4a92fb74af314b79bdabaa21fb7305651d73efb\", \"dtype\": \"torch.float32\", \"shape\": [1]}, \"batch.in",
+    "receipt": {
+      "status": "FAILED_PRESERVED",
+      "kind": "accurate",
+      "precision": "tf32",
+      "actual_softmax_forward_calls": [
+        {
+          "shape": [
+            600,
+            600,
+            8
+          ],
+          "axis": 1,
+          "half_to_float": false,
+          "count": 24
+        }
+      ],
+      "optimizer_steps": 0,
+      "common_geometry_imports": {
+        "protenix.model.loss": {
+          "source": "/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/precision_residual_20261019/model_ieee_matching/protenix/model/loss.py",
+          "sha256": "52139a09a83030cdb0c9931dcc7204592b8007273f87f2a900e3f70a4c444377"
+        },
+        "protenix.utils.torch_utils": {
+          "source": "/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/precision_residual_20261019/model_ieee_matching/protenix/utils/torch_utils.py",
+          "sha256": "de4201459cf1d6ac2c4accc5fb762adb659639a6e0d0cc44e70779e263f86fe2"
+        },
+        "protenix.utils.permutation.permutation": {
+          "source": "/mnt/cpfs/xishiqing/ppu_full_acceptance_20261005/precision_residual_20261019/model_ieee_matching/protenix/utils/permutation/permutation.py",
+          "sha256": "ee5cb4315dc2552b6d1138c66cf909afd5768b83e51c521f325697b151403260"
+        },
+        "flag_gems.ops.mm": {
+          "source": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/ops/mm.py",
+          "sha256": "f7ae1559bc499a02b7759a58a7eb778d12229138982c09e5e7be7d8532f11308"
+        },
+        "flag_gems.ops.bmm": {
+          "source": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/ops/bmm.py",
+          "sha256": "00c6035aeccc22f08ffe585b5da7b3b3ea9c70e76f5f514fd65c49cd48e8d585"
+        },
+        "flag_gems.ops.softmax": {
+          "source": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/ops/softmax.py",
+          "sha256": "9ba0ac9de6427baf69990ec09c2052a71c4c55119c4b1ecab39555862390d779"
+        },
+        "flag_gems.ops.index_put": {
+          "source": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/ops/index_put.py",
+          "sha256": "c1ed9ccde4b3625aa3fb632d06b19b7d374df8fa6db3dc65133ec5e402970ea6"
+        },
+        "flag_gems.ops.unfold_backward": {
+          "source": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/ops/unfold_backward.py",
+          "sha256": "aeb6d77bf514cbf8ca43b66731222a0290923214a875e670a8d9faa046bbf28c"
+        }
+      },
+      "registration_observation": {
+        "public_sources": {
+          "mm": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/runtime/backend/_thead/ops/mm.py",
+            "sha256": "41e078e91dd4aef65703a2a12a02f91a27cb9a09f2c4f62bcc0ef941b8b33197"
+          },
+          "addmm": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/runtime/backend/_thead/ops/addmm.py",
+            "sha256": "869b3b7de7f12f13379ef750f91b2e454378420b5211d312e9bb05503229a60f"
+          },
+          "bmm": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/runtime/backend/_thead/ops/bmm.py",
+            "sha256": "be1e6ae6bf757a3a90499c4e503a8d3ab8cc22c69f6e3965386802ca243cb3cc"
+          },
+          "linear": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/runtime/backend/_thead/ops/linear.py",
+            "sha256": "ef4022136adb42f3f0eaf9bd4b142a33e6f24a97d9cd8344139ea329cc301e72"
+          },
+          "linear_backward": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/runtime/backend/_thead/ops/linear_backward.py",
+            "sha256": "0bde5945976e79c8a6b16b02bb9bc6b1c8abb29a51c998afbd0a40659ccefb6a"
+          },
+          "softmax": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/runtime/backend/_thead/ops/softmax.py",
+            "sha256": "0660917a80d00506a65e01b7efb8bcc9386e6a33b9f212d6224872d63d567984"
+          },
+          "softmax_backward": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/runtime/backend/_thead/ops/softmax.py",
+            "sha256": "0660917a80d00506a65e01b7efb8bcc9386e6a33b9f212d6224872d63d567984"
+          },
+          "mean": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/ops/mean.py",
+            "sha256": "56072a75ec78b01ba81a0fc6851000ea7e8605454b8825b276f58e3a2547cd0c"
+          },
+          "true_divide": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/ops/div.py",
+            "sha256": "2f3ad2593640a351c7b9317b493fd979aff51e0e0b58f1798eac106eba06c8cf"
+          },
+          "pad": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/ops/pad.py",
+            "sha256": "ca1dd309ac99095c3d74f846e80e9fc080c2f51bc8cc44ef4cda8001af36afcb"
+          },
+          "unfold_backward": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/ops/unfold_backward.py",
+            "sha256": "aeb6d77bf514cbf8ca43b66731222a0290923214a875e670a8d9faa046bbf28c"
+          },
+          "index_select_backward": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/ops/index_select_backward.py",
+            "sha256": "e0737d5ff554c4b0e266e7a92341762b4cd7b47d3d0d4f0be4162e924e48c4f2"
+          }
+        },
+        "retained_current_providers": {
+          "mm_fp32.py": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/runtime/backend/_thead/ops/mm_fp32.py",
+            "sha256": "5e1cf91e8b62929dd2d96990d7b2232f539fdd7a0e6c0d5ed79a0a45d551e7b8"
+          },
+          "bmm_fp32.py": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/runtime/backend/_thead/ops/bmm_fp32.py",
+            "sha256": "2352062170a4b4716f8e8f20419fa2056fd629e0698f34c318445c96ac23cecb"
+          },
+          "addmm_fp32.py": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/runtime/backend/_thead/ops/addmm_fp32.py",
+            "sha256": "11465be57c6c86be46bcd3f64a9f0ea1ba8df9a2a7f10d562452b2189af7944f"
+          },
+          "softmax_fp32.py": {
+            "path": "/root/xishiqing_protenix_precision_20261023/upstream_merge_20261106/packages/merged_release/flag_gems/runtime/backend/_thead/ops/softmax_fp32.py",
+            "sha256": "fa19926fd806b489402d705aab9b43f0c3c012e0a74a2d215ac564643d16839f"
+          }
+        },
+        "actual_cuda_ATen_calls": {
+          "aten.set_.source_Storage": 4174,
+          "aten.copy_.default": 8915,
+          "aten.set_.source_Storage_storage_offset": 4174,
+          "aten.unsqueeze.default": 3483,
+          "aten.eq.Tensor": 67,
+          "aten._to_copy.default": 2012,
+          "aten.sub.Tensor": 336,
+          "aten.add.Tensor": 4638,
+          "aten.clip.default": 3,
+          "aten.mul.Tensor": 7841,
+          "aten.rsub.Scalar": 507,
+          "aten.one_hot.default": 13,
+          "aten.view.default": 7467,
+          "aten.unfold.default": 471,
+          "aten.permute.default": 1914,
+          "aten.new_ones.default": 234,
+          "aten.slice.Tensor": 5087,
+          "aten.fill_.Tensor": 426,
+          "aten.clone.default": 1105,
+          "aten._unsafe_view.default": 550,
+          "aten.transpose.int": 4716,
+          "aten.linear.default": 13510,
+          "aten.arcsinh.default": 23,
+          "aten.pow.Tensor_Scalar": 160,
+          "aten.sum.dim_IntList": 695,
+          "aten.reciprocal.default": 44,
+          "aten.relu.default": 139,
+          "aten.detach.default": 5090,
+          "aten.empty_like.default": 10357,
+          "aten.sigmoid.default": 4091,
+          "aten.div.Tensor": 1199,
+          "aten.new_zeros.default": 150,
+          "aten.expand.default": 1533,
+          "aten.silu.default": 819,
+          "aten.max.default": 1025,
+          "aten._local_scalar_dense.default": 2386,
+          "aten.scatter_add_.default": 46,
+          "aten.lt.Scalar": 1157,
+          "aten.index_put_.default": 33,
+          "aten.zeros_like.default": 2,
+          "aten.select.int": 1673,
+          "aten.std.correction": 260,
+          "aten.bmm.default": 313,
+          "aten.ge.Scalar": 244,
+          "aten.index_select.default": 16,
+          "aten._softmax.default": 24,
+          "aten.unbind.int": 47,
+          "aten.mean.dim": 68,
+          "aten.squeeze.dim": 30,
+          "aten.gt.Scalar": 994,
+          "aten.is_nonzero.default": 2291,
+          "aten.sqrt.default": 94,
+          "aten.split.Tensor": 80,
+          "aten.silu_.default": 80,
+          "aten.mul_.Tensor": 80,
+          "aten.log.default": 22,
+          "aten.cos.default": 22,
+          "aten.index.Tensor": 2636,
+          "aten._unique2.default": 1133,
+          "aten.resolve_conj.default": 20,
+          "aten.resolve_neg.default": 20,
+          "aten.eq.Scalar": 52,
+          "aten.sum.default": 1130,
+          "aten.le.Scalar": 4,
+          "aten.isin.Tensor_Tensor": 46,
+          "aten.all.default": 47,
+          "aten.any.default": 1064,
+          "aten.mm.default": 35,
+          "aten.linalg_svd.default": 8,
+          "aten.linalg_det.default": 8,
+          "aten.ones_like.default": 20,
+          "aten.diag_embed.default": 8,
+          "aten.linalg_vector_norm.default": 30,
+          "aten.lt.Tensor": 7,
+          "aten.mean.default": 31,
+          "aten.argsort.default": 2,
+          "aten.lift_fresh.default": 1033,
+          "aten.ne.Tensor": 1512,
+          "aten.unique_dim.default": 1024,
+          "aten.min.default": 1024,
+          "aten.any.dim": 1024,
+          "aten.min.dim": 486,
+          "aten.clamp.default": 4,
+          "aten.cdist.default": 8,
+          "aten.gt.Tensor": 5,
+          "aten.exp.default": 1,
+          "aten.alias.default": 4,
+          "aten.gather.default": 2,
+          "aten.bitwise_not.default": 2,
+          "aten.abs.default": 4,
+          "aten.add_.Tensor": 6,
+          "aten.isnan.default": 9,
+          "aten.isinf.default": 9,
+          "aten.nonzero_numpy.default": 1,
+          "aten._log_softmax.default": 5,
+          "aten.clamp_min.default": 8,
+          "aten.expand_as.default": 8,
+          "aten.cross.default": 2,
+          "aten.where.self": 1,
+          "aten.isfinite.default": 1,
+          "aten.div.Scalar": 15,
+          "aten._log_softmax_backward_data.default": 5,
+          "aten.index_put.default": 8,
+          "aten.mul.Scalar": 1,
+          "aten.neg.default": 5,
+          "aten.sigmoid_backward.default": 161,
+          "aten.sgn.default": 1,
+          "aten.linear_backward.default": 512,
+          "aten.silu_backward.default": 36,
+          "aten.slice_backward.default": 6,
+          "aten.sum_to_size.default": 31,
+          "aten.unfold_backward.default": 13,
+          "aten.threshold_backward.default": 6
+        },
+        "gradient_or_kernel_replacement_by_observer": false,
+        "scope": "Read-only actual ATen observation; merged package provides all kernels."
+      },
+      "helper_sha256": "972266b9e960d3baec563974aa1ce040d965334fa0dbae2cbbed73e2230c1e02",
+      "scope": "Complete upstream-merged FlagGems package with current accepted PPU FP32/RNE matrix kernels and fused Softmax retained as backend providers. Same model, data, RNG, precision configuration and optimizer.",
+      "new_H100_execution": false,
+      "timing_valid": false
+    }
+  },
+  "suite": {
+    "per_file": [
+      {
+        "file": "copy",
+        "returncode": 0
+      },
+      {
+        "file": "div",
+        "returncode": 0
+      },
+      {
+        "file": "mean",
+        "returncode": 0
+      },
+      {
+        "file": "linear",
+        "returncode": 0
+      },
+      {
+        "file": "pad",
+        "returncode": 0
+      },
+      {
+        "file": "sigmoid",
+        "returncode": 0
+      },
+      {
+        "file": "silu",
+        "returncode": 0
+      },
+      {
+        "file": "unfold_backward",
+        "returncode": 0
+      },
+      {
+        "file": "log_softmax",
+        "returncode": 0
+      },
+      {
+        "file": "index_put",
+        "returncode": 0
+      },
+      {
+        "file": "index_select",
+        "returncode": 0
+      },
+      {
+        "file": "layer_norm",
+        "returncode": 0
+      },
+      {
+        "file": "softmax",
+        "returncode": 0
+      },
+      {
+        "file": "narrow",
+        "returncode": 0
+      },
+      {
+        "file": "sum",
+        "returncode": 0
+      },
+      {
+        "file": "scaled_dot_product_attention_math",
+        "returncode": 0
+      },
+      {
+        "file": "square",
+        "returncode": 0
+      },
+      {
+        "file": "libentry",
+        "returncode": 0
+      },
+      {
+        "file": "registration_contract",
+        "returncode": 0
+      }
+    ],
+    "junit": {
+      "index_put": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "11",
+          "time": "27.019",
+          "timestamp": "2026-11-06T12:59:07.614676",
+          "hostname": "dsw-766246-9578bd86-vmm4s"
+        }
+      ],
+      "index_select": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "2",
+          "time": "0.799",
+          "timestamp": "2026-11-06T12:59:44.678925",
+          "hostname": "dsw-766246-9578bd86-vmm4s"
+        }
+      ],
+      "mean": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "12",
+          "time": "2.441",
+          "timestamp": "2026-11-06T12:57:33.888535",
+          "hostname": "dsw-766246-9578bd86-vmm4s"
+        }
+      ],
+      "sum": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "5",
+          "time": "0.722",
+          "timestamp": "2026-11-06T13:00:36.458627",
+          "hostname": "dsw-766246-9578bd86-vmm4s"
+        }
+      ],
+      "log_softmax": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "4",
+          "time": "0.729",
+          "timestamp": "2026-11-06T12:58:56.458287",
+          "hostname": "dsw-766246-9578bd86-vmm4s"
+        }
+      ],
+      "softmax": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "5",
+          "time": "1.336",
+          "timestamp": "2026-11-06T13:00:13.214597",
+          "hostname": "dsw-766246-9578bd86-vmm4s"
+        }
+      ],
+      "copy": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "1",
+          "tests": "9",
+          "time": "0.803",
+          "timestamp": "2026-11-06T12:57:10.184748",
+          "hostname": "dsw-766246-9578bd86-vmm4s"
+        }
+      ],
+      "silu": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "13",
+          "tests": "16",
+          "time": "0.730",
+          "timestamp": "2026-11-06T12:58:33.677078",
+          "hostname": "dsw-766246-9578bd86-vmm4s"
+        }
+      ],
+      "div": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "27",
+          "time": "2.123",
+          "timestamp": "2026-11-06T12:57:21.381381",
+          "hostname": "dsw-766246-9578bd86-vmm4s"
+        }
+      ],
+      "scaled_dot_product_attention_math": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "4",
+          "time": "2.392",
+          "timestamp": "2026-11-06T13:00:47.345524",
+          "hostname": "dsw-766246-9578bd86-vmm4s"
+        }
+      ],
+      "registration_contract": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "2",
+          "time": "0.185",
+          "timestamp": "2026-11-06T13:01:23.830723",
+          "hostname": "dsw-766246-9578bd86-vmm4s"
+        }
+      ],
+      "linear": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "4",
+          "time": "14.859",
+          "timestamp": "2026-11-06T12:57:46.661242",
+          "hostname": "dsw-766246-9578bd86-vmm4s"
+        }
+      ],
+      "layer_norm": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "1",
+          "tests": "5",
+          "time": "7.360",
+          "timestamp": "2026-11-06T12:59:55.640568",
+          "hostname": "dsw-766246-9578bd86-vmm4s"
+        }
+      ],
+      "sigmoid": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "3",
+          "time": "0.707",
+          "timestamp": "2026-11-06T12:58:22.783182",
+          "hostname": "dsw-766246-9578bd86-vmm4s"
+        }
+      ],
+      "pad": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "2",
+          "time": "0.712",
+          "timestamp": "2026-11-06T12:58:11.749944",
+          "hostname": "dsw-766246-9578bd86-vmm4s"
+        }
+      ],
+      "libentry": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "9",
+          "tests": "51",
+          "time": "1.759",
+          "timestamp": "2026-11-06T13:01:11.655913",
+          "hostname": "dsw-766246-9578bd86-vmm4s"
+        }
+      ],
+      "narrow": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "7",
+          "time": "1.311",
+          "timestamp": "2026-11-06T13:00:24.893437",
+          "hostname": "dsw-766246-9578bd86-vmm4s"
+        }
+      ],
+      "unfold_backward": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "3",
+          "time": "0.978",
+          "timestamp": "2026-11-06T12:58:44.818102",
+          "hostname": "dsw-766246-9578bd86-vmm4s"
+        }
+      ],
+      "square": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "2",
+          "time": "1.002",
+          "timestamp": "2026-11-06T13:01:00.230579",
+          "hostname": "dsw-766246-9578bd86-vmm4s"
+        }
+      ]
+    }
+  }
+}

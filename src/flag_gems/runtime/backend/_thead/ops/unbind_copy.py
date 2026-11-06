@@ -24,7 +24,6 @@ logger = logging.getLogger(__name__)
 # ``aten::unbind_copy.int`` to PyTorch's native (reference) implementation when the
 # FlagGems override is not currently enabled, so eager ``torch.unbind_copy`` keeps its
 # original (fast) behaviour outside of a ``use_gems`` block.
-_NATIVE_KEYSET = torch._C.DispatchKeySet(torch._C.DispatchKey.CompositeExplicitAutograd)
 
 
 def unbind_copy(input: torch.Tensor, dim: int = 0) -> List[torch.Tensor]:
@@ -79,33 +78,3 @@ def unbind_copy(input: torch.Tensor, dim: int = 0) -> List[torch.Tensor]:
     else:
         contiguous = moved.contiguous()
     return list(torch.unbind(contiguous, dim=0))
-
-
-def _dispatched_unbind_copy_int(input: torch.Tensor, dim: int = 0):
-    """CUDA-key dispatcher for ``aten::unbind_copy.int``.
-
-    ``torch.unbind_copy`` resolves to the ``.int`` overload, which has no
-    ``default`` overload — so a plain ``lib.impl("unbind_copy", fn, "CUDA")``
-    (the registration path used by the generic ``_FULL_CONFIG``) binds an unused
-    ``default`` overload and never intercepts ``.int``. The op therefore always
-    falls through to PyTorch's native ``select``+``clone`` decomposition, which is
-    the source of the perf regression under ``use_gems``.
-
-    This persistent ``.int`` registration fixes that: when FlagGems is active
-    (``use_gems`` context entered) it routes to the fast single-copy specialization
-    above; otherwise it redispatches to the native reference implementation so eager
-    behaviour (and the eager latency baseline) is unchanged.
-    """
-    import flag_gems
-
-    if getattr(flag_gems, "current_work_registrar", None) is not None:
-        return unbind_copy(input, dim)
-    return torch.ops.aten.unbind_copy.int.redispatch(_NATIVE_KEYSET, input, dim)
-
-
-# Persistent registration for the ``.int`` overload (the one ``torch.unbind_copy``
-# actually dispatches to). Lives for the lifetime of the process; the dispatcher
-# itself defers to native unless a ``use_gems`` context is active, so there is no
-# regression outside of FlagGems.
-_unbind_copy_int_lib = torch.library.Library("aten", "IMPL")
-_unbind_copy_int_lib.impl("unbind_copy.int", _dispatched_unbind_copy_int, "CUDA")
