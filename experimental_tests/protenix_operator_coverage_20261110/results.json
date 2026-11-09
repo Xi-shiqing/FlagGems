@@ -27852,5 +27852,23 @@
     "scope": "One complete registered ATen operator call plus device synchronize; all FlagGems registration enabled"
   },
   "new_H100_execution": false,
-  "graph_enabled": false
+  "graph_enabled": false,
+  "training_snapshot_scope": {
+    "full_gradients_and_actual_updates": "first accuracy step only",
+    "loss_gradient_norm_input_ordered_RNG": "both accuracy steps",
+    "initial_parameters": "accuracy-run initial snapshots; performance runs verify checkpoint file SHA"
+  },
+  "stored_H100_protocol_differences": {
+    "global_deterministic_algorithms": {
+      "PPU": true,
+      "H100": false
+    },
+    "checkpoint_file_saving": {
+      "PPU": false,
+      "H100": true
+    }
+  },
+  "shared_activation_recomputation": {
+    "blocks_per_ckpt": 1
+  }
 }
