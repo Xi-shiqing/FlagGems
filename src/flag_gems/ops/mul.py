@@ -22,8 +22,9 @@ import triton.language as tl
 
 from flag_gems.runtime import device as runtime_device
 from flag_gems.runtime import torch_device_fn
-from flag_gems.utils import libentry, libtuner
-from flag_gems.utils.shape_utils import volume
+from flag_gems.utils import libentry, libtuner, pointwise_dynamic
+from flag_gems.utils import native_output_allocation as _native_output
+from flag_gems.utils.shape_utils import broadcast, volume
 
 logger = logging.getLogger(__name__)
 
@@ -567,7 +568,12 @@ def _needs_runtime_meta_for_constexpr_tuple():
 
 
 def _broadcast_shape(a_t, b_t):
-    return tuple(torch.broadcast_shapes(tuple(a_t.shape), tuple(b_t.shape)))
+    a_shape, b_shape = tuple(a_t.shape), tuple(b_t.shape)
+    try:
+        return broadcast(a_shape, b_shape)
+    except ValueError:
+        # Preserve PyTorch's public error type/message for incompatible shapes.
+        return tuple(torch.broadcast_shapes(a_shape, b_shape))
 
 
 def _broadcasted_stride(shape, stride, out_shape):
@@ -588,6 +594,8 @@ def _broadcasted_stride(shape, stride, out_shape):
 def _real_output(a_t, b_t, out=None):
     out_shape = _broadcast_shape(a_t, b_t)
     if out is None:
+        if _native_output.ENABLED and not torch.is_grad_enabled() and a_t.is_cuda:
+            return _native_output.empty(out_shape, device=a_t.device, dtype=a_t.dtype)
         return torch.empty(out_shape, device=a_t.device, dtype=a_t.dtype)
     if tuple(out.shape) != out_shape:
         raise RuntimeError(
@@ -688,49 +696,19 @@ def _launch_2d_broadcast(
     return output
 
 
-def _launch_generic(a_t, b_t, output, out_shape, a_stride, b_stride, out_stride, dtype):
-    n_elements = output.numel()
-    if n_elements == 0:
-        return output
-    shape = out_shape or (1,)
-    ndim = len(shape)
-    a_stride = a_stride or (0,)
-    b_stride = b_stride or (0,)
-    out_stride = out_stride or (0,)
-    grid = lambda meta: (triton.cdiv(n_elements, meta["BLOCK_SIZE"]),)
-    if _needs_runtime_meta_for_constexpr_tuple():
-        meta = torch.tensor(
-            shape + a_stride + b_stride + out_stride,
-            device=output.device,
-            dtype=torch.int64,
-        )
-        with torch_device_fn.device(output.device):
-            mul_generic_nd_runtime_meta_kernel[grid](
-                a_t,
-                b_t,
-                output,
-                meta,
-                n_elements,
-                NDIM=ndim,
-                dtype=_dtype_name(dtype),
-                IS_BOOL=_is_bool_dtype(dtype),
-            )
-        return output
+@pointwise_dynamic(promotion_methods=[(0, 1, "DEFAULT")])
+@triton.jit
+def _mul_strided(a, b):
+    return a & b if a.dtype == tl.int1 else a * b
 
-    with torch_device_fn.device(output.device):
-        mul_generic_nd_kernel[grid](
-            a_t,
-            b_t,
-            output,
-            n_elements,
-            SHAPE=shape,
-            A_STRIDE=a_stride,
-            B_STRIDE=b_stride,
-            OUT_STRIDE=out_stride,
-            NDIM=ndim,
-            dtype=_dtype_name(dtype),
-            IS_BOOL=_is_bool_dtype(dtype),
-        )
+
+def _launch_generic(a_t, b_t, output):
+    if output.numel() == 0:
+        return output
+    # The generated wrapper passes dimensions and strides as launch arguments.
+    # Avoid allocating and copying a metadata tensor for every multiplication.
+    # The same generator handles arbitrary ranks, broadcasts and output views.
+    _mul_strided(a_t, b_t, out0=output)
     return output
 
 
@@ -752,7 +730,7 @@ def mul_broadcast_func(a, b, out=None):
         and not isinstance(b, complex)
     ):
         a_t = _as_tensor(a, device=device, dtype=dtype)
-        output = _real_output(a_t, a_t.new_empty(()), out=out)
+        output = _real_output(a_t, a_t, out=out)
         if _can_use_contiguous_scalar(a_t, output):
             return _launch_scalar(a_t, b, output, dtype)
 
@@ -762,7 +740,7 @@ def mul_broadcast_func(a, b, out=None):
         and not isinstance(a, complex)
     ):
         b_t = _as_tensor(b, device=device, dtype=dtype)
-        output = _real_output(b_t.new_empty(()), b_t, out=out)
+        output = _real_output(b_t, b_t, out=out)
         if _can_use_contiguous_scalar(b_t, output):
             return _launch_scalar(b_t, a, output, dtype)
 
@@ -778,14 +756,12 @@ def mul_broadcast_func(a, b, out=None):
         return _launch_contiguous_tensor_tensor(a_t, b_t, output, dtype)
 
     out_shape = tuple(output.shape)
-    a_stride, b_stride, out_stride = _real_layout(out_shape, a_t, b_t, output)
     if _can_use_2d_broadcast(out_shape):
+        a_stride, b_stride, out_stride = _real_layout(out_shape, a_t, b_t, output)
         return _launch_2d_broadcast(
             a_t, b_t, output, out_shape, a_stride, b_stride, out_stride, dtype
         )
-    return _launch_generic(
-        a_t, b_t, output, out_shape, a_stride, b_stride, out_stride, dtype
-    )
+    return _launch_generic(a_t, b_t, output)
 
 
 def _complex_parts(value, *, device, complex_dtype):

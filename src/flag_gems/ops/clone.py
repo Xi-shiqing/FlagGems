@@ -21,6 +21,7 @@ import triton
 import triton.language as tl
 
 from flag_gems.runtime import torch_device_fn
+from flag_gems.utils import native_output_allocation
 
 logger = logging.getLogger(__name__)
 
@@ -46,7 +47,11 @@ class _CloneFunction(torch.autograd.Function):
         return grad_out, None
 
 
-def _allocate_preserve_format(inp: torch.Tensor) -> torch.Tensor:
+def _allocate_preserve_format(
+    inp: torch.Tensor, native_output: bool = False
+) -> torch.Tensor:
+    if native_output:
+        return native_output_allocation.empty_like(inp)
     # Replicating the original strides is only valid for a non-overlapping
     # dense layout; other inputs take PyTorch's suggested layout.
     if torch.ops.aten.is_non_overlapping_and_dense(inp):
@@ -63,10 +68,16 @@ def _launch_copy(src: torch.Tensor, dst: torch.Tensor):
         _clone_kernel[grid](src, dst, n_elements, BLOCK_SIZE=1024)
 
 
-def _clone_impl(inp: torch.Tensor, memory_format: torch.memory_format):
+def _clone_impl(
+    inp: torch.Tensor, memory_format: torch.memory_format, native_output: bool = False
+):
     if inp.numel() == 0:
         if memory_format == torch.preserve_format:
-            return _allocate_preserve_format(inp)
+            return _allocate_preserve_format(inp, native_output)
+        if native_output:
+            return native_output_allocation.empty(
+                inp.shape, dtype=inp.dtype, device=inp.device
+            )
         return torch.empty_like(inp, memory_format=memory_format)
 
     # Triton has no complex dtype mapping.  Following the project convention
@@ -88,7 +99,7 @@ def _clone_impl(inp: torch.Tensor, memory_format: torch.memory_format):
             inp = inp.resolve_neg()
 
         if memory_format == torch.preserve_format:
-            out = _allocate_preserve_format(inp)
+            out = _allocate_preserve_format(inp, native_output)
             if inp.is_contiguous() or torch.ops.aten.is_non_overlapping_and_dense(inp):
                 _launch_copy(torch.view_as_real(inp), torch.view_as_real(out))
             else:
@@ -113,7 +124,7 @@ def _clone_impl(inp: torch.Tensor, memory_format: torch.memory_format):
         return out
 
     if memory_format == torch.preserve_format:
-        out = _allocate_preserve_format(inp)
+        out = _allocate_preserve_format(inp, native_output)
         # Source and destination share the same layout, so element order
         # matches and the flat kernel applies.
         if inp.is_contiguous() or torch.ops.aten.is_non_overlapping_and_dense(inp):
@@ -123,7 +134,12 @@ def _clone_impl(inp: torch.Tensor, memory_format: torch.memory_format):
         return out
 
     if memory_format == torch.contiguous_format:
-        out = torch.empty_like(inp, memory_format=torch.contiguous_format)
+        if native_output:
+            out = native_output_allocation.empty(
+                inp.shape, dtype=inp.dtype, device=inp.device
+            )
+        else:
+            out = torch.empty_like(inp, memory_format=torch.contiguous_format)
         # flatten() on a contiguous input is a pure view; on a strided input it
         # would dispatch through reshape, whose decomposition calls clone again
         # and recurses.
@@ -152,6 +168,17 @@ def clone(inp: torch.Tensor, memory_format: Optional[torch.memory_format] = None
 
     if memory_format is None:
         memory_format = torch.preserve_format
+
+    # Check grad mode here: autograd.Function.forward itself always runs with
+    # grad disabled, even when its caller is constructing a training graph.
+    if (
+        native_output_allocation.ENABLED
+        and not torch.is_grad_enabled()
+        and inp.device.type == "cuda"
+        and not inp.is_complex()
+        and memory_format in (torch.preserve_format, torch.contiguous_format)
+    ):
+        return _clone_impl(inp, memory_format, native_output=True)
 
     # Wrap the copy in an autograd node so the output carries a grad_fn and
     # gradients keep flowing when this clone is used inside a training graph.

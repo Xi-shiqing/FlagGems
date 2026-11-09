@@ -11,6 +11,8 @@ import torch
 import triton
 import triton.language as tl
 
+from flag_gems.utils import native_output_allocation as _native_output
+
 
 _CAPTURE_STATE = threading.local()
 _CAPTURE_BEST = {}
@@ -167,6 +169,12 @@ def empty_full_write(shape, *, dtype, device):
     No global deterministic flag is changed. Callers must never read the buffer
     before the complete-writing kernel, including masked logical edge elements.
     """
+    if (
+        _native_output.ENABLED
+        and not torch.is_grad_enabled()
+        and torch.device(device).type == "cuda"
+    ):
+        return _native_output.empty(shape, dtype=dtype, device=device)
     import math
     out = torch.empty(0, dtype=dtype, device=device)
     storage = torch.UntypedStorage(math.prod(shape) * out.element_size(), device=out.device)

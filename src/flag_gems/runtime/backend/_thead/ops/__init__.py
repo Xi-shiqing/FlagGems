@@ -31,6 +31,7 @@ from .as_strided_scatter import as_strided_scatter
 from .baddbmm import baddbmm, baddbmm_out
 from .baddbmm_ import baddbmm_
 from .bmm import bmm, bmm_out
+from .div import true_divide, true_divide_out
 from .cdist import cdist
 from .cholesky_inverse import cholesky_inverse
 from .compute_linear_combination import _compute_linear_combination
@@ -43,6 +44,7 @@ from .cudnn_convolution import cudnn_convolution
 from .diagonal_scatter import diagonal_scatter
 from .embedding_dense_backward import embedding_dense_backward
 from .erfc import erfc
+from .fill import fill_scalar_
 from .fractional_max_pool2d_backward import fractional_max_pool2d_backward
 from .fused_rms_norm_backward import _fused_rms_norm_backward
 from .gcd_ import gcd, gcd_
@@ -78,6 +80,9 @@ from .replication_pad3d_backward import replication_pad3d_backward
 from .rms_norm_w8a16_fp8 import rms_norm_w8a16_fp8
 from .router_gemm import router_gemm
 from .scatter_reduce_ import scatter_reduce, scatter_reduce_, scatter_reduce_out
+from .sdpa_math import _scaled_dot_product_attention_math
+from .sigmoid import sigmoid, sigmoid_
+from .silu import silu, silu_, silu_backward
 from .softmax import softmax, softmax_backward, softmax_backward_out, softmax_out
 from .softplus_backward import softplus_backward
 from .special_chebyshev_polynomial_t import special_chebyshev_polynomial_t
@@ -115,6 +120,7 @@ __all__ = [
     "_flash_attention_forward",
     "_fused_rms_norm_backward",
     "_resize_output_",
+    "_scaled_dot_product_attention_math",
     "_scaled_dot_product_fused_attention_overrideable",
     "_unsafe_masked_index_put_accumulate",
     "_upsample_lanczos2d_aa_vec",
@@ -143,6 +149,7 @@ __all__ = [
     "diagonal_scatter",
     "embedding_dense_backward",
     "erfc",
+    "fill_scalar_",
     "fractional_max_pool2d_backward",
     "gcd",
     "gcd_",
@@ -190,6 +197,11 @@ __all__ = [
     "scatter_reduce",
     "scatter_reduce_",
     "scatter_reduce_out",
+    "sigmoid",
+    "sigmoid_",
+    "silu",
+    "silu_",
+    "silu_backward",
     "softmax",
     "softmax_backward",
     "softmax_backward_out",
@@ -217,5 +229,7 @@ __all__ = [
     "topk_w8a16_fp8",
     "triangular_solve",
     "triangular_solve_out",
+    "true_divide",
+    "true_divide_out",
     "unbind_copy",
 ]

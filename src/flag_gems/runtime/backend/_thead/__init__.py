@@ -75,6 +75,14 @@ CUSTOMIZED_UNUSED_OPS = (
     # Preserve the accepted Linear decomposition into Gems MM/addmm/BMM
     # and its established model graph and reduction organization.
     "linear",
+    # Keep native inplace-division overload selection and autograd. Replacing
+    # these schemas changes Q scaling before triangle attention on PPU.
+    "true_divide_",
+    "true_divide_tensor_",
+    # Retain the established PPU native efficient-attention path. The generic
+    # replacement changes floating-bias handling and adds inference overhead.
+    "_scaled_dot_product_efficient_attention",
+    "scaled_dot_product_efficient_attention_backward",
 )
 
 __all__ = ["*"]

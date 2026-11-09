@@ -9,6 +9,7 @@ import triton.language as tl
 from flag_gems import runtime
 from flag_gems.runtime import torch_device_fn
 from flag_gems.utils import libentry, libtuner
+from flag_gems.utils import native_output_allocation as _native_output
 from flag_gems.utils import triton_lang_extension as tle
 from flag_gems.ops.tf32_precision import (
     capture_real_operands,
@@ -81,6 +82,13 @@ def _bmm_tf32_preconverted(
 
 
 def _bmm_rne_once(A, B, out):
+    # Keep operand rounding and the dot schedule, but coalesce both sides of
+    # the conversion when a large dense permutation otherwise needs gathers.
+    if os.getenv("FLAG_GEMS_PPU_BMM_LAYOUT_RNE", "1") != "0":
+        from .bmm_rne_layout import try_layout_bmm
+
+        if try_layout_bmm(A, B, out, _bmm_tf32_preconverted):
+            return True
     batch, M, K = A.shape
     _, _, N = B.shape
     # For small operands, keep the single-kernel path to avoid an extra launch.
@@ -250,9 +258,14 @@ def bmm(A, B):
         output_elements=batch * M * N,
     )
     allow_tf32 = _allow_bmm_tf32(batch, M, N)
-    out = (empty_full_write((batch, M, N), dtype=A.dtype, device=A.device)
-           if allow_tf32 and A.dtype == torch.float32
-           else torch.empty((batch, M, N), dtype=A.dtype, device=A.device))
+    allocate_full_write = A.dtype == torch.float32 and (
+        allow_tf32 or (_native_output.ENABLED and not torch.is_grad_enabled())
+    )
+    out = (
+        empty_full_write((batch, M, N), dtype=A.dtype, device=A.device)
+        if allocate_full_write
+        else torch.empty((batch, M, N), dtype=A.dtype, device=A.device)
+    )
 
     grid_fn = lambda meta: (
         triton.cdiv(meta["M"], meta["TILE_M"]),

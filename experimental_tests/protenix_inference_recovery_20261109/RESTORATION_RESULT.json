@@ -1,0 +1,661 @@
+{
+  "status": "PERFORMANCE_TARGET_REACHED",
+  "collected_utc": "2026-11-08T20:02:21.182415+00:00",
+  "case_count": 111,
+  "model_count": 9,
+  "candidate": "restore_attention",
+  "FP32_relative_MFU_required_percent": 66.13,
+  "FP32_relative_MFU_measured_percent": 68.81567146522906,
+  "aggregate": {
+    "fp32": {
+      "completed_count": 111,
+      "new_PPU_seconds": 13871.263385419734,
+      "old_PPU_seconds": 14435.256425256142,
+      "H100_seconds": 3561.7921788757667,
+      "common_model_FLOPs": 69612447950807556,
+      "time_reduction_percent": 3.9070524500668946,
+      "new_relative_MFU_percent": 68.81567146522906,
+      "old_relative_MFU_percent": 66.12700708721685,
+      "new_absolute_MFU_percent": 20.073859465166844,
+      "H100_absolute_MFU_percent": 29.170476779129725,
+      "new_direct_percent": 25.67748935269741
+    },
+    "tf32_fullwrite": {
+      "completed_count": 111,
+      "new_PPU_seconds": 9110.398790714331,
+      "old_PPU_seconds": 9390.118900488596,
+      "H100_seconds": 2351.422689673491,
+      "common_model_FLOPs": 69612447950807556,
+      "time_reduction_percent": 2.978877187164375,
+      "new_relative_MFU_percent": 207.74156541331487,
+      "old_relative_MFU_percent": 201.55319931295946,
+      "new_absolute_MFU_percent": 12.424370752365359,
+      "H100_absolute_MFU_percent": 5.980686016130809,
+      "new_direct_percent": 25.81031570286639
+    }
+  },
+  "quality": {
+    "fp32": {
+      "input_rng_finite_and_source_pass_count": 111,
+      "quality_pass_count": 110,
+      "quality_flag_count": 1,
+      "flagged_cases": [
+        {
+          "input": "G01",
+          "model": "protenix_base_constraint_v0.5.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        }
+      ]
+    },
+    "tf32_fullwrite": {
+      "input_rng_finite_and_source_pass_count": 111,
+      "quality_pass_count": 31,
+      "quality_flag_count": 80,
+      "flagged_cases": [
+        {
+          "input": "G02",
+          "model": "protenix_base_default_v1.0.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G02",
+          "model": "protenix_base_default_v0.5.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G02",
+          "model": "protenix_mini_esm_v0.5.0",
+          "quality_failures": [
+            "H100 confidence difference exceeds 5%"
+          ]
+        },
+        {
+          "input": "G02",
+          "model": "protenix_mini_ism_v0.5.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G02",
+          "model": "protenix_mini_default_v0.5.0",
+          "quality_failures": [
+            "H100 confidence difference exceeds 5%"
+          ]
+        },
+        {
+          "input": "G03",
+          "model": "protenix_base_default_v1.0.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G03",
+          "model": "protenix_base_constraint_v0.5.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01",
+          "model": "protenix-v2",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01_msa32",
+          "model": "protenix-v2",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "T01",
+          "model": "protenix-v2",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "N01",
+          "model": "protenix-v2",
+          "quality_failures": [
+            "H100 confidence difference exceeds 5%",
+            "historical PPU confidence difference exceeds 5%",
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "C01",
+          "model": "protenix-v2",
+          "quality_failures": [
+            "H100 RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01",
+          "model": "protenix_base_20250630_v1.0.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01",
+          "model": "protenix_base_default_v1.0.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01_msa32",
+          "model": "protenix_base_default_v1.0.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01_msa32",
+          "model": "protenix_base_20250630_v1.0.0",
+          "quality_failures": [
+            "H100 confidence difference exceeds 5%",
+            "historical PPU confidence difference exceeds 5%",
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01",
+          "model": "protenix_base_constraint_v0.5.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01",
+          "model": "protenix_base_default_v0.5.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01_msa32",
+          "model": "protenix_base_constraint_v0.5.0",
+          "quality_failures": [
+            "H100 confidence difference exceeds 5%",
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01_msa32",
+          "model": "protenix_base_default_v0.5.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01_prefix511",
+          "model": "protenix-v2",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "N01",
+          "model": "protenix_base_20250630_v1.0.0",
+          "quality_failures": [
+            "H100 confidence difference exceeds 5%",
+            "historical PPU confidence difference exceeds 5%",
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "N01",
+          "model": "protenix_base_default_v1.0.0",
+          "quality_failures": [
+            "H100 confidence difference exceeds 5%",
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "C01",
+          "model": "protenix_base_default_v1.0.0",
+          "quality_failures": [
+            "H100 RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "N01",
+          "model": "protenix_base_default_v0.5.0",
+          "quality_failures": [
+            "H100 confidence difference exceeds 5%",
+            "historical PPU confidence difference exceeds 5%",
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "N01",
+          "model": "protenix_base_constraint_v0.5.0",
+          "quality_failures": [
+            "H100 confidence difference exceeds 5%",
+            "historical PPU confidence difference exceeds 5%",
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "C03",
+          "model": "protenix_base_constraint_v0.5.0",
+          "quality_failures": [
+            "H100 RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "C01",
+          "model": "protenix_base_default_v0.5.0",
+          "quality_failures": [
+            "H100 RMSD exceeds 0.1 A",
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "C02",
+          "model": "protenix_base_constraint_v0.5.0",
+          "quality_failures": [
+            "H100 confidence difference exceeds 5%",
+            "H100 RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "C01",
+          "model": "protenix_base_constraint_v0.5.0",
+          "quality_failures": [
+            "H100 confidence difference exceeds 5%",
+            "H100 RMSD exceeds 0.1 A",
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "C04",
+          "model": "protenix-v2",
+          "quality_failures": [
+            "H100 RMSD exceeds 0.1 A",
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "T05",
+          "model": "protenix-v2",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "T04",
+          "model": "protenix-v2",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01_prefix511",
+          "model": "protenix_base_default_v1.0.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01_prefix511",
+          "model": "protenix_base_20250630_v1.0.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01_prefix511",
+          "model": "protenix_base_constraint_v0.5.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01_prefix511",
+          "model": "protenix_base_default_v0.5.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "C04",
+          "model": "protenix_base_default_v1.0.0",
+          "quality_failures": [
+            "H100 RMSD exceeds 0.1 A",
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "C04",
+          "model": "protenix_base_20250630_v1.0.0",
+          "quality_failures": [
+            "H100 RMSD exceeds 0.1 A",
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "C05",
+          "model": "protenix_base_constraint_v0.5.0",
+          "quality_failures": [
+            "H100 RMSD exceeds 0.1 A",
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "C04",
+          "model": "protenix_base_default_v0.5.0",
+          "quality_failures": [
+            "H100 RMSD exceeds 0.1 A",
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "C04",
+          "model": "protenix_base_constraint_v0.5.0",
+          "quality_failures": [
+            "H100 RMSD exceeds 0.1 A",
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "T04",
+          "model": "protenix_base_20250630_v1.0.0",
+          "quality_failures": [
+            "H100 confidence difference exceeds 5%",
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "T05",
+          "model": "protenix_base_20250630_v1.0.0",
+          "quality_failures": [
+            "H100 confidence difference exceeds 5%",
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "T05",
+          "model": "protenix_base_default_v1.0.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "T02",
+          "model": "protenix-v2",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "T04",
+          "model": "protenix_base_default_v1.0.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "T02",
+          "model": "protenix_base_default_v1.0.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "T02",
+          "model": "protenix_base_20250630_v1.0.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01_prefix257",
+          "model": "protenix-v2",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G03",
+          "model": "protenix_mini_ism_v0.5.0",
+          "quality_failures": [
+            "H100 confidence difference exceeds 5%",
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G03",
+          "model": "protenix_mini_default_v0.5.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01_prefix257",
+          "model": "protenix_base_20250630_v1.0.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01_prefix257",
+          "model": "protenix_base_default_v0.5.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01_prefix257",
+          "model": "protenix_base_default_v1.0.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01_prefix257",
+          "model": "protenix_base_constraint_v0.5.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "T03",
+          "model": "protenix-v2",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "T03",
+          "model": "protenix_base_20250630_v1.0.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G03",
+          "model": "protenix_tiny_default_v0.5.0",
+          "quality_failures": [
+            "H100 RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01",
+          "model": "protenix_mini_esm_v0.5.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01",
+          "model": "protenix_mini_default_v0.5.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01_msa32",
+          "model": "protenix_mini_esm_v0.5.0",
+          "quality_failures": [
+            "H100 confidence difference exceeds 5%",
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01_msa32",
+          "model": "protenix_mini_default_v0.5.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "N01",
+          "model": "protenix_mini_default_v0.5.0",
+          "quality_failures": [
+            "H100 confidence difference exceeds 5%",
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "C01",
+          "model": "protenix_mini_esm_v0.5.0",
+          "quality_failures": [
+            "historical PPU confidence difference exceeds 5%",
+            "H100 RMSD exceeds 0.1 A",
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "N01",
+          "model": "protenix_tiny_default_v0.5.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "C01",
+          "model": "protenix_mini_default_v0.5.0",
+          "quality_failures": [
+            "H100 RMSD exceeds 0.1 A",
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "C01",
+          "model": "protenix_mini_ism_v0.5.0",
+          "quality_failures": [
+            "H100 RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01",
+          "model": "protenix_tiny_default_v0.5.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01_msa32",
+          "model": "protenix_tiny_default_v0.5.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01_prefix511",
+          "model": "protenix_mini_esm_v0.5.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01_prefix511",
+          "model": "protenix_mini_default_v0.5.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "C01",
+          "model": "protenix_tiny_default_v0.5.0",
+          "quality_failures": [
+            "H100 confidence difference exceeds 5%",
+            "H100 RMSD exceeds 0.1 A",
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "C04",
+          "model": "protenix_mini_esm_v0.5.0",
+          "quality_failures": [
+            "H100 RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "C04",
+          "model": "protenix_mini_ism_v0.5.0",
+          "quality_failures": [
+            "H100 RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "C04",
+          "model": "protenix_mini_default_v0.5.0",
+          "quality_failures": [
+            "H100 RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01_prefix511",
+          "model": "protenix_tiny_default_v0.5.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "C04",
+          "model": "protenix_tiny_default_v0.5.0",
+          "quality_failures": [
+            "H100 RMSD exceeds 0.1 A",
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01_prefix257",
+          "model": "protenix_mini_default_v0.5.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        },
+        {
+          "input": "G01_prefix257",
+          "model": "protenix_tiny_default_v0.5.0",
+          "quality_failures": [
+            "historical PPU RMSD exceeds 0.1 A"
+          ]
+        }
+      ]
+    }
+  },
+  "graph_enabled": false,
+  "new_H100_execution": false,
+  "native_allocator_in_this_full111_run": false,
+  "files_sha256": {
+    "PLAN_full111.json": "1e3cc3fd1e089511d6079eab8ad3fff58df0836981a574f08e6c2c50559a7905",
+    "live_latest.json": "6ee63836d16e252714d5f3ec8fd376881fe8fda1d118c4b7bcc96654919edb47",
+    "completed_input_comparison.csv": "15c44c422fe08c042486c6415a7b4d97679c37eee88dec79ae390d27f60d86c0"
+  }
+}

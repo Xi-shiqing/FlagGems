@@ -12,6 +12,7 @@ from flag_gems import runtime
 from flag_gems.ops.mm_streamk import streamk_mm
 from flag_gems.runtime import torch_device_fn
 from flag_gems.utils import libentry, libtuner
+from flag_gems.utils import native_output_allocation as _native_output
 from flag_gems.utils import triton_lang_extension as tle
 from flag_gems.utils.device_info import get_device_capability, get_sm_count
 from flag_gems.ops.tf32_precision import (
@@ -695,6 +696,49 @@ def _direct_out_safe(a, b, out):
     )
 
 
+def _ordered_direct(a, b, out, M, N, K):
+    # Reject products outside the ordered kernel's existing workload range
+    # before querying tensor layouts, precision policy, or RHS preparation.
+    # Inference calls this selector for every MM, including small products.
+    if not (M >= 16384 and 64 <= K <= 1024 and 128 <= N <= 1024 and M * N >= 2**22):
+        return None
+    if os.getenv("FLAG_GEMS_PPU_ORDERED_DIRECT_MM", "1") == "0":
+        return None
+    if out is not None and not _direct_out_safe(a, b, out):
+        return None
+    # The existing inference kernel can read a transposed RHS directly. Keep
+    # that route when it needs no preparation; ordered MM would add a copy or
+    # rounding launch. Training and products that already prepare RHS retain
+    # the ordered implementation and its established accumulation order.
+    if (
+        os.getenv("FLAG_GEMS_PPU_AVOID_REDUNDANT_MM_PACK", "1") != "0"
+        and _should_direct(a, b)
+        and not _direct_pack_profitable(a, b)
+        and not _tf32_rne_rhs_prepack_enabled()
+    ):
+        return None
+    from .mm_ordered_direct import try_mm
+
+    return try_mm(
+        a, b, out, _ppu_h100_splitk_parts(M, N, K) or 1, _allow_tf32(),
+        mm_direct_fused, _direct_offsets_fit_i32,
+    )
+
+
+def _long_pipeline(a, b, out, M, N, K):
+    if K <= 8192 or not (32 <= M <= 1024 and 32 <= N <= 1024):
+        return None
+    if os.getenv("FLAG_GEMS_PPU_LONG_MM_PIPELINE", "1") == "0":
+        return None
+    if is_syrk_transpose_pair(a, b):
+        return None
+    if out is not None and not _direct_out_safe(a, b, out):
+        return None
+    from .mm_long_pipeline import try_mm
+
+    return try_mm(a, b, out, mm_direct_fused, _allow_tf32())
+
+
 def mm(a, b):
     capture_real_operands(
         "mm", [a, b],
@@ -723,6 +767,12 @@ def mm(a, b):
         result = rank_one(a, b, None, enabled=True)
         if result is not None:
             return result
+    result = _ordered_direct(a, b, None, M, N, K)
+    if result is not None:
+        return result
+    result = _long_pipeline(a, b, None, M, N, K)
+    if result is not None:
+        return result
     use_direct = _should_direct(a, b)
     tf32_rne_prepack = _tf32_rne_rhs_prepack_enabled()
     if use_direct and _direct_pack_profitable(a, b) and not tf32_rne_prepack:
@@ -731,9 +781,14 @@ def mm(a, b):
         b = _maybe_pack_rhs(a, b)
     # allocates output
     c_dtype = get_higher_dtype(a.dtype, b.dtype)
-    c = (empty_full_write((M, N), device=device, dtype=c_dtype)
-         if use_direct and _allow_tf32()
-         else torch.empty((M, N), device=device, dtype=c_dtype))
+    allocate_full_write = use_direct and (
+        _allow_tf32() or (_native_output.ENABLED and not torch.is_grad_enabled())
+    )
+    c = (
+        empty_full_write((M, N), device=device, dtype=c_dtype)
+        if allocate_full_write
+        else torch.empty((M, N), device=device, dtype=c_dtype)
+    )
     # l2_cache_size = get_l2_cache_size()
     sm_count = get_sm_count()
     if use_direct:
@@ -772,6 +827,12 @@ def mm_out(a, b, *, out):
         result = rank_one(a, b, out, enabled=True)
         if result is not None:
             return result
+    result = _ordered_direct(a, b, out, M, N, K)
+    if result is not None:
+        return result
+    result = _long_pipeline(a, b, out, M, N, K)
+    if result is not None:
+        return result
     use_direct = _should_direct(a, b)
     tf32_rne_prepack = _tf32_rne_rhs_prepack_enabled()
     if use_direct and _direct_pack_profitable(a, b) and not tf32_rne_prepack:

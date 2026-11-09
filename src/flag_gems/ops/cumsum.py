@@ -23,6 +23,7 @@ from torch._prims_common import is_boolean_dtype, is_integer_dtype
 
 from flag_gems.runtime import device, torch_device_fn
 from flag_gems.utils import get_device_properties, libentry
+from flag_gems.utils import native_output_allocation
 from flag_gems.utils import triton_lang_extension as ext
 
 device = device.name
@@ -232,7 +233,16 @@ def cumsum_wrapper(inp, dim=1, dtype=None, out=None):
         if is_integer_dtype(dtype) or is_boolean_dtype(dtype):
             dtype = torch.int64
     if out is None:
-        out = torch.empty_like(inp, dtype=dtype)
+        if (
+            native_output_allocation.ENABLED
+            and not torch.is_grad_enabled()
+            and inp.device.type == "cuda"
+        ):
+            out = native_output_allocation.empty(
+                inp.shape, dtype=dtype, device=inp.device
+            )
+        else:
+            out = torch.empty_like(inp, dtype=dtype)
 
     if inp.numel() == 0:
         return out

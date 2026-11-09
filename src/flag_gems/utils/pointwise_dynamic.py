@@ -23,6 +23,7 @@ import triton
 from triton.runtime.jit import JITFunction
 
 from flag_gems.runtime import torch_device_fn
+from flag_gems.utils import native_output_allocation as _native_output
 from flag_gems.utils.code_cache import code_cache_dir
 from flag_gems.utils.code_utils import IndentedBuffer, write_atomic
 from flag_gems.utils.codegen_config_utils import CodeGenConfig, get_codegen_config
@@ -1205,6 +1206,11 @@ class ModuleGenerator:
                 continue
             if _has_decorator(node, "pointwise_dynamic"):
                 continue
+            # Launch wrappers are standalone kernels, not scalar JIT helpers.
+            # Copying them also copies decorators whose host-side tuning
+            # functions are unavailable in the generated module.
+            if _has_decorator(node, "libentry") or _has_decorator(node, "libtuner"):
+                continue
             local_sources.append(_extract_source(node))
 
         return extra_imports, local_sources
@@ -1449,6 +1455,14 @@ class PointwiseDynamicFunction:
             # No cached buffer – fall through to normal alloc which will
             # either succeed (CUDA) or raise a clear error (MUSA / others).
 
+        if (
+            _native_output.ENABLED
+            and not torch.is_grad_enabled()
+            and device.type == "cuda"
+        ):
+            if like_tensor is not None:
+                return _native_output.empty_like(like_tensor, dtype=dtype)
+            return _native_output.empty(shape, dtype=dtype, device=device)
         if like_tensor is not None:
             return torch.empty_like(like_tensor, dtype=dtype)
         return torch.empty(shape, dtype=dtype, device=device)

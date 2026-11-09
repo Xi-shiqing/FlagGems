@@ -1472,6 +1472,15 @@ class LibEntry(triton.KernelInterface):
         else:
             self.lock = multiprocessing.Lock()
         self.signature = fn.signature
+        # Bind immutable signature metadata once. Runtime values, tensor
+        # alignment, integer widths and tuning selection still enter each key.
+        self._parameter_names = tuple(self.signature.parameters)
+        self._parameter_defaults = tuple(
+            (p.name, p.default) for p in self.jit_function.params
+        )
+        self._constexpr_indices = tuple(
+            p.num for p in self.jit_function.params if p.is_constexpr
+        )
         self._tensor_spec_fn = self._resolve_tensor_spec_fn()
 
     @staticmethod
@@ -1527,30 +1536,43 @@ class LibEntry(triton.KernelInterface):
             self._cpu_cache.clear()
 
     def key(self, spec_args, dns_args, const_args):
-        def spec_arg(arg):
+        # Build the same key in one pass per argument class. Most launches
+        # contain ordinary tensors and scalars: avoid a normalization helper
+        # call and a nested conversion function for every argument.
+        descriptor_type = _TENSOR_DESCRIPTOR_TYPE
+        if descriptor_type is None:
+            _descriptor_cache_key(None)
+            descriptor_type = _TENSOR_DESCRIPTOR_TYPE
+        key = []
+        tensor_spec_fn = self._tensor_spec_fn
+        for arg in spec_args:
+            if descriptor_type is not False and isinstance(arg, descriptor_type):
+                arg = _descriptor_cache_key(arg)
             if hasattr(arg, "data_ptr"):
                 base = (arg.dtype, arg.data_ptr() % self.divisibility == 0)
-                if self._tensor_spec_fn is not None:
-                    return base + (self._tensor_spec_fn(arg),)
-                return base
-            return (type(arg), arg)
-
-        def dns_arg(arg):
+                if tensor_spec_fn is not None:
+                    base += (tensor_spec_fn(arg),)
+                key.append(base)
+            else:
+                key.append((type(arg), arg))
+        for arg in dns_args:
+            if descriptor_type is not False and isinstance(arg, descriptor_type):
+                arg = _descriptor_cache_key(arg)
             if hasattr(arg, "data_ptr"):
-                return arg.dtype
-            if not isinstance(arg, int):
-                return type(arg)
-            if -(2**31) <= arg and arg <= 2**31 - 1:
-                return "i32"
-            if 2**63 <= arg and arg <= 2**64 - 1:
-                return "u64"
-            return "i64"
-
-        spec_key = [spec_arg(_descriptor_cache_key(arg)) for arg in spec_args]
-        dns_key = [dns_arg(_descriptor_cache_key(arg)) for arg in dns_args]
-        # const args passed by position
-        const_key = [_descriptor_cache_key(arg) for arg in const_args]
-        return tuple(spec_key + dns_key + const_key)
+                key.append(arg.dtype)
+            elif not isinstance(arg, int):
+                key.append(type(arg))
+            elif -(2**31) <= arg <= 2**31 - 1:
+                key.append("i32")
+            elif 2**63 <= arg <= 2**64 - 1:
+                key.append("u64")
+            else:
+                key.append("i64")
+        for arg in const_args:
+            if descriptor_type is not False and isinstance(arg, descriptor_type):
+                arg = _descriptor_cache_key(arg)
+            key.append(arg)
+        return tuple(key)
 
     def _first_run(self, *args, **kwargs):
         try:
@@ -1602,44 +1624,27 @@ class LibEntry(triton.KernelInterface):
         if self._has_flagtune_tuner:
             self._apply_flagtune()
 
-        # collect all the arguments
-        spec_args = []  # specialize arguments
-        dns_args = []  # do not specialize arguments
-        const_args = []  # constexpr arguments
-        k_args = OrderedDict()
-        param_names = list(self.signature.parameters.keys())
-        for i, arg in enumerate(args):
-            if i in self.specialize_indices:
-                k_args[param_names[i]] = arg
-                spec_args.append(arg)
-            elif i in self.do_not_specialize_indices:
-                k_args[param_names[i]] = arg
-                dns_args.append(arg)
-            else:
-                if major_version == 3 and 3 <= minor_version <= 6:
-                    k_args[param_names[i]] = arg
-                const_args.append(arg)
-        for p in self.jit_function.params[len(args) :]:
-            if p.name in kwargs:
-                val = kwargs[p.name]
-            elif p.default is inspect._empty:
-                continue
-            else:
-                val = p.default
-
-            if p.is_constexpr:
-                const_args.append(val)
-                if major_version == 3 and 3 <= minor_version <= 6:
-                    k_args[p.name] = val
-            elif p.do_not_specialize:
-                dns_args.append(val)
-                k_args[p.name] = val
-            else:
-                spec_args.append(val)
-                k_args[p.name] = val
+        param_names = self._parameter_names
+        if len(args) > len(param_names):
+            raise TypeError("too many positional kernel arguments")
+        missing = inspect._empty
+        bound = list(args)
+        bound.extend(
+            kwargs.get(name, default)
+            for name, default in self._parameter_defaults[len(args):]
+        )
+        spec_args = [bound[i] for i in self.specialize_indices if bound[i] is not missing]
+        dns_args = [bound[i] for i in self.do_not_specialize_indices if bound[i] is not missing]
+        const_args = [bound[i] for i in self._constexpr_indices if bound[i] is not missing]
 
         if self._has_flagtune_tuner:
-            flagtune_dtypes = _infer_tensor_dtypes(k_args.values())
+            flagtune_dtypes = _infer_tensor_dtypes(
+                value for i, value in enumerate(bound)
+                if value is not missing and (
+                    major_version == 3 and 3 <= minor_version <= 6
+                    or i not in self._constexpr_indices
+                )
+            )
             const_args.append(
                 ("flagtune_dtypes",) + tuple(str(value) for value in flagtune_dtypes)
             )
@@ -1705,6 +1710,12 @@ class LibEntry(triton.KernelInterface):
                     tune_constexprs,
                     heur_constexprs,
                     tuple(launch_pre_hooks),
+                    tuple(
+                        tune_constexprs.get(
+                            name, heur_constexprs.get(name, constexprs.get(name, inspect._empty))
+                        )
+                        for name in param_names
+                    ),
                 )
             return kernel, constexprs
 
@@ -1714,6 +1725,7 @@ class LibEntry(triton.KernelInterface):
             tune_constexprs,
             heur_constexprs,
             launch_pre_hooks,
+            launch_defaults,
         ) = cache[entry_key]
 
         if callable(grid):
@@ -1732,26 +1744,24 @@ class LibEntry(triton.KernelInterface):
                 pre_hook({**hook_nargs, **hook_kwargs})
 
         if major_version == 3 and 3 <= minor_version <= 6:
-            all_args = []
-            missing_keys = []
-            for key in list(self.signature.parameters.keys()):
-                if key in k_args:
-                    all_args.append(k_args[key])
-                elif key in tune_constexprs:
-                    all_args.append(tune_constexprs[key])
-                elif key in heur_constexprs:
-                    all_args.append(heur_constexprs[key])
-                elif key in constexprs:
-                    all_args.append(constexprs[key])
-                else:
-                    missing_keys.append(key)
-                if len(missing_keys):
-                    raise RuntimeError(
-                        f"[libentry]: probably a bug, the following kernel params where not captured: {missing_keys}"
-                    )
+            all_args = [
+                value if value is not missing else default
+                for value, default in zip(bound, launch_defaults)
+            ]
+            if any(value is inspect._empty for value in all_args):
+                missing_keys = [
+                    name for name, value in zip(param_names, all_args)
+                    if value is inspect._empty
+                ]
+                raise RuntimeError(
+                    f"[libentry]: probably a bug, the following kernel params where not captured: {missing_keys}"
+                )
             kernel[grid[0:3]](*all_args)
         else:
-            kernel[grid[0:3]](*k_args.values())
+            kernel[grid[0:3]](*(
+                value for i, value in enumerate(bound)
+                if value is not missing and i not in self._constexpr_indices
+            ))
         return kernel, constexprs
 
 
