@@ -18,6 +18,8 @@ from flag_gems.ops.tf32_precision import (
     tf32_enabled_for_active_module,
 )
 
+from . import bmm_fp32_pack as _fp32_pack
+
 logger = logging.getLogger(__name__)
 
 
@@ -267,6 +269,11 @@ def bmm(A, B):
         else torch.empty((batch, M, N), dtype=A.dtype, device=A.device)
     )
 
+    if not allow_tf32:
+        packed = _fp32_pack.prepare(A, B)
+        if packed is not None:
+            A, B = packed
+
     grid_fn = lambda meta: (
         triton.cdiv(meta["M"], meta["TILE_M"]),
         triton.cdiv(meta["N"], meta["TILE_N"]),
@@ -311,6 +318,11 @@ def bmm_out(A, B, out):
         output_elements=batch * M * N,
     )
     allow_tf32 = _allow_bmm_tf32(batch, M, N)
+
+    if not allow_tf32:
+        packed = _fp32_pack.prepare(A, B, out)
+        if packed is not None:
+            A, B = packed
 
     grid_fn = lambda meta: (
         triton.cdiv(meta["M"], meta["TILE_M"]),
