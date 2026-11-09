@@ -9,6 +9,7 @@ import triton.language as tl
 from flag_gems import runtime
 from flag_gems.runtime import torch_device_fn
 from flag_gems.utils import broadcastable_to, libentry, libtuner
+from flag_gems.utils import native_output_allocation
 from flag_gems.utils import triton_lang_extension as tle
 from flag_gems.ops.tf32_precision import (
     capture_real_operands,
@@ -112,7 +113,7 @@ def ppu_h100_fp32_splitk_addmm(bias, mat1, mat2, out, alpha, beta, M, N, K):
     assert split_k is not None
     bias = bias.contiguous()
     block = 64
-    partials = torch.empty(
+    partials = native_output_allocation.empty_for_overwrite(
         (split_k, M, N), device=mat1.device, dtype=torch.float32
     )
     grid = (triton.cdiv(M, block) * triton.cdiv(N, block), split_k)
@@ -241,7 +242,9 @@ def addmm(bias, mat1, mat2, *, beta=1, alpha=1):
     )
     mat1 = mat1.contiguous()
     # mat2 = mat2.contiguous()
-    out = torch.empty((M, N), device=mat1.device, dtype=mat1.dtype)
+    out = native_output_allocation.empty_for_overwrite(
+        (M, N), device=mat1.device, dtype=mat1.dtype
+    )
     bias = bias.broadcast_to(out.shape)
     if (
         os.path.isdir("/usr/local/PPU_SDK")
@@ -301,7 +304,9 @@ def addmm_out(bias, mat1, mat2, *, beta=1, alpha=1, out=None):
         if result is not None:
             return result
     if out is None:
-        out = torch.empty((M, N), device=mat1.device, dtype=mat1.dtype)
+        out = native_output_allocation.empty_for_overwrite(
+            (M, N), device=mat1.device, dtype=mat1.dtype
+        )
     else:
         assert out.shape == (M, N), "Incompatible output shape"
     logger.debug(

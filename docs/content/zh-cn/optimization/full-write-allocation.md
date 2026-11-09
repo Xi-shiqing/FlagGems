@@ -5,7 +5,7 @@ weight: 40
 
 逐元素运算和矩阵乘法通常会完整写入输出。在这些调用中，输出使用前的额外初始化会增加内核调用和内存写入。可选的 C++ 分配入口直接使用 PyTorch 原有的 CUDA 内存分配器，减少这部分开销，同时保留原来的计算内核。
 
-当前接入范围包括逐元素运算、直接执行的 PPU MM、PPU BMM，以及乘法、clone 和 cumsum 的输出分配。选择条件使用布局、类型、输出是否完整写入和自动求导状态；不依赖模型名称或输入编号。自动求导开启时使用原有分配方式。
+当前接入范围包括逐元素运算、PPU MM/BMM/addmm，以及乘法、clone 和 cumsum 的输出分配。PPU MM/addmm 的分段部分和、MM 的右矩阵预处理，以及数学注意力路径的 Q/K/V 和概率数组也使用同样的分配方式。选择条件使用布局、类型、输出是否完整写入和自动求导状态；不依赖模型名称或输入编号。自动求导开启时使用原有分配方式。
 
 ## 构建和启用
 
@@ -26,12 +26,18 @@ export FLAG_GEMS_NATIVE_FULL_WRITE=1
 
 clone 在进入自动求导包装之前检查调用方的梯度状态，保持训练时的原分配方式。cumsum 保留原来的逐段扫描与累加顺序，仅替换新建输出的分配；传入 `out` 时继续使用指定的输出。
 
+`empty_for_overwrite` 用于已经核对完整写入的临时数组和输出。MM/addmm 的每个分段会写入自己的完整部分和，后续合并保留原来的顺序。注意力的打包内核完整写入 Q/K/V，softmax 完整写入概率数组。上述计算内核保持原实现。
+
+MM 对空矩阵单独处理：输出没有元素时直接返回；求和维度为零时写入零，避免通用内核预取不存在的输入。已有 `out` 保留原存储和步长。
+
 ## 验证
 
 ```bash
-FLAG_GEMS_NATIVE_FULL_WRITE=1 pytest tests/test_full_write_allocation.py tests/test_extra_full_write_allocation.py -q
+FLAG_GEMS_NATIVE_FULL_WRITE=1 pytest tests/test_full_write_allocation.py tests/test_extra_full_write_allocation.py tests/test_ppu_full_write_buffers.py -q
 ```
 
 测试覆盖完整写入、非连续输入、广播、空张量、标量、多种类型、独立存储、非默认执行流和自动求导回退。完整写入检查会先把输出填入 NaN 或整数标记，再与 CPU 参考和原分配路径比较。
+
+分配优化前后要求逐位一致。MM 的 CPU 参考使用 FP64 累加；TF32 先在 CPU 上独立执行 RNE 输入舍入。CPU 数值验收沿用现有 MM 测试中按求和长度计算的容差，并另外保存相对严格 FP32 的误差和固定容差诊断结果。
 
 性能验收使用完整模型调用，保持输入、随机数、计算精度、循环次数、扩散步数和输出样本数相同；在同卡上交换运行顺序，并比较结构坐标与置信度。

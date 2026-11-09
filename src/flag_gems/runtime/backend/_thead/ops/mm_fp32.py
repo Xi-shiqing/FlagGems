@@ -236,7 +236,7 @@ def ppu_h100_fp32_splitk_mm(a, b, c, M, N, K):
     split_k = _ppu_h100_splitk_parts(M, N, K)
     assert split_k is not None
     block = 64
-    partials = torch.empty(
+    partials = _native_output.empty_for_overwrite(
         (split_k, M, N), device=a.device, dtype=torch.float32
     )
     grid = (triton.cdiv(M, block) * triton.cdiv(N, block), split_k)
@@ -660,7 +660,7 @@ def _direct_mm(a, b, c, M, N, K):
     if prepack_rhs:
         cache_key, b_rne = _tf32_rne_rhs_cache_lookup(b)
         if b_rne is None:
-            b_rne = torch.empty((K, N), device=b.device, dtype=b.dtype)
+            b_rne = _native_output.empty_for_overwrite((K, N), device=b.device, dtype=b.dtype)
             with torch_device_fn.device(a.device):
                 mm_rne_pack_rhs[(triton.cdiv(K * N, 1024),)](
                     b, b_rne, K, N, b.stride(0), b.stride(1),
@@ -746,9 +746,18 @@ def mm(a, b):
         output_elements=int(a.shape[0]) * int(b.shape[1]),
     )
     device = a.device
+    M, K = a.shape
+    assert K == b.shape[0], "incompatible dimensions"
+    N = b.shape[1]
+    if M == 0 or N == 0:
+        return torch.empty((M, N), device=device, dtype=get_higher_dtype(a.dtype, b.dtype))
+    if K == 0:
+        # The peeled final tile starts at -BLOCK_K when K is zero. Produce
+        # the empty dot product without accessing nonexistent input storage.
+        return torch.zeros((M, N), device=device, dtype=get_higher_dtype(a.dtype, b.dtype))
     if is_syrk_transpose_pair(a, b):
         M, K = a.shape
-        c = torch.empty((M, M), device=device, dtype=a.dtype)
+        c = _native_output.empty_for_overwrite((M, M), device=device, dtype=a.dtype)
         return syrk_mm(a, c, M, K)
     # handle non-contiguous inputs if necessary
     if a.stride(0) > 1 and a.stride(1) > 1:
@@ -787,6 +796,8 @@ def mm(a, b):
     c = (
         empty_full_write((M, N), device=device, dtype=c_dtype)
         if allocate_full_write
+        else _native_output.empty_for_overwrite((M, N), device=device, dtype=c_dtype)
+        if c_dtype == torch.float32
         else torch.empty((M, N), device=device, dtype=c_dtype)
     )
     # l2_cache_size = get_l2_cache_size()
@@ -807,6 +818,15 @@ def mm_out(a, b, *, out):
         flops=2 * int(a.shape[0]) * int(b.shape[1]) * int(a.shape[1]),
         output_elements=int(a.shape[0]) * int(b.shape[1]),
     )
+    M, K = a.shape
+    assert K == b.shape[0], "incompatible dimensions"
+    N = b.shape[1]
+    if M == 0 or N == 0:
+        return out
+    if K == 0:
+        from .fill import fill_scalar_
+
+        return fill_scalar_(out, 0)
     if is_syrk_transpose_pair(a, b):
         M, K = a.shape
         return syrk_mm(a, out, M, K)

@@ -1,0 +1,65 @@
+[
+  {
+    "check": "check_api_logs.py",
+    "exit_code": 0,
+    "output": "Checking API logging for 3 operator(s)...\n\n\u26a0\ufe0f  Found 9 warning(s):\n\n::warning::src/flag_gems/ops/mm.py: Function 'cluster_remote_mm_scenario' at line 364 missing logger.debug(\"GEMS ...\") call\n  \u2022 src/flag_gems/ops/mm.py: Function 'cluster_remote_mm_scenario' at line 364 missing logger.debug(\"GEMS ...\") call\n::warning::src/flag_gems/ops/mm.py: Function 'get_higher_dtype' at line 414 missing logger.debug(\"GEMS ...\") call\n  \u2022 src/flag_gems/ops/mm.py: Function 'get_higher_dtype' at line 414 missing logger.debug(\"GEMS ...\") call\n::warning::src/flag_gems/ops/mm.py: Function 'general_mm' at line 428 missing logger.debug(\"GEMS ...\") call\n  \u2022 src/flag_gems/ops/mm.py: Function 'general_mm' at line 428 missing logger.debug(\"GEMS ...\") call\n::warning::src/flag_gems/ops/mm.py: Function 'thead_fp32_splitk_scenario' at line 529 missing logger.debug(\"GEMS ...\") call\n  \u2022 src/flag_gems/ops/mm.py: Function 'thead_fp32_splitk_scenario' at line 529 missing logger.debug(\"GEMS ...\") call\n::warning::src/flag_gems/ops/mm.py: Function 'thead_fp32_splitk_mm' at line 545 missing logger.debug(\"GEMS ...\") call\n  \u2022 src/flag_gems/ops/mm.py: Function 'thead_fp32_splitk_mm' at line 545 missing logger.debug(\"GEMS ...\") call\n::warning::src/flag_gems/ops/mm.py: Function 'is_syrk_transpose_pair' at line 663 missing logger.debug(\"GEMS ...\") call\n  \u2022 src/flag_gems/ops/mm.py: Function 'is_syrk_transpose_pair' at line 663 missing logger.debug(\"GEMS ...\") call\n::warning::src/flag_gems/ops/mm.py: Function 'syrk_mm' at line 676 missing logger.debug(\"GEMS ...\") call\n  \u2022 src/flag_gems/ops/mm.py: Function 'syrk_mm' at line 676 missing logger.debug(\"GEMS ...\") call\n::warning::src/flag_gems/ops/mm.py: Function 'streamk_scenario' at line 699 missing logger.debug(\"GEMS ...\") call\n  \u2022 src/flag_gems/ops/mm.py: Function 'streamk_scenario' at line 699 missing logger.debug(\"GEMS ...\") call\n::warning::src/flag_gems/ops/mm.py: Function 'router_gemm' at line 806 missing logger.debug(\"GEMS ...\") call\n  \u2022 src/flag_gems/ops/mm.py: Function 'router_gemm' at line 806 missing logger.debug(\"GEMS ...\") call\n",
+    "stderr": ""
+  },
+  {
+    "check": "check_kernelgen_tests.py",
+    "exit_code": 1,
+    "output": "Checking 3 test file(s)...\n\n\u274c Found 4 forbidden use_gems() call(s):\n\n::error::tests/test_mm.py:268: use_gems() call found: with flag_gems.use_gems(exclude=[]):\n  \u2022 tests/test_mm.py:268: use_gems() call found: with flag_gems.use_gems(exclude=[]):\n::error::tests/test_scaled_dot_product_attention_math.py:120: use_gems() call found: with flag_gems.use_gems():\n  \u2022 tests/test_scaled_dot_product_attention_math.py:120: use_gems() call found: with flag_gems.use_gems():\n::error::tests/test_scaled_dot_product_attention_math.py:156: use_gems() call found: with flag_gems.use_gems():\n  \u2022 tests/test_scaled_dot_product_attention_math.py:156: use_gems() call found: with flag_gems.use_gems():\n::error::tests/test_scaled_dot_product_attention_math.py:211: use_gems() call found: with flag_gems.use_gems():\n  \u2022 tests/test_scaled_dot_product_attention_math.py:211: use_gems() call found: with flag_gems.use_gems():\n\nTests must not call use_gems(). The test framework handles operator dispatch automatically.\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/usr/bin/python3",
+      "tools/ci_checks/check_operator_markers.py",
+      "--operators",
+      "[\"mm\",\"addmm\",\"scaled_dot_product_attention_math\"]"
+    ],
+    "exit_code": 0,
+    "output": "Loaded 256 test aliases\nIndexed 1862 pytest markers across test files\nChecking test coverage for 3 operator(s)...\n\u2705 All operators have test coverage.\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/usr/bin/python3",
+      "tools/ci_checks/check_operators_yaml.py",
+      "--operators",
+      "[\"mm\",\"addmm\",\"scaled_dot_product_attention_math\"]"
+    ],
+    "exit_code": 0,
+    "output": "Total operators in conf/operators.yaml: 1786\nChecking required fields for 3 changed operator(s)...\n\u2705 All checks passed.\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/usr/bin/python3",
+      "tools/ci_checks/check_kernelgen_tests.py",
+      "--changed-files",
+      "[\"tests/test_ppu_full_write_buffers.py\"]"
+    ],
+    "exit_code": 0,
+    "output": "Checking 1 test file(s)...\n\u2705 No forbidden use_gems() calls found.\n",
+    "stderr": ""
+  },
+  {
+    "check": "git diff --check",
+    "exit_code": 0
+  },
+  {
+    "legacy_kernelgen_failures": "4 existing use_gems calls in unchanged files",
+    "source_matches_HEAD": true
+  },
+  {
+    "check": "worktree matches tested frozen source",
+    "exit_code": 0
+  },
+  {
+    "command": "pre-commit run --all-files",
+    "exit_code": 127,
+    "stdout": "",
+    "stderr": "bash: line 1: pre-commit: command not found\n"
+  }
+]

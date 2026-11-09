@@ -20,6 +20,17 @@ def empty(shape, *, dtype, device):
     return _empty(shape, dtype, torch.device(device))
 
 
+def empty_for_overwrite(shape, *, dtype, device):
+    """Allocate a buffer whose producer writes every element before any read.
+
+    Callers must establish this for temporary buffers as well as final outputs.
+    Autograd and non-CUDA allocations retain the ordinary allocation path.
+    """
+    if ENABLED and not torch.is_grad_enabled() and torch.device(device).type == "cuda":
+        return _empty(shape, dtype, torch.device(device))
+    return torch.empty(shape, dtype=dtype, device=device)
+
+
 def empty_like(template, *, dtype=None):
     dtype = template.dtype if dtype is None else dtype
     if template.is_contiguous():

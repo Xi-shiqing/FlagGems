@@ -11,6 +11,7 @@ from flag_gems.ops._scaled_dot_product_attention_math import (
 )
 from flag_gems.runtime import torch_device_fn
 from flag_gems.utils import libentry
+from flag_gems.utils import native_output_allocation
 
 
 @libentry()
@@ -68,10 +69,11 @@ def _ordered_forward(query, key, value, attn_mask=None, dropout_p=0.0, is_causal
     scale = 1.0 / math.sqrt(dim) if scale is None else scale
     factor = math.sqrt(abs(scale))
     strides = lambda x: x.stride() if x.ndim == 4 else (0, *x.stride())
-    q = torch.empty((batch * heads, rows, dim), device=query.device, dtype=query.dtype)
-    k = torch.empty((batch * heads, cols, dim), device=query.device, dtype=query.dtype)
-    v = torch.empty((batch * heads, cols, value_dim), device=query.device, dtype=query.dtype)
-    weights = torch.empty((batch * heads, rows, cols), device=query.device, dtype=query.dtype)
+    allocate = native_output_allocation.empty_for_overwrite
+    q = allocate((batch * heads, rows, dim), device=query.device, dtype=query.dtype)
+    k = allocate((batch * heads, cols, dim), device=query.device, dtype=query.dtype)
+    v = allocate((batch * heads, cols, value_dim), device=query.device, dtype=query.dtype)
+    weights = allocate((batch * heads, rows, cols), device=query.device, dtype=query.dtype)
     mask = attn_mask.expand((*query.shape[:-2], rows, cols)) if attn_mask is not None else query
     with torch_device_fn.device(query.device):
         _pack[(triton.cdiv(max(q.numel(), k.numel(), v.numel()), 1024),)](
