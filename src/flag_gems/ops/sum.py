@@ -24,6 +24,7 @@ from flag_gems import runtime
 from flag_gems.ops.zeros import zero_
 from flag_gems.runtime import torch_device_fn
 from flag_gems.utils import dim_compress, libentry, libtuner
+from flag_gems.utils import native_output_allocation as _native_output
 from flag_gems.utils import triton_lang_extension as ext
 
 logger = logging.getLogger(__name__)
@@ -99,8 +100,8 @@ def sum(inp, *, dtype=None):
     mid_size = triton.cdiv(M, block_size)
     block_mid = triton.next_power_of_2(mid_size)
 
-    mid = torch.empty((mid_size,), dtype=dtype, device=inp.device)
-    out = torch.empty([], dtype=dtype, device=inp.device)
+    mid = _native_output.empty_for_overwrite((mid_size,), dtype=dtype, device=inp.device)
+    out = _native_output.empty_for_overwrite([], dtype=dtype, device=inp.device)
 
     with torch_device_fn.device(inp.device):
         sum_kernel_1[(mid_size, 1, 1)](inp, mid, M, block_size)
@@ -110,6 +111,7 @@ def sum(inp, *, dtype=None):
 
 def sum_out(inp, *, dtype=None, out):
     logger.debug("GEMS SUM_OUT")
+    inp = inp.contiguous()
     M = inp.numel()
     if dtype is None:
         dtype = inp.dtype
@@ -120,7 +122,7 @@ def sum_out(inp, *, dtype=None, out):
     mid_size = triton.cdiv(M, block_size)
     block_mid = triton.next_power_of_2(mid_size)
 
-    mid = torch.empty((mid_size,), dtype=dtype, device=inp.device)
+    mid = _native_output.empty_for_overwrite((mid_size,), dtype=dtype, device=inp.device)
     with torch_device_fn.device(inp.device):
         sum_kernel_1[(mid_size, 1, 1)](inp, mid, M, block_size)
         sum_kernel_2[(1, 1, 1)](mid, out, mid_size, block_mid)
@@ -313,7 +315,7 @@ def sum_dim_comm(inp, dim=None, keepdim=False, *, dtype=None, out=None):
             else:
                 out.resize_(shape[:dim] + shape[dim + 1 :])
         else:
-            out = torch.empty(shape, dtype=dtype, device=inp.device)
+            out = _native_output.empty_for_overwrite(shape, dtype=dtype, device=inp.device)
 
         with torch_device_fn.device(inp.device):
             if K > 1:
@@ -351,7 +353,7 @@ def sum_dim_comm(inp, dim=None, keepdim=False, *, dtype=None, out=None):
             else:
                 out.resize_([s for i, s in enumerate(shape) if i not in dim_set])
         else:
-            out = torch.empty(shape, dtype=dtype, device=inp.device)
+            out = _native_output.empty_for_overwrite(shape, dtype=dtype, device=inp.device)
 
         grid = lambda meta: (triton.cdiv(M, meta["BLOCK_M"]),)
         with torch_device_fn.device(inp.device):
@@ -394,7 +396,7 @@ def sum_dim(inp, dim=None, keepdim=False, *, dtype=None):
                 for d in sorted_dims_to_remove:
                     index_to_remove = d % inp.ndim
                     out_shape.pop(index_to_remove)
-        out = torch.empty(out_shape, dtype=dtype, device=inp.device)
+        out = _native_output.empty_for_overwrite(out_shape, dtype=dtype, device=inp.device)
         zero_(out)
         return out
     return sum_dim_comm(inp, dim, keepdim, dtype=dtype)

@@ -20,6 +20,7 @@ import triton
 
 from flag_gems.ops.ones import ones_kernel
 from flag_gems.runtime import torch_device_fn
+from flag_gems.utils import native_output_allocation as _native_output
 
 logger = logging.getLogger(__name__)
 
@@ -44,7 +45,7 @@ def new_ones(self, size, *, dtype=None, layout=None, device=None, pin_memory=Non
     if dtype is None:
         dtype = self.dtype
 
-    out = torch.empty(size, device=device, dtype=dtype)
+    out = _native_output.empty_for_overwrite(size, device=device, dtype=dtype)
     N = out.numel()
     grid_fn = lambda meta: (triton.cdiv(N, meta["BLOCK_SIZE"]),)
     with torch_device_fn.device(device):

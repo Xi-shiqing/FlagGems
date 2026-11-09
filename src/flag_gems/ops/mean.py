@@ -23,6 +23,7 @@ import triton.language as tl
 from flag_gems import runtime
 from flag_gems.runtime import torch_device_fn
 from flag_gems.utils import dim_compress, libentry, libtuner
+from flag_gems.utils import native_output_allocation as _native_output
 from flag_gems.utils import triton_lang_extension as ext
 from flag_gems.utils.codegen_config_utils import get_codegen_config
 
@@ -98,7 +99,7 @@ def mean(inp, *, dtype=None):
     dtype = _mean_dtype(inp, dtype)
 
     if M == 0:
-        out = torch.empty([], dtype=dtype, device=inp.device)
+        out = _native_output.empty_for_overwrite([], dtype=dtype, device=inp.device)
         out.fill_(float("nan"))
         return out
 
@@ -107,8 +108,8 @@ def mean(inp, *, dtype=None):
     mid_size = triton.cdiv(M, block_size)
     block_mid = triton.next_power_of_2(mid_size)
 
-    mid = torch.empty((mid_size,), dtype=dtype, device=inp.device)
-    out = torch.empty([], dtype=dtype, device=inp.device)
+    mid = _native_output.empty_for_overwrite((mid_size,), dtype=dtype, device=inp.device)
+    out = _native_output.empty_for_overwrite([], dtype=dtype, device=inp.device)
 
     with torch_device_fn.device(inp.device):
         mean_kernel_1[(mid_size, 1, 1)](inp, mid, M, block_size)
@@ -317,7 +318,7 @@ def mean_dim_comm(inp, dim=None, keepdim=False, *, dtype=None, out=None):
     logger.debug("GEMS MEAN_DIM")
     dtype = _mean_dtype(inp, dtype)
 
-    if dim == [] or dim == ():
+    if dim is None or dim == [] or dim == ():
         # mean over all elements
         if not keepdim:
             return mean(inp, dtype=dtype)
@@ -349,7 +350,7 @@ def mean_dim_comm(inp, dim=None, keepdim=False, *, dtype=None, out=None):
         K = reduce(lambda x, y: x * y, shape[dim0 + 1 :], 1)
         shape[dim0] = 1
         if out is None:
-            out = torch.empty(shape, dtype=dtype, device=inp.device)
+            out = _native_output.empty_for_overwrite(shape, dtype=dtype, device=inp.device)
 
         if M * K == 0:
             return out if keepdim else out.squeeze(dim=dim0)
@@ -410,7 +411,7 @@ def mean_dim_comm(inp, dim=None, keepdim=False, *, dtype=None, out=None):
             shape[i] = 1
         M = reduce(lambda x, y: x * y, shape, 1)
         if out is None:
-            out = torch.empty(shape, dtype=dtype, device=inp.device)
+            out = _native_output.empty_for_overwrite(shape, dtype=dtype, device=inp.device)
 
         if M == 0:
             return out if keepdim else out.squeeze(dim=dim)

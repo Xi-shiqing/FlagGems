@@ -24,6 +24,7 @@ import triton.language as tl
 from flag_gems import runtime
 from flag_gems.runtime import torch_device_fn
 from flag_gems.utils import dim_compress, libentry, libtuner
+from flag_gems.utils import native_output_allocation as _native_output
 from flag_gems.utils import triton_lang_extension as ext
 from flag_gems.utils.code_cache import code_cache_dir
 from flag_gems.utils.code_utils import IndentedBuffer, write_atomic
@@ -105,18 +106,28 @@ def any_kernel_2(mid, out, MID_SIZE, BLOCK_MID: tl.constexpr):
 
 def any(inp):
     logger.debug("GEMS ANY")
+    inp = inp.contiguous()
     n_elements = inp.numel()
     # The identity value of an OR reduction is False. Avoid deriving launch
     # parameters from zero: next_power_of_2(0) yields a zero block size and the
     # following cdiv would divide by zero.
     if n_elements == 0:
         return torch.zeros((), dtype=torch.bool, device=inp.device)
+    # Keep at most 4 KiB of live input values in one CTA, accounting for
+    # sub-word types occupying 32-bit registers. OR is exact and associative,
+    # so the existing partial-reduction kernel can write the final scalar.
+    single_block = triton.next_power_of_2(n_elements)
+    if single_block * max(inp.element_size(), 4) <= 4096:
+        out = _native_output.empty_for_overwrite([], dtype=torch.bool, device=inp.device)
+        with torch_device_fn.device(inp.device):
+            any_kernel_1[(1, 1)](inp, out, n_elements, 1, single_block)
+        return out
     block_size = triton.next_power_of_2(math.ceil(math.sqrt(n_elements)))
     mid_size = triton.cdiv(n_elements, block_size)
     block_mid = triton.next_power_of_2(mid_size)
 
-    mid = torch.empty((mid_size,), dtype=torch.bool, device=inp.device)
-    out = torch.empty([], dtype=torch.bool, device=inp.device)
+    mid = _native_output.empty_for_overwrite((mid_size,), dtype=torch.bool, device=inp.device)
+    out = _native_output.empty_for_overwrite([], dtype=torch.bool, device=inp.device)
 
     with torch_device_fn.device(inp.device):
         any_kernel_1[(mid_size, 1)](inp, mid, n_elements, mid_size, block_size)
@@ -148,9 +159,7 @@ def any_dim(inp, dim=None, keepdim=False):
             return out
         M = inp.numel() // N
 
-        out = torch.empty(shape, dtype=torch.bool, device=inp.device)
-        inp = inp.to(torch.bool)
-
+        out = _native_output.empty_for_overwrite(shape, dtype=torch.bool, device=inp.device)
         grid = lambda meta: (triton.cdiv(M, meta["BLOCK_M"]),)
         with torch_device_fn.device(inp.device):
             any_kernel_dim[grid](inp, out, M, N)
