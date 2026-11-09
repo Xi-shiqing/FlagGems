@@ -40,6 +40,12 @@ sum、mean 将输出和部分和数组接入分配器，保留原有分块、累
 
 按维度 any 由归约内核直接读取原类型并判断是否非零，省去前置布尔转换和中间数组。全张量 any 与标量 sum.out 对非连续输入先整理布局；mean 显式传入 `dim=None` 时按全体元素求均值。
 
+## PPU sigmoid、softmax 的共用分配入口
+
+共用辅助函数也响应 `FLAG_GEMS_NATIVE_FULL_WRITE`，在 FP32 与 TF32 模型设置下使用相同的完整写入约束。原有开关仍然可用。CUDA 接口、关闭梯度和稠密布局的检查保持一致。
+
+新数组的步长与目标步长已经相同时，直接返回数组，省去一次视图构造。转置和单例维度的特殊步长继续保留原视图。每次结果仍使用独立存储，计算内核和数值顺序不变。
+
 ## lift_fresh 的别名语义
 
 `lift_fresh` 接收的是构造过程中已经分配的张量，直接返回该输入，保留对象、存储和布局。它不需要再分配输出或启动复制内核。需要独立副本的接口是 `lift_fresh_copy`。
@@ -52,6 +58,7 @@ sum、mean 将输出和部分和数组接入分配器，保留原有分块、累
 FLAG_GEMS_NATIVE_FULL_WRITE=1 pytest tests/test_full_write_allocation.py tests/test_extra_full_write_allocation.py tests/test_ppu_full_write_buffers.py -q
 FLAG_GEMS_NATIVE_FULL_WRITE=1 pytest tests/test_ppu_copy_outputs.py tests/test_lift_fresh.py --ref=cpu -q
 FLAG_GEMS_NATIVE_FULL_WRITE=1 pytest tests/test_full_write_reductions.py -q
+FLAG_GEMS_NATIVE_FULL_WRITE=1 pytest tests/test_full_write_bridge.py tests/test_full_write_layout.py -q
 ```
 
 测试覆盖完整写入、非连续输入、广播、空张量、标量、多种类型、独立存储、非默认执行流和自动求导回退。完整写入检查会先把输出填入 NaN 或整数标记，再与 CPU 参考和原分配路径比较。

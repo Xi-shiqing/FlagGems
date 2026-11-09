@@ -1,6 +1,7 @@
 """Inference-only allocation for outputs proved fully written by their kernels."""
 from collections import Counter
 import torch
+from flag_gems.utils import native_output_allocation as _native_output
 
 ENABLED = False
 POISON = False
@@ -9,7 +10,7 @@ CALLS = Counter()
 
 
 def empty(shape, *, dtype, device):
-    if not ENABLED or torch.is_grad_enabled() or torch.device(device).type != 'cuda':
+    if not (ENABLED or _native_output.ENABLED) or torch.is_grad_enabled() or torch.device(device).type != 'cuda':
         return torch.empty(shape, dtype=dtype, device=device)
     # Reuse the allocator already verified for MM/BMM; keep global flags intact.
     from flag_gems.ops.tf32_precision import empty_full_write
@@ -24,10 +25,10 @@ def empty(shape, *, dtype, device):
 
 def empty_like(template, *, dtype=None):
     dtype = template.dtype if dtype is None else dtype
-    if (not ENABLED or torch.is_grad_enabled() or not template.is_cuda or
+    if (not (ENABLED or _native_output.ENABLED) or torch.is_grad_enabled() or not template.is_cuda or
             template.layout != torch.strided or
             not torch.ops.aten.is_non_overlapping_and_dense(template)):
         return torch.empty_like(template, dtype=dtype)
     out = empty(template.shape, dtype=dtype, device=template.device)
     # Pointwise fast paths use physical order. Preserve dense transpose layouts.
-    return out.as_strided(template.shape, template.stride())
+    return out if out.stride() == template.stride() else out.as_strided(template.shape, template.stride())
