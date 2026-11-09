@@ -19,6 +19,8 @@ import torch
 import triton
 import triton.language as tl
 
+from flag_gems.utils import full_write_allocation as _full_write
+
 logger = logging.getLogger(__name__)
 
 
@@ -329,7 +331,7 @@ def cat(
             return payload.view(original_dtype)
 
         A_u8, dim, out_shape, _, device = payload
-        out_u8 = torch.empty(out_shape, dtype=torch.uint8, device=device)
+        out_u8 = _full_write.empty(out_shape, dtype=torch.uint8, device=device)
         _cat_run_kernel(A_u8, dim, out_shape, out_u8)
         return out_u8.view(original_dtype)
 
@@ -340,6 +342,6 @@ def cat(
         return payload
 
     A, dim, out_shape, dtype, device = payload
-    out = torch.empty(out_shape, dtype=dtype, device=device)
+    out = _full_write.empty(out_shape, dtype=dtype, device=device)
     _cat_run_kernel(A, dim, out_shape, out)
     return out

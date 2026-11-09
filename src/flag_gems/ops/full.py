@@ -21,6 +21,8 @@ import triton.language as tl
 
 from flag_gems.utils.pointwise_dynamic import pointwise_dynamic
 
+from flag_gems.utils import full_write_allocation as _full_write
+
 logger = logging.getLogger(__name__)
 
 
@@ -77,7 +79,7 @@ def full(size, fill_value, *, dtype=None, layout=None, device=None, pin_memory=N
     else:
         fill_value = check_dtype(fill_value, dtype, device)
 
-    out = torch.empty(size, device=device, dtype=dtype)
+    out = _full_write.empty(size, device=device, dtype=dtype)
 
     if isinstance(fill_value, torch.Tensor):
         return full_func(out, fill_value, out0=out)

@@ -18,6 +18,8 @@ import torch
 
 from flag_gems.ops.full import check_dtype, full_func, full_func_scalar
 
+from flag_gems.utils import full_write_allocation as _full_write
+
 logger = logging.getLogger(__name__)
 
 
@@ -38,7 +40,7 @@ def new_full(
     if dtype is None:
         dtype = self.dtype
     fill_value = check_dtype(fill_value, dtype, device)
-    out = torch.empty(size, device=device, dtype=dtype)
+    out = _full_write.empty(size, device=device, dtype=dtype)
     if isinstance(fill_value, torch.Tensor):
         return full_func(out, fill_value, out0=out)
     else:

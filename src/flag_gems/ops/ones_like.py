@@ -20,6 +20,8 @@ import triton
 from flag_gems.ops.ones import ones_kernel
 from flag_gems.runtime import torch_device_fn
 
+from flag_gems.utils import full_write_allocation as _full_write
+
 logger = logging.getLogger(__name__)
 
 
@@ -31,7 +33,11 @@ def ones_like(
         device = x.device
     if dtype is None:
         dtype = x.dtype
-    out = torch.empty_like(x, device=device, dtype=dtype)
+    out = (
+        _full_write.empty_like(x, dtype=dtype)
+        if torch.device(device) == x.device
+        else torch.empty_like(x, device=device, dtype=dtype)
+    )
     N = x.numel()
     grid_fn = lambda meta: (triton.cdiv(N, meta["BLOCK_SIZE"]),)
     with torch_device_fn.device(x.device):

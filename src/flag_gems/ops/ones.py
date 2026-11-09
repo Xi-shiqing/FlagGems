@@ -24,6 +24,8 @@ from flag_gems.utils import triton_lang_extension as ext
 from flag_gems.utils.shape_utils import volume
 
 device_ = device
+from flag_gems.utils import full_write_allocation as _full_write
+
 logger = logging.getLogger(__name__)
 
 
@@ -48,7 +50,7 @@ def ones(size, *, dtype=None, layout=None, device=None, pin_memory=None):
     if device is None:
         device = torch.device(device_.name)
 
-    out = torch.empty(size, device=device, dtype=dtype)
+    out = _full_write.empty(size, device=device, dtype=dtype)
     N = volume(size)
     BLOCK_SIZE = 1024
     grid = (triton.cdiv(N, BLOCK_SIZE),)

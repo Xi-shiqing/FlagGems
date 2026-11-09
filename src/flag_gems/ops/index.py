@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import hashlib
 import importlib
 import logging
 import os
@@ -22,6 +23,7 @@ import torch
 from flag_gems import runtime
 from flag_gems.utils.code_cache import code_cache_dir
 from flag_gems.utils.code_utils import IndentedBuffer, write_atomic
+
 
 logger = logging.getLogger(__name__)
 
@@ -259,6 +261,9 @@ def generate_index_kernel(
             code.writeline(
                 f"cur_index{i} = tl.load(indices{i}_ptr + {' + '.join(comp)}, mask=mask0, other=0)"
             )
+            code.writeline(
+                f"cur_index{i} = tl.where(cur_index{i} < 0, cur_index{i} + input_shape{i}, cur_index{i})"
+            )
         code.newline()
         index_mask = [
             f"(cur_index{i} >= 0) & (cur_index{i} < input_shape{i})"
@@ -379,9 +384,11 @@ class IndexFunction:
                 code,
             )
 
-            file_name = f"index_{key}.py"
+            source = code.getvalue()
+            source_hash = hashlib.sha256(source.encode()).hexdigest()[:16]
+            file_name = f"index_{key}_{source_hash}.py"
             file_path = code_cache_dir() / file_name
-            write_atomic(file_path, code.getvalue())
+            write_atomic(file_path, source)
 
             spec = importlib.util.spec_from_file_location(
                 f"_gen_module_rank_{key}",
@@ -605,9 +612,11 @@ class LinearizedAdjacentIndexFunction:
                 code,
             )
 
-            file_name = f"index_linearized_{key}.py"
+            source = code.getvalue()
+            source_hash = hashlib.sha256(source.encode()).hexdigest()[:16]
+            file_name = f"index_linearized_{key}_{source_hash}.py"
             file_path = code_cache_dir() / file_name
-            write_atomic(file_path, code.getvalue())
+            write_atomic(file_path, source)
 
             spec = importlib.util.spec_from_file_location(
                 f"_gen_module_index_linearized_{key}",

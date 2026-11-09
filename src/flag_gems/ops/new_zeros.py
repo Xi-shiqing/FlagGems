@@ -40,6 +40,8 @@ import torch
 import triton
 import triton.language as tl
 
+from flag_gems.utils import full_write_allocation as _full_write
+
 logger = logging.getLogger(__name__)
 
 # 8192 bytes per program: 128 threads (4 warps) issue 64 B each, i.e. four
@@ -114,6 +116,8 @@ def _as_size(size):
 
 def _empty(size_t, dtype, layout, device, pin_memory):
     """Allocate the (uninitialised) result buffer with the resolved options."""
+    if layout == torch.strided and not pin_memory:
+        return _full_write.empty(size_t, dtype=dtype, device=device)
     kwargs = {"dtype": dtype, "device": device}
     if layout is not None:
         kwargs["layout"] = layout

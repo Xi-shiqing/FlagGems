@@ -24,6 +24,8 @@ from flag_gems.runtime import torch_device_fn
 from flag_gems.utils import dim_compress, libentry, libtuner
 from flag_gems.utils import triton_lang_extension as ext
 
+from flag_gems.utils import full_write_allocation as _full_write
+
 logger = logging.getLogger(__name__)
 
 # torch.all: Tests if all elements in input evaluate to True. If the dtype of input
@@ -110,8 +112,8 @@ def all(inp):
     mid_size = triton.cdiv(n_elements, block_size)
     block_mid = triton.next_power_of_2(mid_size)
 
-    mid = torch.empty((mid_size,), dtype=torch.bool, device=inp.device)
-    out = torch.empty([], dtype=torch.bool, device=inp.device)
+    mid = _full_write.empty((mid_size,), dtype=torch.bool, device=inp.device)
+    out = _full_write.empty([], dtype=torch.bool, device=inp.device)
 
     with torch_device_fn.device(inp.device):
         all_kernel_1[(mid_size, 1)](inp, mid, n_elements, mid_size, block_size)
@@ -139,7 +141,7 @@ def all_dim(inp, dim=None, keepdim=False):
         if inp.dtype != torch.bool:
             inp = inp.bool()
 
-        out = torch.empty(shape, dtype=torch.bool, device=inp.device)
+        out = _full_write.empty(shape, dtype=torch.bool, device=inp.device)
 
         grid = lambda meta: (triton.cdiv(M, meta["BLOCK_M"]),)
         with torch_device_fn.device(inp.device):
@@ -169,7 +171,7 @@ def all_dims(inp, dim=None, keepdim=False):
     if inp.dtype != torch.bool:
         inp = inp.bool()
 
-    out = torch.empty(shape, dtype=torch.bool, device=inp.device)
+    out = _full_write.empty(shape, dtype=torch.bool, device=inp.device)
 
     grid = lambda meta: (triton.cdiv(M, meta["BLOCK_M"]),)
     with torch_device_fn.device(inp.device):

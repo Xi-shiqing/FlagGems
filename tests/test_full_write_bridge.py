@@ -58,3 +58,14 @@ def test_both_controls_disabled_keep_ordinary_allocation(monkeypatch):
     with torch.no_grad():
         assert bridge.empty_like(x).shape == x.shape
         assert bridge.empty((3, 7), dtype=x.dtype, device=x.device).shape == (3, 7)
+
+
+@pytest.mark.parametrize("shape", [(), (0, 19), (7, 19)])
+def test_contiguous_layout_needs_no_density_dispatch(monkeypatch, shape):
+    x = torch.empty(shape, device=flag_gems.device)
+    def forbidden(*args, **kwargs):
+        raise AssertionError("contiguous allocation dispatched an unnecessary density check")
+    monkeypatch.setattr(torch.ops.aten, "is_non_overlapping_and_dense", forbidden)
+    with torch.no_grad():
+        output = bridge.empty_like(x)
+    assert output.shape == x.shape and output.stride() == x.stride()

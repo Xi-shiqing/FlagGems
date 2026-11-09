@@ -23,6 +23,8 @@ from flag_gems import runtime
 from flag_gems.utils import libentry
 from flag_gems.utils.device_info import is_amd_radeon
 
+from flag_gems.utils import full_write_allocation as _full_write
+
 logger = logging.getLogger(__name__)
 
 # Radeon has no fp32 matrix instruction: an "ieee" fp32 dot unrolls into scalar
@@ -426,7 +428,7 @@ class Conv2d(torch.autograd.Function):
         )
 
         output_dtype = input.dtype
-        output = torch.empty(
+        output = _full_write.empty(
             (in_n, out_c, out_height, out_width),
             device=input.device,
             dtype=output_dtype,

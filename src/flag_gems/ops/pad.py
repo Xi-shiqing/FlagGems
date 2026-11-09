@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import hashlib
 import importlib
 import logging
 import os
@@ -88,6 +89,7 @@ def generate_imports(code: IndentedBuffer) -> IndentedBuffer:
     code.writeline("from flag_gems.runtime import torch_device_fn")
     code.writeline("from flag_gems.utils import triton_lang_extension as ext")
     code.writeline("from flag_gems.utils.type_utils import type_promotion")
+    code.writeline("from flag_gems.utils import full_write_allocation as _full_write")
     code.newline()
     code.newline()
     return code
@@ -122,7 +124,7 @@ def generate_functional_padding_wrapper(
             code.writeline("dst_shape[i] += pad_before[i] + pad_after[i]")
 
         code.writeline(
-            ("out0 = torch.empty(dst_shape, device=in0.device, dtype=in0.dtype)")
+            ("out0 = _full_write.empty(dst_shape, device=in0.device, dtype=in0.dtype)")
         )
 
         # call destination_passing_func
@@ -447,9 +449,11 @@ class PadFunction:
                 code,
             )
 
-            file_name = f"constant_pad_rank_{key}.py"
+            source = code.getvalue()
+            source_hash = hashlib.sha256(source.encode()).hexdigest()[:16]
+            file_name = f"constant_pad_rank_{key}_{source_hash}.py"
             file_path = code_cache_dir() / file_name
-            write_atomic(file_path, code.getvalue())
+            write_atomic(file_path, source)
 
             # load
             spec = importlib.util.spec_from_file_location(
