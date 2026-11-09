@@ -18,6 +18,7 @@ from typing import Optional
 import torch
 import triton
 
+from flag_gems.utils import native_output_allocation as _native_output
 from flag_gems.utils import pointwise_dynamic
 
 logger = logging.getLogger(__name__)
@@ -39,6 +40,14 @@ _FLOAT8_E8M0FNU = getattr(torch, "float8_e8m0fnu", None)
 @triton.jit
 def _to_copy_func(x):
     return x
+
+
+@pointwise_dynamic(is_tensor=[True], promotion_methods=[(0, "DEFAULT")])
+@triton.jit
+def _to_copy_bool_func(x):
+    # A bool output uses byte storage. Compare explicitly so fractional and
+    # negative inputs use truth-value semantics rather than integer casts.
+    return x != 0
 
 
 def _resolve_dtype(x: torch.Tensor, dtype: Optional[torch.dtype]) -> torch.dtype:
@@ -65,6 +74,8 @@ def _normalize_memory_format(
 
 def _allocate_preserve_format(x: torch.Tensor, empty_kwargs: dict) -> torch.Tensor:
     """Recreate tensor storage while honoring preserve_format semantics."""
+    if _native_output.ENABLED and not torch.is_grad_enabled() and x.is_cuda:
+        return _native_output.empty_like(x, dtype=empty_kwargs["dtype"])
     if torch.ops.aten.is_non_overlapping_and_dense(x):
         return torch.empty_strided(x.size(), x.stride(), **empty_kwargs)
     # Fall back to PyTorch's best-effort layout suggestion when stride replication is unsafe.
@@ -149,7 +160,16 @@ def to_copy(
 
     if target_memory_format is torch.preserve_format:
         out = _allocate_preserve_format(x, empty_kwargs)
+    elif (
+        target_memory_format is torch.contiguous_format
+        and _native_output.ENABLED
+        and not torch.is_grad_enabled()
+        and x.is_cuda
+    ):
+        out = _native_output.empty(x.shape, dtype=target_dtype, device=target_device)
     else:
         out = torch.empty_like(x, memory_format=target_memory_format, **empty_kwargs)
 
+    if target_dtype == torch.bool:
+        return _to_copy_bool_func(x, out0=out)
     return _to_copy_func(x, out0=out)

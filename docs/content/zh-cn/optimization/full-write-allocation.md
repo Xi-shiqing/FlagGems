@@ -5,7 +5,7 @@ weight: 40
 
 逐元素运算和矩阵乘法通常会完整写入输出。在这些调用中，输出使用前的额外初始化会增加内核调用和内存写入。可选的 C++ 分配入口直接使用 PyTorch 原有的 CUDA 内存分配器，减少这部分开销，同时保留原来的计算内核。
 
-当前接入范围包括逐元素运算、PPU MM/BMM/addmm，以及乘法、clone 和 cumsum 的输出分配。PPU MM/addmm 的分段部分和、MM 的右矩阵预处理，以及数学注意力路径的 Q/K/V 和概率数组也使用同样的分配方式。选择条件使用布局、类型、输出是否完整写入和自动求导状态；不依赖模型名称或输入编号。自动求导开启时使用原有分配方式。
+当前接入范围包括逐元素运算、PPU MM/BMM/addmm，以及乘法、clone、cumsum 和 to_copy 的输出分配。PPU MM/addmm 的分段部分和、MM 的右矩阵预处理，以及数学注意力路径的 Q/K/V 和概率数组也使用同样的分配方式。选择条件使用布局、类型、输出是否完整写入和自动求导状态；不依赖模型名称或输入编号。自动求导开启时使用原有分配方式。
 
 ## 构建和启用
 
@@ -30,10 +30,19 @@ clone 在进入自动求导包装之前检查调用方的梯度状态，保持�
 
 MM 对空矩阵单独处理：输出没有元素时直接返回；求和维度为零时写入零，避免通用内核预取不存在的输入。已有 `out` 保留原存储和步长。
 
+to_copy 保留 dtype、步长、独立存储及复杂数和设备转换的原有回退。转为 bool 时显式比较输入是否非零，保证非零小数、负值、大整数和 NaN 的转换符合原生语义。
+
+## lift_fresh 的别名语义
+
+`lift_fresh` 接收的是构造过程中已经分配的张量，直接返回该输入，保留对象、存储和布局。它不需要再分配输出或启动复制内核。需要独立副本的接口是 `lift_fresh_copy`。
+
+实现与 [PyTorch 2.10 的原生接口](https://github.com/pytorch/pytorch/blob/v2.10.0/aten/src/ATen/native/TensorShape.cpp#L4616-L4627) 一致，适用于各种尺寸、步长和数据类型，不依赖输出分配开关。
+
 ## 验证
 
 ```bash
 FLAG_GEMS_NATIVE_FULL_WRITE=1 pytest tests/test_full_write_allocation.py tests/test_extra_full_write_allocation.py tests/test_ppu_full_write_buffers.py -q
+FLAG_GEMS_NATIVE_FULL_WRITE=1 pytest tests/test_ppu_copy_outputs.py tests/test_lift_fresh.py --ref=cpu -q
 ```
 
 测试覆盖完整写入、非连续输入、广播、空张量、标量、多种类型、独立存储、非默认执行流和自动求导回退。完整写入检查会先把输出填入 NaN 或整数标记，再与 CPU 参考和原分配路径比较。
