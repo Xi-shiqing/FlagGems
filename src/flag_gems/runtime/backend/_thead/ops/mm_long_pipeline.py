@@ -1,4 +1,6 @@
-"""Overlap long-K input loads while preserving the established accumulation."""
+"""Overlap long-K input loads, with optional bounded parallel partitions."""
+import os
+
 import torch
 import triton
 
@@ -28,6 +30,12 @@ def try_mm(a, b, out, kernel, tf32):
         # output itself supplies too few blocks to hide the long dependency.
         if tasks > 4 * get_sm_count():
             return None
+        if os.getenv("FLAG_GEMS_PPU_LONG_MM_SPLIT", "0") == "1":
+            from .mm_long_split import try_mm as split_mm
+
+            split_result = split_mm(a, b, out, tf32)
+            if split_result is not None:
+                return split_result
         result = out if out is not None else empty_full_write(
             (m, n), dtype=a.dtype, device=a.device
         )
