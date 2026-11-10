@@ -17,7 +17,27 @@ from flag_gems.ops.tf32_precision import (
     tf32_enabled_for_active_module,
 )
 
+from .mm_fp32 import _general_device_sms, _general_wide_plan
+
 logger = logging.getLogger(__name__)
+_WIDE_ENABLED = os.environ.get("FLAG_GEMS_PPU_WIDE_ADDMM", "0") != "0"
+
+
+def _wide_plan(a, b, bias, out, m, n, k, allow_tf32):
+    return (
+        _WIDE_ENABLED
+        and not allow_tf32
+        and a.dtype == b.dtype == bias.dtype == out.dtype == torch.float32
+        and _general_wide_plan(m, n, k, _general_device_sms(a.device))
+        and not torch._C._overlaps(out, a)
+        and not torch._C._overlaps(out, b)
+        and not torch._C._overlaps(out, bias)
+    )
+
+
+def _wide_config(configs, named_args, **kwargs):
+    wide = {**named_args, **kwargs}.get("WIDE", False)
+    return [config for config in configs if (config.kwargs["BLOCK_SIZE_M"] == 64) == wide]
 
 
 def _allow_tf32():
@@ -94,6 +114,7 @@ def addmm_kernel_h100_fp32_splitk(
 def addmm_kernel_h100_fp32_splitk_reduce(
     partials, bias, C, elements, alpha, beta,
     split_k, BLOCK: tl.constexpr,
+    stride_cm=0, stride_cn=1, N=1, OUT_CONTIGUOUS: tl.constexpr = True,
 ):
     offsets = tle.program_id(0) * BLOCK + tl.arange(0, BLOCK)
     mask = offsets < elements
@@ -105,7 +126,11 @@ def addmm_kernel_h100_fp32_splitk_reduce(
             other=0.0,
         )
     x = tl.load(bias + offsets, mask=mask, other=0.0)
-    tl.store(C + offsets, acc * alpha + x * beta, mask=mask)
+    if OUT_CONTIGUOUS:
+        destination = offsets
+    else:
+        destination = (offsets // N).to(tl.int64) * stride_cm + (offsets % N).to(tl.int64) * stride_cn
+    tl.store(C + destination, acc * alpha + x * beta, mask=mask)
 
 
 def ppu_h100_fp32_splitk_addmm(bias, mat1, mat2, out, alpha, beta, M, N, K):
@@ -128,21 +153,29 @@ def ppu_h100_fp32_splitk_addmm(bias, mat1, mat2, out, alpha, beta, M, N, K):
         )
         addmm_kernel_h100_fp32_splitk_reduce[(triton.cdiv(M * N, 256),)](
             partials, bias, out, M * N, alpha, beta,
-            split_k, BLOCK=256, num_warps=4,
+            split_k, BLOCK=256, stride_cm=out.stride(0), stride_cn=out.stride(1),
+            N=N, OUT_CONTIGUOUS=out.is_contiguous(), num_warps=4,
         )
     return out
 
 
 @libentry()
 @libtuner(
-    configs=[triton.Config(
-        {"BLOCK_SIZE_M": 32, "BLOCK_SIZE_N": 32, "BLOCK_SIZE_K": 32},
-        num_warps=4, num_stages=1,
-    )],
-    key=["M", "N", "K"],
-    strategy=runtime.get_expand_config("addmm")["strategy"]
+    configs=[
+        triton.Config(
+            {"BLOCK_SIZE_M": 32, "BLOCK_SIZE_N": 32, "BLOCK_SIZE_K": 32},
+            num_warps=4, num_stages=1,
+        ),
+        triton.Config(
+            {"BLOCK_SIZE_M": 64, "BLOCK_SIZE_N": 128, "BLOCK_SIZE_K": 32},
+            num_warps=4, num_stages=1,
+        ),
+    ],
+    key=["M", "N", "K", "WIDE"],
+    strategy=list(runtime.get_expand_config("addmm")["strategy"]) + ["default"]
     if os.environ.get("USE_FLAGTUNE") == "1"
-    else ["align32", "align32", "align32"],
+    else ["align32", "align32", "align32", "default"],
+    prune_configs_by={"early_config_prune": _wide_config},
     warmup=5,
     rep=10,
 )
@@ -169,6 +202,7 @@ def addmm_kernel(
     BLOCK_SIZE_N: tl.constexpr,
     BLOCK_SIZE_K: tl.constexpr,
     ALLOW_TF32: tl.constexpr,
+    WIDE: tl.constexpr = False,
 ):
     pid_m = tle.program_id(0)
     pid_n = tle.program_id(1)
@@ -238,7 +272,7 @@ def addmm(bias, mat1, mat2, *, beta=1, alpha=1):
         K,
         mat1.stride(0) == 1,
         mat2.stride(0) == 1,
-        bias.stride(0) == 1,
+        bias.ndim > 0 and bias.stride(0) == 1,
     )
     mat1 = mat1.contiguous()
     # mat2 = mat2.contiguous()
@@ -261,6 +295,7 @@ def addmm(bias, mat1, mat2, *, beta=1, alpha=1):
         triton.cdiv(N, META["BLOCK_SIZE_N"]),
     )
     with torch_device_fn.device(mat1.device):
+        allow_tf32 = _allow_tf32()
         addmm_kernel[grid](
             mat1,
             mat2,
@@ -279,7 +314,8 @@ def addmm(bias, mat1, mat2, *, beta=1, alpha=1):
             bias.stride(1),
             out.stride(0),
             out.stride(1),
-            ALLOW_TF32=_allow_tf32(),
+            ALLOW_TF32=allow_tf32,
+            WIDE=_wide_plan(mat1, mat2, bias, out, M, N, K, allow_tf32),
         )
     return out
 
@@ -317,7 +353,7 @@ def addmm_out(bias, mat1, mat2, *, beta=1, alpha=1, out=None):
         K,
         mat1.stride(0) == 1,
         mat2.stride(0) == 1,
-        bias.stride(0) == 1,
+        bias.ndim > 0 and bias.stride(0) == 1,
     )
     mat1 = mat1.contiguous()
     bias = bias.broadcast_to(out.shape)
@@ -336,6 +372,7 @@ def addmm_out(bias, mat1, mat2, *, beta=1, alpha=1, out=None):
         triton.cdiv(N, META["BLOCK_SIZE_N"]),
     )
     with torch_device_fn.device(mat1.device):
+        allow_tf32 = _allow_tf32()
         addmm_kernel[grid](
             mat1,
             mat2,
@@ -354,6 +391,7 @@ def addmm_out(bias, mat1, mat2, *, beta=1, alpha=1, out=None):
             bias.stride(1),
             out.stride(0),
             out.stride(1),
-            ALLOW_TF32=_allow_tf32(),
+            ALLOW_TF32=allow_tf32,
+            WIDE=_wide_plan(mat1, mat2, bias, out, M, N, K, allow_tf32),
         )
     return out
