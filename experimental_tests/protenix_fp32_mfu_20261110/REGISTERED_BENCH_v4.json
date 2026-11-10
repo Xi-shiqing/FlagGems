@@ -1,0 +1,4703 @@
+{
+  "status": "PASS",
+  "rows": [
+    {
+      "operator": "MM",
+      "input_kind": "seeded synthetic operands on recorded shape families",
+      "a_shape": [
+        1225,
+        768
+      ],
+      "b_shape": [
+        768,
+        768
+      ],
+      "a_stride": [
+        768,
+        1
+      ],
+      "b_stride": [
+        1,
+        768
+      ],
+      "precision": "FP32",
+      "complete_output_byte_equal": true,
+      "CPU64_sample_errors": [
+        {
+          "sampled_elements": 256,
+          "relative_l2": 5.106231948579966e-07,
+          "max_abs": 6.099151325145158e-05
+        },
+        {
+          "sampled_elements": 256,
+          "relative_l2": 5.106231948579966e-07,
+          "max_abs": 6.099151325145158e-05
+        }
+      ],
+      "samples_ms": {
+        "False": [
+          0.649056,
+          0.637723,
+          0.628358,
+          0.692979,
+          0.777455,
+          0.654572,
+          0.639354,
+          0.639104,
+          0.628795,
+          0.625829,
+          0.626428,
+          0.638635,
+          0.635333,
+          0.62509,
+          0.631265,
+          0.625839,
+          0.621598,
+          0.623245,
+          0.623712,
+          0.627893,
+          0.634783,
+          0.630987,
+          0.630563,
+          0.62426,
+          0.629907,
+          0.630286,
+          0.634018,
+          0.627936,
+          0.642329,
+          0.627403,
+          0.627433,
+          0.624382,
+          0.624071,
+          0.645952,
+          0.62329,
+          0.625691,
+          0.643735,
+          0.628596,
+          0.626324,
+          0.6243
+        ],
+        "True": [
+          0.275553,
+          0.276327,
+          0.292016,
+          0.262967,
+          0.267436,
+          0.266286,
+          0.275619,
+          0.305395,
+          0.268286,
+          0.261225,
+          0.251877,
+          0.290726,
+          0.276071,
+          0.254151,
+          0.258709,
+          0.261949,
+          0.293659,
+          0.254707,
+          0.261589,
+          0.272335,
+          0.349098,
+          0.310402,
+          0.274084,
+          0.392844,
+          0.3891,
+          0.399467,
+          0.386215,
+          0.376388,
+          0.402892,
+          0.376867,
+          0.274271,
+          0.289933,
+          0.330736,
+          0.335825,
+          0.345486,
+          0.325314,
+          0.331226,
+          0.343311,
+          0.326007,
+          0.345418
+        ]
+      },
+      "control_ms": 0.6286955000000001,
+      "candidate_ms": 0.291371,
+      "execution": [
+        {
+          "enabled": false,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [
+            {
+              "wide": false,
+              "M": 1225,
+              "N": 768,
+              "K": 768,
+              "a_stride": [
+                768,
+                1
+              ],
+              "b_stride": [
+                1,
+                768
+              ],
+              "count": 1
+            }
+          ],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [
+            {
+              "requested_wide": false,
+              "M": 1225,
+              "N": 768,
+              "K": 768,
+              "BLOCK_M": 32,
+              "BLOCK_N": 32,
+              "BLOCK_K": 32,
+              "TF32": false,
+              "count": 1
+            }
+          ],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        },
+        {
+          "enabled": true,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [
+            {
+              "wide": true,
+              "M": 1225,
+              "N": 768,
+              "K": 768,
+              "a_stride": [
+                768,
+                1
+              ],
+              "b_stride": [
+                1,
+                768
+              ],
+              "count": 1
+            }
+          ],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [
+            {
+              "requested_wide": true,
+              "M": 1225,
+              "N": 768,
+              "K": 768,
+              "BLOCK_M": 64,
+              "BLOCK_N": 128,
+              "BLOCK_K": 32,
+              "TF32": false,
+              "count": 1
+            }
+          ],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        }
+      ]
+    },
+    {
+      "operator": "MM",
+      "input_kind": "seeded synthetic operands on recorded shape families",
+      "a_shape": [
+        1225,
+        768
+      ],
+      "b_shape": [
+        768,
+        768
+      ],
+      "a_stride": [
+        768,
+        1
+      ],
+      "b_stride": [
+        1,
+        768
+      ],
+      "precision": "TF32",
+      "complete_output_byte_equal": true,
+      "CPU64_sample_errors": [
+        {
+          "sampled_elements": 256,
+          "relative_l2": 0.00031106730121672663,
+          "max_abs": 0.03202744970913329
+        },
+        {
+          "sampled_elements": 256,
+          "relative_l2": 0.00031106730121672663,
+          "max_abs": 0.03202744970913329
+        }
+      ],
+      "samples_ms": {
+        "False": [
+          0.235494,
+          0.221388,
+          0.213132,
+          0.227547,
+          0.22966,
+          0.21816,
+          0.200033,
+          0.200107,
+          0.207684,
+          0.219704,
+          0.205662,
+          0.195747,
+          0.195431,
+          0.205979,
+          0.207243,
+          0.20464,
+          0.196411,
+          0.194476,
+          0.206244,
+          0.204793,
+          0.210102,
+          0.364763,
+          0.261021,
+          0.217134,
+          0.206211,
+          0.211242,
+          0.219448,
+          0.223258,
+          0.203563,
+          0.208271,
+          0.207239,
+          0.213576,
+          0.213738,
+          0.19834,
+          0.197559,
+          0.208276,
+          0.231286,
+          0.212121,
+          0.195096,
+          0.197262
+        ],
+        "True": [
+          0.213511,
+          0.222098,
+          0.226622,
+          0.221,
+          0.209774,
+          0.212677,
+          0.222234,
+          0.233884,
+          0.218303,
+          0.209133,
+          0.226437,
+          0.227557,
+          0.224463,
+          0.210932,
+          0.210237,
+          0.221139,
+          0.226837,
+          0.216718,
+          0.209537,
+          0.222873,
+          0.210874,
+          0.206281,
+          0.195719,
+          0.197523,
+          0.208057,
+          0.205045,
+          0.203561,
+          0.194163,
+          0.193967,
+          0.205821,
+          0.205514,
+          0.201852,
+          0.194191,
+          0.195894,
+          0.226734,
+          0.232642,
+          0.215201,
+          0.208209,
+          0.227318,
+          0.226473
+        ]
+      },
+      "control_ms": 0.2079775,
+      "candidate_ms": 0.2118045,
+      "execution": [
+        {
+          "enabled": false,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [
+            {
+              "wide": false,
+              "M": 1225,
+              "N": 768,
+              "K": 768,
+              "a_stride": [
+                768,
+                1
+              ],
+              "b_stride": [
+                1,
+                768
+              ],
+              "count": 1
+            }
+          ],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [
+            {
+              "requested_wide": false,
+              "M": 1225,
+              "N": 768,
+              "K": 768,
+              "BLOCK_M": 32,
+              "BLOCK_N": 32,
+              "BLOCK_K": 32,
+              "TF32": true,
+              "count": 1
+            }
+          ],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        },
+        {
+          "enabled": true,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [
+            {
+              "wide": false,
+              "M": 1225,
+              "N": 768,
+              "K": 768,
+              "a_stride": [
+                768,
+                1
+              ],
+              "b_stride": [
+                1,
+                768
+              ],
+              "count": 1
+            }
+          ],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [
+            {
+              "requested_wide": false,
+              "M": 1225,
+              "N": 768,
+              "K": 768,
+              "BLOCK_M": 32,
+              "BLOCK_N": 32,
+              "BLOCK_K": 32,
+              "TF32": true,
+              "count": 1
+            }
+          ],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        }
+      ]
+    },
+    {
+      "operator": "MM",
+      "input_kind": "seeded synthetic operands on recorded shape families",
+      "a_shape": [
+        1225,
+        768
+      ],
+      "b_shape": [
+        768,
+        1536
+      ],
+      "a_stride": [
+        768,
+        1
+      ],
+      "b_stride": [
+        1,
+        768
+      ],
+      "precision": "FP32",
+      "complete_output_byte_equal": true,
+      "CPU64_sample_errors": [
+        {
+          "sampled_elements": 256,
+          "relative_l2": 4.8663096071308e-07,
+          "max_abs": 7.286470994927186e-05
+        },
+        {
+          "sampled_elements": 256,
+          "relative_l2": 4.8663096071308e-07,
+          "max_abs": 7.286470994927186e-05
+        }
+      ],
+      "samples_ms": {
+        "False": [
+          0.923814,
+          0.916352,
+          0.917128,
+          0.927962,
+          0.908138,
+          0.908399,
+          0.94295,
+          0.940747,
+          0.924833,
+          0.918136,
+          0.906036,
+          0.92871,
+          0.927328,
+          0.917505,
+          0.907314,
+          0.906603,
+          0.916457,
+          0.918014,
+          0.909674,
+          0.93287,
+          0.927851,
+          0.913498,
+          1.122065,
+          0.921588,
+          0.915407,
+          0.909099,
+          0.909209,
+          0.908881,
+          0.898806,
+          0.903364,
+          0.903487,
+          0.890897,
+          0.891762,
+          0.898653,
+          0.892285,
+          0.892251,
+          0.890778,
+          0.893855,
+          0.890568,
+          0.892085
+        ],
+        "True": [
+          0.404135,
+          0.39206,
+          0.419367,
+          0.390484,
+          0.378256,
+          0.40088,
+          0.390426,
+          0.417939,
+          0.38741,
+          0.378597,
+          0.401357,
+          0.402873,
+          0.389743,
+          0.38724,
+          0.382063,
+          0.43006,
+          0.402419,
+          0.390715,
+          0.38719,
+          0.377926,
+          0.400953,
+          0.383483,
+          0.388399,
+          0.38551,
+          0.376925,
+          0.383303,
+          0.389332,
+          0.386705,
+          0.388545,
+          0.378568,
+          0.397778,
+          0.404095,
+          0.390654,
+          0.389117,
+          0.375459,
+          0.386284,
+          0.389123,
+          0.392865,
+          0.415519,
+          0.391534
+        ]
+      },
+      "control_ms": 0.9094415,
+      "candidate_ms": 0.3895375,
+      "execution": [
+        {
+          "enabled": false,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [
+            {
+              "wide": false,
+              "M": 1225,
+              "N": 1536,
+              "K": 768,
+              "a_stride": [
+                768,
+                1
+              ],
+              "b_stride": [
+                1,
+                768
+              ],
+              "count": 1
+            }
+          ],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [
+            {
+              "requested_wide": false,
+              "M": 1225,
+              "N": 1536,
+              "K": 768,
+              "BLOCK_M": 32,
+              "BLOCK_N": 32,
+              "BLOCK_K": 32,
+              "TF32": false,
+              "count": 1
+            }
+          ],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        },
+        {
+          "enabled": true,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [
+            {
+              "wide": true,
+              "M": 1225,
+              "N": 1536,
+              "K": 768,
+              "a_stride": [
+                768,
+                1
+              ],
+              "b_stride": [
+                1,
+                768
+              ],
+              "count": 1
+            }
+          ],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [
+            {
+              "requested_wide": true,
+              "M": 1225,
+              "N": 1536,
+              "K": 768,
+              "BLOCK_M": 64,
+              "BLOCK_N": 128,
+              "BLOCK_K": 32,
+              "TF32": false,
+              "count": 1
+            }
+          ],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        }
+      ]
+    },
+    {
+      "operator": "MM",
+      "input_kind": "seeded synthetic operands on recorded shape families",
+      "a_shape": [
+        1225,
+        768
+      ],
+      "b_shape": [
+        768,
+        1536
+      ],
+      "a_stride": [
+        768,
+        1
+      ],
+      "b_stride": [
+        1,
+        768
+      ],
+      "precision": "TF32",
+      "complete_output_byte_equal": true,
+      "CPU64_sample_errors": [
+        {
+          "sampled_elements": 256,
+          "relative_l2": 0.0002890851666898959,
+          "max_abs": 0.023434465721987152
+        },
+        {
+          "sampled_elements": 256,
+          "relative_l2": 0.0002890851666898959,
+          "max_abs": 0.023434465721987152
+        }
+      ],
+      "samples_ms": {
+        "False": [
+          0.33748,
+          0.325355,
+          0.332973,
+          0.331918,
+          0.320062,
+          0.330747,
+          0.330947,
+          0.320748,
+          0.332543,
+          0.330319,
+          0.32163,
+          0.397953,
+          0.46888,
+          0.361909,
+          0.376027,
+          0.335908,
+          0.339179,
+          0.359555,
+          0.349948,
+          0.338384,
+          0.335859,
+          0.343587,
+          0.329865,
+          0.323128,
+          0.340619,
+          0.333236,
+          0.31954,
+          0.341998,
+          0.330962,
+          0.321562,
+          0.34518,
+          0.330362,
+          0.31769,
+          0.34396,
+          0.331209,
+          0.321901,
+          0.341036,
+          0.329812,
+          0.32065,
+          0.34912
+        ],
+        "True": [
+          0.381926,
+          0.368985,
+          0.351034,
+          0.402032,
+          0.369229,
+          0.363554,
+          0.365699,
+          0.362007,
+          0.370972,
+          0.360885,
+          0.361162,
+          0.373711,
+          0.363477,
+          0.354578,
+          0.383663,
+          0.35627,
+          0.365968,
+          0.379229,
+          0.353413,
+          0.361784,
+          0.340732,
+          0.324215,
+          0.347453,
+          0.332833,
+          0.322849,
+          0.347468,
+          0.331367,
+          0.322054,
+          0.345571,
+          0.329719,
+          0.321945,
+          0.343351,
+          0.331341,
+          0.31971,
+          0.342873,
+          0.33156,
+          0.320524,
+          0.340787,
+          0.330387,
+          0.322418
+        ]
+      },
+      "control_ms": 0.332758,
+      "candidate_ms": 0.349251,
+      "execution": [
+        {
+          "enabled": false,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [
+            {
+              "wide": false,
+              "M": 1225,
+              "N": 1536,
+              "K": 768,
+              "a_stride": [
+                768,
+                1
+              ],
+              "b_stride": [
+                1,
+                768
+              ],
+              "count": 1
+            }
+          ],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [
+            {
+              "requested_wide": false,
+              "M": 1225,
+              "N": 1536,
+              "K": 768,
+              "BLOCK_M": 32,
+              "BLOCK_N": 32,
+              "BLOCK_K": 32,
+              "TF32": true,
+              "count": 1
+            }
+          ],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        },
+        {
+          "enabled": true,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [
+            {
+              "wide": false,
+              "M": 1225,
+              "N": 1536,
+              "K": 768,
+              "a_stride": [
+                768,
+                1
+              ],
+              "b_stride": [
+                1,
+                768
+              ],
+              "count": 1
+            }
+          ],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [
+            {
+              "requested_wide": false,
+              "M": 1225,
+              "N": 1536,
+              "K": 768,
+              "BLOCK_M": 32,
+              "BLOCK_N": 32,
+              "BLOCK_K": 32,
+              "TF32": true,
+              "count": 1
+            }
+          ],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        }
+      ]
+    },
+    {
+      "operator": "MM",
+      "input_kind": "seeded synthetic operands on recorded shape families",
+      "a_shape": [
+        1225,
+        384
+      ],
+      "b_shape": [
+        384,
+        768
+      ],
+      "a_stride": [
+        384,
+        1
+      ],
+      "b_stride": [
+        1,
+        384
+      ],
+      "precision": "FP32",
+      "complete_output_byte_equal": true,
+      "CPU64_sample_errors": [
+        {
+          "sampled_elements": 256,
+          "relative_l2": 3.6980632443409253e-07,
+          "max_abs": 3.620032035200893e-05
+        },
+        {
+          "sampled_elements": 256,
+          "relative_l2": 3.6980632443409253e-07,
+          "max_abs": 3.620032035200893e-05
+        }
+      ],
+      "samples_ms": {
+        "False": [
+          0.359611,
+          0.354834,
+          0.345136,
+          0.366542,
+          0.352955,
+          0.355545,
+          0.351591,
+          0.3494,
+          0.3525,
+          0.363358,
+          0.348137,
+          0.354335,
+          0.350444,
+          0.34247,
+          0.351927,
+          0.351823,
+          0.342165,
+          0.351339,
+          0.350511,
+          0.342514,
+          0.375594,
+          0.352559,
+          0.356946,
+          0.357237,
+          0.345076,
+          0.356367,
+          0.356773,
+          0.343037,
+          0.354247,
+          0.355956,
+          0.344495,
+          0.375591,
+          0.353337,
+          0.358583,
+          0.368151,
+          0.350776,
+          0.354013,
+          0.356816,
+          0.353355,
+          0.356787
+        ],
+        "True": [
+          0.182052,
+          0.209298,
+          0.178539,
+          0.186285,
+          0.175134,
+          0.173207,
+          0.19304,
+          0.186692,
+          0.184491,
+          0.18609,
+          0.181233,
+          0.174076,
+          0.204404,
+          0.171763,
+          0.172243,
+          0.175789,
+          0.182635,
+          0.199661,
+          0.176739,
+          0.165937,
+          0.166413,
+          0.182005,
+          0.189748,
+          0.213634,
+          0.192933,
+          0.181513,
+          0.181234,
+          0.194913,
+          0.185823,
+          0.191822,
+          0.171251,
+          0.190583,
+          0.178116,
+          0.19332,
+          0.194916,
+          0.17006,
+          0.191592,
+          0.185728,
+          0.174139,
+          0.188004
+        ]
+      },
+      "control_ms": 0.353346,
+      "candidate_ms": 0.18356299999999998,
+      "execution": [
+        {
+          "enabled": false,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [
+            {
+              "wide": false,
+              "M": 1225,
+              "N": 768,
+              "K": 384,
+              "a_stride": [
+                384,
+                1
+              ],
+              "b_stride": [
+                1,
+                384
+              ],
+              "count": 1
+            }
+          ],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [
+            {
+              "requested_wide": false,
+              "M": 1225,
+              "N": 768,
+              "K": 384,
+              "BLOCK_M": 32,
+              "BLOCK_N": 32,
+              "BLOCK_K": 32,
+              "TF32": false,
+              "count": 1
+            }
+          ],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        },
+        {
+          "enabled": true,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [
+            {
+              "wide": true,
+              "M": 1225,
+              "N": 768,
+              "K": 384,
+              "a_stride": [
+                384,
+                1
+              ],
+              "b_stride": [
+                1,
+                384
+              ],
+              "count": 1
+            }
+          ],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [
+            {
+              "requested_wide": true,
+              "M": 1225,
+              "N": 768,
+              "K": 384,
+              "BLOCK_M": 64,
+              "BLOCK_N": 128,
+              "BLOCK_K": 32,
+              "TF32": false,
+              "count": 1
+            }
+          ],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        }
+      ]
+    },
+    {
+      "operator": "MM",
+      "input_kind": "seeded synthetic operands on recorded shape families",
+      "a_shape": [
+        1225,
+        384
+      ],
+      "b_shape": [
+        384,
+        768
+      ],
+      "a_stride": [
+        384,
+        1
+      ],
+      "b_stride": [
+        1,
+        384
+      ],
+      "precision": "TF32",
+      "complete_output_byte_equal": true,
+      "CPU64_sample_errors": [
+        {
+          "sampled_elements": 256,
+          "relative_l2": 0.0002897132701242477,
+          "max_abs": 0.01757058214051277
+        },
+        {
+          "sampled_elements": 256,
+          "relative_l2": 0.0002897132701242477,
+          "max_abs": 0.01757058214051277
+        }
+      ],
+      "samples_ms": {
+        "False": [
+          0.162838,
+          0.156757,
+          0.175858,
+          0.152556,
+          0.157435,
+          0.154263,
+          0.154542,
+          0.150514,
+          0.151745,
+          0.169342,
+          0.190875,
+          0.18012,
+          0.154405,
+          0.152389,
+          0.138504,
+          0.138639,
+          0.140001,
+          0.150811,
+          0.152719,
+          0.150485,
+          0.143654,
+          0.141481,
+          0.154319,
+          0.145172,
+          0.16108,
+          0.173245,
+          0.140861,
+          0.137713,
+          0.15902,
+          0.152703,
+          0.139567,
+          0.16241,
+          0.157318,
+          0.14003,
+          0.147044,
+          0.17634,
+          0.145796,
+          0.17512,
+          0.15699,
+          0.157586
+        ],
+        "True": [
+          0.143829,
+          0.150869,
+          0.150319,
+          0.174015,
+          0.149702,
+          0.158021,
+          0.13872,
+          0.153652,
+          0.146587,
+          0.153803,
+          0.146691,
+          0.137495,
+          0.136383,
+          0.136907,
+          0.15238,
+          0.140256,
+          0.148414,
+          0.147081,
+          0.137984,
+          0.135318,
+          0.143981,
+          0.162175,
+          0.145962,
+          0.137139,
+          0.137595,
+          0.140117,
+          0.149286,
+          0.136779,
+          0.157876,
+          0.146172,
+          0.138648,
+          0.136931,
+          0.138642,
+          0.146816,
+          0.137947,
+          0.156828,
+          0.145227,
+          0.136985,
+          0.144029,
+          0.137333
+        ]
+      },
+      "control_ms": 0.153491,
+      "candidate_ms": 0.14462799999999998,
+      "execution": [
+        {
+          "enabled": false,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [
+            {
+              "wide": false,
+              "M": 1225,
+              "N": 768,
+              "K": 384,
+              "a_stride": [
+                384,
+                1
+              ],
+              "b_stride": [
+                1,
+                384
+              ],
+              "count": 1
+            }
+          ],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [
+            {
+              "requested_wide": false,
+              "M": 1225,
+              "N": 768,
+              "K": 384,
+              "BLOCK_M": 32,
+              "BLOCK_N": 32,
+              "BLOCK_K": 32,
+              "TF32": true,
+              "count": 1
+            }
+          ],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        },
+        {
+          "enabled": true,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [
+            {
+              "wide": false,
+              "M": 1225,
+              "N": 768,
+              "K": 384,
+              "a_stride": [
+                384,
+                1
+              ],
+              "b_stride": [
+                1,
+                384
+              ],
+              "count": 1
+            }
+          ],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [
+            {
+              "requested_wide": false,
+              "M": 1225,
+              "N": 768,
+              "K": 384,
+              "BLOCK_M": 32,
+              "BLOCK_N": 32,
+              "BLOCK_K": 32,
+              "TF32": true,
+              "count": 1
+            }
+          ],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        }
+      ]
+    },
+    {
+      "operator": "MM",
+      "input_kind": "seeded synthetic operands on recorded shape families",
+      "a_shape": [
+        1225,
+        1536
+      ],
+      "b_shape": [
+        1536,
+        768
+      ],
+      "a_stride": [
+        1536,
+        1
+      ],
+      "b_stride": [
+        1,
+        1536
+      ],
+      "precision": "FP32",
+      "complete_output_byte_equal": true,
+      "CPU64_sample_errors": [
+        {
+          "sampled_elements": 256,
+          "relative_l2": 6.90089400980209e-07,
+          "max_abs": 0.0001175922447771427
+        },
+        {
+          "sampled_elements": 256,
+          "relative_l2": 6.90089400980209e-07,
+          "max_abs": 0.0001175922447771427
+        }
+      ],
+      "samples_ms": {
+        "False": [
+          1.170821,
+          1.123929,
+          1.159687,
+          1.155122,
+          1.157844,
+          1.157269,
+          1.153487,
+          1.157867,
+          1.156354,
+          1.167181,
+          1.158335,
+          1.154049,
+          1.154303,
+          1.153614,
+          1.154215,
+          1.154245,
+          1.174247,
+          1.157563,
+          1.152562,
+          1.160167,
+          1.159389,
+          1.168429,
+          1.165837,
+          1.156624,
+          1.113809,
+          1.15491,
+          1.122278,
+          1.155863,
+          1.165267,
+          1.157839,
+          1.156761,
+          1.15994,
+          1.157324,
+          1.154939,
+          1.186332,
+          1.183802,
+          1.172929,
+          1.17105,
+          1.17678,
+          1.158269
+        ],
+        "True": [
+          0.432215,
+          0.428527,
+          0.424516,
+          0.423805,
+          0.423483,
+          0.430895,
+          0.424083,
+          0.415412,
+          0.435586,
+          0.424458,
+          0.422106,
+          0.427341,
+          0.424441,
+          0.422355,
+          0.41351,
+          0.434463,
+          0.421682,
+          0.422394,
+          0.421487,
+          0.421502,
+          0.42662,
+          0.427312,
+          0.425581,
+          0.42474,
+          0.428696,
+          0.478661,
+          0.440729,
+          0.486652,
+          0.441369,
+          0.439061,
+          0.439872,
+          0.438574,
+          0.438061,
+          0.427398,
+          0.44845,
+          0.432043,
+          0.450277,
+          0.439829,
+          0.43847,
+          0.438247
+        ]
+      },
+      "control_ms": 1.1577009999999999,
+      "candidate_ms": 0.4279625,
+      "execution": [
+        {
+          "enabled": false,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [
+            {
+              "wide": false,
+              "M": 1225,
+              "N": 768,
+              "K": 1536,
+              "a_stride": [
+                1536,
+                1
+              ],
+              "b_stride": [
+                1,
+                1536
+              ],
+              "count": 1
+            }
+          ],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [
+            {
+              "requested_wide": false,
+              "M": 1225,
+              "N": 768,
+              "K": 1536,
+              "BLOCK_M": 32,
+              "BLOCK_N": 32,
+              "BLOCK_K": 32,
+              "TF32": false,
+              "count": 1
+            }
+          ],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        },
+        {
+          "enabled": true,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [
+            {
+              "wide": true,
+              "M": 1225,
+              "N": 768,
+              "K": 1536,
+              "a_stride": [
+                1536,
+                1
+              ],
+              "b_stride": [
+                1,
+                1536
+              ],
+              "count": 1
+            }
+          ],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [
+            {
+              "requested_wide": true,
+              "M": 1225,
+              "N": 768,
+              "K": 1536,
+              "BLOCK_M": 64,
+              "BLOCK_N": 128,
+              "BLOCK_K": 32,
+              "TF32": false,
+              "count": 1
+            }
+          ],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        }
+      ]
+    },
+    {
+      "operator": "MM",
+      "input_kind": "seeded synthetic operands on recorded shape families",
+      "a_shape": [
+        1225,
+        1536
+      ],
+      "b_shape": [
+        1536,
+        768
+      ],
+      "a_stride": [
+        1536,
+        1
+      ],
+      "b_stride": [
+        1,
+        1536
+      ],
+      "precision": "TF32",
+      "complete_output_byte_equal": true,
+      "CPU64_sample_errors": [
+        {
+          "sampled_elements": 256,
+          "relative_l2": 0.0002815578247277936,
+          "max_abs": 0.039476391620212326
+        },
+        {
+          "sampled_elements": 256,
+          "relative_l2": 0.0002815578247277936,
+          "max_abs": 0.039476391620212326
+        }
+      ],
+      "samples_ms": {
+        "False": [
+          0.329673,
+          0.315762,
+          0.320257,
+          0.334623,
+          0.315148,
+          0.320671,
+          0.33136,
+          0.337908,
+          0.329897,
+          0.331725,
+          0.31459,
+          0.320168,
+          0.327605,
+          0.312108,
+          0.32253,
+          0.320462,
+          0.318192,
+          0.315461,
+          0.369591,
+          0.329028,
+          0.332207,
+          0.332608,
+          0.337255,
+          0.327917,
+          0.326927,
+          0.338818,
+          0.333936,
+          0.324502,
+          0.325441,
+          0.331471,
+          0.321519,
+          0.31826,
+          0.336486,
+          0.322082,
+          0.313819,
+          0.334539,
+          0.318935,
+          0.308743,
+          0.358617,
+          0.32317
+        ],
+        "True": [
+          0.3409,
+          0.313734,
+          0.334697,
+          0.321504,
+          0.310916,
+          0.327919,
+          0.319962,
+          0.309533,
+          0.32003,
+          0.344623,
+          0.322167,
+          0.323601,
+          0.320937,
+          0.309092,
+          0.317027,
+          0.318298,
+          0.307764,
+          0.317072,
+          0.32805,
+          0.316623,
+          0.34967,
+          0.325202,
+          0.331698,
+          0.31462,
+          0.328255,
+          0.320027,
+          0.315526,
+          0.319403,
+          0.329895,
+          0.318363,
+          0.309272,
+          0.328142,
+          0.318703,
+          0.308521,
+          0.317854,
+          0.317892,
+          0.307306,
+          0.318359,
+          0.317964,
+          0.308118
+        ]
+      },
+      "control_ms": 0.32618400000000003,
+      "candidate_ms": 0.318533,
+      "execution": [
+        {
+          "enabled": false,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [
+            {
+              "wide": false,
+              "M": 1225,
+              "N": 768,
+              "K": 1536,
+              "a_stride": [
+                1536,
+                1
+              ],
+              "b_stride": [
+                1,
+                1536
+              ],
+              "count": 1
+            }
+          ],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [
+            {
+              "requested_wide": false,
+              "M": 1225,
+              "N": 768,
+              "K": 1536,
+              "BLOCK_M": 32,
+              "BLOCK_N": 32,
+              "BLOCK_K": 32,
+              "TF32": true,
+              "count": 1
+            }
+          ],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        },
+        {
+          "enabled": true,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [
+            {
+              "wide": false,
+              "M": 1225,
+              "N": 768,
+              "K": 1536,
+              "a_stride": [
+                1536,
+                1
+              ],
+              "b_stride": [
+                1,
+                1536
+              ],
+              "count": 1
+            }
+          ],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [
+            {
+              "requested_wide": false,
+              "M": 1225,
+              "N": 768,
+              "K": 1536,
+              "BLOCK_M": 32,
+              "BLOCK_N": 32,
+              "BLOCK_K": 32,
+              "TF32": true,
+              "count": 1
+            }
+          ],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        }
+      ]
+    },
+    {
+      "operator": "MM",
+      "input_kind": "seeded synthetic operands on recorded shape families",
+      "a_shape": [
+        430,
+        768
+      ],
+      "b_shape": [
+        768,
+        768
+      ],
+      "a_stride": [
+        768,
+        1
+      ],
+      "b_stride": [
+        1,
+        768
+      ],
+      "precision": "FP32",
+      "complete_output_byte_equal": true,
+      "CPU64_sample_errors": [
+        {
+          "sampled_elements": 256,
+          "relative_l2": 4.858811710128055e-07,
+          "max_abs": 7.47233314228879e-05
+        },
+        {
+          "sampled_elements": 256,
+          "relative_l2": 4.858811710128055e-07,
+          "max_abs": 7.47233314228879e-05
+        }
+      ],
+      "samples_ms": {
+        "False": [
+          0.265617,
+          0.2751,
+          0.273351,
+          0.263492,
+          0.277064,
+          0.282119,
+          0.272207,
+          0.265055,
+          0.25133,
+          0.285177,
+          0.270811,
+          0.26079,
+          0.27234,
+          0.275238,
+          0.263244,
+          0.275268,
+          0.282932,
+          0.249159,
+          0.261755,
+          0.273236,
+          0.24389,
+          0.243032,
+          0.243454,
+          0.2476,
+          0.277747,
+          0.253705,
+          0.246926,
+          0.232693,
+          0.239565,
+          0.243079,
+          0.242527,
+          0.231778,
+          0.233703,
+          0.243739,
+          0.25247,
+          0.235135,
+          0.252881,
+          0.252494,
+          0.256079,
+          0.23623
+        ],
+        "True": [
+          0.275872,
+          0.266368,
+          0.282167,
+          0.282477,
+          0.255762,
+          0.240359,
+          0.274416,
+          0.284915,
+          0.265482,
+          0.266028,
+          0.249759,
+          0.268677,
+          0.245979,
+          0.24877,
+          0.250756,
+          0.272471,
+          0.266261,
+          0.256392,
+          0.274611,
+          0.273398,
+          0.265568,
+          0.243416,
+          0.239243,
+          0.24628,
+          0.256184,
+          0.241031,
+          0.252018,
+          0.255507,
+          0.257829,
+          0.236339,
+          0.235476,
+          0.246615,
+          0.255681,
+          0.238384,
+          0.234025,
+          0.244901,
+          0.249314,
+          0.239464,
+          0.23369,
+          0.24402
+        ]
+      },
+      "control_ms": 0.254892,
+      "candidate_ms": 0.2537625,
+      "execution": [
+        {
+          "enabled": false,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [
+            {
+              "wide": false,
+              "M": 430,
+              "N": 768,
+              "K": 768,
+              "a_stride": [
+                768,
+                1
+              ],
+              "b_stride": [
+                1,
+                768
+              ],
+              "count": 1
+            }
+          ],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [
+            {
+              "requested_wide": false,
+              "M": 430,
+              "N": 768,
+              "K": 768,
+              "BLOCK_M": 32,
+              "BLOCK_N": 32,
+              "BLOCK_K": 32,
+              "TF32": false,
+              "count": 1
+            }
+          ],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        },
+        {
+          "enabled": true,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [
+            {
+              "wide": false,
+              "M": 430,
+              "N": 768,
+              "K": 768,
+              "a_stride": [
+                768,
+                1
+              ],
+              "b_stride": [
+                1,
+                768
+              ],
+              "count": 1
+            }
+          ],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [
+            {
+              "requested_wide": false,
+              "M": 430,
+              "N": 768,
+              "K": 768,
+              "BLOCK_M": 32,
+              "BLOCK_N": 32,
+              "BLOCK_K": 32,
+              "TF32": false,
+              "count": 1
+            }
+          ],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        }
+      ]
+    },
+    {
+      "operator": "MM",
+      "input_kind": "seeded synthetic operands on recorded shape families",
+      "a_shape": [
+        430,
+        768
+      ],
+      "b_shape": [
+        768,
+        768
+      ],
+      "a_stride": [
+        768,
+        1
+      ],
+      "b_stride": [
+        1,
+        768
+      ],
+      "precision": "TF32",
+      "complete_output_byte_equal": true,
+      "CPU64_sample_errors": [
+        {
+          "sampled_elements": 256,
+          "relative_l2": 0.000296128330448342,
+          "max_abs": 0.02831710863963366
+        },
+        {
+          "sampled_elements": 256,
+          "relative_l2": 0.000296128330448342,
+          "max_abs": 0.02831710863963366
+        }
+      ],
+      "samples_ms": {
+        "False": [
+          0.133383,
+          0.133499,
+          0.132386,
+          0.141694,
+          0.135212,
+          0.150119,
+          0.144465,
+          0.131539,
+          0.129639,
+          0.13283,
+          0.141474,
+          0.132485,
+          0.143004,
+          0.141993,
+          0.130815,
+          0.131317,
+          0.131216,
+          0.144589,
+          0.138894,
+          0.15222,
+          0.134784,
+          0.13464,
+          0.132381,
+          0.162361,
+          0.141972,
+          0.145722,
+          0.141437,
+          0.138229,
+          0.139772,
+          0.137357,
+          0.142072,
+          0.135813,
+          0.142984,
+          0.151967,
+          0.148322,
+          0.133774,
+          0.133984,
+          0.143277,
+          0.14484,
+          0.147697
+        ],
+        "True": [
+          0.139653,
+          0.14395,
+          0.133243,
+          0.143728,
+          0.143734,
+          0.132706,
+          0.131017,
+          0.129803,
+          0.148405,
+          0.132169,
+          0.154189,
+          0.143125,
+          0.132472,
+          0.130629,
+          0.129727,
+          0.144012,
+          0.138595,
+          0.146497,
+          0.15194,
+          0.135057,
+          0.167936,
+          0.174779,
+          0.143808,
+          0.135333,
+          0.133976,
+          0.132451,
+          0.14124,
+          0.153972,
+          0.180707,
+          0.142662,
+          0.156836,
+          0.13702,
+          0.145703,
+          0.140953,
+          0.147535,
+          0.1645,
+          0.156455,
+          0.135986,
+          0.133637,
+          0.164576
+        ]
+      },
+      "control_ms": 0.13933299999999998,
+      "candidate_ms": 0.1428935,
+      "execution": [
+        {
+          "enabled": false,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [
+            {
+              "wide": false,
+              "M": 430,
+              "N": 768,
+              "K": 768,
+              "a_stride": [
+                768,
+                1
+              ],
+              "b_stride": [
+                1,
+                768
+              ],
+              "count": 1
+            }
+          ],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [
+            {
+              "requested_wide": false,
+              "M": 430,
+              "N": 768,
+              "K": 768,
+              "BLOCK_M": 32,
+              "BLOCK_N": 32,
+              "BLOCK_K": 32,
+              "TF32": true,
+              "count": 1
+            }
+          ],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        },
+        {
+          "enabled": true,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [
+            {
+              "wide": false,
+              "M": 430,
+              "N": 768,
+              "K": 768,
+              "a_stride": [
+                768,
+                1
+              ],
+              "b_stride": [
+                1,
+                768
+              ],
+              "count": 1
+            }
+          ],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [
+            {
+              "requested_wide": false,
+              "M": 430,
+              "N": 768,
+              "K": 768,
+              "BLOCK_M": 32,
+              "BLOCK_N": 32,
+              "BLOCK_K": 32,
+              "TF32": true,
+              "count": 1
+            }
+          ],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        }
+      ]
+    },
+    {
+      "operator": "MM",
+      "input_kind": "seeded synthetic operands on recorded shape families",
+      "a_shape": [
+        245,
+        384
+      ],
+      "b_shape": [
+        384,
+        384
+      ],
+      "a_stride": [
+        384,
+        1
+      ],
+      "b_stride": [
+        1,
+        384
+      ],
+      "precision": "FP32",
+      "complete_output_byte_equal": true,
+      "CPU64_sample_errors": [
+        {
+          "sampled_elements": 256,
+          "relative_l2": 1.4084924006173323e-07,
+          "max_abs": 8.096231193022163e-06
+        },
+        {
+          "sampled_elements": 256,
+          "relative_l2": 1.4084924006173323e-07,
+          "max_abs": 8.096231193022163e-06
+        }
+      ],
+      "samples_ms": {
+        "False": [
+          0.109846,
+          0.124322,
+          0.121904,
+          0.102073,
+          0.094949,
+          0.092555,
+          0.094421,
+          0.092396,
+          0.112357,
+          0.099734,
+          0.094978,
+          0.115174,
+          0.118951,
+          0.101066,
+          0.097405,
+          0.094478,
+          0.093168,
+          0.092061,
+          0.113978,
+          0.09915,
+          0.098793,
+          0.10844,
+          0.112216,
+          0.114205,
+          0.103061,
+          0.095793,
+          0.117142,
+          0.120794,
+          0.098172,
+          0.095062,
+          0.093467,
+          0.093424,
+          0.099615,
+          0.142738,
+          0.12462,
+          0.13831,
+          0.147824,
+          0.097403,
+          0.094647,
+          0.091284
+        ],
+        "True": [
+          0.121765,
+          0.104288,
+          0.0963,
+          0.094508,
+          0.094923,
+          0.093277,
+          0.112429,
+          0.102158,
+          0.094521,
+          0.119332,
+          0.121772,
+          0.097046,
+          0.094164,
+          0.092124,
+          0.092072,
+          0.090088,
+          0.110385,
+          0.135664,
+          0.143865,
+          0.137331,
+          0.140729,
+          0.154445,
+          0.115827,
+          0.097124,
+          0.094605,
+          0.092916,
+          0.109729,
+          0.106247,
+          0.096211,
+          0.112873,
+          0.115751,
+          0.100403,
+          0.092914,
+          0.093074,
+          0.091256,
+          0.091551,
+          0.104714,
+          0.100092,
+          0.092469,
+          0.11124
+        ]
+      },
+      "control_ms": 0.0996745,
+      "candidate_ms": 0.1002475,
+      "execution": [
+        {
+          "enabled": false,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        },
+        {
+          "enabled": true,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        }
+      ]
+    },
+    {
+      "operator": "MM",
+      "input_kind": "seeded synthetic operands on recorded shape families",
+      "a_shape": [
+        245,
+        384
+      ],
+      "b_shape": [
+        384,
+        384
+      ],
+      "a_stride": [
+        384,
+        1
+      ],
+      "b_stride": [
+        1,
+        384
+      ],
+      "precision": "TF32",
+      "complete_output_byte_equal": true,
+      "CPU64_sample_errors": [
+        {
+          "sampled_elements": 256,
+          "relative_l2": 0.00027970387693944317,
+          "max_abs": 0.013898016668456137
+        },
+        {
+          "sampled_elements": 256,
+          "relative_l2": 0.00027970387693944317,
+          "max_abs": 0.013898016668456137
+        }
+      ],
+      "samples_ms": {
+        "False": [
+          0.103453,
+          0.099828,
+          0.120999,
+          0.107172,
+          0.111561,
+          0.126793,
+          0.115247,
+          0.101247,
+          0.099312,
+          0.098048,
+          0.097027,
+          0.112742,
+          0.105035,
+          0.0984,
+          0.132558,
+          0.140059,
+          0.102348,
+          0.097928,
+          0.096402,
+          0.096664,
+          0.112172,
+          0.177505,
+          0.143333,
+          0.133275,
+          0.10631,
+          0.102632,
+          0.114233,
+          0.110848,
+          0.101868,
+          0.122672,
+          0.126542,
+          0.105612,
+          0.099726,
+          0.09712,
+          0.09737,
+          0.103199,
+          0.154013,
+          0.103696,
+          0.199245,
+          0.132985
+        ],
+        "True": [
+          0.118587,
+          0.106278,
+          0.111058,
+          0.122683,
+          0.108931,
+          0.100289,
+          0.097865,
+          0.096687,
+          0.094986,
+          0.107183,
+          0.144856,
+          0.135094,
+          0.154135,
+          0.107235,
+          0.099375,
+          0.096004,
+          0.096634,
+          0.094481,
+          0.114127,
+          0.102196,
+          0.106854,
+          0.097886,
+          0.097975,
+          0.095396,
+          0.111469,
+          0.104769,
+          0.098078,
+          0.120216,
+          0.126132,
+          0.099375,
+          0.095922,
+          0.09485,
+          0.094021,
+          0.094738,
+          0.118916,
+          0.097829,
+          0.111258,
+          0.120576,
+          0.105239,
+          0.097881
+        ]
+      },
+      "control_ms": 0.105961,
+      "candidate_ms": 0.1034825,
+      "execution": [
+        {
+          "enabled": false,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        },
+        {
+          "enabled": true,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        }
+      ]
+    },
+    {
+      "operator": "MM",
+      "input_kind": "seeded synthetic operands on recorded shape families",
+      "a_shape": [
+        245,
+        384
+      ],
+      "b_shape": [
+        384,
+        1536
+      ],
+      "a_stride": [
+        384,
+        1
+      ],
+      "b_stride": [
+        1,
+        384
+      ],
+      "precision": "FP32",
+      "complete_output_byte_equal": true,
+      "CPU64_sample_errors": [
+        {
+          "sampled_elements": 256,
+          "relative_l2": 3.235607997823005e-07,
+          "max_abs": 3.4246436221962995e-05
+        },
+        {
+          "sampled_elements": 256,
+          "relative_l2": 3.235607997823005e-07,
+          "max_abs": 3.4246436221962995e-05
+        }
+      ],
+      "samples_ms": {
+        "False": [
+          0.207227,
+          0.213956,
+          0.196008,
+          0.184852,
+          0.184783,
+          0.194561,
+          0.215272,
+          0.193664,
+          0.183744,
+          0.186142,
+          0.196199,
+          0.206257,
+          0.194788,
+          0.183022,
+          0.184704,
+          0.193951,
+          0.202034,
+          0.195193,
+          0.182443,
+          0.182268,
+          0.18661,
+          0.20092,
+          0.195357,
+          0.208153,
+          0.185999,
+          0.181855,
+          0.19498,
+          0.189849,
+          0.209548,
+          0.194416,
+          0.181828,
+          0.179457,
+          0.19943,
+          0.193549,
+          0.190465,
+          0.181116,
+          0.182457,
+          0.19157,
+          0.199376,
+          0.193695
+        ],
+        "True": [
+          0.194433,
+          0.209541,
+          0.189967,
+          0.184506,
+          0.193924,
+          0.194852,
+          0.205373,
+          0.194044,
+          0.186014,
+          0.185137,
+          0.195767,
+          0.205009,
+          0.195105,
+          0.183214,
+          0.184123,
+          0.194043,
+          0.203258,
+          0.195256,
+          0.183396,
+          0.19063,
+          0.215487,
+          0.200263,
+          0.18903,
+          0.191316,
+          0.193748,
+          0.216685,
+          0.203629,
+          0.18983,
+          0.190819,
+          0.200863,
+          0.2131,
+          0.201394,
+          0.190127,
+          0.189518,
+          0.242517,
+          0.244947,
+          0.200959,
+          0.199988,
+          0.198774,
+          0.186316
+        ]
+      },
+      "control_ms": 0.1936795,
+      "candidate_ms": 0.1946425,
+      "execution": [
+        {
+          "enabled": false,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [
+            {
+              "wide": false,
+              "M": 245,
+              "N": 1536,
+              "K": 384,
+              "a_stride": [
+                384,
+                1
+              ],
+              "b_stride": [
+                1,
+                384
+              ],
+              "count": 1
+            }
+          ],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [
+            {
+              "requested_wide": false,
+              "M": 245,
+              "N": 1536,
+              "K": 384,
+              "BLOCK_M": 32,
+              "BLOCK_N": 32,
+              "BLOCK_K": 32,
+              "TF32": false,
+              "count": 1
+            }
+          ],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        },
+        {
+          "enabled": true,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [
+            {
+              "wide": false,
+              "M": 245,
+              "N": 1536,
+              "K": 384,
+              "a_stride": [
+                384,
+                1
+              ],
+              "b_stride": [
+                1,
+                384
+              ],
+              "count": 1
+            }
+          ],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [
+            {
+              "requested_wide": false,
+              "M": 245,
+              "N": 1536,
+              "K": 384,
+              "BLOCK_M": 32,
+              "BLOCK_N": 32,
+              "BLOCK_K": 32,
+              "TF32": false,
+              "count": 1
+            }
+          ],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        }
+      ]
+    },
+    {
+      "operator": "MM",
+      "input_kind": "seeded synthetic operands on recorded shape families",
+      "a_shape": [
+        245,
+        384
+      ],
+      "b_shape": [
+        384,
+        1536
+      ],
+      "a_stride": [
+        384,
+        1
+      ],
+      "b_stride": [
+        1,
+        384
+      ],
+      "precision": "TF32",
+      "complete_output_byte_equal": true,
+      "CPU64_sample_errors": [
+        {
+          "sampled_elements": 256,
+          "relative_l2": 0.00031764754138330126,
+          "max_abs": 0.017386475815605706
+        },
+        {
+          "sampled_elements": 256,
+          "relative_l2": 0.00031764754138330126,
+          "max_abs": 0.017386475815605706
+        }
+      ],
+      "samples_ms": {
+        "False": [
+          0.108974,
+          0.104869,
+          0.104548,
+          0.110943,
+          0.115684,
+          0.105936,
+          0.12125,
+          0.125989,
+          0.110654,
+          0.104602,
+          0.103239,
+          0.103397,
+          0.102926,
+          0.114149,
+          0.10414,
+          0.116759,
+          0.123699,
+          0.11034,
+          0.104584,
+          0.103567,
+          0.138834,
+          0.15079,
+          0.160582,
+          0.173962,
+          0.1511,
+          0.142976,
+          0.13751,
+          0.149938,
+          0.151278,
+          0.163629,
+          0.149688,
+          0.136514,
+          0.134358,
+          0.132655,
+          0.153023,
+          0.135906,
+          0.157779,
+          0.146738,
+          0.137191,
+          0.13438
+        ],
+        "True": [
+          0.15437,
+          0.133954,
+          0.132657,
+          0.121437,
+          0.119533,
+          0.138836,
+          0.13266,
+          0.142309,
+          0.139498,
+          0.121815,
+          0.119671,
+          0.11792,
+          0.120819,
+          0.13619,
+          0.123672,
+          0.151433,
+          0.136728,
+          0.129488,
+          0.123275,
+          0.122756,
+          0.135927,
+          0.141062,
+          0.137618,
+          0.1427,
+          0.16756,
+          0.128914,
+          0.137115,
+          0.125253,
+          0.136238,
+          0.133855,
+          0.11999,
+          0.154055,
+          0.130545,
+          0.139274,
+          0.123035,
+          0.117108,
+          0.154775,
+          0.12531,
+          0.156062,
+          0.136704
+        ]
+      },
+      "control_ms": 0.129322,
+      "candidate_ms": 0.13390449999999998,
+      "execution": [
+        {
+          "enabled": false,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [
+            {
+              "wide": false,
+              "M": 245,
+              "N": 1536,
+              "K": 384,
+              "a_stride": [
+                384,
+                1
+              ],
+              "b_stride": [
+                1,
+                384
+              ],
+              "count": 1
+            }
+          ],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [
+            {
+              "requested_wide": false,
+              "M": 245,
+              "N": 1536,
+              "K": 384,
+              "BLOCK_M": 32,
+              "BLOCK_N": 32,
+              "BLOCK_K": 32,
+              "TF32": true,
+              "count": 1
+            }
+          ],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        },
+        {
+          "enabled": true,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [
+            {
+              "wide": false,
+              "M": 245,
+              "N": 1536,
+              "K": 384,
+              "a_stride": [
+                384,
+                1
+              ],
+              "b_stride": [
+                1,
+                384
+              ],
+              "count": 1
+            }
+          ],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [
+            {
+              "requested_wide": false,
+              "M": 245,
+              "N": 1536,
+              "K": 384,
+              "BLOCK_M": 32,
+              "BLOCK_N": 32,
+              "BLOCK_K": 32,
+              "TF32": true,
+              "count": 1
+            }
+          ],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        }
+      ]
+    },
+    {
+      "operator": "MM",
+      "input_kind": "seeded synthetic operands on recorded shape families",
+      "a_shape": [
+        127,
+        259
+      ],
+      "b_shape": [
+        259,
+        139
+      ],
+      "a_stride": [
+        259,
+        1
+      ],
+      "b_stride": [
+        1,
+        259
+      ],
+      "precision": "FP32",
+      "complete_output_byte_equal": true,
+      "CPU64_sample_errors": [
+        {
+          "sampled_elements": 256,
+          "relative_l2": 1.1379032360833967e-07,
+          "max_abs": 5.892529500783894e-06
+        },
+        {
+          "sampled_elements": 256,
+          "relative_l2": 1.1379032360833967e-07,
+          "max_abs": 5.892529500783894e-06
+        }
+      ],
+      "samples_ms": {
+        "False": [
+          0.097083,
+          0.094849,
+          0.120832,
+          0.098992,
+          0.111485,
+          0.117142,
+          0.100069,
+          0.093172,
+          0.091655,
+          0.094505,
+          0.09005,
+          0.10149,
+          0.104248,
+          0.092045,
+          0.111208,
+          0.119362,
+          0.100655,
+          0.10027,
+          0.093743,
+          0.091697,
+          0.150212,
+          0.102712,
+          0.094554,
+          0.092196,
+          0.092681,
+          0.10471,
+          0.107839,
+          0.112045,
+          0.180836,
+          0.122857,
+          0.130393,
+          0.094246,
+          0.092199,
+          0.111004,
+          0.114959,
+          0.100026,
+          0.102895,
+          0.127322,
+          0.148002,
+          0.116997
+        ],
+        "True": [
+          0.095578,
+          0.09374,
+          0.110821,
+          0.101598,
+          0.094071,
+          0.132426,
+          0.119347,
+          0.096514,
+          0.093845,
+          0.090899,
+          0.09071,
+          0.091053,
+          0.110583,
+          0.099592,
+          0.105846,
+          0.106513,
+          0.118154,
+          0.096835,
+          0.092925,
+          0.091893,
+          0.110649,
+          0.09772,
+          0.120941,
+          0.118098,
+          0.110345,
+          0.136459,
+          0.114173,
+          0.116479,
+          0.132005,
+          0.097864,
+          0.113287,
+          0.123063,
+          0.102857,
+          0.095856,
+          0.093553,
+          0.093061,
+          0.105285,
+          0.157329,
+          0.120365,
+          0.143536
+        ]
+      },
+      "control_ms": 0.102101,
+      "candidate_ms": 0.1055655,
+      "execution": [
+        {
+          "enabled": false,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        },
+        {
+          "enabled": true,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        }
+      ]
+    },
+    {
+      "operator": "MM",
+      "input_kind": "seeded synthetic operands on recorded shape families",
+      "a_shape": [
+        127,
+        259
+      ],
+      "b_shape": [
+        259,
+        139
+      ],
+      "a_stride": [
+        259,
+        1
+      ],
+      "b_stride": [
+        1,
+        259
+      ],
+      "precision": "TF32",
+      "complete_output_byte_equal": true,
+      "CPU64_sample_errors": [
+        {
+          "sampled_elements": 256,
+          "relative_l2": 0.0003210649027895845,
+          "max_abs": 0.014702976985025984
+        },
+        {
+          "sampled_elements": 256,
+          "relative_l2": 0.0003210649027895845,
+          "max_abs": 0.014702976985025984
+        }
+      ],
+      "samples_ms": {
+        "False": [
+          0.116315,
+          0.100583,
+          0.119373,
+          0.121973,
+          0.103389,
+          0.097423,
+          0.096413,
+          0.093253,
+          0.095325,
+          0.114312,
+          0.098906,
+          0.106726,
+          0.118518,
+          0.108274,
+          0.095953,
+          0.0927,
+          0.0938,
+          0.092709,
+          0.0925,
+          0.114411,
+          0.106077,
+          0.102113,
+          0.098696,
+          0.135272,
+          0.105099,
+          0.115051,
+          0.12137,
+          0.106055,
+          0.096289,
+          0.096238,
+          0.098126,
+          0.09629,
+          0.112231,
+          0.106705,
+          0.098286,
+          0.120079,
+          0.124263,
+          0.098553,
+          0.096882,
+          0.095644
+        ],
+        "True": [
+          0.12393,
+          0.106651,
+          0.098322,
+          0.094062,
+          0.096358,
+          0.094053,
+          0.115734,
+          0.105893,
+          0.108622,
+          0.160188,
+          0.127914,
+          0.122532,
+          0.10072,
+          0.095716,
+          0.111816,
+          0.107625,
+          0.096093,
+          0.116951,
+          0.121201,
+          0.103556,
+          0.111313,
+          0.098776,
+          0.095652,
+          0.095368,
+          0.094992,
+          0.119295,
+          0.097653,
+          0.110864,
+          0.115316,
+          0.104239,
+          0.096248,
+          0.093554,
+          0.092197,
+          0.089691,
+          0.093174,
+          0.114537,
+          0.095999,
+          0.109603,
+          0.11558,
+          0.10325
+        ]
+      },
+      "control_ms": 0.101348,
+      "candidate_ms": 0.1038975,
+      "execution": [
+        {
+          "enabled": false,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        },
+        {
+          "enabled": true,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        }
+      ]
+    },
+    {
+      "operator": "BMM",
+      "input_kind": "existing real TF32-training operands evaluated in each precision setting",
+      "packet": "bmm_packet_0.pt",
+      "packet_sha256": "74865436bff3df31f8f5bde228b9bd7ccbfea0886ba930f548bbc668a23f8c66",
+      "a_shape": [
+        64,
+        600,
+        600
+      ],
+      "b_shape": [
+        64,
+        600,
+        600
+      ],
+      "a_stride": [
+        1,
+        38400,
+        64
+      ],
+      "b_stride": [
+        1,
+        64,
+        38400
+      ],
+      "precision": "FP32",
+      "complete_output_byte_equal": true,
+      "CPU64_sample_errors": [
+        {
+          "sampled_elements": 512,
+          "relative_l2": 4.0929572138622445e-07,
+          "max_abs": 8.651373752588051e-11
+        },
+        {
+          "sampled_elements": 512,
+          "relative_l2": 4.0929572138622445e-07,
+          "max_abs": 8.651373752588051e-11
+        }
+      ],
+      "samples_ms": {
+        "False": [
+          3.7558,
+          3.829436,
+          3.749116,
+          3.7438,
+          3.753886,
+          3.759422,
+          3.757615,
+          3.704118,
+          3.694066,
+          3.680595,
+          3.684603,
+          3.70107,
+          3.683895,
+          3.682846,
+          3.691672,
+          3.66889,
+          3.68933,
+          3.674331,
+          3.698577,
+          3.686609,
+          3.755626,
+          3.738966,
+          3.736133,
+          3.743813,
+          3.721199,
+          3.732336,
+          3.731034,
+          3.761192,
+          3.737678,
+          3.728831,
+          3.730104,
+          3.736087,
+          3.741968,
+          3.745767,
+          3.724927,
+          3.744901,
+          3.741366,
+          3.739724,
+          3.736345,
+          3.732964
+        ],
+        "True": [
+          2.261173,
+          2.158859,
+          2.852757,
+          2.116378,
+          2.10657,
+          2.0952,
+          2.107635,
+          2.092245,
+          2.093842,
+          2.092059,
+          2.094701,
+          2.092575,
+          2.116492,
+          2.090168,
+          2.137194,
+          2.103285,
+          2.096676,
+          2.091224,
+          2.094943,
+          2.116771,
+          2.122835,
+          2.110045,
+          2.119811,
+          2.111371,
+          2.12254,
+          2.121335,
+          2.121982,
+          2.108548,
+          2.107851,
+          2.113712,
+          2.108431,
+          2.120704,
+          2.110307,
+          2.123657,
+          2.122096,
+          2.110066,
+          2.122585,
+          2.115496,
+          2.10583,
+          2.123965
+        ]
+      },
+      "control_ms": 3.7345255,
+      "candidate_ms": 2.1108390000000004,
+      "execution": [
+        {
+          "enabled": false,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [],
+          "dense_copy_calls": [
+            {
+              "selected": false,
+              "shape": [
+                64,
+                600,
+                600
+              ],
+              "stride": [
+                1,
+                38400,
+                64
+              ],
+              "count": 1
+            },
+            {
+              "selected": false,
+              "shape": [
+                64,
+                600,
+                600
+              ],
+              "stride": [
+                1,
+                64,
+                38400
+              ],
+              "count": 1
+            }
+          ],
+          "actual_general_MM_calls": [],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        },
+        {
+          "enabled": true,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [],
+          "dense_copy_calls": [
+            {
+              "selected": true,
+              "shape": [
+                64,
+                600,
+                600
+              ],
+              "stride": [
+                1,
+                38400,
+                64
+              ],
+              "count": 1
+            },
+            {
+              "selected": true,
+              "shape": [
+                64,
+                600,
+                600
+              ],
+              "stride": [
+                1,
+                64,
+                38400
+              ],
+              "count": 1
+            }
+          ],
+          "actual_general_MM_calls": [],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        }
+      ]
+    },
+    {
+      "operator": "BMM",
+      "input_kind": "existing real TF32-training operands evaluated in each precision setting",
+      "packet": "bmm_packet_0.pt",
+      "packet_sha256": "74865436bff3df31f8f5bde228b9bd7ccbfea0886ba930f548bbc668a23f8c66",
+      "a_shape": [
+        64,
+        600,
+        600
+      ],
+      "b_shape": [
+        64,
+        600,
+        600
+      ],
+      "a_stride": [
+        1,
+        38400,
+        64
+      ],
+      "b_stride": [
+        1,
+        64,
+        38400
+      ],
+      "precision": "TF32",
+      "complete_output_byte_equal": true,
+      "CPU64_sample_errors": [
+        {
+          "sampled_elements": 512,
+          "relative_l2": 2.1328861234261092e-05,
+          "max_abs": 3.412169351593459e-09
+        },
+        {
+          "sampled_elements": 512,
+          "relative_l2": 2.1328861234261092e-05,
+          "max_abs": 3.412169351593459e-09
+        }
+      ],
+      "samples_ms": {
+        "False": [
+          1.330795,
+          1.309799,
+          1.30856,
+          1.309399,
+          1.317049,
+          1.300214,
+          1.301434,
+          1.296075,
+          1.313292,
+          1.292827,
+          1.308783,
+          1.30586,
+          1.305146,
+          1.291927,
+          1.301392,
+          1.295413,
+          1.317652,
+          1.288219,
+          1.317824,
+          1.289028,
+          1.604961,
+          1.325158,
+          1.314503,
+          1.308365,
+          1.320363,
+          1.312107,
+          1.331927,
+          1.302449,
+          1.295759,
+          1.325128,
+          1.327243,
+          1.302399,
+          1.314966,
+          1.309398,
+          1.292859,
+          1.301733,
+          1.312604,
+          1.304876,
+          1.301298,
+          1.297817
+        ],
+        "True": [
+          1.339825,
+          1.298051,
+          1.30983,
+          1.294789,
+          1.296875,
+          1.300082,
+          1.301982,
+          1.301906,
+          1.290973,
+          1.298638,
+          1.361586,
+          1.336258,
+          1.304869,
+          1.329146,
+          1.301449,
+          1.309004,
+          1.321475,
+          1.303316,
+          1.318846,
+          1.309437,
+          1.337729,
+          1.321695,
+          1.307558,
+          1.316362,
+          1.320821,
+          1.307942,
+          1.302847,
+          1.330819,
+          1.30296,
+          1.323243,
+          1.301987,
+          1.299335,
+          1.311985,
+          1.302262,
+          1.308997,
+          1.302444,
+          1.331339,
+          1.300686,
+          1.293562,
+          1.293373
+        ]
+      },
+      "control_ms": 1.3084625,
+      "candidate_ms": 1.3062135000000001,
+      "execution": [
+        {
+          "enabled": false,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        },
+        {
+          "enabled": true,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        }
+      ]
+    },
+    {
+      "operator": "BMM",
+      "input_kind": "existing real TF32-training operands evaluated in each precision setting",
+      "packet": "bmm_packet_1.pt",
+      "packet_sha256": "ae59347f91b9b1b53749f871980edc27a3a7a22f60923413c4f13a69af7c7798",
+      "a_shape": [
+        64,
+        600,
+        600
+      ],
+      "b_shape": [
+        64,
+        600,
+        600
+      ],
+      "a_stride": [
+        1,
+        64,
+        38400
+      ],
+      "b_stride": [
+        1,
+        38400,
+        64
+      ],
+      "precision": "FP32",
+      "complete_output_byte_equal": true,
+      "CPU64_sample_errors": [
+        {
+          "sampled_elements": 512,
+          "relative_l2": 3.7029321363076857e-07,
+          "max_abs": 1.5321785778055902e-09
+        },
+        {
+          "sampled_elements": 512,
+          "relative_l2": 3.7029321363076857e-07,
+          "max_abs": 1.5321785778055902e-09
+        }
+      ],
+      "samples_ms": {
+        "False": [
+          3.697542,
+          3.727309,
+          3.686671,
+          3.668018,
+          3.676038,
+          3.671654,
+          3.676924,
+          3.681035,
+          3.66868,
+          3.681264,
+          3.667738,
+          3.687722,
+          3.665604,
+          3.686368,
+          3.688394,
+          3.685878,
+          3.679386,
+          3.688229,
+          3.681552,
+          3.679303,
+          3.686299,
+          3.70549,
+          3.687136,
+          3.691538,
+          3.713415,
+          3.740325,
+          3.695263,
+          3.673498,
+          3.683645,
+          3.674737,
+          3.686087,
+          3.688011,
+          3.675535,
+          3.668171,
+          3.690275,
+          3.675569,
+          3.669571,
+          3.69026,
+          3.675004,
+          3.672219
+        ],
+        "True": [
+          2.090967,
+          2.134877,
+          2.108382,
+          2.08785,
+          2.093587,
+          2.090365,
+          2.093033,
+          2.086124,
+          2.084437,
+          2.126041,
+          2.091973,
+          2.085756,
+          2.099605,
+          2.097182,
+          2.081066,
+          2.097138,
+          2.084488,
+          2.086375,
+          2.088502,
+          2.085619,
+          2.383257,
+          2.105312,
+          2.099529,
+          2.091915,
+          2.092224,
+          2.085083,
+          2.086092,
+          2.089934,
+          2.087983,
+          2.082628,
+          2.091162,
+          2.097286,
+          2.078235,
+          2.085402,
+          2.08865,
+          2.101833,
+          2.079629,
+          2.088013,
+          2.083305,
+          2.083092
+        ]
+      },
+      "control_ms": 3.6825985,
+      "candidate_ms": 2.089292,
+      "execution": [
+        {
+          "enabled": false,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [],
+          "dense_copy_calls": [
+            {
+              "selected": false,
+              "shape": [
+                64,
+                600,
+                600
+              ],
+              "stride": [
+                1,
+                64,
+                38400
+              ],
+              "count": 1
+            },
+            {
+              "selected": false,
+              "shape": [
+                64,
+                600,
+                600
+              ],
+              "stride": [
+                1,
+                38400,
+                64
+              ],
+              "count": 1
+            }
+          ],
+          "actual_general_MM_calls": [],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        },
+        {
+          "enabled": true,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [],
+          "dense_copy_calls": [
+            {
+              "selected": true,
+              "shape": [
+                64,
+                600,
+                600
+              ],
+              "stride": [
+                1,
+                64,
+                38400
+              ],
+              "count": 1
+            },
+            {
+              "selected": true,
+              "shape": [
+                64,
+                600,
+                600
+              ],
+              "stride": [
+                1,
+                38400,
+                64
+              ],
+              "count": 1
+            }
+          ],
+          "actual_general_MM_calls": [],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        }
+      ]
+    },
+    {
+      "operator": "BMM",
+      "input_kind": "existing real TF32-training operands evaluated in each precision setting",
+      "packet": "bmm_packet_1.pt",
+      "packet_sha256": "ae59347f91b9b1b53749f871980edc27a3a7a22f60923413c4f13a69af7c7798",
+      "a_shape": [
+        64,
+        600,
+        600
+      ],
+      "b_shape": [
+        64,
+        600,
+        600
+      ],
+      "a_stride": [
+        1,
+        64,
+        38400
+      ],
+      "b_stride": [
+        1,
+        38400,
+        64
+      ],
+      "precision": "TF32",
+      "complete_output_byte_equal": true,
+      "CPU64_sample_errors": [
+        {
+          "sampled_elements": 512,
+          "relative_l2": 1.2470071744532005e-05,
+          "max_abs": 6.29902231871933e-08
+        },
+        {
+          "sampled_elements": 512,
+          "relative_l2": 1.2470071744532005e-05,
+          "max_abs": 6.29902231871933e-08
+        }
+      ],
+      "samples_ms": {
+        "False": [
+          1.527499,
+          1.408876,
+          1.314424,
+          1.313225,
+          1.304269,
+          1.311885,
+          1.321447,
+          1.312569,
+          1.410398,
+          1.302215,
+          1.292573,
+          1.303061,
+          1.301415,
+          1.291828,
+          1.285203,
+          1.285008,
+          1.299669,
+          1.286325,
+          1.29703,
+          1.296703,
+          1.284598,
+          1.292776,
+          1.284674,
+          1.29012,
+          1.293389,
+          1.285968,
+          1.290286,
+          1.306313,
+          1.28252,
+          1.284601,
+          1.294752,
+          1.296175,
+          1.280636,
+          1.284689,
+          1.284268,
+          1.284822,
+          1.28398,
+          1.296904,
+          1.285721,
+          1.280872
+        ],
+        "True": [
+          1.282613,
+          1.283067,
+          1.283219,
+          1.281034,
+          1.280939,
+          1.29325,
+          1.287058,
+          1.284379,
+          1.283258,
+          1.283013,
+          1.286982,
+          1.282108,
+          1.284983,
+          1.287605,
+          1.28364,
+          1.286039,
+          1.285069,
+          1.280434,
+          1.288254,
+          1.283065,
+          1.305693,
+          1.290712,
+          1.307302,
+          1.290153,
+          1.28581,
+          1.28505,
+          1.287002,
+          1.287107,
+          1.286476,
+          1.286439,
+          1.28423,
+          1.28251,
+          1.287354,
+          1.2806,
+          1.280878,
+          1.280582,
+          1.284107,
+          1.28347,
+          1.282835,
+          1.28364
+        ]
+      },
+      "control_ms": 1.2930825,
+      "candidate_ms": 1.2843045,
+      "execution": [
+        {
+          "enabled": false,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        },
+        {
+          "enabled": true,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        }
+      ]
+    },
+    {
+      "operator": "BMM",
+      "input_kind": "existing real TF32-training operands evaluated in each precision setting",
+      "packet": "bmm_packet_2.pt",
+      "packet_sha256": "f55bc13e7b28f14a7f1fc122bf886f7f7053d8b8fe6773c08831560a0942b2be",
+      "a_shape": [
+        256,
+        600,
+        600
+      ],
+      "b_shape": [
+        256,
+        600,
+        600
+      ],
+      "a_stride": [
+        1,
+        153600,
+        256
+      ],
+      "b_stride": [
+        1,
+        256,
+        153600
+      ],
+      "precision": "FP32",
+      "complete_output_byte_equal": true,
+      "CPU64_sample_errors": [
+        {
+          "sampled_elements": 512,
+          "relative_l2": 1.0,
+          "max_abs": 1.2415987676386373e-46
+        },
+        {
+          "sampled_elements": 512,
+          "relative_l2": 1.0,
+          "max_abs": 1.2415987676386373e-46
+        }
+      ],
+      "samples_ms": {
+        "False": [
+          21.931896,
+          22.228043,
+          21.912698,
+          21.905152,
+          21.892298,
+          21.92733,
+          21.943502,
+          21.885778,
+          21.888924,
+          21.926445,
+          21.991262,
+          22.188898,
+          21.951455,
+          21.907255,
+          21.904631,
+          21.893989,
+          21.899351,
+          21.89438,
+          21.87897,
+          21.882412,
+          21.984728,
+          21.897125,
+          21.876144,
+          21.888064,
+          22.60386,
+          22.310141,
+          21.914689,
+          21.902084,
+          21.892094,
+          22.015341,
+          21.994408,
+          21.950172,
+          21.934279,
+          21.975477,
+          22.056347,
+          22.004142,
+          21.952624,
+          21.951529,
+          21.950157,
+          21.92924
+        ],
+        "True": [
+          8.435988,
+          8.061631,
+          8.057867,
+          8.026136,
+          8.034002,
+          8.033888,
+          8.048176,
+          8.071692,
+          8.060817,
+          8.028074,
+          8.051194,
+          8.061117,
+          8.028765,
+          8.031696,
+          8.024939,
+          8.063753,
+          8.121064,
+          8.03342,
+          8.089311,
+          8.043956,
+          8.048617,
+          8.029649,
+          8.048776,
+          8.028233,
+          8.032814,
+          8.037933,
+          8.036098,
+          8.031895,
+          8.074359,
+          8.05566,
+          8.03035,
+          8.087931,
+          8.351705,
+          8.052565,
+          8.028339,
+          8.047567,
+          8.039976,
+          8.034115,
+          8.036872,
+          8.019955
+        ]
+      },
+      "control_ms": 21.928285000000002,
+      "candidate_ms": 8.041965999999999,
+      "execution": [
+        {
+          "enabled": false,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [],
+          "dense_copy_calls": [
+            {
+              "selected": false,
+              "shape": [
+                256,
+                600,
+                600
+              ],
+              "stride": [
+                1,
+                153600,
+                256
+              ],
+              "count": 1
+            },
+            {
+              "selected": false,
+              "shape": [
+                256,
+                600,
+                600
+              ],
+              "stride": [
+                1,
+                256,
+                153600
+              ],
+              "count": 1
+            }
+          ],
+          "actual_general_MM_calls": [],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        },
+        {
+          "enabled": true,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [],
+          "dense_copy_calls": [
+            {
+              "selected": true,
+              "shape": [
+                256,
+                600,
+                600
+              ],
+              "stride": [
+                1,
+                153600,
+                256
+              ],
+              "count": 1
+            },
+            {
+              "selected": true,
+              "shape": [
+                256,
+                600,
+                600
+              ],
+              "stride": [
+                1,
+                256,
+                153600
+              ],
+              "count": 1
+            }
+          ],
+          "actual_general_MM_calls": [],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        }
+      ]
+    },
+    {
+      "operator": "BMM",
+      "input_kind": "existing real TF32-training operands evaluated in each precision setting",
+      "packet": "bmm_packet_2.pt",
+      "packet_sha256": "f55bc13e7b28f14a7f1fc122bf886f7f7053d8b8fe6773c08831560a0942b2be",
+      "a_shape": [
+        256,
+        600,
+        600
+      ],
+      "b_shape": [
+        256,
+        600,
+        600
+      ],
+      "a_stride": [
+        1,
+        153600,
+        256
+      ],
+      "b_stride": [
+        1,
+        256,
+        153600
+      ],
+      "precision": "TF32",
+      "complete_output_byte_equal": true,
+      "CPU64_sample_errors": [
+        {
+          "sampled_elements": 512,
+          "relative_l2": 1.0,
+          "max_abs": 1.2415987676386373e-46
+        },
+        {
+          "sampled_elements": 512,
+          "relative_l2": 1.0,
+          "max_abs": 1.2415987676386373e-46
+        }
+      ],
+      "samples_ms": {
+        "False": [
+          4.937602,
+          4.964735,
+          4.900217,
+          4.902707,
+          4.904646,
+          4.901044,
+          4.903534,
+          4.894258,
+          4.893515,
+          4.936851,
+          4.911037,
+          4.891013,
+          4.92982,
+          5.061598,
+          4.949848,
+          4.908908,
+          4.910501,
+          4.922581,
+          4.913499,
+          4.898539,
+          5.608093,
+          4.912444,
+          4.899388,
+          4.891366,
+          4.898773,
+          4.917208,
+          4.890803,
+          4.886204,
+          4.896417,
+          4.899414,
+          4.886885,
+          4.8834,
+          4.891445,
+          4.896062,
+          4.897402,
+          4.89681,
+          4.911368,
+          4.886355,
+          4.886971,
+          4.900011
+        ],
+        "True": [
+          4.914542,
+          4.899826,
+          4.911897,
+          4.919783,
+          4.910837,
+          4.909134,
+          4.904711,
+          4.893931,
+          4.893252,
+          6.29968,
+          5.247196,
+          4.914786,
+          4.911192,
+          4.896466,
+          4.923968,
+          4.900664,
+          4.888248,
+          4.904762,
+          4.897179,
+          4.901801,
+          4.9294,
+          4.892062,
+          4.908739,
+          4.909078,
+          4.901733,
+          4.891763,
+          4.895497,
+          4.916385,
+          4.904647,
+          4.88825,
+          4.897518,
+          4.896212,
+          4.906724,
+          4.90496,
+          4.897132,
+          4.890281,
+          4.896478,
+          4.912766,
+          4.898989,
+          4.900302
+        ]
+      },
+      "control_ms": 4.900114,
+      "candidate_ms": 4.903224,
+      "execution": [
+        {
+          "enabled": false,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        },
+        {
+          "enabled": true,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        }
+      ]
+    },
+    {
+      "operator": "BMM",
+      "input_kind": "existing real TF32-training operands evaluated in each precision setting",
+      "packet": "bmm_packet_3.pt",
+      "packet_sha256": "99005fa068062714898a9562a9c1d8e06310d4131c3fbe8dff07d91ecc480116",
+      "a_shape": [
+        256,
+        600,
+        600
+      ],
+      "b_shape": [
+        256,
+        600,
+        600
+      ],
+      "a_stride": [
+        1,
+        256,
+        153600
+      ],
+      "b_stride": [
+        1,
+        153600,
+        256
+      ],
+      "precision": "FP32",
+      "complete_output_byte_equal": true,
+      "CPU64_sample_errors": [
+        {
+          "sampled_elements": 512,
+          "relative_l2": 8.805533501239569e-07,
+          "max_abs": 2.360307264567818e-08
+        },
+        {
+          "sampled_elements": 512,
+          "relative_l2": 8.805533501239569e-07,
+          "max_abs": 2.360307264567818e-08
+        }
+      ],
+      "samples_ms": {
+        "False": [
+          21.967547,
+          22.396281,
+          22.485281,
+          21.957816,
+          21.959033,
+          21.917037,
+          21.902881,
+          21.943863,
+          22.016098,
+          21.890755,
+          21.903635,
+          21.906667,
+          21.887008,
+          21.880546,
+          21.900375,
+          21.911647,
+          21.902827,
+          21.899556,
+          21.901181,
+          21.902102,
+          21.945922,
+          21.947055,
+          22.536805,
+          22.036863,
+          21.930232,
+          21.905595,
+          21.919311,
+          21.909795,
+          21.907556,
+          21.894915,
+          22.749536,
+          24.592865,
+          21.948616,
+          21.900747,
+          21.914358,
+          21.901668,
+          21.923063,
+          21.909452,
+          21.896444,
+          21.909209
+        ],
+        "True": [
+          8.079869,
+          8.075436,
+          8.36937,
+          8.062146,
+          8.044536,
+          8.039428,
+          8.064292,
+          8.036923,
+          8.034071,
+          8.037738,
+          8.035578,
+          8.034294,
+          8.035155,
+          8.020596,
+          8.032484,
+          8.058445,
+          8.042779,
+          8.029917,
+          8.03588,
+          8.046599,
+          8.047079,
+          8.05242,
+          8.054512,
+          8.033146,
+          8.029931,
+          8.030803,
+          8.053228,
+          8.173975,
+          8.141255,
+          8.662304,
+          8.072694,
+          8.04904,
+          8.090655,
+          8.05755,
+          8.061112,
+          8.044746,
+          8.053607,
+          8.040086,
+          8.070576,
+          8.040663
+        ]
+      },
+      "control_ms": 21.910721,
+      "candidate_ms": 8.046839,
+      "execution": [
+        {
+          "enabled": false,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [],
+          "dense_copy_calls": [
+            {
+              "selected": false,
+              "shape": [
+                256,
+                600,
+                600
+              ],
+              "stride": [
+                1,
+                256,
+                153600
+              ],
+              "count": 1
+            },
+            {
+              "selected": false,
+              "shape": [
+                256,
+                600,
+                600
+              ],
+              "stride": [
+                1,
+                153600,
+                256
+              ],
+              "count": 1
+            }
+          ],
+          "actual_general_MM_calls": [],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        },
+        {
+          "enabled": true,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [],
+          "dense_copy_calls": [
+            {
+              "selected": true,
+              "shape": [
+                256,
+                600,
+                600
+              ],
+              "stride": [
+                1,
+                256,
+                153600
+              ],
+              "count": 1
+            },
+            {
+              "selected": true,
+              "shape": [
+                256,
+                600,
+                600
+              ],
+              "stride": [
+                1,
+                153600,
+                256
+              ],
+              "count": 1
+            }
+          ],
+          "actual_general_MM_calls": [],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        }
+      ]
+    },
+    {
+      "operator": "BMM",
+      "input_kind": "existing real TF32-training operands evaluated in each precision setting",
+      "packet": "bmm_packet_3.pt",
+      "packet_sha256": "99005fa068062714898a9562a9c1d8e06310d4131c3fbe8dff07d91ecc480116",
+      "a_shape": [
+        256,
+        600,
+        600
+      ],
+      "b_shape": [
+        256,
+        600,
+        600
+      ],
+      "a_stride": [
+        1,
+        256,
+        153600
+      ],
+      "b_stride": [
+        1,
+        153600,
+        256
+      ],
+      "precision": "TF32",
+      "complete_output_byte_equal": true,
+      "CPU64_sample_errors": [
+        {
+          "sampled_elements": 512,
+          "relative_l2": 5.171694692147412e-05,
+          "max_abs": 7.328137866836892e-07
+        },
+        {
+          "sampled_elements": 512,
+          "relative_l2": 5.171694692147412e-05,
+          "max_abs": 7.328137866836892e-07
+        }
+      ],
+      "samples_ms": {
+        "False": [
+          5.002999,
+          4.924829,
+          4.912778,
+          4.905552,
+          4.909499,
+          4.897981,
+          4.893008,
+          4.890961,
+          4.899685,
+          4.896204,
+          4.894919,
+          4.890529,
+          4.903558,
+          4.896383,
+          4.90559,
+          5.01038,
+          4.934713,
+          4.902718,
+          4.917087,
+          4.908494,
+          4.924651,
+          4.891847,
+          4.907925,
+          4.893363,
+          4.894959,
+          4.891637,
+          4.888406,
+          4.890533,
+          4.894102,
+          4.89834,
+          4.891438,
+          4.889136,
+          4.887715,
+          4.878068,
+          4.887859,
+          4.879693,
+          4.885813,
+          4.887585,
+          4.904283,
+          4.884141
+        ],
+        "True": [
+          4.980101,
+          4.942557,
+          5.134758,
+          5.032026,
+          4.919346,
+          4.902828,
+          4.894089,
+          4.922279,
+          4.89164,
+          4.891527,
+          4.883244,
+          4.883455,
+          4.898893,
+          4.887356,
+          4.893043,
+          4.892982,
+          4.881464,
+          4.883116,
+          4.88883,
+          4.88609,
+          4.892069,
+          4.886502,
+          4.885939,
+          4.886537,
+          4.899671,
+          4.880945,
+          4.889942,
+          4.899021,
+          4.896059,
+          4.888301,
+          4.883269,
+          4.891744,
+          4.885114,
+          4.885801,
+          4.888429,
+          4.888007,
+          4.882947,
+          4.906547,
+          4.908412,
+          4.886825
+        ]
+      },
+      "control_ms": 4.8955815000000005,
+      "candidate_ms": 4.8907345,
+      "execution": [
+        {
+          "enabled": false,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        },
+        {
+          "enabled": true,
+          "changed_functions": [
+            "general_MM_output_tiles",
+            "dense_layout_copy"
+          ],
+          "sources": {
+            "MM": "a43e5283fb095f56faaed52f43bfd1cfd1dbea9a0739570b50d58e84d122f34b",
+            "BMM_pack": "7c9817e9939d0e588e07c3ce0b0f88745a5a578a2ced6bd2006c59423bad175f",
+            "dense_copy": "6d53a007d2ba367181c2df48c4ba37cf28a34a91d27f1b85f74a998d5b6c6b4f"
+          },
+          "general_MM_calls": [],
+          "dense_copy_calls": [],
+          "actual_general_MM_calls": [],
+          "selection": "Existing complete implementation in both paths; toggle general-MM wide tiles and physical-order dense copy only."
+        }
+      ]
+    }
+  ],
+  "new_H100_execution": false,
+  "scope": "Complete registered MM/BMM call, including allocations/copies and device synchronization; 40 samples per path in ABBA order."
+}

@@ -1,5 +1,7 @@
 # Protenix PPU / FlagGems 实验索引
 
+最新 [2026-11-10 FP32 MM 与 BMM 布局复制优化](protenix_fp32_mfu_20261110/README.md) 记录按设备资源选择计算块、沿物理连续方向整理输入，以及算子和整网的配对验收。
+
 上游合并、冲突实现取舍和服务器训练修复同步见 [2026-11-06 合并验收](protenix_upstream_merge_20261106/README.md)。
 
 LayerNorm 结果见 [2026-11-06 反向优化](protenix_layernorm_20261106/README.md)：核心维度修正与融合候选分别归档。
