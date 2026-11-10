@@ -18855,6 +18855,28 @@ primal value saved by `fw_primal` into the caller-supplied `out` buffer.
   - NeuralNetwork
   stages:
   - stable: '3.0'
+- id: sigmoid_mul
+  description: PPU FP32 sigmoid followed by multiplication, preserving separate-operation rounding and first-order gradients.
+  for:
+  - sigmoid_mul
+  labels:
+  - fused
+  - pointwise
+  kind:
+  - Activation
+  stages:
+  - beta: '5.5'
+- id: sigmoid_mul_add
+  description: PPU FP32 sigmoid, multiplication and addition with rounded operations and ordered broadcast gradients.
+  for:
+  - sigmoid_mul_add
+  labels:
+  - fused
+  - pointwise
+  kind:
+  - Activation
+  stages:
+  - beta: '5.5'
 - id: sign
   description: 'Returns a new tensor with the sign of the elements of input.
 
@@ -19010,6 +19032,17 @@ primal value saved by `fw_primal` into the caller-supplied `out` buffer.
   - NeuralNetwork
   stages:
   - stable: '3.0'
+- id: silu_mul
+  description: PPU FP32 SiLU followed by multiplication, preserving separate-operation rounding and first-order gradients.
+  for:
+  - silu_mul
+  labels:
+  - fused
+  - pointwise
+  kind:
+  - Activation
+  stages:
+  - beta: '5.5'
 - id: sin
   description: 'Returns a new tensor with the sine of the elements in the `input`
     tensor,

@@ -12,8 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from .gated_activation import sigmoid_mul, sigmoid_mul_add, silu_mul
 from .unified_attention import unified_attention
 
 __all__ = [
+    "sigmoid_mul",
+    "sigmoid_mul_add",
+    "silu_mul",
     "unified_attention",
 ]

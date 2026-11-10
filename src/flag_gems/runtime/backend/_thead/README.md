@@ -54,3 +54,25 @@ export GEMS_VENDOR=thead
 
 # Optional: Configure PPU-specific settings
 export HGGC_EXCLUSIVE_STREAMS=1  # Map streams to different hardware queues
+
+```
+
+### FP32 fused gating
+
+The PPU backend exposes `flag_gems.sigmoid_mul(gate, value)`,
+`flag_gems.sigmoid_mul_add(gate, value, shift)` and
+`flag_gems.silu_mul(gate, value)`. These APIs accept FP32 tensors on the same
+PPU, with compatible broadcasting and strided layouts. They preserve the
+rounding of the separate PPU FlagGems operations, including separate rounded
+multiplication and addition. The matrix-multiplication precision setting does
+not change these FP32 elementwise operations.
+
+The APIs support first-order autograd. Backward preserves Add and Mul broadcast
+reductions before applying the existing activation derivative. Training stages
+the original activation where required to retain that ordering. Higher-order
+backward is rejected by `once_differentiable`.
+
+Use these APIs inside the normal `flag_gems.use_gems()` context. The Protenix
+integration uses them for adaptive normalization and conditioned transitions;
+the dispatch depends on dtype, layout and element count, without model or input
+identifiers.
