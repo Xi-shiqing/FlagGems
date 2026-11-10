@@ -27854,9 +27854,14 @@
   "new_H100_execution": false,
   "graph_enabled": false,
   "training_snapshot_scope": {
-    "full_gradients_and_actual_updates": "first accuracy step only",
+    "full_gradients_and_actual_updates": "second accuracy step, native audit_step=1",
     "loss_gradient_norm_input_ordered_RNG": "both accuracy steps",
-    "initial_parameters": "accuracy-run initial snapshots; performance runs verify checkpoint file SHA"
+    "initial_parameters": "accuracy-run initial snapshots; performance runs verify checkpoint file SHA",
+    "native_audit_step": 1,
+    "actual_parameter_audit_sha256": {
+      "fp32": "19948bc87704cc6c7eecfd86e0037d58a4526cb74d1269c363a7d5190f75abc3",
+      "tf32": "dc4ce10c8c57dc46fc69c9b199b1967b19412beb4b7847d0b57b0aa65bf85808"
+    }
   },
   "stored_H100_protocol_differences": {
     "global_deterministic_algorithms": {
