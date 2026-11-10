@@ -58,7 +58,8 @@ def test_public_bmm_fp32_pack(monkeypatch, layout, tf32):
 
 
 @pytest.mark.bmm
-def test_bmm_pack_guards_and_oom(monkeypatch):
+@pytest.mark.parametrize("failure_copy", [1, 2])
+def test_bmm_pack_guards_and_oom(monkeypatch, failure_copy):
     policy = backend()._fp32_pack
     monkeypatch.setattr(policy, "ENABLED", True)
     a = interleaved(torch.ones(32, 128, 129, device=flag_gems.device))
@@ -72,10 +73,17 @@ def test_bmm_pack_guards_and_oom(monkeypatch):
     assert not policy.eligible_layout((32, 1, 129), (1, 4128, 32), (32, 129, 127), (1, 4064, 32))
     assert not policy.eligible_layout((32, 128, 129), (16512, 129, 1), (32, 129, 127), (16383, 127, 1))
 
-    def oom(*args, **kwargs):
-        raise torch.OutOfMemoryError("test allocation exhaustion")
+    original = policy._copy_operand
+    calls = 0
 
-    monkeypatch.setattr(policy, "clone", oom)
+    def oom(*args, **kwargs):
+        nonlocal calls
+        calls += 1
+        if calls == failure_copy:
+            raise torch.OutOfMemoryError("test allocation exhaustion")
+        return original(*args, **kwargs)
+
+    monkeypatch.setattr(policy, "_copy_operand", oom)
     assert policy.prepare(a, b) is None
 
 

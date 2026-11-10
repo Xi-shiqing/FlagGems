@@ -7,8 +7,17 @@ import torch
 
 from flag_gems.ops.clone import clone
 
+from .dense_layout_copy import try_copy
+
 ENABLED = os.environ.get("FLAG_GEMS_PPU_BMM_FP32_PACK", "1") != "0"
 MAX_WORKSPACE_BYTES = 1 << 30
+
+
+def _copy_operand(value):
+    if value.is_contiguous():
+        return value
+    result = try_copy(value)
+    return result if result is not None else clone(value, memory_format=torch.contiguous_format)
 
 
 def _dense(shape, strides):
@@ -59,8 +68,8 @@ def prepare(a, b, out=None):
     if out is not None and (torch._C._overlaps(out, a) or torch._C._overlaps(out, b)):
         return None
     try:
-        packed_a = a if a.is_contiguous() else clone(a, memory_format=torch.contiguous_format)
-        packed_b = b if b.is_contiguous() else clone(b, memory_format=torch.contiguous_format)
+        packed_a = _copy_operand(a)
+        packed_b = _copy_operand(b)
     except torch.OutOfMemoryError:
         return None
     return packed_a, packed_b

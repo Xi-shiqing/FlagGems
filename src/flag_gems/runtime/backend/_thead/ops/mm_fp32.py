@@ -3,6 +3,7 @@ from flag_gems.ops.rank_one import rank_one
 import logging
 import os
 from collections import OrderedDict
+from functools import lru_cache
 
 import torch
 import triton
@@ -25,6 +26,36 @@ from flag_gems.ops.tf32_precision import (
 CACHE_USAGE_THRESHOLD = 0.8
 
 logger = logging.getLogger(__name__)
+_GENERAL_WIDE_ENABLED = os.environ.get("FLAG_GEMS_PPU_WIDE_GENERAL_MM", "1") != "0"
+
+
+@lru_cache(maxsize=32)
+def _general_device_sms(device):
+    # Resource information belongs to the operand's device, not the first
+    # device queried elsewhere in this process. Cache metadata only.
+    with torch_device_fn.device(device):
+        properties = torch_device_fn.get_device_properties(
+            torch_device_fn.current_device()
+        )
+    return int(
+        getattr(properties, "multi_processor_count", None)
+        or getattr(properties, "multiProcessorCount", 0)
+    )
+
+
+@lru_cache(maxsize=512)
+def _general_wide_plan(m, n, k, sms):
+    if sms <= 0 or m < 64 or n < 128 or k < 64:
+        return False
+    blocks = triton.cdiv(m, 64) * triton.cdiv(n, 128)
+    # A wide output block reduces available parallel work. Fill at least one
+    # device wave and avoid a wave with more than one quarter idle slots.
+    return blocks >= sms and 4 * blocks >= 3 * triton.cdiv(blocks, sms) * sms
+
+
+def _general_config(configs, named_args, **kwargs):
+    wide = {**named_args, **kwargs}.get("WIDE", False)
+    return [config for config in configs if (config.kwargs["BLOCK_M"] == 64) == wide]
 
 
 def _allow_tf32():
@@ -43,10 +74,14 @@ def prev_multiple_of(a, b):
     configs=[triton.Config(
         {"BLOCK_M": 32, "BLOCK_N": 32, "BLOCK_K": 32},
         num_warps=4, num_stages=1,
+    ), triton.Config(
+        {"BLOCK_M": 64, "BLOCK_N": 128, "BLOCK_K": 32},
+        num_warps=4, num_stages=1,
     )],
     # Add 'stride_am' and 'stride_bk' to trigger autotune for tensors with the same shape but different strides.
-    key=["M", "N", "K", "stride_am", "stride_bk"],
-    strategy=["align32", "align32", "align32", "align32", "align32"],
+    key=["M", "N", "K", "stride_am", "stride_bk", "WIDE"],
+    strategy=["align32", "align32", "align32", "align32", "align32", "default"],
+    prune_configs_by={"early_config_prune": _general_config},
     warmup=5,
     rep=10,
 )
@@ -69,6 +104,7 @@ def mm_kernel_general(
     BLOCK_K: tl.constexpr,
     GROUP_M: tl.constexpr,
     ALLOW_TF32: tl.constexpr,
+    WIDE: tl.constexpr = False,
 ):
     # matrix multiplication
     pid = tle.program_id(0)
@@ -286,6 +322,17 @@ def general_mm(a, b, c, M, N, K):
         triton.cdiv(M, META["BLOCK_M"]) * triton.cdiv(N, META["BLOCK_N"]),
     )
     with torch_device_fn.device(a.device):
+        allow_tf32 = _allow_tf32()
+        # Complete-model timing favors retaining the existing TF32 tiles.
+        # Amortize wider FP32 blocks only with enough parallel work.
+        wide = (
+            _GENERAL_WIDE_ENABLED
+            and not allow_tf32
+            and _general_wide_plan(M, N, K, _general_device_sms(a.device))
+            and a.dtype == b.dtype == c.dtype == torch.float32
+            and not torch._C._overlaps(c, a)
+            and not torch._C._overlaps(c, b)
+        )
         mm_kernel_general[grid](
             a,
             b,
@@ -300,7 +347,8 @@ def general_mm(a, b, c, M, N, K):
             c.stride(0),
             c.stride(1),
             GROUP_M=8,
-            ALLOW_TF32=_allow_tf32(),
+            ALLOW_TF32=allow_tf32,
+            WIDE=wide,
         )
     return c
 
