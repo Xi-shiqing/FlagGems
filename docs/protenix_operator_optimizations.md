@@ -1,9 +1,9 @@
 # Protenix operator optimizations
 
-This branch collects the FlagGems changes made while adapting Protenix to the
-PPU backend. It is based on `xishiqing/triattention-v0.1.0`, so the existing
-triangle-attention implementation and its tuning history remain available in
-the same branch.
+The `protenix` branch collects the FlagGems changes made while adapting Protenix
+to the PPU backend. The triangle-attention implementation and its tuning
+history remain available here. Dedicated TriAttention development is maintained
+on the `triattention` branch.
 
 ## Scope
 
@@ -58,15 +58,14 @@ device launch scripts, end-to-end tests, and model-level reports. It should
 pin this branch or a specific commit instead of copying the FlagGems source
 tree into the Protenix repository.
 
-The current delivery line is the combination of:
+The initial delivery line was the combination of:
 
 - `7fe4d8e`: the Protenix operator implementation and focused tests;
 - `2bae97d`: the inherited correctness fixes and their regression tests.
 
-Triangle Attention tuning is already part of this branch's history. New
-operator changes should continue on this branch when they are required by the
-Protenix integration; a separate branch is only needed for an independent
-experiment with a different compatibility contract.
+New operator changes for the Protenix integration continue on `protenix`;
+dedicated TriAttention changes continue on `triattention`. Additional branches
+are created only at the user's explicit request. Leave `master` unchanged.
 
 ## TF32 experiment archive through 2026-10-04
 
