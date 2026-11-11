@@ -52,6 +52,7 @@ from .greater_ import greater_
 from .grid_sampler_3d_backward import grid_sampler_3d_backward
 from .gru import gru
 from .igamma import igamma
+from .index import index
 from .index_copy_ import index_copy, index_copy_
 from .lcm import lcm, lcm_
 from .linalg_cholesky import linalg_cholesky
@@ -68,6 +69,7 @@ from .mm_w8a8_int8 import mm_w8a8_int8, mm_w8a8_int8_out
 from .mv import mv
 from .mvlgamma import mvlgamma
 from .nll_loss_backward import nll_loss_backward
+from .nonzero import nonzero
 from .nonzero_numpy import nonzero_numpy
 from .nuclear_norm import nuclear_norm
 from .poisson_nll_loss import poisson_nll_loss
@@ -85,6 +87,7 @@ from .sigmoid import sigmoid, sigmoid_
 from .silu import silu, silu_, silu_backward
 from .softmax import softmax, softmax_backward, softmax_backward_out, softmax_out
 from .softplus_backward import softplus_backward
+from .sort import sort, sort_stable
 from .special_chebyshev_polynomial_t import special_chebyshev_polynomial_t
 from .special_chebyshev_polynomial_u import special_chebyshev_polynomial_u
 from .special_chebyshev_polynomial_w import (
@@ -157,6 +160,7 @@ __all__ = [
     "grid_sampler_3d_backward",
     "gru",
     "igamma",
+    "index",
     "index_copy",
     "index_copy_",
     "lcm",
@@ -182,6 +186,7 @@ __all__ = [
     "mv",
     "mvlgamma",
     "nll_loss_backward",
+    "nonzero",
     "nonzero_numpy",
     "nuclear_norm",
     "poisson_nll_loss",
@@ -207,6 +212,8 @@ __all__ = [
     "softmax_backward_out",
     "softmax_out",
     "softplus_backward",
+    "sort",
+    "sort_stable",
     "special_chebyshev_polynomial_t",
     "special_chebyshev_polynomial_u",
     "special_chebyshev_polynomial_w",
