@@ -1,0 +1,41 @@
+{
+  "report_date": "2026-11-15",
+  "model": "Protenix Base Default v1.0.0",
+  "workload": "7bca",
+  "seeds": [
+    101,
+    203,
+    307
+  ],
+  "precision": "Strict FP32 with TF32 disabled",
+  "cycles": 10,
+  "diffusion_steps": 200,
+  "samples_per_prediction": 5,
+  "musa": {
+    "hardware": "MTT S5000",
+    "fp32_peak_tflops": 29,
+    "torch": "2.7.1",
+    "torch_musa": "2.7.1+d212062",
+    "triton": "3.2.0",
+    "flag_gems_commit": "bfeca796e162b61302abb44b1b95af151335f08d",
+    "precision": "FP32, TF32 disabled; kernel implementation audited separately"
+  },
+  "h100_reference": {
+    "hardware": "H100",
+    "fp32_peak_tflops": 67,
+    "torch": "2.7.1+cu126",
+    "precision": "strict FP32",
+    "flag_gems_enabled": false
+  },
+  "weight_sha256": "2b7d5a8b30494514fc47fd2271a16260528cdba170ba09cc112fdecd8f85ec04",
+  "coordinate_gate_angstrom": 0.1,
+  "confidence_validation": "Differences reported; original joint acceptance tolerances pending.",
+  "triangle_attention_origin": "https://github.com/Xi-shiqing/FlagGems/commit/1ed2f470c5105a3ac8bb1cf875fd16f31744f123",
+  "code_sha256": {
+    "linear_rhs_layout.py": "c9208fc6846f327ce32abc0ad9f80f2a7bb43dc8d87ccbfab1fe543203c2d06b",
+    "token_linear_kernel.py": "83e2a5b4669b6eef00e4d6fb21559db6a46ddc0188ce4764c5dbd71cfb5cc09a",
+    "lai_triangle_musa.py": "e61f061b55d20c1c37c7ae40a1c41216fcfba26db1b4f70332ad565f647742cf",
+    "stage_probe.py": "861f195e336f51a2c0f7696589cc5ab398a34817eb7aaf9280e9e7003dd00348",
+    "赖冠熹TriAttention/triangle_attention.py": "e60e132fdd46578e76b32063958c703a182b7ab6386491d489381ab584cdbfca"
+  }
+}

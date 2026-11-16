@@ -1,0 +1,147 @@
+{
+  "h100_repeat2_seconds": {
+    "101": 19.52537128701806,
+    "203": 19.83601845242083,
+    "307": 19.548713756725192
+  },
+  "model_flops_over_three_seeds": 492431642818068,
+  "absolute_h100_mfu": 0.12476172296469562,
+  "musa_50_percent_target_seconds_per_predict": 90.73510193662055,
+  "musa_80_percent_target_seconds_per_predict": 56.70943871038784,
+  "candidates": {
+    "screen_reuse_floor_cached_rhs_triangle_w4": {
+      "status": "COORDINATE_PASS_CONFIDENCE_TOLERANCE_PENDING",
+      "seeds": [
+        101
+      ],
+      "musa_repeat2_seconds": {
+        "101": 91.90951574780047
+      },
+      "musa_mean_seconds": 91.90951574780047,
+      "all_warm_median_seconds": 91.89026410132647,
+      "h100_total_seconds": 19.52537128701806,
+      "absolute_musa_mfu": 0.061479291449996136,
+      "relative_mfu_vs_h100_native": 0.49081251481560517,
+      "raw_throughput_vs_h100_native": 0.2124412377560082,
+      "max_rmsd_A": 4.828081269878738e-05,
+      "max_atom_distance_A": 0.0010451161019634047,
+      "coordinates_compared": 20,
+      "max_absolute_confidence_deltas": {
+        "plddt": 7.62939453125e-06,
+        "gpde": 1.1920928955078125e-07,
+        "ptm": 1.1920928955078125e-07,
+        "iptm": 1.1920928955078125e-07,
+        "ranking_score": 1.1920928955078125e-07
+      },
+      "selected_operator_calls": {
+        "linear": 115886,
+        "linear_rhs_layout": 32979,
+        "flaggems_protenix::silu_and_mul": 7567,
+        "flaggems_protenix_scatter::floor_counts_": 201,
+        "bmm": 2612,
+        "flaggems_protenix_lai::triangle_attention": 1240,
+        "flaggems_protenix_reuse::pair_bias": 30,
+        "token_linear_rhs_layout": 67224
+      },
+      "linear_fp64_diagnostic": [
+        {
+          "shape_mkn": [
+            4097,
+            129,
+            65
+          ],
+          "bias": true,
+          "max_absolute_error": 2.520256677485122e-05,
+          "max_fraction_of_fp32_roundoff_bound": 0.01773065013559998
+        },
+        {
+          "shape_mkn": [
+            27378,
+            64,
+            128
+          ],
+          "bias": false,
+          "max_absolute_error": 1.4833937449054702e-05,
+          "max_fraction_of_fp32_roundoff_bound": 0.0499031839292664
+        },
+        {
+          "shape_mkn": [
+            936,
+            768,
+            1536
+          ],
+          "bias": false,
+          "max_absolute_error": 0.0001682546496795112,
+          "max_fraction_of_fp32_roundoff_bound": 0.003872303812914884
+        },
+        {
+          "shape_mkn": [
+            234,
+            384,
+            768
+          ],
+          "bias": true,
+          "max_absolute_error": 8.332980925729316e-05,
+          "max_fraction_of_fp32_roundoff_bound": 0.007444827872706947
+        }
+      ],
+      "linear_rhs_reuse_counts": {
+        "seed_101": {
+          "hits": 98097,
+          "packs": 2106
+        }
+      },
+      "triangle_fp64_diagnostic": [
+        {
+          "shape": [
+            1,
+            3,
+            2,
+            17,
+            32
+          ],
+          "max_absolute_error": 3.2880906108978536e-08
+        },
+        {
+          "shape": [
+            1,
+            8,
+            4,
+            234,
+            32
+          ],
+          "max_absolute_error": 3.86092167438401e-08
+        }
+      ],
+      "triangle_forward_counts": {
+        "seed_101": {
+          "physical_forward_calls": 1240,
+          "precision": "ieee"
+        }
+      },
+      "reuse_counts": {
+        "seed_101": {
+          "atom_conditioning_miss": 1,
+          "pair_bias_miss": 30,
+          "atom_conditioning_hit": 199,
+          "pair_bias_hit": 5970
+        }
+      },
+      "graph_receipts": {},
+      "mul_metadata_counts": {
+        "seed_101": {
+          "hits": 19262,
+          "misses": 0
+        }
+      },
+      "stage_profile_seconds": {
+        "pairformer": 32.523517578125,
+        "atom_attention_encoder": 4.006529233932495,
+        "diffusion_transformer": 47.65658381652832,
+        "atom_attention_decoder": 3.55099342918396,
+        "diffusion": 57.23705859375,
+        "confidence_head": 1.056531005859375
+      }
+    }
+  }
+}

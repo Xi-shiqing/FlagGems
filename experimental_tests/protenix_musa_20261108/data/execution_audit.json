@@ -1,0 +1,151 @@
+{
+  "scope": "first full-budget cold prediction; counters disabled for hot timings; LibEntry.run completion plus device synchronization is equivalent launch tracing; unregistered dispatch includes metadata/view ops and is not all fallback",
+  "completed_function_calls": {
+    "bmm": 5092,
+    "flaggems_protenix::silu_and_mul": 7567,
+    "flaggems_protenix_scatter::floor_counts_": 201,
+    "flaggems_protenix_reuse::pair_bias": 30,
+    "mul.Tensor": 33622
+  },
+  "libentry_completed_launch_calls": {
+    "mul.Tensor:mul_kernel": 14605,
+    "mul.Tensor:mul_scalar_kernel": 2473,
+    "mul.Tensor:mul_broadcast_2d_kernel": 362,
+    "mul.Tensor:mul_generic_nd_runtime_meta_kernel": 16182,
+    "flaggems_protenix::silu_and_mul:silu_and_mul_kernel_kernel_rank_1": 7567,
+    "flaggems_protenix_scatter::floor_counts_>clamp_min_:clamp_func_min_kernel_rank_1": 201,
+    "bmm:bmm_kernel": 5092,
+    "flaggems_protenix_reuse::pair_bias>native_layer_norm:Autotuner": 30,
+    "flaggems_protenix_reuse::pair_bias>linear:linear_kernel": 30
+  },
+  "first_input_shapes": {
+    "bmm": [
+      {
+        "shape": [
+          128,
+          234,
+          234
+        ],
+        "stride": [
+          54756,
+          234,
+          1
+        ],
+        "dtype": "torch.float32",
+        "device": "musa:0"
+      },
+      {
+        "shape": [
+          128,
+          234,
+          117
+        ],
+        "stride": [
+          1,
+          128,
+          29952
+        ],
+        "dtype": "torch.float32",
+        "device": "musa:0"
+      }
+    ],
+    "flaggems_protenix::silu_and_mul": [
+      {
+        "shape": [
+          2339,
+          256
+        ],
+        "stride": [
+          256,
+          1
+        ],
+        "dtype": "torch.float32",
+        "device": "musa:0"
+      },
+      {
+        "shape": [
+          2339,
+          256
+        ],
+        "stride": [
+          256,
+          1
+        ],
+        "dtype": "torch.float32",
+        "device": "musa:0"
+      }
+    ],
+    "flaggems_protenix_scatter::floor_counts_": [
+      {
+        "shape": [
+          234
+        ],
+        "stride": [
+          1
+        ],
+        "dtype": "torch.float32",
+        "device": "musa:0"
+      }
+    ],
+    "flaggems_protenix_reuse::pair_bias": [
+      {
+        "shape": [
+          1,
+          74,
+          32,
+          128,
+          16
+        ],
+        "stride": [
+          4849664,
+          65536,
+          2048,
+          16,
+          1
+        ],
+        "dtype": "torch.float32",
+        "device": "musa:0"
+      }
+    ],
+    "mul.Tensor": [
+      {
+        "shape": [
+          234,
+          234
+        ],
+        "stride": [
+          234,
+          1
+        ],
+        "dtype": "torch.int64",
+        "device": "musa:0"
+      },
+      {
+        "shape": [
+          234,
+          234
+        ],
+        "stride": [
+          234,
+          1
+        ],
+        "dtype": "torch.int64",
+        "device": "musa:0"
+      }
+    ]
+  },
+  "dispatch_without_registration": {
+    "slice.Tensor": 138597,
+    "view": 55318,
+    "permute": 13456,
+    "clone": 12369,
+    "new_zeros": 4883,
+    "_scaled_dot_product_attention_math_musa": 12503,
+    "_local_scalar_dense": 182,
+    "select.int": 6437,
+    "empty.memory_format": 1564,
+    "randint.low": 10,
+    "detach": 1288,
+    "squeeze.dim": 200
+  }
+}
